@@ -13,6 +13,8 @@
   --cui-primary-hover: #13a89a;
   --cui-primary-active: #10968a;
   --cui-primary-rgb: 22, 186, 170;
+  --cui-primary-light: #e8f8f6;
+  --cui-primary-lighter: #f3fbfa;
   
   --cui-success: #16b777;
   --cui-success-hover: #13a56b;
@@ -801,7 +803,7 @@ img {
 .cui-hr-text-right::after { flex: 0 0 30px; }
 
 /* ========== 필드셋 (Fieldset) ========== */
-.cui-fieldset, .cui-elem-field { margin: 0 0 20px; padding: 20px; border: 1px solid #e9ecef; border-radius: 4px; }
+.cui-fieldset, .cui-elem-field { margin: 0 0 20px; padding: 20px; border: 1px solid var(--cui-primary-light); border-radius: 4px; }
 .cui-fieldset legend, .cui-elem-field legend { padding: 0 10px; margin-left: 10px; font-size: 16px; font-weight: 500; color: #333; }
 .cui-fieldset-title { margin: 15px 0 20px; padding: 0; border: none; border-top: 1px solid #e9ecef; background: none; }
 .cui-fieldset-title legend { margin-left: 0; padding: 0; padding-right: 15px; background: #fff; transform: translateY(-50%); }
@@ -2727,6 +2729,12 @@ textarea.cui-popup-prompt-input {
  * Catui - Form
  */
 
+/* 네이티브 체크박스/라디오 테마 색상 */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--cui-primary);
+}
+
 .cui-form {
   display: block;
 }
@@ -3252,6 +3260,7 @@ textarea.cui-popup-prompt-input {
 .cui-tab-title li.cui-this {
   color: var(--cui-primary);
   border-bottom-color: var(--cui-primary);
+  background: var(--cui-primary-lighter);
 }
 
 .cui-tab-content .cui-tab-item {
@@ -3444,6 +3453,11 @@ textarea.cui-popup-prompt-input {
   transform: rotate(180deg);
 }
 
+.cui-collapse-opened .cui-collapse-title {
+  background: var(--cui-primary-light);
+  color: var(--cui-primary);
+}
+
 .cui-collapse-content {
   display: none;
   padding: 15px;
@@ -3451,6 +3465,7 @@ textarea.cui-popup-prompt-input {
 
 .cui-collapse-opened .cui-collapse-content {
   display: block;
+  background: var(--cui-primary-lighter);
 }
 
 /* 콜랩스 스킨 */
@@ -3950,7 +3965,7 @@ textarea.cui-popup-prompt-input {
 .cui-fieldset {
   padding: 15px;
   margin: 0;
-  border: 1px solid var(--cui-border-color);
+  border: 1px solid var(--cui-primary-light);
   border-radius: var(--cui-border-radius);
   background: var(--cui-bg-base);
 }
@@ -4053,7 +4068,7 @@ textarea.cui-popup-prompt-input {
 /* 활성 상태 */
 .cui-menu-item.cui-menu-active > a {
   color: var(--cui-primary);
-  background: var(--cui-bg-gray);
+  background: var(--cui-primary-light);
   border-left-color: var(--cui-primary);
 }
 
@@ -4842,6 +4857,12 @@ textarea.cui-popup-prompt-input {
   font-weight: 500;
 }
 
+/* 선택된 노드 배경 */
+.cui-tree-entry.cui-tree-selected .cui-tree-main,
+.cui-tree-main.cui-tree-selected {
+  background: var(--cui-primary-light);
+}
+
 /* 자식 노드 컨테이너 */
 .cui-tree-pack {
   display: none;
@@ -4965,7 +4986,7 @@ textarea.cui-popup-prompt-input {
 }
 
 .cui-table-checked {
-  background-color: rgba(var(--cui-primary-rgb), 0.1);
+  background-color: rgba(var(--cui-primary-rgb), 0.05);
 }
 
 .cui-table th,
@@ -5199,10 +5220,7 @@ textarea.cui-popup-prompt-input {
   height: 16px;
 }
 
-/* 선택된 행 */
-.cui-table-checked {
-  background-color: #f6f6f6;
-}
+/* 선택된 행 - 상단에서 정의됨 (rgba(var(--cui-primary-rgb), 0.1)) */
 
 /* 정렬 */
 .cui-table-sort {
@@ -6269,7 +6287,7 @@ textarea.cui-popup-prompt-input {
 
 /* 화살표 호버 */
 .cui-carousel-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--cui-primary);
 }
 
 .cui-carousel:hover .cui-carousel-arrow {
@@ -6321,7 +6339,7 @@ textarea.cui-popup-prompt-input {
 }
 
 .cui-carousel-ind ul li.cui-this {
-  background-color: #fff;
+  background-color: var(--cui-primary) !important;
 }
 
 /* 인디케이터 - 외부 */
@@ -6609,13 +6627,13 @@ textarea.cui-popup-prompt-input {
 
 /* 주요 버튼 */
 .cui-carousel-btn-primary {
-  background-color: #16b777;
-  border-color: #16b777;
+  background-color: var(--cui-primary);
+  border-color: var(--cui-primary);
 }
 
 .cui-carousel-btn-primary:hover {
-  background-color: #129462;
-  border-color: #129462;
+  background-color: var(--cui-primary-hover);
+  border-color: var(--cui-primary-hover);
 }
 
 /* 보조 버튼 */
@@ -6761,7 +6779,7 @@ textarea.cui-popup-prompt-input {
 }
 
 .cui-carousel-thumb-num.cui-this {
-  background: var(--cui-primary, #16b777);
+  background: var(--cui-primary);
 }
 
 /**

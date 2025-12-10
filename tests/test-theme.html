@@ -49,6 +49,36 @@
     
     .component-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 15px; }
     .component-row:last-child { margin-bottom: 0; }
+    
+    .color-preset {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      border: 2px solid transparent;
+    }
+    .color-preset:hover { transform: scale(1.1); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .color-preset.active { border-color: #333; transform: scale(1.1); }
+    
+    /* 캐러셀 슬라이드 스타일 - display는 캐러셀 모듈이 제어하므로 건드리지 않음 */
+    #testCarousel [carousel-item] > * {
+      /* display는 건드리지 않음 (캐러셀이 none/block 제어) */
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 24px;
+      text-align: center;
+    }
+    /* 활성 슬라이드에만 flex 적용 */
+    #testCarousel [carousel-item] > *.cui-this,
+    #testCarousel [carousel-item] > *.cui-carousel-prev,
+    #testCarousel [carousel-item] > *.cui-carousel-next {
+      display: flex;
+    }
+    #testCarousel [carousel-item] > *:nth-child(1) { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+    #testCarousel [carousel-item] > *:nth-child(2) { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+    #testCarousel [carousel-item] > *:nth-child(3) { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
   </style>
 </head>
 <body>
@@ -70,11 +100,55 @@
     </div>
   </div>
   
+  <!-- 브랜드 컬러 설정 -->
+  <div class="section">
+    <h3 class="section-title">🎨 브랜드 컬러 설정</h3>
+    <div class="preview-box">
+      <h4>setPrimary() - Primary 컬러 변경</h4>
+      <div class="component-row">
+        <input type="color" id="brandColorPicker" value="#16baaa" style="width: 60px; height: 38px; cursor: pointer;">
+        <input type="text" id="brandColorInput" class="cui-input" value="#16baaa" style="width: 120px;">
+        <button class="cui-btn cui-btn-primary" onclick="applyBrandColor()">적용</button>
+        <button class="cui-btn cui-btn-default" onclick="resetBrandColor()">초기화</button>
+      </div>
+      
+      <h4 style="margin-top: 20px;">프리셋 브랜드 컬러</h4>
+      <div class="component-row" id="presetColors">
+        <div class="color-preset" data-color="#1677ff" style="background: #1677ff;" title="Blue"></div>
+        <div class="color-preset" data-color="#52c41a" style="background: #52c41a;" title="Green"></div>
+        <div class="color-preset" data-color="#722ed1" style="background: #722ed1;" title="Purple"></div>
+        <div class="color-preset" data-color="#fa8c16" style="background: #fa8c16;" title="Orange"></div>
+        <div class="color-preset" data-color="#ff4d4f" style="background: #ff4d4f;" title="Red"></div>
+        <div class="color-preset" data-color="#13c2c2" style="background: #13c2c2;" title="Cyan"></div>
+        <div class="color-preset" data-color="#eb2f96" style="background: #eb2f96;" title="Pink"></div>
+        <div class="color-preset" data-color="#2f54eb" style="background: #2f54eb;" title="Indigo"></div>
+        <div class="color-preset" data-color="#faad14" style="background: #faad14;" title="Gold"></div>
+        <div class="color-preset" data-color="#a0d911" style="background: #a0d911;" title="Lime"></div>
+      </div>
+      
+      <h4 style="margin-top: 20px;">setBrand() - 전체 브랜드 적용</h4>
+      <div class="component-row">
+        <label style="display: flex; align-items: center; gap: 8px;">
+          <input type="checkbox" id="applyToLayout"> 헤더/레이아웃 적용
+        </label>
+        <label style="display: flex; align-items: center; gap: 8px;">
+          <input type="checkbox" id="harmonize"> 색상 조화 (Success, Info 자동 계산)
+        </label>
+        <button class="cui-btn cui-btn-primary" onclick="applyFullBrand()">전체 브랜드 적용</button>
+      </div>
+    </div>
+  </div>
+  
   <!-- CSS 변수 확인 -->
   <div class="section">
     <h3 class="section-title">CSS 변수 (Colors)</h3>
-    <div class="preview-box">
-      <div class="color-var"><div class="color-dot" style="background: var(--cui-primary);"></div><span class="color-name">--cui-primary</span></div>
+    <div class="preview-box" id="cssVarsBox">
+      <div class="color-var"><div class="color-dot" id="dot-primary" style="background: var(--cui-primary);"></div><span class="color-name">--cui-primary <span id="val-primary"></span></span></div>
+      <div class="color-var"><div class="color-dot" id="dot-primary-hover" style="background: var(--cui-primary-hover);"></div><span class="color-name">--cui-primary-hover</span></div>
+      <div class="color-var"><div class="color-dot" id="dot-primary-active" style="background: var(--cui-primary-active);"></div><span class="color-name">--cui-primary-active</span></div>
+      <div class="color-var"><div class="color-dot" id="dot-primary-light" style="background: var(--cui-primary-light);"></div><span class="color-name">--cui-primary-light</span></div>
+      <div class="color-var"><div class="color-dot" id="dot-primary-lighter" style="background: var(--cui-primary-lighter);"></div><span class="color-name">--cui-primary-lighter</span></div>
+      <br>
       <div class="color-var"><div class="color-dot" style="background: var(--cui-success);"></div><span class="color-name">--cui-success</span></div>
       <div class="color-var"><div class="color-dot" style="background: var(--cui-warning);"></div><span class="color-name">--cui-warning</span></div>
       <div class="color-var"><div class="color-dot" style="background: var(--cui-danger);"></div><span class="color-name">--cui-danger</span></div>
@@ -82,138 +156,32 @@
     </div>
   </div>
   
-  <!-- 컴포넌트 미리보기 -->
+  <!-- 테마 변경 시 적용되는 컴포넌트 -->
   <div class="section">
-    <h3 class="section-title">컴포넌트 미리보기</h3>
+    <h3 class="section-title">✅ 테마 변경 시 적용되는 요소</h3>
     
     <!-- 버튼 -->
     <div class="preview-box">
-      <h4>버튼 (Button)</h4>
+      <h4>버튼 (Button) - 기본/Primary</h4>
       <div class="component-row">
-        <button class="cui-btn">기본</button>
-        <button class="cui-btn cui-btn-primary">Primary</button>
-        <button class="cui-btn cui-btn-success">Success</button>
-        <button class="cui-btn cui-btn-warning">Warning</button>
-        <button class="cui-btn cui-btn-danger">Danger</button>
-        <button class="cui-btn cui-btn-default">Default</button>
-      </div>
-      <div class="component-row">
-        <button class="cui-btn cui-btn-sm cui-btn-primary">작은 버튼</button>
-        <button class="cui-btn cui-btn-lg cui-btn-primary">큰 버튼</button>
-        <button class="cui-btn cui-btn-primary" disabled>비활성화</button>
+        <button class="cui-btn">기본 버튼</button>
+        <button class="cui-btn cui-btn-primary">Primary 버튼</button>
+        <button class="cui-btn cui-btn-sm">작은 버튼</button>
+        <button class="cui-btn cui-btn-lg">큰 버튼</button>
       </div>
     </div>
     
-    <!-- 인풋 -->
+    <!-- 인용문 -->
     <div class="preview-box">
-      <h4>입력 (Input)</h4>
-      <div class="component-row">
-        <input type="text" class="cui-input" placeholder="텍스트 입력" style="width: 200px;">
-        <input type="text" class="cui-input" value="비활성화" disabled style="width: 200px;">
-      </div>
-      <div class="component-row">
-        <textarea class="cui-input" placeholder="텍스트 영역" style="width: 100%; min-height: 80px;"></textarea>
-      </div>
-    </div>
-    
-    <!-- 카드 -->
-    <div class="preview-box">
-      <h4>카드 (Card)</h4>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-        <div class="cui-card">
-          <div class="cui-card-header">카드 제목</div>
-          <div class="cui-card-body">카드 내용입니다. 테마에 따라 배경색과 텍스트 색상이 변경됩니다.</div>
-          <div class="cui-card-footer">카드 푸터</div>
-        </div>
-        <div class="cui-card">
-          <div class="cui-card-header">다른 카드</div>
-          <div class="cui-card-body">두 번째 카드 내용입니다.</div>
-        </div>
-        <div class="cui-card">
-          <div class="cui-card-body">헤더 없는 카드 내용입니다.</div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 패널 / 블록 -->
-    <div class="preview-box">
-      <h4>패널 / 블록 (Panel)</h4>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-        <div class="cui-panel">
-          <div class="cui-panel-header">패널 헤더</div>
-          <div class="cui-panel-body">패널 내용입니다. 테마에 따라 스타일이 변경됩니다.</div>
-        </div>
-        <fieldset class="cui-fieldset">
-          <legend>필드셋 제목</legend>
-          <div>필드셋 내용입니다.</div>
-        </fieldset>
-        <blockquote class="cui-quote">
-          인용문 블록입니다. 테마에 따라 왼쪽 테두리 색상이 변경됩니다.
-        </blockquote>
-      </div>
-    </div>
-    
-    <!-- 리스트 -->
-    <div class="preview-box">
-      <h4>리스트 (List)</h4>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
-        <ul class="cui-list">
-          <li>리스트 항목 1</li>
-          <li>리스트 항목 2</li>
-          <li>리스트 항목 3</li>
-        </ul>
-        <ul class="cui-list cui-list-bordered">
-          <li>테두리 리스트 1</li>
-          <li>테두리 리스트 2</li>
-          <li>테두리 리스트 3</li>
-        </ul>
-      </div>
-    </div>
-    
-    <!-- 테이블 -->
-    <div class="preview-box">
-      <h4>테이블 (Table)</h4>
-      <table class="cui-table">
-        <thead>
-          <tr>
-            <th>이름</th>
-            <th>나이</th>
-            <th>직업</th>
-            <th>상태</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>홍길동</td>
-            <td>30</td>
-            <td>개발자</td>
-            <td><span class="cui-badge cui-badge-success">활성</span></td>
-          </tr>
-          <tr>
-            <td>김영희</td>
-            <td>25</td>
-            <td>디자이너</td>
-            <td><span class="cui-badge cui-badge-primary">진행중</span></td>
-          </tr>
-          <tr>
-            <td>이철수</td>
-            <td>35</td>
-            <td>매니저</td>
-            <td><span class="cui-badge cui-badge-warning">대기</span></td>
-          </tr>
-          <tr>
-            <td>박민수</td>
-            <td>28</td>
-            <td>마케터</td>
-            <td><span class="cui-badge cui-badge-danger">비활성</span></td>
-          </tr>
-        </tbody>
-      </table>
+      <h4>인용문 (Blockquote) - 왼쪽 테두리</h4>
+      <blockquote class="cui-quote">
+        인용문 블록입니다. 테마에 따라 왼쪽 테두리 색상이 변경됩니다.
+      </blockquote>
     </div>
     
     <!-- 탭 -->
     <div class="preview-box">
-      <h4>탭 (Tab)</h4>
+      <h4>탭 (Tab) - 활성 탭 밑줄</h4>
       <div class="cui-tab">
         <ul class="cui-tab-title">
           <li class="cui-this">탭 1</li>
@@ -228,81 +196,151 @@
       </div>
     </div>
     
-    <!-- 콜랩스 -->
+    <!-- 뱃지 -->
     <div class="preview-box">
-      <h4>아코디언 (Collapse)</h4>
-      <div class="cui-collapse">
-        <div class="cui-collapse-item cui-collapse-opened">
-          <div class="cui-collapse-title">아코디언 항목 1</div>
-          <div class="cui-collapse-content">아코디언 내용입니다. 테마에 따라 스타일이 변경됩니다.</div>
-        </div>
-        <div class="cui-collapse-item">
-          <div class="cui-collapse-title">아코디언 항목 2</div>
-          <div class="cui-collapse-content">두 번째 아코디언 내용입니다.</div>
-        </div>
-        <div class="cui-collapse-item">
-          <div class="cui-collapse-title">아코디언 항목 3</div>
-          <div class="cui-collapse-content">세 번째 아코디언 내용입니다.</div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- 뱃지 & 태그 -->
-    <div class="preview-box">
-      <h4>뱃지 (Badge)</h4>
+      <h4>뱃지 (Badge) - Primary</h4>
       <div class="component-row">
-        <span class="cui-badge cui-badge-primary">Primary</span>
-        <span class="cui-badge cui-badge-success">Success</span>
-        <span class="cui-badge cui-badge-warning">Warning</span>
-        <span class="cui-badge cui-badge-danger">Danger</span>
-      </div>
-      <div class="component-row">
-        <span class="cui-badge cui-bg-blue">Blue</span>
-        <span class="cui-badge cui-bg-green">Green</span>
-        <span class="cui-badge cui-bg-orange">Orange</span>
-        <span class="cui-badge cui-bg-red">Red</span>
-        <span class="cui-badge cui-bg-cyan">Cyan</span>
-        <span class="cui-badge cui-bg-purple">Purple</span>
+        <span class="cui-badge cui-badge-primary">Primary 뱃지</span>
       </div>
     </div>
     
     <!-- 프로그레스 -->
     <div class="preview-box">
-      <h4>프로그레스 (Progress)</h4>
-      <div class="cui-progress" style="margin-bottom: 10px;">
-        <div class="cui-progress-bar" style="width: 30%;"></div>
-      </div>
-      <div class="cui-progress" style="margin-bottom: 10px;">
-        <div class="cui-progress-bar cui-bg-success" style="width: 50%;"></div>
-      </div>
+      <h4>프로그레스 (Progress) - 기본 색상</h4>
       <div class="cui-progress">
-        <div class="cui-progress-bar cui-bg-warning" style="width: 70%;"></div>
+        <div class="cui-progress-bar" style="width: 60%;"></div>
+      </div>
+    </div>
+    
+    <!-- 링크 -->
+    <div class="preview-box">
+      <h4>링크 (Link)</h4>
+      <div class="component-row">
+        <a href="javascript:;" class="cui-link">기본 링크</a>
+        <a href="javascript:;" style="color: var(--cui-primary);">Primary 색상 텍스트</a>
+      </div>
+    </div>
+    
+    <!-- Input Focus -->
+    <div class="preview-box">
+      <h4>Input Focus 테두리</h4>
+      <div class="component-row">
+        <input type="text" class="cui-input" placeholder="클릭하면 focus 테두리 색상 확인" style="width: 300px;">
       </div>
     </div>
     
     <!-- 폼 요소 -->
     <div class="preview-box">
-      <h4>폼 요소 (Form)</h4>
+      <h4>폼 요소 - 체크박스/라디오 (체크 시)</h4>
       <div class="component-row">
         <label style="display: flex; align-items: center; gap: 8px;">
-          <input type="checkbox" class="cui-checkbox"> 체크박스
+          <input type="checkbox" checked> 체크박스
         </label>
         <label style="display: flex; align-items: center; gap: 8px;">
-          <input type="checkbox" class="cui-checkbox" checked> 체크됨
-        </label>
-        <label style="display: flex; align-items: center; gap: 8px;">
-          <input type="radio" name="radio1" class="cui-radio"> 라디오 1
-        </label>
-        <label style="display: flex; align-items: center; gap: 8px;">
-          <input type="radio" name="radio1" class="cui-radio" checked> 라디오 2
+          <input type="radio" name="radio1" checked> 라디오
         </label>
       </div>
+    </div>
+    
+    <!-- 필드셋 -->
+    <div class="preview-box">
+      <h4>필드셋 (Fieldset) - 테두리</h4>
+      <fieldset class="cui-fieldset">
+        <legend>필드셋 제목</legend>
+        <p style="margin: 0;">필드셋 내용입니다. 테마에 따라 테두리 색상이 변경됩니다.</p>
+      </fieldset>
+    </div>
+    
+    <!-- 캐러셀 -->
+    <div class="preview-box">
+      <h4>캐러셀 (Carousel) - 화살표 호버, 인디케이터 활성</h4>
+      <div class="cui-carousel" id="testCarousel">
+        <div carousel-item>
+          <div>슬라이드 1</div>
+          <div>슬라이드 2</div>
+          <div>슬라이드 3</div>
+        </div>
+      </div>
+      <p style="margin-top: 10px; font-size: 12px; color: #999;">* 화살표에 마우스를 올리면 브랜드 컬러로 변경됩니다. 인디케이터 활성 점도 브랜드 컬러입니다.</p>
+    </div>
+    
+    <!-- 테이블 -->
+    <div class="preview-box">
+      <h4>테이블 (Table) - 체크된 행 배경</h4>
+      <table class="cui-table">
+        <thead>
+          <tr>
+            <th style="width: 40px;"><input type="checkbox"></th>
+            <th>이름</th>
+            <th>직업</th>
+            <th>상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="cui-table-checked">
+            <td><input type="checkbox" checked></td>
+            <td>홍길동</td>
+            <td>개발자</td>
+            <td><span class="cui-badge cui-badge-primary">진행중</span></td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>김영희</td>
+            <td>디자이너</td>
+            <td><span class="cui-badge" style="background: var(--cui-primary-light); color: var(--cui-primary);">대기</span></td>
+          </tr>
+          <tr class="cui-table-checked">
+            <td><input type="checkbox" checked></td>
+            <td>이철수</td>
+            <td>매니저</td>
+            <td><span class="cui-badge cui-badge-primary">진행중</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 10px; font-size: 12px; color: #999;">* 체크된 행은 <code>rgba(--cui-primary-rgb, 0.1)</code> 배경이 적용됩니다.</p>
+    </div>
+    
+    <!-- 아코디언 -->
+    <div class="preview-box">
+      <h4>아코디언 (Collapse) - 열린 항목 배경</h4>
+      <div class="cui-collapse">
+        <div class="cui-collapse-item cui-collapse-opened">
+          <div class="cui-collapse-title">열린 아코디언 (Primary Light 배경)</div>
+          <div class="cui-collapse-content">아코디언 내용입니다. 테마에 따라 배경색이 변경됩니다.</div>
+        </div>
+        <div class="cui-collapse-item">
+          <div class="cui-collapse-title">닫힌 아코디언</div>
+          <div class="cui-collapse-content">두 번째 내용입니다.</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 메뉴 -->
+    <div class="preview-box">
+      <h4>메뉴 (Menu) - 활성 항목 배경</h4>
+      <div class="cui-menu" style="max-width: 250px; border: 1px solid var(--cui-border-color);">
+        <div class="cui-menu-item cui-menu-active">
+          <a href="javascript:;"><i class="cui-icon">home</i> 활성 메뉴 (Primary Light)</a>
+        </div>
+        <div class="cui-menu-item">
+          <a href="javascript:;"><i class="cui-icon">settings</i> 일반 메뉴</a>
+        </div>
+        <div class="cui-menu-item">
+          <a href="javascript:;"><i class="cui-icon">person</i> 일반 메뉴</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Primary 배경 -->
+    <div class="preview-box">
+      <h4>Primary 배경/텍스트</h4>
       <div class="component-row">
-        <select class="cui-input" style="width: 200px;">
-          <option>선택하세요</option>
-          <option>옵션 1</option>
-          <option>옵션 2</option>
-        </select>
+        <span style="background: var(--cui-primary); color: #fff; padding: 8px 16px; border-radius: 4px;">Primary 배경</span>
+        <span style="background: var(--cui-primary-light); color: var(--cui-primary); padding: 8px 16px; border-radius: 4px;">Primary Light 배경</span>
+        <span style="background: var(--cui-primary-lighter); color: var(--cui-primary); padding: 8px 16px; border-radius: 4px;">Primary Lighter 배경</span>
+      </div>
+      <div class="component-row" style="margin-top: 10px;">
+        <span style="color: var(--cui-primary);">Primary 텍스트</span>
       </div>
     </div>
   </div>
@@ -311,8 +349,9 @@
   <div class="section">
     <h3 class="section-title">API</h3>
     <div class="preview-box">
-      <pre style="margin: 0; background: var(--cui-bg-gray); padding: 15px; border-radius: 4px; overflow-x: auto;"><code>// 테마 설정
-theme.set('blue');
+      <pre style="margin: 0; background: var(--cui-bg-gray); padding: 15px; border-radius: 4px; overflow-x: auto;"><code>// ============ 테마 프리셋 ============
+// 테마 설정
+theme.set('blue');     // blue, green, purple, orange, red, cyan, pink, indigo, teal, dark, light
 
 // 현재 테마 가져오기
 theme.current();  // 'blue'
@@ -320,19 +359,26 @@ theme.current();  // 'blue'
 // 테마 목록
 theme.list();
 
-// 테마 선택기 렌더링
-theme.render('#container', {
-  size: 24,
-  gap: 8,
-  onChange: function(name, data){}
-});
-
 // 저장된 테마 복원
 theme.restore();
 
 // 기본으로 초기화
 theme.reset();
 
+// ============ 브랜드 컬러 ============
+// Primary 컬러만 변경 (hover, active, light 자동 계산)
+theme.setPrimary('#FF6B35');
+
+// 헤더/레이아웃도 함께 변경
+theme.setPrimary('#FF6B35', { applyToLayout: true });
+
+// 전체 브랜드 세트 적용
+theme.setBrand('#FF6B35', {
+  applyToLayout: true,  // 헤더/사이드바 적용
+  harmonize: true       // success, info 색상 자동 조화
+});
+
+// ============ 커스텀 테마 ============
 // 커스텀 테마 추가
 theme.add('custom', {
   name: '커스텀',
@@ -343,7 +389,14 @@ theme.add('custom', {
   isDark: false
 });
 
-// 이벤트
+// 테마 선택기 렌더링
+theme.render('#container', {
+  size: 24,
+  gap: 8,
+  onChange: function(name, data){}
+});
+
+// ============ 이벤트 ============
 theme.on('change', function(data){
   console.log(data.theme, data.isDark);
 });</code></pre>
@@ -352,11 +405,60 @@ theme.on('change', function(data){
 
   <script src="/dist/catui.js"></script>
   <script>
-    Catui.use(['theme', 'popup'], function(){
+    // 브랜드 컬러 적용 함수 (전역)
+    function applyBrandColor(){
+      var color = document.getElementById('brandColorInput').value;
+      if(window.theme){
+        theme.setPrimary(color);
+        updateColorDisplay();
+        popup.msg('브랜드 컬러 적용: ' + color, { icon: 1 });
+      }
+    }
+    
+    function applyFullBrand(){
+      var color = document.getElementById('brandColorInput').value;
+      var applyToLayout = document.getElementById('applyToLayout').checked;
+      var harmonize = document.getElementById('harmonize').checked;
+      
+      if(window.theme){
+        theme.setBrand(color, {
+          applyToLayout: applyToLayout,
+          harmonize: harmonize
+        });
+        updateColorDisplay();
+        popup.msg('전체 브랜드 적용: ' + color, { icon: 1 });
+      }
+    }
+    
+    function resetBrandColor(){
+      if(window.theme){
+        theme.reset();
+        document.getElementById('brandColorPicker').value = '#16baaa';
+        document.getElementById('brandColorInput').value = '#16baaa';
+        updateColorDisplay();
+        popup.msg('초기화 완료', { icon: 1 });
+      }
+    }
+    
+    function updateColorDisplay(){
+      // CSS 변수 값 읽기
+      var root = getComputedStyle(document.documentElement);
+      document.getElementById('val-primary').textContent = root.getPropertyValue('--cui-primary').trim();
+      
+      // 색상 박스 업데이트 (강제 리플로우)
+      document.querySelectorAll('.color-dot').forEach(function(dot){
+        dot.style.display = 'none';
+        dot.offsetHeight; // 리플로우
+        dot.style.display = '';
+      });
+    }
+    
+    Catui.use(['$c','theme', 'popup', 'form', 'carousel'], function(){
       var theme = window.theme;
       var popup = window.popup;
       var themes = theme.list();
       var currentThemeName = theme.current();
+      var carousel = Catui.carousel;
       
       // 테마 그리드 생성
       var grid = document.getElementById('themeGrid');
@@ -410,7 +512,63 @@ theme.on('change', function(data){
       // 이벤트 등록
       theme.on('change', function(data){
         console.log('테마 변경:', data);
+        updateColorDisplay();
       });
+      
+      // 컬러 피커 연동
+      var colorPicker = document.getElementById('brandColorPicker');
+      var colorInput = document.getElementById('brandColorInput');
+      
+      colorPicker.addEventListener('input', function(){
+        colorInput.value = this.value;
+      });
+      
+      colorInput.addEventListener('change', function(){
+        colorPicker.value = this.value;
+      });
+      
+      // 프리셋 컬러 클릭
+      document.querySelectorAll('.color-preset').forEach(function(preset){
+        preset.addEventListener('click', function(){
+          var color = this.getAttribute('data-color');
+          colorPicker.value = color;
+          colorInput.value = color;
+          
+          // 활성 상태
+          document.querySelectorAll('.color-preset').forEach(function(p){
+            p.classList.remove('active');
+          });
+          this.classList.add('active');
+          
+          // 바로 적용
+          theme.setPrimary(color);
+          updateColorDisplay();
+          popup.msg('브랜드 컬러: ' + color, { icon: 1 });
+        });
+      });
+      
+      // 폼 렌더링
+      form.render();
+      
+      // 캐러셀 렌더링
+      console.log('carousel 모듈:', carousel);
+      console.log('#testCarousel 요소:', document.getElementById('testCarousel'));
+      console.log('슬라이드 개수:', document.querySelectorAll('#testCarousel [carousel-item] > *').length);
+      
+      var testCarousel = carousel.render({
+        elem: '#testCarousel',
+        width: '100%',
+        height: '180px',
+        arrow: 'always',
+        autoplay: true,
+        interval: 3000
+      });
+      console.log('캐러셀 인스턴스:', testCarousel);
+      console.log('elemItem 개수:', testCarousel.elemItem ? testCarousel.elemItem.length : 'undefined');
+   
+      
+      // 초기 컬러 표시
+      updateColorDisplay();
     });
   </script>
 </body>

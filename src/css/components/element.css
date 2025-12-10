@@ -27,6 +27,7 @@
 .cui-tab-title li.cui-this {
   color: var(--cui-primary);
   border-bottom-color: var(--cui-primary);
+  background: var(--cui-primary-lighter);
 }
 
 .cui-tab-content .cui-tab-item {
@@ -219,6 +220,11 @@
   transform: rotate(180deg);
 }
 
+.cui-collapse-opened .cui-collapse-title {
+  background: var(--cui-primary-light);
+  color: var(--cui-primary);
+}
+
 .cui-collapse-content {
   display: none;
   padding: 15px;
@@ -226,6 +232,7 @@
 
 .cui-collapse-opened .cui-collapse-content {
   display: block;
+  background: var(--cui-primary-lighter);
 }
 
 /* 콜랩스 스킨 */
@@ -725,7 +732,7 @@
 .cui-fieldset {
   padding: 15px;
   margin: 0;
-  border: 1px solid var(--cui-border-color);
+  border: 1px solid var(--cui-primary-light);
   border-radius: var(--cui-border-radius);
   background: var(--cui-bg-base);
 }

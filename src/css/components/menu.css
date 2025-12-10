@@ -48,7 +48,7 @@
 /* 활성 상태 */
 .cui-menu-item.cui-menu-active > a {
   color: var(--cui-primary);
-  background: var(--cui-bg-gray);
+  background: var(--cui-primary-light);
   border-left-color: var(--cui-primary);
 }
 

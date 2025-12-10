@@ -232,7 +232,7 @@
 .cui-hr-text-right::after { flex: 0 0 30px; }
 
 /* ========== 필드셋 (Fieldset) ========== */
-.cui-fieldset, .cui-elem-field { margin: 0 0 20px; padding: 20px; border: 1px solid #e9ecef; border-radius: 4px; }
+.cui-fieldset, .cui-elem-field { margin: 0 0 20px; padding: 20px; border: 1px solid var(--cui-primary-light); border-radius: 4px; }
 .cui-fieldset legend, .cui-elem-field legend { padding: 0 10px; margin-left: 10px; font-size: 16px; font-weight: 500; color: #333; }
 .cui-fieldset-title { margin: 15px 0 20px; padding: 0; border: none; border-top: 1px solid #e9ecef; background: none; }
 .cui-fieldset-title legend { margin-left: 0; padding: 0; padding-right: 15px; background: #fff; transform: translateY(-50%); }

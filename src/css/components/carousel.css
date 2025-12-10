@@ -95,7 +95,7 @@
 
 /* 화살표 호버 */
 .cui-carousel-arrow:hover {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--cui-primary);
 }
 
 .cui-carousel:hover .cui-carousel-arrow {
@@ -147,7 +147,7 @@
 }
 
 .cui-carousel-ind ul li.cui-this {
-  background-color: #fff;
+  background-color: var(--cui-primary) !important;
 }
 
 /* 인디케이터 - 외부 */
@@ -435,13 +435,13 @@
 
 /* 주요 버튼 */
 .cui-carousel-btn-primary {
-  background-color: #16b777;
-  border-color: #16b777;
+  background-color: var(--cui-primary);
+  border-color: var(--cui-primary);
 }
 
 .cui-carousel-btn-primary:hover {
-  background-color: #129462;
-  border-color: #129462;
+  background-color: var(--cui-primary-hover);
+  border-color: var(--cui-primary-hover);
 }
 
 /* 보조 버튼 */
@@ -587,5 +587,5 @@
 }
 
 .cui-carousel-thumb-num.cui-this {
-  background: var(--cui-primary, #16b777);
+  background: var(--cui-primary);
 }

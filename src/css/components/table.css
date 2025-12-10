@@ -28,7 +28,7 @@
 }
 
 .cui-table-checked {
-  background-color: rgba(var(--cui-primary-rgb), 0.1);
+  background-color: rgba(var(--cui-primary-rgb), 0.05);
 }
 
 .cui-table th,
@@ -262,10 +262,7 @@
   height: 16px;
 }
 
-/* 선택된 행 */
-.cui-table-checked {
-  background-color: #f6f6f6;
-}
+/* 선택된 행 - 상단에서 정의됨 (rgba(var(--cui-primary-rgb), 0.1)) */
 
 /* 정렬 */
 .cui-table-sort {

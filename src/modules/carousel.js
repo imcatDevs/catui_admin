@@ -413,16 +413,65 @@
   };
 
   // 특정 인덱스로 이동
-  Class.prototype.goto = function(index){
+  Class.prototype.goto = function(targetIndex){
     var that = this
-    ,config = that.config;
+    ,config = that.config
+    ,elemItem = that.elemItem;
     
-    if(index === config.index) return;
+    if(targetIndex === config.index || that.haveSlide) return;
+    if(targetIndex < 0 || targetIndex >= elemItem.length) return;
     
-    if(index > config.index){
-      that.slide('add', index - config.index);
+    // 방향 결정
+    var direction = targetIndex > config.index ? 'add' : 'sub';
+    
+    // 잠금
+    that.haveSlide = true;
+    var thisIndex = config.index;
+    config.index = targetIndex;
+    
+    // 슬라이드 방향에 따른 애니메이션
+    if(direction === 'sub'){
+      elemItem.eq(config.index).addClass(ELEM_PREV);
+      setTimeout(function(){
+        elemItem.eq(thisIndex).addClass(ELEM_RIGHT);
+        elemItem.eq(config.index).addClass(ELEM_RIGHT);
+      }, 50);
     } else {
-      that.slide('sub', config.index - index);
+      elemItem.eq(config.index).addClass(ELEM_NEXT);
+      setTimeout(function(){
+        elemItem.eq(thisIndex).addClass(ELEM_LEFT);
+        elemItem.eq(config.index).addClass(ELEM_LEFT);
+      }, 50);
+    }
+    
+    // 애니메이션 완료 후 클래스 정리
+    setTimeout(function(){
+      elemItem.removeClass(THIS + ' ' + ELEM_PREV + ' ' + ELEM_NEXT + ' ' + ELEM_LEFT + ' ' + ELEM_RIGHT);
+      elemItem.eq(config.index).addClass(THIS);
+      that.haveSlide = false;
+    }, 300);
+    
+    // 인디케이터 업데이트
+    if(that.elemInd){
+      that.elemInd.find('li').eq(config.index).addClass(THIS)
+        .siblings().removeClass(THIS);
+    }
+    
+    // 이벤트 발생
+    var eventData = {
+      index: config.index,
+      prevIndex: thisIndex,
+      item: elemItem.eq(config.index),
+      length: elemItem.length
+    };
+    
+    if(typeof config.change === 'function'){
+      config.change(eventData);
+    }
+    
+    var filter = config.elem.attr('cui-filter') || that.key;
+    if(window.Catui && Catui.event){
+      Catui.event(MOD_NAME, 'change(' + filter + ')', eventData);
     }
   };
 

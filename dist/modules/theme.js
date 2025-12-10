@@ -164,12 +164,49 @@
       // Primary 색상 변경
       if(themeData.primary){
         root.style.setProperty('--cui-primary', themeData.primary);
-        // Primary RGB 값 계산
+        
+        // HEX → RGB 변환
         var hex = themeData.primary.replace('#', '');
         var r = parseInt(hex.substring(0, 2), 16);
         var g = parseInt(hex.substring(2, 4), 16);
         var b = parseInt(hex.substring(4, 6), 16);
         root.style.setProperty('--cui-primary-rgb', r + ', ' + g + ', ' + b);
+        
+        // hover/active 자동 계산 (10%, 20% 어둡게)
+        var darken = function(hex, percent){
+          var num = parseInt(hex.replace('#', ''), 16);
+          var amt = Math.round(2.55 * percent);
+          var R = Math.max(0, (num >> 16) - amt);
+          var G = Math.max(0, ((num >> 8) & 0x00FF) - amt);
+          var B = Math.max(0, (num & 0x0000FF) - amt);
+          return '#' + (0x1000000 + R * 0x10000 + G * 0x100 + B).toString(16).slice(1);
+        };
+        
+        // 커스텀 값이 없으면 자동 계산
+        if(!themeData.vars || !themeData.vars['--cui-primary-hover']){
+          root.style.setProperty('--cui-primary-hover', darken(themeData.primary, 10));
+        }
+        if(!themeData.vars || !themeData.vars['--cui-primary-active']){
+          root.style.setProperty('--cui-primary-active', darken(themeData.primary, 20));
+        }
+        
+        // Light 버전 계산 (배경용)
+        var lighten = function(hex, percent){
+          hex = hex.replace('#', '');
+          var r = parseInt(hex.substring(0, 2), 16);
+          var g = parseInt(hex.substring(2, 4), 16);
+          var b = parseInt(hex.substring(4, 6), 16);
+          r = Math.round(r + (255 - r) * percent / 100);
+          g = Math.round(g + (255 - g) * percent / 100);
+          b = Math.round(b + (255 - b) * percent / 100);
+          return '#' + [r, g, b].map(function(x){
+            var hex = x.toString(16);
+            return hex.length === 1 ? '0' + hex : hex;
+          }).join('');
+        };
+        
+        root.style.setProperty('--cui-primary-light', lighten(themeData.primary, 90));
+        root.style.setProperty('--cui-primary-lighter', lighten(themeData.primary, 95));
       }
 
       // 추가 CSS 변수 설정
@@ -242,6 +279,133 @@
       if(name && config){
         themes[name] = config;
       }
+      return this;
+    },
+
+    // Primary 색상만 변경 (브랜드 컬러)
+    setPrimary: function(color, options){
+      if(!color) return this;
+      
+      var opts = options || {};
+      var root = document.documentElement;
+      
+      // 색상 유틸리티
+      var hexToRgb = function(hex){
+        hex = hex.replace('#', '');
+        return {
+          r: parseInt(hex.substring(0, 2), 16),
+          g: parseInt(hex.substring(2, 4), 16),
+          b: parseInt(hex.substring(4, 6), 16)
+        };
+      };
+      
+      var rgbToHex = function(r, g, b){
+        return '#' + [r, g, b].map(function(x){
+          var hex = Math.max(0, Math.min(255, Math.round(x))).toString(16);
+          return hex.length === 1 ? '0' + hex : hex;
+        }).join('');
+      };
+      
+      var adjustBrightness = function(hex, percent){
+        var rgb = hexToRgb(hex);
+        var factor = percent / 100;
+        return rgbToHex(
+          rgb.r + (255 - rgb.r) * factor,
+          rgb.g + (255 - rgb.g) * factor,
+          rgb.b + (255 - rgb.b) * factor
+        );
+      };
+      
+      var darken = function(hex, percent){
+        var rgb = hexToRgb(hex);
+        var factor = 1 - (percent / 100);
+        return rgbToHex(rgb.r * factor, rgb.g * factor, rgb.b * factor);
+      };
+      
+      // Primary 색상
+      var rgb = hexToRgb(color);
+      root.style.setProperty('--cui-primary', color);
+      root.style.setProperty('--cui-primary-rgb', rgb.r + ', ' + rgb.g + ', ' + rgb.b);
+      root.style.setProperty('--cui-primary-hover', darken(color, 10));
+      root.style.setProperty('--cui-primary-active', darken(color, 20));
+      
+      // 연한 버전 (배경용)
+      root.style.setProperty('--cui-primary-light', adjustBrightness(color, 90));
+      root.style.setProperty('--cui-primary-lighter', adjustBrightness(color, 95));
+      
+      // 헤더/사이드바도 함께 변경 (옵션)
+      if(opts.applyToLayout){
+        root.style.setProperty('--cui-theme-header', color);
+        root.style.setProperty('--cui-theme-logo', darken(color, 15));
+      }
+      
+      return this;
+    },
+    
+    // 전체 브랜드 컬러 세트 적용
+    setBrand: function(brandColor, options){
+      var opts = options || {};
+      var root = document.documentElement;
+      
+      // Primary 설정
+      this.setPrimary(brandColor, opts);
+      
+      // 보조 색상도 브랜드에 맞게 조정 (옵션)
+      if(opts.harmonize){
+        // HSL 기반 조화 색상 계산
+        var hexToHsl = function(hex){
+          hex = hex.replace('#', '');
+          var r = parseInt(hex.substring(0, 2), 16) / 255;
+          var g = parseInt(hex.substring(2, 4), 16) / 255;
+          var b = parseInt(hex.substring(4, 6), 16) / 255;
+          var max = Math.max(r, g, b), min = Math.min(r, g, b);
+          var h, s, l = (max + min) / 2;
+          if(max === min){ h = s = 0; }
+          else {
+            var d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch(max){
+              case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+              case g: h = ((b - r) / d + 2) / 6; break;
+              case b: h = ((r - g) / d + 4) / 6; break;
+            }
+          }
+          return { h: h * 360, s: s * 100, l: l * 100 };
+        };
+        
+        var hslToHex = function(h, s, l){
+          h /= 360; s /= 100; l /= 100;
+          var r, g, b;
+          if(s === 0){ r = g = b = l; }
+          else {
+            var hue2rgb = function(p, q, t){
+              if(t < 0) t += 1;
+              if(t > 1) t -= 1;
+              if(t < 1/6) return p + (q - p) * 6 * t;
+              if(t < 1/2) return q;
+              if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+              return p;
+            };
+            var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+            var p = 2 * l - q;
+            r = hue2rgb(p, q, h + 1/3);
+            g = hue2rgb(p, q, h);
+            b = hue2rgb(p, q, h - 1/3);
+          }
+          return '#' + [r, g, b].map(function(x){
+            var hex = Math.round(x * 255).toString(16);
+            return hex.length === 1 ? '0' + hex : hex;
+          }).join('');
+        };
+        
+        var hsl = hexToHsl(brandColor);
+        
+        // Success (120도 회전 - 녹색 계열)
+        root.style.setProperty('--cui-success', hslToHex((hsl.h + 120) % 360, hsl.s, hsl.l));
+        // Info (180도 회전 - 청록 계열)
+        root.style.setProperty('--cui-info', hslToHex((hsl.h + 180) % 360, hsl.s, hsl.l));
+      }
+      
       return this;
     },
 
