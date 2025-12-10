@@ -376,4 +376,16 @@
       return this;
     }
 
-    ,index: window.Catui && Catu
+    ,index: window.Catui && Catui.page ? (Catui.page.index + 10000) : 0
+    ,v: '1.1.0'
+  };
+
+  // 전역 노출
+  window.page = page;
+
+  // Catui 모듈 등록
+  if(window.Catui){
+    window.Catui[MOD_NAME] = page;
+  }
+
+}(window);
