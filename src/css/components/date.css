@@ -1,0 +1,333 @@
+/* ========================================
+   Date 날짜 선택기
+======================================== */
+
+.cui-date {
+  position: absolute;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  user-select: none;
+  z-index: 2000;
+  min-width: 280px;
+}
+
+.cui-date-static {
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더 */
+.cui-date-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 10px;
+  background: var(--cui-primary);
+  color: #fff;
+  border-radius: 8px 8px 0 0;
+}
+
+.cui-date-header .cui-icon {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.cui-date-header .cui-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.cui-date-ym {
+  display: flex;
+  gap: 5px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.cui-date-ym span {
+  cursor: pointer;
+  padding: 3px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.cui-date-ym span:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* 콘텐츠 */
+.cui-date-content {
+  padding: 10px;
+}
+
+/* 테이블 */
+.cui-date-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.cui-date-table th {
+  padding: 8px 0;
+  font-weight: 500;
+  color: #666;
+  font-size: 12px;
+}
+
+.cui-date-table td {
+  padding: 8px 0;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.cui-date-table td:hover {
+  background: var(--cui-bg-gray);
+}
+
+/* 이전/다음 달 */
+.cui-date-table td.cui-date-prev,
+.cui-date-table td.cui-date-next {
+  color: #ccc;
+}
+
+/* 오늘 */
+.cui-date-table td.cui-date-now {
+  color: var(--cui-primary);
+  font-weight: 600;
+}
+
+/* 선택됨 */
+.cui-date-table td.cui-this {
+  background: var(--cui-primary);
+  color: #fff;
+}
+
+.cui-date-table td.cui-this:hover {
+  background: var(--cui-primary);
+}
+
+/* 비활성 */
+.cui-date-table td.cui-date-disabled {
+  color: #ddd;
+  cursor: not-allowed;
+  background: transparent !important;
+}
+
+/* 마크 */
+.cui-date-mark {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--cui-primary);
+  white-space: nowrap;
+}
+
+/* 년/월 리스트 모드 */
+.cui-date-list-mode .cui-date-table {
+  display: none;
+}
+
+.cui-date-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding: 10px 0;
+  list-style: none;
+  margin: 0;
+}
+
+.cui-date-list li {
+  padding: 12px 8px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.cui-date-list li:hover {
+  background: var(--cui-bg-gray);
+}
+
+.cui-date-list li.cui-this {
+  background: var(--cui-primary);
+  color: #fff;
+}
+
+.cui-date-list li.cui-date-other {
+  color: #ccc;
+}
+
+/* 시간 선택 */
+.cui-date-time {
+  padding: 10px 15px;
+  border-top: 1px solid var(--cui-border-color);
+}
+
+.cui-date-time-only {
+  border-top: none;
+}
+
+.cui-date-time-header {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.cui-date-time-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  font-size: 16px;
+}
+
+.cui-date-time-input {
+  width: 40px;
+  height: 32px;
+  border: 1px solid var(--cui-border-color);
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.cui-date-time-input:focus {
+  border-color: var(--cui-primary);
+}
+
+/* 하단 버튼 */
+.cui-date-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-top: 1px solid var(--cui-border-color);
+}
+
+.cui-date-btns {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.cui-date-btn {
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s;
+  color: #666;
+}
+
+.cui-date-btn:hover {
+  background: var(--cui-bg-gray);
+  color: var(--cui-primary);
+}
+
+.cui-date-btn-confirm {
+  background: var(--cui-primary);
+  color: #fff;
+}
+
+.cui-date-btn-confirm:hover {
+  background: var(--cui-primary);
+  opacity: 0.9;
+  color: #fff;
+}
+
+.cui-date-btn-time {
+  font-size: 12px;
+  color: var(--cui-primary);
+  cursor: pointer;
+}
+
+/* 테마 */
+.cui-date-theme-molv .cui-date-header {
+  background: #009688;
+}
+
+.cui-date-theme-molv .cui-date-table td.cui-this,
+.cui-date-theme-molv .cui-date-list li.cui-this {
+  background: #009688;
+}
+
+.cui-date-theme-molv .cui-date-btn-confirm {
+  background: #009688;
+}
+
+.cui-date-theme-grid {
+  border: 1px solid var(--cui-border-color);
+}
+
+.cui-date-theme-grid .cui-date-table td {
+  border: 1px solid var(--cui-border-color);
+  border-radius: 0;
+}
+
+/* 범위 선택 */
+.cui-date-range {
+  min-width: 560px;
+}
+
+.cui-date-main {
+  display: flex;
+}
+
+.cui-date-panel {
+  flex: 1;
+}
+
+.cui-date-range .cui-date-panel:first-child {
+  border-right: 1px solid var(--cui-border-color);
+}
+
+.cui-date-range .cui-date-panel:first-child .cui-date-header {
+  border-radius: 8px 0 0 0;
+}
+
+.cui-date-range .cui-date-panel:last-child .cui-date-header {
+  border-radius: 0 8px 0 0;
+}
+
+/* 범위 하이라이트 */
+.cui-date-table td.cui-date-range-start,
+.cui-date-table td.cui-date-range-end {
+  background: var(--cui-primary);
+  color: #fff;
+}
+
+.cui-date-table td.cui-date-range-start {
+  border-radius: 50% 0 0 50%;
+}
+
+.cui-date-table td.cui-date-range-end {
+  border-radius: 0 50% 50% 0;
+}
+
+.cui-date-table td.cui-date-range-in {
+  background: rgba(22, 119, 255, 0.1);
+  border-radius: 0;
+}
+
+.cui-date-table td.cui-date-range-start:hover,
+.cui-date-table td.cui-date-range-end:hover {
+  background: var(--cui-primary);
+}
+
+/* 범위 텍스트 */
+.cui-date-range-text {
+  font-size: 13px;
+  color: #666;
+  flex: 1;
+}

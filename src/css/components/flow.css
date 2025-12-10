@@ -1,0 +1,26 @@
+/**
+ * Catui - Flow (무한 스크롤)
+ */
+
+/* 로딩 */
+.cui-flow-loading {
+  text-align: center;
+  padding: 20px;
+  color: #999;
+  font-size: 14px;
+}
+
+.cui-flow-loading .cui-icon {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* 종료 */
+.cui-flow-end {
+  text-align: center;
+  padding: 20px;
+  color: #bbb;
+  font-size: 13px;
+  border-top: 1px dashed #e6e6e6;
+  margin-top: 10px;
+}

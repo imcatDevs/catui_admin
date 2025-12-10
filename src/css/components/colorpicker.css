@@ -1,0 +1,208 @@
+/**
+ * Catui - Colorpicker
+ */
+
+/* 트리거 */
+.cui-colorpicker {
+  display: inline-block;
+}
+
+.cui-colorpicker-box {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border: 1px solid var(--cui-border-color);
+  border-radius: var(--cui-border-radius);
+  cursor: pointer;
+  transition: var(--cui-transition);
+}
+
+.cui-colorpicker-box:hover {
+  border-color: var(--cui-primary);
+}
+
+.cui-colorpicker-color {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+.cui-colorpicker-icon {
+  margin-left: 5px;
+  color: var(--cui-text-secondary);
+}
+
+/* 크기 변형 */
+.cui-colorpicker-xs .cui-colorpicker-box {
+  padding: 3px 6px;
+}
+
+.cui-colorpicker-xs .cui-colorpicker-color {
+  width: 14px;
+  height: 14px;
+}
+
+.cui-colorpicker-sm .cui-colorpicker-box {
+  padding: 4px 8px;
+}
+
+.cui-colorpicker-sm .cui-colorpicker-color {
+  width: 16px;
+  height: 16px;
+}
+
+.cui-colorpicker-lg .cui-colorpicker-box {
+  padding: 8px 12px;
+}
+
+.cui-colorpicker-lg .cui-colorpicker-color {
+  width: 24px;
+  height: 24px;
+}
+
+/* 패널 */
+.cui-colorpicker-panel {
+  position: absolute;
+  width: 260px;
+  padding: 10px;
+  background: #fff;
+  border-radius: var(--cui-border-radius);
+  box-shadow: var(--cui-shadow-lg);
+  z-index: 2000;
+}
+
+/* 색상 영역 */
+.cui-colorpicker-area {
+  position: relative;
+  width: 100%;
+  height: 150px;
+  border-radius: var(--cui-border-radius);
+  cursor: crosshair;
+}
+
+.cui-colorpicker-saturation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #fff, transparent);
+  border-radius: inherit;
+}
+
+.cui-colorpicker-brightness {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #000, transparent);
+  border-radius: inherit;
+}
+
+.cui-colorpicker-cursor {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* 슬라이더 */
+.cui-colorpicker-sliders {
+  margin-top: 10px;
+}
+
+.cui-colorpicker-hue,
+.cui-colorpicker-alpha {
+  position: relative;
+  height: 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.cui-colorpicker-hue {
+  background: linear-gradient(to right, 
+    #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+}
+
+.cui-colorpicker-alpha {
+  background-image: linear-gradient(45deg, #ccc 25%, transparent 25%),
+    linear-gradient(-45deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(-45deg, transparent 75%, #ccc 75%);
+  background-size: 8px 8px;
+  background-position: 0 0, 0 4px, 4px -4px, -4px 0px;
+}
+
+.cui-colorpicker-alpha-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+
+.cui-colorpicker-hue-slider,
+.cui-colorpicker-alpha-slider {
+  position: absolute;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+/* 프리셋 */
+.cui-colorpicker-preset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--cui-border-color);
+}
+
+.cui-colorpicker-preset-item {
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s;
+}
+
+.cui-colorpicker-preset-item:hover {
+  transform: scale(1.1);
+}
+
+/* 푸터 */
+.cui-colorpicker-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--cui-border-color);
+}
+
+.cui-colorpicker-input {
+  flex: 1;
+  padding: 5px 8px;
+  font-size: var(--cui-font-size-sm);
+}
+
+.cui-colorpicker-buttons {
+  display: flex;
+  gap: 5px;
+}

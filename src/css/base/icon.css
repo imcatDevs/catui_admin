@@ -1,0 +1,76 @@
+/**
+ * Catui - Material Icons
+ */
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('./fonts/material-icons.woff2') format('woff2');
+}
+
+.cui-icon {
+  font-family: 'Material Icons';
+  font-size: 24px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  display: inline-block;
+  vertical-align: middle;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga';
+}
+
+/* 아이콘 크기 */
+.cui-icon-xs { font-size: 14px; }
+.cui-icon-sm { font-size: 18px; }
+.cui-icon-lg { font-size: 36px; }
+.cui-icon-xl { font-size: 48px; }
+
+/* 개별 아이콘 (Material Icons 리거처 매핑) */
+.cui-icon-close::before { content: 'close'; }
+.cui-icon-ok::before { content: 'check'; }
+.cui-icon-search::before { content: 'search'; }
+.cui-icon-down::before { content: 'expand_more'; }
+.cui-icon-up::before { content: 'expand_less'; }
+.cui-icon-left::before { content: 'chevron_left'; }
+.cui-icon-right::before { content: 'chevron_right'; }
+.cui-icon-edit::before { content: 'edit'; }
+.cui-icon-delete::before { content: 'delete'; }
+.cui-icon-add::before { content: 'add'; }
+.cui-icon-add-circle::before { content: 'add_circle'; }
+.cui-icon-user::before { content: 'person'; }
+.cui-icon-home::before { content: 'home'; }
+.cui-icon-set::before { content: 'settings'; }
+.cui-icon-loading::before { content: 'refresh'; }
+.cui-icon-date::before { content: 'calendar_today'; }
+.cui-icon-time::before { content: 'schedule'; }
+.cui-icon-upload::before { content: 'upload'; }
+.cui-icon-download::before { content: 'download'; }
+.cui-icon-file::before { content: 'description'; }
+.cui-icon-picture::before { content: 'image'; }
+.cui-icon-video::before { content: 'videocam'; }
+.cui-icon-menu::before { content: 'menu'; }
+.cui-icon-more::before { content: 'more_horiz'; }
+.cui-icon-info::before { content: 'info'; }
+.cui-icon-warning::before { content: 'warning'; }
+.cui-icon-error::before { content: 'error'; }
+.cui-icon-success::before { content: 'check_circle'; }
+
+/* 로딩 애니메이션 */
+@keyframes cui-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.cui-icon-loading {
+  animation: cui-rotate 1s linear infinite;
+}

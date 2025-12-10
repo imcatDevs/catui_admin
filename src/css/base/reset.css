@@ -1,0 +1,120 @@
+/**
+ * Catui - Reset & Base Styles
+ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p, 
+blockquote, pre, a, abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend, table, caption,
+tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* 리스트 스타일 제거 */
+ol, ul {
+  list-style: none;
+}
+
+/* 링크 기본 스타일 */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 테이블 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  margin: 0;
+  font-family: var(--cui-font-family);
+  font-size: var(--cui-font-size);
+  font-weight: var(--cui-font-weight-normal);
+  line-height: var(--cui-line-height);
+  color: var(--cui-text-primary);
+  background-color: var(--cui-bg-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* 제목 */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--cui-font-weight-bold);
+  line-height: 1.3;
+}
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.25em; }
+h4 { font-size: 1.125em; }
+h5 { font-size: 1em; }
+h6 { font-size: 0.875em; }
+
+/* 단락 */
+p {
+  margin-bottom: 1em;
+}
+
+/* 강조 */
+strong, b {
+  font-weight: var(--cui-font-weight-bold);
+}
+
+/* 입력 요소 */
+input, button, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* 이미지 */
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+/* 컨테이너 */
+.cui-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--cui-spacing-md);
+}
+
+/* 유틸리티 클래스 */
+.cui-show { display: block !important; }
+.cui-hide { display: none !important; }
+.cui-invisible { visibility: hidden !important; }
+
+.cui-text-center { text-align: center; }
+.cui-text-left { text-align: left; }
+.cui-text-right { text-align: right; }
+
+.cui-clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>page 페이지네이션 테스트</title>
+  <link rel="stylesheet" href="/dist/catui.css">
+  <style>
+    body { padding: 20px; font-family: 'Pretendard', sans-serif; background: #f5f5f5; }
+    h2 { margin-bottom: 20px; }
+    h3 { margin: 25px 0 15px; color: #333; }
+    section { background: #fff; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    .demo-page { margin: 15px 0; }
+    .demo-row { display: flex; gap: 10px; margin: 10px 0; }
+    .result { padding: 10px; background: #fafafa; border-radius: 4px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <h2>page 페이지네이션 테스트</h2>
+
+  <!-- 1. 기본 사용 -->
+  <section>
+    <h3>1. 기본 사용 (아이콘)</h3>
+    <div id="page1" class="demo-page"></div>
+    <div class="result" id="result1">현재 페이지: 1</div>
+  </section>
+
+  <!-- 2. 풀 레이아웃 -->
+  <section>
+    <h3>2. 풀 레이아웃</h3>
+    <div id="page2" class="demo-page"></div>
+  </section>
+
+  <!-- 3. 사이즈 -->
+  <section>
+    <h3>3. 사이즈</h3>
+    <p>Small:</p>
+    <div id="page3sm" class="demo-page"></div>
+    <p>Medium (기본):</p>
+    <div id="page3md" class="demo-page"></div>
+    <p>Large:</p>
+    <div id="page3lg" class="demo-page"></div>
+  </section>
+
+  <!-- 4. 스킨 -->
+  <section>
+    <h3>4. 스킨</h3>
+    <p>Outline:</p>
+    <div id="page4outline" class="demo-page"></div>
+    <p>Pill:</p>
+    <div id="page4pill" class="demo-page"></div>
+    <p>Square:</p>
+    <div id="page4square" class="demo-page"></div>
+    <p>Simple:</p>
+    <div id="page4simple" class="demo-page"></div>
+  </section>
+
+  <!-- 5. 테마 -->
+  <section>
+    <h3>5. 테마</h3>
+    <p>Molv (녹색):</p>
+    <div id="page5molv" class="demo-page"></div>
+    <p>Blue:</p>
+    <div id="page5blue" class="demo-page"></div>
+    <p>Orange:</p>
+    <div id="page5orange" class="demo-page"></div>
+    <p>Red:</p>
+    <div id="page5red" class="demo-page"></div>
+  </section>
+
+  <!-- 6. 인스턴스 관리 -->
+  <section>
+    <h3>6. 인스턴스 관리</h3>
+    <div id="page6" class="demo-page"></div>
+    <div class="demo-row">
+      <button class="cui-btn" onclick="goFirst()">첫 페이지</button>
+      <button class="cui-btn" onclick="goLast()">끝 페이지</button>
+      <button class="cui-btn" onclick="goPage(5)">5페이지로</button>
+      <button class="cui-btn cui-btn-primary" onclick="reloadPage()">100건 → 500건</button>
+    </div>
+    <div class="result" id="result6">page.go(), page.reload() 테스트</div>
+  </section>
+
+  <script src="/dist/catui.js"></script>
+  <script>
+    var pageId6;
+
+    Catui.use(['$c', 'page'], function(){
+      
+      // 1. 기본 사용
+      page.render({
+        elem: 'page1'
+        ,count: 100
+        ,jump: function(obj, first){
+          if(!first){
+            $c('#result1').html('현재 페이지: ' + obj.curr);
+          }
+        }
+      });
+
+      // 2. 풀 레이아웃
+      page.render({
+        elem: 'page2'
+        ,count: 500
+        ,layout: ['first', 'prev', 'page', 'next', 'last', 'count', 'pages', 'limit', 'skip', 'refresh']
+      });
+
+      // 3. 사이즈
+      page.render({
+        elem: 'page3sm'
+        ,count: 100
+        ,size: 'sm'
+      });
+      page.render({
+        elem: 'page3md'
+        ,count: 100
+      });
+      page.render({
+        elem: 'page3lg'
+        ,count: 100
+        ,size: 'lg'
+      });
+
+      // 4. 스킨
+      page.render({ elem: 'page4outline', count: 100, skin: 'outline' });
+      page.render({ elem: 'page4pill', count: 100, skin: 'pill' });
+      page.render({ elem: 'page4square', count: 100, skin: 'square' });
+      page.render({ elem: 'page4simple', count: 100, skin: 'simple' });
+
+      // 5. 테마
+      page.render({ elem: 'page5molv', count: 100, theme: 'molv' });
+      page.render({ elem: 'page5blue', count: 100, theme: 'blue' });
+      page.render({ elem: 'page5orange', count: 100, theme: 'orange' });
+      page.render({ elem: 'page5red', count: 100, theme: 'red' });
+
+      // 6. 인스턴스 관리
+      pageId6 = page.render({
+        elem: 'page6'
+        ,id: 'myPage'
+        ,count: 100
+        ,layout: ['first', 'prev', 'page', 'next', 'last', 'pages']
+        ,jump: function(obj, first){
+          if(!first){
+            $c('#result6').html('페이지 이동: ' + obj.curr + ' / ' + obj.pages);
+          }
+        }
+      });
+
+    });
+
+    function goFirst(){
+      page.go('myPage', 1);
+    }
+
+    function goLast(){
+      var inst = page.getInst('myPage');
+      page.go('myPage', inst.config.pages);
+    }
+
+    function goPage(n){
+      page.go('myPage', n);
+    }
+
+    function reloadPage(){
+      page.reload('myPage', { count: 500 });
+      $c('#result6').html('데이터 변경: 100건 → 500건 (총 50페이지)');
+    }
+  </script>
+</body>
+</html>

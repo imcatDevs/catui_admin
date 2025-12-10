@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>popup 팝업 테스트</title>
+  <link rel="stylesheet" href="/dist/catui.css">
+  <style>
+    body { padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .test-result { padding: 10px; margin: 10px 0; background: #fafafa; border-radius: 4px; }
+    .test-pass { color: #16b777; }
+    .test-fail { color: #ff5722; }
+    section { margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #eee; }
+    .cui-btn { margin: 5px 5px 5px 0; }
+    h3 { color: #333; margin-bottom: 15px; }
+    .demo-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }
+    .hidden-content { display: none; }
+  </style>
+</head>
+<body>
+  <h2>Popup 컴포넌트 전체 예제</h2>
+
+  <!-- 1. 기본 팝업 -->
+  <section>
+    <h3>1. 기본 팝업 (alert, confirm, msg)</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="alertBtn">Alert 알림</button>
+      <button class="cui-btn cui-btn-success" id="confirmBtn">Confirm 확인</button>
+      <button class="cui-btn cui-btn-warning" id="msgBtn">Message 메시지</button>
+    </div>
+  </section>
+
+  <!-- 1-1. 로딩 팝업 -->
+  <section>
+    <h3>1-1. Loading 로딩 팝업</h3>
+    <div class="demo-row">
+      <button class="cui-btn" id="load0">CSS 스피너 (0)</button>
+      <button class="cui-btn" id="load1">refresh (1)</button>
+      <button class="cui-btn" id="load2">sync (2)</button>
+      <button class="cui-btn" id="load3">hourglass (3)</button>
+    </div>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="loadText">로딩중... 텍스트</button>
+      <button class="cui-btn cui-btn-success" id="loadNobg">배경 없음</button>
+      <button class="cui-btn cui-btn-warning" id="loadNobgText">배경 없음 + 텍스트</button>
+    </div>
+    <h4 style="margin-top:15px;">특정 요소에 로딩</h4>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="loadElemBtn">아래 박스에 로딩</button>
+      <button class="cui-btn cui-btn-success" id="loadElemTextBtn">텍스트 포함</button>
+    </div>
+    <div id="loadTarget" style="margin-top:10px;padding:40px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;text-align:center;">
+      이 영역에 로딩이 표시됩니다.
+    </div>
+  </section>
+
+  <!-- 2. Prompt 입력 -->
+  <section>
+    <h3>2. Prompt 입력 팝업</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="promptText">텍스트 입력</button>
+      <button class="cui-btn cui-btn-success" id="promptPassword">비밀번호 입력</button>
+      <button class="cui-btn cui-btn-warning" id="promptTextarea">텍스트영역 입력</button>
+    </div>
+  </section>
+
+  <!-- 3. 아이콘 종류 -->
+  <section>
+    <h3>3. 아이콘 종류 (0~6)</h3>
+    <div class="demo-row">
+      <button class="cui-btn" id="icon0">0: 성공</button>
+      <button class="cui-btn" id="icon1">1: 에러</button>
+      <button class="cui-btn" id="icon2">2: 경고</button>
+      <button class="cui-btn" id="icon3">3: 정보</button>
+      <button class="cui-btn" id="icon4">4: 잠금</button>
+      <button class="cui-btn" id="icon5">5: 슬픔</button>
+      <button class="cui-btn" id="icon6">6: 기쁨</button>
+    </div>
+  </section>
+
+  <!-- 4. 애니메이션 -->
+  <section>
+    <h3>4. 애니메이션 종류 (anim 0~6)</h3>
+    <div class="demo-row">
+      <button class="cui-btn" id="anim0">0: Scale</button>
+      <button class="cui-btn" id="anim1">1: 위에서</button>
+      <button class="cui-btn" id="anim2">2: 아래에서</button>
+      <button class="cui-btn" id="anim3">3: 왼쪽에서</button>
+      <button class="cui-btn" id="anim4">4: 오른쪽에서</button>
+      <button class="cui-btn" id="anim5">5: Fade</button>
+      <button class="cui-btn" id="anim6">6: Rotate</button>
+    </div>
+  </section>
+
+  <!-- 5. Tips 툴팁 -->
+  <section>
+    <h3>5. Tips 툴팁 (방향)</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="tips1">위쪽 (1)</button>
+      <button class="cui-btn cui-btn-success" id="tips2">오른쪽 (2)</button>
+      <button class="cui-btn cui-btn-warning" id="tips3">아래쪽 (3)</button>
+      <button class="cui-btn cui-btn-danger" id="tips4">왼쪽 (4)</button>
+    </div>
+  </section>
+
+  <!-- 6. 드래그 & 최대화 -->
+  <section>
+    <h3>6. 드래그 이동 & 최대화/최소화</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="dragBtn">드래그 가능</button>
+      <button class="cui-btn cui-btn-success" id="maxminBtn">최대화/최소화</button>
+      <button class="cui-btn cui-btn-warning" id="moveOutBtn">화면 밖 이동 허용</button>
+    </div>
+  </section>
+
+  <!-- 7. 다중 버튼 -->
+  <section>
+    <h3>7. 다중 버튼 & 버튼 정렬</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="multiBtn">3개 버튼</button>
+      <button class="cui-btn cui-btn-success" id="btnAlignL">버튼 왼쪽 정렬</button>
+      <button class="cui-btn cui-btn-warning" id="btnAlignC">버튼 중앙 정렬</button>
+    </div>
+  </section>
+
+  <!-- 8. 타입별 팝업 -->
+  <section>
+    <h3>8. 타입별 팝업 (iframe, page)</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="iframeBtn">iframe 팝업</button>
+      <button class="cui-btn cui-btn-success" id="pageBtn">page 팝업</button>
+    </div>
+    <!-- 숨겨진 페이지 콘텐츠 -->
+    <div id="hiddenPage" class="hidden-content">
+      <h4>페이지 콘텐츠</h4>
+      <p>이 콘텐츠는 #hiddenPage 요소에서 가져옵니다.</p>
+      <p>type: 1 (page)로 설정하면 셀렉터의 내용을 팝업에 표시합니다.</p>
+    </div>
+  </section>
+
+  <!-- 9. 옵션들 -->
+  <section>
+    <h3>9. 기타 옵션</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="shadeCloseBtn">배경 클릭 닫기</button>
+      <button class="cui-btn cui-btn-success" id="noTitleBtn">제목 없음</button>
+      <button class="cui-btn cui-btn-warning" id="autoCloseBtn">자동 닫기 (3초)</button>
+      <button class="cui-btn cui-btn-danger" id="fixedAreaBtn">고정 크기</button>
+    </div>
+  </section>
+
+  <!-- 10. API 메소드 -->
+  <section>
+    <h3>10. API 메소드 (title, content 변경)</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="apiBtn">팝업 열기 (제목/내용 변경)</button>
+      <button class="cui-btn cui-btn-success" id="closeAllBtn">모든 팝업 닫기</button>
+    </div>
+  </section>
+
+  <!-- 11. Photos 사진 보기 -->
+  <section>
+    <h3>11. Photos 사진 보기</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="photosBtn">사진 갤러리</button>
+    </div>
+  </section>
+
+  <!-- 12. Toast 알림 -->
+  <section>
+    <h3>12. Toast 알림 (여러 개 쌓임)</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-success" id="toastSuccess">성공 Toast</button>
+      <button class="cui-btn cui-btn-danger" id="toastError">에러 Toast</button>
+      <button class="cui-btn cui-btn-warning" id="toastWarning">경고 Toast</button>
+      <button class="cui-btn cui-btn-info" id="toastInfo">정보 Toast</button>
+    </div>
+    <div class="demo-row">
+      <button class="cui-btn" id="toastMulti">3개 연속 Toast</button>
+      <button class="cui-btn" id="toastNoClose">닫기버튼 없음</button>
+      <button class="cui-btn" id="toastLong">긴 시간 (10초)</button>
+    </div>
+    <h4 style="margin-top:10px;">위치</h4>
+    <div class="demo-row">
+      <button class="cui-btn" id="toastRT">우상단 (rt)</button>
+      <button class="cui-btn" id="toastRB">우하단 (rb)</button>
+      <button class="cui-btn" id="toastLT">좌상단 (lt)</button>
+      <button class="cui-btn" id="toastLB">좌하단 (lb)</button>
+    </div>
+  </section>
+
+  <!-- 13. Notice 공지 -->
+  <section>
+    <h3>13. Notice 공지 (하루 안보기)</h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="noticeBtn">공지 팝업</button>
+      <button class="cui-btn cui-btn-success" id="noticeResetBtn">숨김 초기화</button>
+    </div>
+  </section>
+
+  <!-- 14. 리사이즈 (NEW) -->
+  <section>
+    <h3>14. 리사이즈 (크기 조절) <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="resizeBtn">리사이즈 가능 팝업</button>
+      <button class="cui-btn cui-btn-success" id="resizeMaxminBtn">리사이즈 + 최대화/최소화</button>
+    </div>
+  </section>
+
+  <!-- 15. Style API (NEW) -->
+  <section>
+    <h3>15. Style API (동적 스타일 변경) <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="styleBtn">스타일 변경 테스트</button>
+    </div>
+  </section>
+
+  <!-- 16. Full/Min/Restore API (NEW) -->
+  <section>
+    <h3>16. Full / Min / Restore API <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="fullApiBtn">full() 전체화면</button>
+      <button class="cui-btn cui-btn-warning" id="minApiBtn">min() 최소화</button>
+      <button class="cui-btn cui-btn-success" id="restoreApiBtn">restore() 복원</button>
+    </div>
+  </section>
+
+  <!-- 17. Tab 레이어 (NEW) -->
+  <section>
+    <h3>17. Tab 레이어 <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="tabBtn">탭 팝업</button>
+    </div>
+  </section>
+
+  <!-- 18. beforeEnd 콜백 (NEW) -->
+  <section>
+    <h3>18. beforeEnd 콜백 (닫기 전 확인) <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="beforeEndBtn">beforeEnd 테스트</button>
+      <button class="cui-btn cui-btn-success" id="beforeEndPromiseBtn">Promise 지원</button>
+    </div>
+  </section>
+
+  <!-- 19. hideOnClose (NEW) -->
+  <section>
+    <h3>19. hideOnClose (재사용 팝업) <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="hideOnCloseBtn">재사용 팝업 열기</button>
+    </div>
+  </section>
+
+  <!-- 20. closeLast (NEW) -->
+  <section>
+    <h3>20. closeLast (마지막 팝업 닫기) <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="openMultiBtn">팝업 3개 열기</button>
+      <button class="cui-btn cui-btn-danger" id="closeLastBtn">마지막 팝업 닫기</button>
+    </div>
+  </section>
+
+  <!-- 21. Photos 강화 (NEW) -->
+  <section>
+    <h3>21. Photos 강화 (툴바, 키보드) <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="photosEnhancedBtn">강화된 사진 뷰어</button>
+    </div>
+    <p style="margin-top:10px;color:#666;font-size:13px;">
+      기능: 확대/축소, 회전, 좌우반전, 마우스 휠 줌, ←→ 키보드 네비게이션
+    </p>
+  </section>
+
+  <!-- 22. Drawer (NEW) -->
+  <section>
+    <h3>22. Drawer (슬라이드 오버레이 패널) <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="drawerRightBtn">오른쪽 Drawer</button>
+      <button class="cui-btn cui-btn-success" id="drawerLeftBtn">왼쪽 Drawer</button>
+      <button class="cui-btn cui-btn-warning" id="drawerTopBtn">상단 Drawer</button>
+      <button class="cui-btn cui-btn-danger" id="drawerBottomBtn">하단 Drawer</button>
+    </div>
+  </section>
+
+  <!-- 23. Skins (NEW) -->
+  <section>
+    <h3>23. 스킨 (Skins) <span style="color:#1677ff;font-size:12px;">NEW</span></h3>
+    <h4>색상 스킨</h4>
+    <div class="demo-row">
+      <button class="cui-btn cui-btn-primary" id="skinPrimary">Primary</button>
+      <button class="cui-btn cui-btn-success" id="skinSuccess">Success</button>
+      <button class="cui-btn cui-btn-warning" id="skinWarning">Warning</button>
+      <button class="cui-btn cui-btn-danger" id="skinDanger">Danger</button>
+      <button class="cui-btn cui-btn-info" id="skinInfo">Info</button>
+      <button class="cui-btn" id="skinDark">Dark</button>
+    </div>
+    <h4 style="margin-top:15px;">스타일 스킨</h4>
+    <div class="demo-row">
+      <button class="cui-btn" id="skinMinimal">Minimal</button>
+      <button class="cui-btn" id="skinRound">Round</button>
+      <button class="cui-btn" id="skinFlat">Flat</button>
+      <button class="cui-btn" id="skinGlass">Glass</button>
+      <button class="cui-btn" id="skinIos">iOS Style</button>
+      <button class="cui-btn" id="skinMaterial">Material</button>
+    </div>
+  </section>
+
+  <div id="popupResult" class="test-result">팝업 결과가 여기에 표시됩니다.</div>
+
+  <script src="/dist/catui.js"></script>
+  <script>
+    Catui.use(['$c', 'popup'], function(){
+      var result = $c('#popupResult');
+      
+      // === 1. 기본 팝업 ===
+      $c('#alertBtn').on('click', function(){
+        popup.alert('알림 메시지입니다.', { title: '알림', icon: 0 }, function(){
+          result.html('<span class="test-pass">✓ Alert 확인 클릭!</span>');
+        });
+      });
+
+      $c('#confirmBtn').on('click', function(){
+        popup.confirm('정말 삭제하시겠습니까?', { icon: 2 }, function(idx){
+          result.html('<span class="test-pass">✓ Confirm 확인 클릭!</span>');
+        }, function(){
+          result.html('<span class="test-fail">✗ Confirm 취소 클릭</span>');
+        });
+      });
+
+      $c('#msgBtn').on('click', function(){
+        popup.msg('저장되었습니다.', function(){
+          result.html('<span class="test-pass">✓ Message 닫힘!</span>');
+        });
+      });
+
+      // === 1-1. 로딩 ===
+      // 아이콘 종류별
+      [0, 1, 2, 3].forEach(function(i){
+        $c('#load' + i).on('click', function(){
+          var idx = popup.load(i);
+          setTimeout(function(){ popup.close(idx); }, 2000);
+        });
+      });
+
+      // 텍스트 포함
+      $c('#loadText').on('click', function(){
+        var idx = popup.load(0, { text: '로딩중...' });
+        setTimeout(function(){ popup.close(idx); }, 2000);
+      });
+
+      // 배경 없음
+      $c('#loadNobg').on('click', function(){
+        var idx = popup.load(1, { nobg: true, shade: 0.3 });
+        setTimeout(function(){ popup.close(idx); }, 2000);
+      });
+
+      // 배경 없음 + 텍스트
+      $c('#loadNobgText').on('click', function(){
+        var idx = popup.load(1, { nobg: true, shade: 0.3, text: '잠시만 기다려주세요...' });
+        setTimeout(function(){ popup.close(idx); }, 2000);
+      });
+
+      // 특정 요소에 로딩
+      $c('#loadElemBtn').on('click', function(){
+        var idx = popup.load(0, { elem: '#loadTarget' });
+        setTimeout(function(){ popup.close(idx); }, 2000);
+      });
+
+      // 특정 요소에 로딩 + 텍스트
+      $c('#loadElemTextBtn').on('click', function(){
+        var idx = popup.load(1, { elem: '#loadTarget', text: '데이터 로딩중...' });
+        setTimeout(function(){ popup.close(idx); }, 2000);
+      });
+
+      // === 2. Prompt ===
+      $c('#promptText').on('click', function(){
+        popup.prompt({
+          title: '이름 입력',
+          placeholder: '이름을 입력하세요',
+          formType: 0
+        }, function(value, idx){
+          result.html('<span class="test-pass">✓ 입력값: ' + value + '</span>');
+          popup.close(idx);
+        });
+      });
+
+      $c('#promptPassword').on('click', function(){
+        popup.prompt({
+          title: '비밀번호 입력',
+          placeholder: '비밀번호',
+          formType: 1
+        }, function(value, idx){
+          result.html('<span class="test-pass">✓ 비밀번호 입력됨 (길이: ' + value.length + ')</span>');
+          popup.close(idx);
+        });
+      });
+
+      $c('#promptTextarea').on('click', function(){
+        popup.prompt({
+          title: '내용 입력',
+          placeholder: '긴 내용을 입력하세요...',
+          formType: 2,
+          area: ['500px', '300px']
+        }, function(value, idx){
+          result.html('<span class="test-pass">✓ 입력 내용 길이: ' + value.length + '자</span>');
+          popup.close(idx);
+        });
+      });
+
+      // === 3. 아이콘 ===
+      var iconNames = ['성공', '에러', '경고', '정보', '잠금', '슬픔', '기쁨'];
+      for(var i = 0; i <= 6; i++){
+        (function(idx){
+          $c('#icon' + idx).on('click', function(){
+            popup.alert(iconNames[idx] + ' 아이콘입니다.', { icon: idx, title: '아이콘 ' + idx });
+          });
+        })(i);
+      }
+
+      // === 4. 애니메이션 ===
+      var animNames = ['Scale', '위에서 슬라이드', '아래에서 슬라이드', '왼쪽에서 슬라이드', '오른쪽에서 슬라이드', 'Fade', 'Rotate'];
+      for(var i = 0; i <= 6; i++){
+        (function(idx){
+          $c('#anim' + idx).on('click', function(){
+            popup.open({
+              title: '애니메이션 ' + idx,
+              content: animNames[idx] + ' 애니메이션입니다.',
+              anim: idx,
+              btn: ['확인']
+            });
+          });
+        })(i);
+      }
+
+      // === 5. Tips ===
+      $c('#tips1').on('click', function(){
+        popup.tips('위쪽 툴팁입니다!', '#tips1', { tips: 1 });
+      });
+      $c('#tips2').on('click', function(){
+        popup.tips('오른쪽 툴팁입니다!', '#tips2', { tips: 2 });
+      });
+      $c('#tips3').on('click', function(){
+        popup.tips('아래쪽 툴팁입니다!', '#tips3', { tips: 3 });
+      });
+      $c('#tips4').on('click', function(){
+        popup.tips('왼쪽 툴팁입니다!', '#tips4', { tips: 4 });
+      });
+
+      // === 6. 드래그 & 최대화 ===
+      $c('#dragBtn').on('click', function(){
+        popup.open({
+          title: '드래그 가능 팝업',
+          content: '제목 바를 드래그하여 이동할 수 있습니다.<br><br>화면 밖으로는 이동할 수 없습니다.',
+          area: ['400px', '200px'],
+          move: true,
+          btn: ['확인']
+        });
+      });
+
+      $c('#maxminBtn').on('click', function(){
+        popup.open({
+          title: '최대화/최소화 테스트',
+          content: '우측 상단의 ─ (최소화) 또는 □ (최대화) 버튼을 클릭하세요.',
+          area: ['500px', '300px'],
+          maxmin: true,
+          btn: ['닫기']
+        });
+      });
+
+      $c('#moveOutBtn').on('click', function(){
+        popup.open({
+          title: '화면 밖 이동 허용',
+          content: '이 팝업은 화면 밖으로도 이동할 수 있습니다.',
+          area: ['400px', '200px'],
+          move: true,
+          moveOut: true,
+          btn: ['확인']
+        });
+      });
+
+      // === 7. 다중 버튼 ===
+      $c('#multiBtn').on('click', function(){
+        popup.open({
+          title: '다중 버튼',
+          content: '3개의 버튼이 있는 팝업입니다.',
+          btn: ['저장', '취소', '초기화'],
+          yes: function(idx){
+            result.html('<span class="test-pass">✓ 저장 클릭!</span>');
+            popup.close(idx);
+          },
+          btn2: function(idx){
+            result.html('<span class="test-fail">✗ 취소 클릭</span>');
+          },
+          btn3: function(idx){
+            result.html('<span class="test-pass">✓ 초기화 클릭!</span>');
+          }
+        });
+      });
+
+      $c('#btnAlignL').on('click', function(){
+        popup.open({
+          title: '버튼 왼쪽 정렬',
+          content: '버튼이 왼쪽에 정렬됩니다.',
+          btn: ['확인', '취소'],
+          btnAlign: 'l'
+        });
+      });
+
+      $c('#btnAlignC').on('click', function(){
+        popup.open({
+          title: '버튼 중앙 정렬',
+          content: '버튼이 중앙에 정렬됩니다.',
+          btn: ['확인', '취소'],
+          btnAlign: 'c'
+        });
+      });
+
+      // === 8. 타입별 팝업 ===
+      $c('#iframeBtn').on('click', function(){
+        popup.open({
+          type: 2,
+          title: 'iframe 팝업 (example.com)',
+          content: 'https://example.com',
+          area: ['700px', '500px'],
+          maxmin: true
+        });
+      });
+
+      $c('#pageBtn').on('click', function(){
+        popup.open({
+          type: 1,
+          title: 'Page 팝업',
+          content: '#hiddenPage',
+          area: ['500px', '300px'],
+          btn: ['확인']
+        });
+      });
+
+      // === 9. 기타 옵션 ===
+      $c('#shadeCloseBtn').on('click', function(){
+        popup.open({
+          title: '배경 클릭 닫기',
+          content: '배경(어두운 부분)을 클릭하면 팝업이 닫힙니다.',
+          shadeClose: true,
+          btn: ['확인']
+        });
+      });
+
+      $c('#noTitleBtn').on('click', function(){
+        popup.open({
+          title: false,
+          content: '이 팝업에는 제목이 없습니다.<br><br>title: false 로 설정하면 됩니다.',
+          btn: ['확인'],
+          closeBtn: true
+        });
+      });
+
+      $c('#autoCloseBtn').on('click', function(){
+        popup.open({
+          title: '자동 닫기',
+          content: '이 팝업은 3초 후 자동으로 닫힙니다.',
+          time: 3000,
+          btn: false
+        });
+      });
+
+      $c('#fixedAreaBtn').on('click', function(){
+        popup.open({
+          title: '고정 크기',
+          content: '이 팝업은 600x400 크기로 고정됩니다.<br><br>area: ["600px", "400px"]',
+          area: ['600px', '400px'],
+          btn: ['확인']
+        });
+      });
+
+      // === 10. API 메소드 ===
+      var apiPopupIdx = null;
+      $c('#apiBtn').on('click', function(){
+        apiPopupIdx = popup.open({
+          title: '원래 제목',
+          content: '원래 내용입니다. 3초 후 제목과 내용이 변경됩니다.',
+          btn: ['확인'],
+          success: function(layero, idx){
+            setTimeout(function(){
+              popup.title('변경된 제목!', idx);
+              popup.content('<strong style="color:red;">내용이 변경되었습니다!</strong><br><br>popup.title() 과 popup.content() API 사용', idx);
+            }, 3000);
+          }
+        });
+      });
+
+      $c('#closeAllBtn').on('click', function(){
+        popup.closeAll();
+        result.html('<span class="test-pass">✓ 모든 팝업 닫힘!</span>');
+      });
+
+      // === 11. Photos ===
+      $c('#photosBtn').on('click', function(){
+        popup.photos({
+          photos: {
+            data: [
+              { src: 'https://picsum.photos/800/600?random=1', alt: '사진 1' },
+              { src: 'https://picsum.photos/800/600?random=2', alt: '사진 2' },
+              { src: 'https://picsum.photos/800/600?random=3', alt: '사진 3' }
+            ],
+            start: 0
+          }
+        });
+      });
+
+      // === 12. Toast ===
+      $c('#toastSuccess').on('click', function(){
+        popup.toast('작업이 성공적으로 완료되었습니다.', { icon: 0 });
+      });
+      $c('#toastError').on('click', function(){
+        popup.toast('오류가 발생했습니다.', { icon: 1 });
+      });
+      $c('#toastWarning').on('click', function(){
+        popup.toast('주의가 필요합니다.', { icon: 2 });
+      });
+      $c('#toastInfo').on('click', function(){
+        popup.toast('새로운 알림이 있습니다.', { icon: 3 });
+      });
+
+      $c('#toastMulti').on('click', function(){
+        popup.toast('첫 번째 알림', { icon: 0 });
+        setTimeout(function(){ popup.toast('두 번째 알림', { icon: 3 }); }, 300);
+        setTimeout(function(){ popup.toast('세 번째 알림', { icon: 2 }); }, 600);
+      });
+
+      $c('#toastNoClose').on('click', function(){
+        popup.toast('닫기 버튼이 없습니다. (3초 후 자동 닫힘)', { closeBtn: false });
+      });
+
+      $c('#toastLong').on('click', function(){
+        popup.toast('이 Toast는 10초간 표시됩니다.', { time: 10000, icon: 3 });
+      });
+
+      // 위치별
+      $c('#toastRT').on('click', function(){
+        popup.toast('우상단 Toast', { position: 'rt', icon: 3 });
+      });
+      $c('#toastRB').on('click', function(){
+        popup.toast('우하단 Toast', { position: 'rb', icon: 3 });
+      });
+      $c('#toastLT').on('click', function(){
+        popup.toast('좌상단 Toast', { position: 'lt', icon: 3 });
+      });
+      $c('#toastLB').on('click', function(){
+        popup.toast('좌하단 Toast', { position: 'lb', icon: 3 });
+      });
+
+      // === 13. Notice ===
+      $c('#noticeBtn').on('click', function(){
+        var idx = popup.notice('<p>안녕하세요! 새로운 공지사항입니다.</p><p>중요한 내용이 포함되어 있으니 꼭 확인해 주세요.</p>', {
+          id: 'demo-notice',
+          title: '📢 공지사항'
+        });
+        if(idx === null){
+          result.html('<span class="test-pass">✓ 오늘 하루 안보기 설정됨</span>');
+        }
+      });
+
+      $c('#noticeResetBtn').on('click', function(){
+        popup.noticeReset('demo-notice');
+        result.html('<span class="test-pass">✓ 공지 숨김 초기화 완료</span>');
+      });
+
+      // === 14. 리사이즈 ===
+      $c('#resizeBtn').on('click', function(){
+        popup.open({
+          title: '리사이즈 가능 팝업',
+          content: '우하단 모서리를 드래그하여 크기를 조절할 수 있습니다.<br><br>resize: true 옵션 사용',
+          area: ['400px', '250px'],
+          resize: true,
+          btn: ['확인'],
+          resizing: function(layero, idx){
+            result.html('<span class="test-pass">리사이즈 중... </span>');
+          }
+        });
+      });
+
+      $c('#resizeMaxminBtn').on('click', function(){
+        popup.open({
+          title: '리사이즈 + 최대화/최소화',
+          content: '크기 조절과 최대화/최소화 버튼이 모두 있는 팝업입니다.',
+          area: ['500px', '300px'],
+          resize: true,
+          maxmin: true,
+          btn: ['확인']
+        });
+      });
+
+      // === 15. Style API ===
+      var stylePopupIdx = null;
+      $c('#styleBtn').on('click', function(){
+        stylePopupIdx = popup.open({
+          title: 'Style API 테스트',
+          content: '2초마다 크기와 위치가 변경됩니다.',
+          area: ['300px', '200px'],
+          btn: ['확인'],
+          success: function(layero, idx){
+            var count = 0;
+            var interval = setInterval(function(){
+              count++;
+              if(count > 3){
+                clearInterval(interval);
+                return;
+              }
+              popup.style(idx, {
+                width: 300 + count * 50,
+                height: 200 + count * 30,
+                top: 100 + count * 20,
+                left: 100 + count * 30
+              });
+              result.html('<span class="test-pass">스타일 변경 ' + count + '회</span>');
+            }, 2000);
+          }
+        });
+      });
+
+      // === 16. Full/Min/Restore API ===
+      var apiTestIdx = null;
+      $c('#fullApiBtn').on('click', function(){
+        if(!apiTestIdx){
+          apiTestIdx = popup.open({
+            title: 'API 테스트 팝업',
+            content: '이 팝업으로 full(), min(), restore() API를 테스트합니다.',
+            area: ['400px', '250px'],
+            btn: ['닫기'],
+            end: function(){ apiTestIdx = null; }
+          });
+        }
+        popup.full(apiTestIdx);
+        result.html('<span class="test-pass">✓ full() 호출됨</span>');
+      });
+
+      $c('#minApiBtn').on('click', function(){
+        if(!apiTestIdx){
+          apiTestIdx = popup.open({
+            title: 'API 테스트 팝업',
+            content: '이 팝업으로 full(), min(), restore() API를 테스트합니다.',
+            area: ['400px', '250px'],
+            btn: ['닫기'],
+            end: function(){ apiTestIdx = null; }
+          });
+        }
+        popup.min(apiTestIdx);
+        result.html('<span class="test-pass">✓ min() 호출됨 - 하단에 최소화됨</span>');
+      });
+
+      $c('#restoreApiBtn').on('click', function(){
+        if(apiTestIdx){
+          popup.restore(apiTestIdx);
+          result.html('<span class="test-pass">✓ restore() 호출됨</span>');
+        } else {
+          result.html('<span class="test-fail">✗ 먼저 팝업을 열어주세요</span>');
+        }
+      });
+
+      // === 17. Tab 레이어 ===
+      $c('#tabBtn').on('click', function(){
+        popup.tab({
+          tab: [
+            { title: '기본 정보', content: '<p>이름: 홍길동</p><p>나이: 30세</p><p>직업: 개발자</p>' },
+            { title: '연락처', content: '<p>전화: 010-1234-5678</p><p>이메일: test@example.com</p>' },
+            { title: '기타', content: '<p>취미: 코딩, 독서</p><p>특기: 문제 해결</p>' }
+          ],
+          area: ['500px', '300px'],
+          btn: ['확인'],
+          change: function(index){
+            result.html('<span class="test-pass">탭 ' + (index + 1) + ' 선택됨</span>');
+          }
+        });
+      });
+
+      // === 18. beforeEnd ===
+      $c('#beforeEndBtn').on('click', function(){
+        popup.open({
+          title: 'beforeEnd 테스트',
+          content: '닫기 버튼을 누르면 확인 창이 표시됩니다.',
+          btn: ['닫기'],
+          beforeEnd: function(idx, layero){
+            return confirm('정말 닫으시겠습니까?');
+          },
+          end: function(){
+            result.html('<span class="test-pass">✓ 팝업이 닫혔습니다</span>');
+          }
+        });
+      });
+
+      $c('#beforeEndPromiseBtn').on('click', function(){
+        popup.open({
+          title: 'Promise beforeEnd',
+          content: '닫기 시 2초 후 자동으로 닫힙니다. (Promise 시뮬레이션)',
+          btn: ['닫기'],
+          beforeEnd: function(idx, layero){
+            result.html('<span class="test-pass">Promise 처리 중...</span>');
+            return new Promise(function(resolve){
+              setTimeout(function(){
+                resolve(true); // true: 닫기, false: 취소
+              }, 2000);
+            });
+          },
+          end: function(){
+            result.html('<span class="test-pass">✓ Promise 완료 후 닫힘</span>');
+          }
+        });
+      });
+
+      // === 19. hideOnClose ===
+      $c('#hideOnCloseBtn').on('click', function(){
+        popup.open({
+          id: 'reusable-popup',
+          title: '재사용 팝업',
+          content: '이 팝업은 닫아도 DOM이 제거되지 않고 숨겨집니다.<br><br>다시 열면 같은 팝업이 표시됩니다.',
+          area: ['400px', '250px'],
+          hideOnClose: true,
+          btn: ['닫기'],
+          success: function(){
+            result.html('<span class="test-pass">✓ 팝업 열림 (재사용 가능)</span>');
+          }
+        });
+      });
+
+      // === 20. closeLast ===
+      $c('#openMultiBtn').on('click', function(){
+        popup.open({ title: '팝업 1', content: '첫 번째 팝업', area: ['250px', '120px'], offset: [50, 500], shade: false, btn: ['닫기'] });
+        setTimeout(function(){
+          popup.open({ title: '팝업 2', content: '두 번째 팝업', area: ['250px', '120px'], offset: [100, 550], shade: false, btn: ['닫기'] });
+        }, 100);
+        setTimeout(function(){
+          popup.open({ title: '팝업 3', content: '세 번째 팝업 (마지막)', area: ['250px', '120px'], offset: [150, 600], shade: false, btn: ['닫기'] });
+          result.html('<span class="test-pass">✓ 3개 팝업 열림 - closeLast 버튼으로 마지막부터 닫기</span>');
+        }, 200);
+      });
+
+      $c('#closeLastBtn').on('click', function(){
+        popup.closeLast();
+        result.html('<span class="test-pass">✓ 마지막 팝업 닫힘</span>');
+      });
+
+      // === 21. Photos 강화 ===
+      $c('#photosEnhancedBtn').on('click', function(){
+        popup.photos({
+          photos: {
+            data: [
+              { src: 'https://picsum.photos/1200/800?random=10', alt: '풍경 사진 1' },
+              { src: 'https://picsum.photos/1200/800?random=11', alt: '풍경 사진 2' },
+              { src: 'https://picsum.photos/1200/800?random=12', alt: '풍경 사진 3' },
+              { src: 'https://picsum.photos/1200/800?random=13', alt: '풍경 사진 4' }
+            ],
+            start: 0
+          },
+          toolbar: true,
+          footer: true
+        });
+      });
+
+      // === 22. Drawer ===
+      var drawerContent = '<div style="padding:20px;">'
+        + '<h4>Drawer 내용</h4>'
+        + '<p>슬라이드로 열리는 패널입니다.</p>'
+        + '<p>배경을 클릭하거나 닫기 버튼으로 닫을 수 있습니다.</p>'
+        + '<ul><li>메뉴 항목 1</li><li>메뉴 항목 2</li><li>메뉴 항목 3</li></ul>'
+        + '</div>';
+
+      $c('#drawerRightBtn').on('click', function(){
+        popup.drawer({
+          title: '오른쪽 패널',
+          direction: 'r',
+          size: '350px',
+          content: drawerContent
+        });
+      });
+
+      $c('#drawerLeftBtn').on('click', function(){
+        popup.drawer({
+          title: '왼쪽 패널',
+          direction: 'l',
+          size: '300px',
+          content: drawerContent
+        });
+      });
+
+      $c('#drawerTopBtn').on('click', function(){
+        popup.drawer({
+          title: '상단 패널',
+          direction: 't',
+          size: '200px',
+          content: drawerContent
+        });
+      });
+
+      $c('#drawerBottomBtn').on('click', function(){
+        popup.drawer({
+          title: '하단 패널',
+          direction: 'b',
+          size: '250px',
+          content: drawerContent
+        });
+      });
+
+      // === 23. Skins ===
+      var skinContent = '스킨이 적용된 팝업입니다.<br><br>skin 옵션으로 다양한 스킨을 적용할 수 있습니다.';
+      
+      // 색상 스킨
+      $c('#skinPrimary').on('click', function(){
+        popup.open({ title: 'Primary 스킨', content: skinContent, skin: 'cui-popup-skin-primary', btn: ['확인', '취소'] });
+      });
+      $c('#skinSuccess').on('click', function(){
+        popup.open({ title: 'Success 스킨', content: skinContent, skin: 'cui-popup-skin-success', btn: ['확인', '취소'] });
+      });
+      $c('#skinWarning').on('click', function(){
+        popup.open({ title: 'Warning 스킨', content: skinContent, skin: 'cui-popup-skin-warning', btn: ['확인', '취소'] });
+      });
+      $c('#skinDanger').on('click', function(){
+        popup.open({ title: 'Danger 스킨', content: skinContent, skin: 'cui-popup-skin-danger', btn: ['확인', '취소'] });
+      });
+      $c('#skinInfo').on('click', function(){
+        popup.open({ title: 'Info 스킨', content: skinContent, skin: 'cui-popup-skin-info', btn: ['확인', '취소'] });
+      });
+      $c('#skinDark').on('click', function(){
+        popup.open({ title: 'Dark 스킨', content: skinContent, skin: 'cui-popup-skin-dark', btn: ['확인', '취소'] });
+      });
+
+      // 스타일 스킨
+      $c('#skinMinimal').on('click', function(){
+        popup.open({ title: 'Minimal 스킨', content: skinContent, skin: 'cui-popup-skin-minimal', btn: ['확인', '취소'] });
+      });
+      $c('#skinRound').on('click', function(){
+        popup.open({ title: 'Round 스킨', content: skinContent, skin: 'cui-popup-skin-round', btn: ['확인', '취소'] });
+      });
+      $c('#skinFlat').on('click', function(){
+        popup.open({ title: 'Flat 스킨', content: skinContent, skin: 'cui-popup-skin-flat', btn: ['확인', '취소'] });
+      });
+      $c('#skinGlass').on('click', function(){
+        popup.open({ title: 'Glass 스킨', content: skinContent, skin: 'cui-popup-skin-glass', btn: ['확인', '취소'], shade: [0.3, '#667'] });
+      });
+      $c('#skinIos').on('click', function(){
+        popup.open({ title: 'iOS 스타일', content: skinContent, skin: 'cui-popup-skin-ios', btn: ['확인', '취소'], area: '280px' });
+      });
+      $c('#skinMaterial').on('click', function(){
+        popup.open({ title: 'Material 스킨', content: skinContent, skin: 'cui-popup-skin-material', btn: ['확인', '취소'] });
+      });
+    });
+  </script>
+</body>
+</html>

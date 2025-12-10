@@ -1,0 +1,583 @@
+/**
+ * Catui - Table
+ * Based on layui table CSS
+ */
+
+/* 기본 테이블 */
+.cui-table {
+  width: 100%;
+  margin: 10px 0;
+  background-color: var(--cui-bg-base);
+  color: var(--cui-text-secondary);
+}
+
+.cui-table tr {
+  transition: all 0.3s;
+}
+
+.cui-table th {
+  text-align: left;
+  font-weight: 600;
+}
+
+.cui-table-hover,
+.cui-table-click,
+.cui-table[cui-even] tbody tr:nth-child(even),
+.cui-table tbody tr:hover {
+  background-color: var(--cui-bg-gray);
+}
+
+.cui-table-checked {
+  background-color: rgba(var(--cui-primary-rgb), 0.1);
+}
+
+.cui-table th,
+.cui-table td,
+.cui-table[cui-skin="line"],
+.cui-table[cui-skin="row"],
+.cui-table-view,
+.cui-table-tool,
+.cui-table-header,
+.cui-table-total,
+.cui-table-page {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--cui-border-color);
+}
+
+.cui-table th,
+.cui-table td {
+  position: relative;
+  padding: 9px 15px;
+  min-height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+}
+
+.cui-table[cui-skin="line"] th,
+.cui-table[cui-skin="line"] td {
+  border-width: 0;
+  border-bottom-width: 1px;
+}
+
+.cui-table[cui-skin="row"] th,
+.cui-table[cui-skin="row"] td {
+  border-width: 0;
+  border-right-width: 1px;
+}
+
+.cui-table[cui-skin="nob"] th,
+.cui-table[cui-skin="nob"] td {
+  border: none;
+}
+
+.cui-table img {
+  max-width: 100px;
+}
+
+/* 큰 테이블 */
+.cui-table-lg th,
+.cui-table-lg td {
+  padding: 15px 30px;
+}
+
+.cui-table-view.cui-table-lg .cui-table-cell {
+  height: 40px;
+  line-height: 40px;
+}
+
+/* 작은 테이블 */
+.cui-table-sm th,
+.cui-table-sm td {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.cui-table-view.cui-table-sm .cui-table-cell {
+  height: 20px;
+  line-height: 20px;
+}
+
+/* 데이터 테이블 뷰 */
+.cui-table-view {
+  position: relative;
+  margin: 10px 0;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-radius: var(--cui-border-radius, 2px);
+  overflow: hidden;
+}
+
+.cui-table-view .cui-table {
+  position: relative;
+  width: auto;
+  margin: 0;
+}
+
+.cui-table-view .cui-table th,
+.cui-table-view .cui-table td {
+  padding: 5px 0;
+  border-top: none;
+  border-left: none;
+}
+
+.cui-table-view .cui-table td {
+  cursor: default;
+}
+
+/* 테이블 박스 */
+.cui-table-box {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 헤더 */
+.cui-table-header {
+  border-width: 0;
+  border-bottom-width: 1px;
+  overflow: hidden;
+  background-color: #FAFAFA;
+}
+
+.cui-table-header .cui-table {
+  margin-bottom: -1px;
+}
+
+/* 바디 */
+.cui-table-body {
+  position: relative;
+  overflow: hidden;
+}
+
+.cui-table-body .cui-table tr:last-child td {
+  border-bottom: none;
+}
+
+.cui-table-body .cui-none {
+  line-height: 26px;
+  padding: 30px 15px;
+  text-align: center;
+  color: #999;
+}
+
+.cui-table-error {
+  color: var(--cui-danger, #ff5722);
+}
+
+/* 셀 */
+.cui-table-cell {
+  height: 28px;
+  line-height: 28px;
+  padding: 0 15px;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+/* 더보기 버튼 (셀 오버플로우) */
+.cui-table-grid-down {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 26px;
+  height: 100%;
+  padding: 5px 0;
+  border-left: 1px solid #eee;
+  text-align: center;
+  background-color: #fff;
+  color: #999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cui-table-grid-down .cui-icon {
+  font-size: 18px;
+}
+
+.cui-table-grid-down:hover {
+  background-color: #fbfbfb;
+  color: #666;
+}
+
+.cui-table-view td {
+  position: relative;
+}
+
+/* 셀 전체 내용 팝업 */
+.cui-table-tips {
+  background: none;
+  padding: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,.12);
+}
+
+.cui-table-tips-main {
+  max-height: 200px;
+  padding: 10px 15px;
+  font-size: 14px;
+  overflow-y: auto;
+  background-color: #fff;
+  color: #666;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.cui-table-tips-close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  font-size: 14px;
+  color: #fff;
+  background-color: #666;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.cui-table-tips-close:hover {
+  background-color: #ff5722;
+}
+
+/* 특수 셀 */
+.cuitbl-cell-checkbox,
+.cuitbl-cell-radio,
+.cuitbl-cell-numbers {
+  padding: 0;
+  text-align: center;
+}
+
+/* 체크박스 */
+.cui-table-checkbox,
+.cui-table-checkbox-all {
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+}
+
+/* 선택된 행 */
+.cui-table-checked {
+  background-color: #f6f6f6;
+}
+
+/* 정렬 */
+.cui-table-sort {
+  width: 10px;
+  height: 20px;
+  margin-left: 5px;
+  cursor: pointer !important;
+  display: inline-flex;
+  flex-direction: column;
+  vertical-align: middle;
+}
+
+.cui-table-sort .cui-icon {
+  font-size: 18px;
+  line-height: 1;
+  margin: -5px 0;
+  color: #b2b2b2;
+  cursor: pointer;
+  transition: color .2s;
+}
+
+.cui-table-sort .cui-icon:hover {
+  color: #666;
+}
+
+.cui-table-sort .cui-icon.cui-this {
+  color: #000;
+}
+
+.cui-unselect {
+  cursor: pointer;
+}
+
+/* 로딩 */
+.cui-table-loading {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 110;
+}
+
+.cui-table-loading .cui-icon {
+  font-size: 30px;
+  color: #c2c2c2;
+}
+
+/* 툴바 */
+.cui-table-tool {
+  position: relative;
+  z-index: 890;
+  width: 100%;
+  min-height: 50px;
+  line-height: 30px;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
+  background-color: #FAFAFA;
+  box-sizing: border-box;
+}
+
+.cui-table-tool .cui-btn-container {
+  margin-bottom: -10px;
+}
+
+.cui-table-tool-temp {
+  padding-right: 120px;
+}
+
+.cui-table-tool-temp .cui-btn {
+  margin-right: 10px;
+}
+
+.cui-table-tool-self {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  display: flex;
+}
+
+.cui-table-tool-self .cui-inline {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  line-height: 16px;
+  text-align: center;
+  color: #333;
+  border: 1px solid #ccc;
+  border-left: none;
+  background: #fff;
+  cursor: pointer;
+  transition: .3s all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cui-table-tool-self .cui-inline:first-child {
+  border-left: 1px solid #ccc;
+  border-radius: 2px 0 0 2px;
+}
+
+.cui-table-tool-self .cui-inline:last-child {
+  border-radius: 0 2px 2px 0;
+}
+
+/* 열 필터 패널 */
+.cui-table-tool-panel {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  min-width: 150px;
+  max-height: 300px;
+  padding: 5px 0;
+  border: 1px solid #d2d2d2;
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,.12);
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.cui-table-tool-panel ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cui-table-tool-panel li {
+  padding: 5px 15px;
+  line-height: 26px;
+  white-space: nowrap;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cui-table-tool-panel li:hover {
+  background: #f6f6f6;
+}
+
+.cui-table-tool-panel li input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.cui-table-tool-panel li span {
+  font-size: 13px;
+  color: #333;
+}
+
+.cui-table-tool-self .cui-inline:hover {
+  border-color: #999;
+}
+
+.cui-table-tool-self .cui-icon {
+  font-size: 16px;
+}
+
+/* 페이지네이션 */
+.cui-table-page {
+  position: relative;
+  width: 100%;
+  padding: 7px 15px;
+  border: none;
+  min-height: 41px;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  box-sizing: border-box;
+  background: #fafafa;
+}
+
+/* 하단 버튼 영역 */
+.cui-table-page-btns {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.cui-table-page-info {
+  color: #999;
+}
+
+.cui-table-page-nav {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cui-table-page-btn,
+.cui-table-page-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 8px;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+  color: #333;
+  background: #fff;
+}
+
+.cui-table-page-btn:hover,
+.cui-table-page-num:hover {
+  border-color: var(--cui-primary);
+  color: var(--cui-primary);
+}
+
+.cui-table-page-num.cui-this {
+  background-color: var(--cui-primary);
+  border-color: var(--cui-primary);
+  color: #fff;
+}
+
+.cui-table-page-btn.cui-disabled {
+  color: #d2d2d2;
+  cursor: not-allowed;
+  background-color: #f8f8f8;
+}
+
+.cui-table-page-btn.cui-disabled:hover {
+  border-color: #eee;
+  color: #d2d2d2;
+}
+
+.cui-table-page-ellipsis {
+  padding: 0 5px;
+  color: #999;
+}
+
+.cui-table-page-limit {
+  display: flex;
+  align-items: center;
+}
+
+.cui-table-page-select {
+  height: 26px;
+  padding: 0 25px 0 10px;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 8px center;
+  background-size: 8px 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+/* 합계행 */
+.cui-table-total {
+  background-color: #f6f6f6;
+  font-weight: bold;
+}
+
+.cui-table-total td {
+  border-top: 1px solid #e6e6e6;
+}
+
+/* 짝수행 */
+.cui-table-even tbody tr:nth-child(even) {
+  background-color: #FAFAFA;
+}
+
+/* 스킨: 선 */
+.cui-table-line .cui-table th,
+.cui-table-line .cui-table td {
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-style: solid;
+  border-color: #eee;
+}
+
+/* 스킨: 행 */
+.cui-table-row .cui-table th,
+.cui-table-row .cui-table td {
+  border-width: 0;
+  border-right-width: 1px;
+  border-style: solid;
+  border-color: #eee;
+}
+
+/* 스킨: 테두리 없음 */
+.cui-table-nob .cui-table th,
+.cui-table-nob .cui-table td {
+  border: none;
+}
+
+/* 숨김 */
+.cui-hide {
+  display: none !important;
+}
+
+/* 회전 애니메이션 */
+@keyframes cui-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.cui-anim-rotate {
+  animation: cui-rotate 1s linear infinite;
+}

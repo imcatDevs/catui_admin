@@ -1,0 +1,499 @@
+/**
+ * Catui - Form
+ */
+
+.cui-form {
+  display: block;
+}
+
+.cui-form-item {
+  margin-bottom: 15px;
+}
+
+.cui-form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+/* 선택 불가 텍스트 */
+.cui-unselect {
+  user-select: none;
+}
+
+/* 원본 input 숨기기 (렌더링된 경우) */
+.cui-form input[type="checkbox"] + .cui-form-checkbox,
+.cui-form input[type="checkbox"] + .cui-form-switch,
+.cui-form input[type="radio"] + .cui-form-radio {
+  margin-left: -1px;
+}
+
+.cui-form input[type="checkbox"]:not([cui-ignore]),
+.cui-form input[type="radio"]:not([cui-ignore]) {
+  display: none;
+}
+
+/* ========================================
+   체크박스 - 기본 스타일 (Material Icons)
+======================================== */
+.cui-form-checkbox {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 0;
+}
+
+.cui-form-checkbox * {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.cui-form-checkbox .cui-icon {
+  font-size: 20px;
+  color: #c2c2c2;
+}
+
+.cui-form-checkbox span {
+  padding-left: 6px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.cui-form-checkbox:hover .cui-icon {
+  color: var(--cui-primary);
+}
+
+.cui-form-checked.cui-form-checkbox .cui-icon {
+  color: var(--cui-primary);
+}
+
+.cui-checkbox-disabled {
+  cursor: not-allowed;
+}
+
+.cui-checkbox-disabled .cui-icon {
+  color: #eee !important;
+}
+
+.cui-checkbox-disabled span {
+  color: #c2c2c2 !important;
+}
+
+/* ========================================
+   체크박스 - Primary 스타일 (박스형)
+======================================== */
+.cui-form-checkbox.cui-form-checkbox-primary {
+  height: auto;
+  line-height: normal;
+  min-width: 18px;
+  min-height: 18px;
+  margin-right: 0;
+  padding-left: 0;
+}
+
+.cui-form-checkbox-primary span {
+  padding-left: 6px;
+  padding-right: 15px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.cui-form-checkbox-primary .cui-icon {
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border: 1px solid #d2d2d2;
+  font-size: 12px;
+  border-radius: 2px;
+  background-color: #fff;
+  text-align: center;
+}
+
+.cui-form-checkbox-primary:hover .cui-icon {
+  border-color: var(--cui-primary);
+}
+
+.cui-form-checked.cui-form-checkbox-primary .cui-icon {
+  border-color: var(--cui-success);
+  background-color: var(--cui-success);
+  color: #fff;
+}
+
+/* ========================================
+   라디오
+======================================== */
+.cui-form-radio {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  line-height: 28px;
+  margin: 6px 10px 0 0;
+  padding-right: 10px;
+  cursor: pointer;
+  font-size: 0;
+}
+
+.cui-form-radio * {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 14px;
+}
+
+.cui-form-radio > .cui-icon {
+  margin-right: 6px;
+  font-size: 22px;
+  color: #c2c2c2;
+  transition: var(--cui-transition);
+}
+
+.cui-form-radio:hover *,
+.cui-form-checked.cui-form-radio .cui-icon,
+.cui-form-checked.cui-form-radio span {
+  color: var(--cui-primary);
+}
+
+.cui-radio-disabled > .cui-icon {
+  color: #eee !important;
+}
+
+.cui-radio-disabled * {
+  color: #c2c2c2 !important;
+  cursor: not-allowed;
+}
+
+/* select */
+.cui-form-select {
+  display: block;
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--cui-border-color);
+  border-radius: var(--cui-border-radius);
+  background: var(--cui-bg-base);
+  font-size: var(--cui-font-size);
+  transition: var(--cui-transition);
+}
+
+.cui-form-select:focus {
+  outline: none;
+  border-color: var(--cui-primary);
+}
+
+/* ========================================
+   스위치 (토글) - Layui 스타일
+======================================== */
+.cui-form-switch {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  height: 24px;
+  line-height: 24px;
+  min-width: 44px;
+  padding: 0 5px;
+  border: 1px solid var(--cui-border-color);
+  border-radius: 24px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: var(--cui-transition);
+  user-select: none;
+}
+
+.cui-form-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* 스위치 토글 원 */
+.cui-form-switch i {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #d2d2d2;
+  transition: var(--cui-transition);
+  font-style: normal;
+}
+
+/* 스위치 텍스트 */
+.cui-form-switch em {
+  position: relative;
+  display: inline-block;
+  margin-left: 22px;
+  padding: 0;
+  text-align: center;
+  color: #999;
+  font-style: normal;
+  font-size: 12px;
+}
+
+/* 스위치 ON 상태 */
+.cui-form-switch.cui-form-checked {
+  border-color: var(--cui-primary);
+  background-color: var(--cui-primary);
+}
+
+.cui-form-switch.cui-form-checked i {
+  left: calc(100% - 21px);
+  background-color: #fff;
+}
+
+.cui-form-switch.cui-form-checked em {
+  margin-left: 5px;
+  margin-right: 22px;
+  color: #fff;
+}
+
+/* 스위치 비활성 */
+.cui-form-switch.cui-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   비밀번호 토글
+======================================== */
+.cui-form-password {
+  position: relative;
+  display: block;
+}
+
+.cui-form-password input {
+  width: 100%;
+  padding-right: 40px;
+  box-sizing: border-box;
+}
+
+.cui-form-password .cui-password-eye {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--cui-text-secondary);
+  cursor: pointer;
+  transition: var(--cui-transition);
+}
+
+.cui-form-password .cui-password-eye:hover {
+  color: var(--cui-primary);
+}
+
+/* 입력 그룹 내 비밀번호 */
+.cui-input-group .cui-form-password {
+  flex: 1;
+  display: flex;
+}
+
+.cui-input-group .cui-form-password input {
+  border-radius: 0;
+}
+
+.cui-input-group .cui-form-password:last-child input {
+  border-radius: 0 var(--cui-border-radius) var(--cui-border-radius) 0;
+}
+
+/* ========================================
+   슬라이더 (Range)
+======================================== */
+.cui-form-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--cui-border-color);
+  outline: none;
+  cursor: pointer;
+}
+
+.cui-form-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--cui-primary);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.cui-form-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.cui-form-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border: none;
+  border-radius: 50%;
+  background: var(--cui-primary);
+  cursor: pointer;
+}
+
+.cui-slider-value {
+  display: inline-block;
+  margin-left: 10px;
+  min-width: 30px;
+  font-weight: 500;
+  color: var(--cui-primary);
+}
+
+/* ========================================
+   입력 그룹
+======================================== */
+.cui-input-group {
+  display: flex;
+  align-items: stretch;
+}
+
+.cui-input-group .cui-input-group-addon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  background: var(--cui-bg-gray);
+  border: 1px solid var(--cui-border-color);
+  color: var(--cui-text-secondary);
+}
+
+.cui-input-group .cui-input-group-addon:first-child {
+  border-right: none;
+  border-radius: var(--cui-border-radius) 0 0 var(--cui-border-radius);
+}
+
+.cui-input-group .cui-input-group-addon:last-child {
+  border-left: none;
+  border-radius: 0 var(--cui-border-radius) var(--cui-border-radius) 0;
+}
+
+.cui-input-group .cui-input-group-addon .cui-icon {
+  font-size: 18px;
+}
+
+.cui-input-group .cui-input {
+  flex: 1;
+  border-radius: 0;
+}
+
+.cui-input-group .cui-input:first-child {
+  border-radius: var(--cui-border-radius) 0 0 var(--cui-border-radius);
+}
+
+.cui-input-group .cui-input:last-child {
+  border-radius: 0 var(--cui-border-radius) var(--cui-border-radius) 0;
+}
+
+.cui-input-group.cui-focus .cui-input-group-addon {
+  border-color: var(--cui-primary);
+  color: var(--cui-primary);
+}
+
+.cui-input-group.cui-focus .cui-input {
+  border-color: var(--cui-primary);
+}
+
+/* ========================================
+   검증 상태
+======================================== */
+.cui-form-item.cui-form-danger .cui-input,
+.cui-form-item.cui-form-danger .cui-form-select {
+  border-color: var(--cui-danger);
+}
+
+.cui-form-item.cui-form-success .cui-input,
+.cui-form-item.cui-form-success .cui-form-select {
+  border-color: var(--cui-success);
+}
+
+.cui-form-tip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  font-size: 12px;
+}
+
+.cui-form-tip-error {
+  color: var(--cui-danger);
+}
+
+.cui-form-tip-error .cui-icon {
+  font-size: 14px;
+}
+
+.cui-form-tip-success {
+  color: var(--cui-success);
+}
+
+/* ========================================
+   폼 레이아웃
+======================================== */
+.cui-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.cui-form-col {
+  padding: 0 10px;
+  flex: 1;
+  min-width: 200px;
+}
+
+/* 인라인 폼 */
+.cui-form-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  align-items: flex-end;
+}
+
+.cui-form-inline .cui-form-item {
+  margin-bottom: 0;
+}
+
+/* 필수 표시 */
+.cui-form-required::before {
+  content: '*';
+  color: var(--cui-danger);
+  margin-right: 4px;
+}
+
+/* 폼 액션 버튼 영역 */
+.cui-form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--cui-border-color);
+}
+
+/* Textarea */
+.cui-textarea {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border: 1px solid var(--cui-border-color);
+  border-radius: var(--cui-border-radius);
+  font-size: var(--cui-font-size);
+  resize: vertical;
+  transition: var(--cui-transition);
+}
+
+.cui-textarea:focus {
+  outline: none;
+  border-color: var(--cui-primary);
+}
+
+/* 도움말 텍스트 */
+.cui-form-help {
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--cui-text-secondary);
+}

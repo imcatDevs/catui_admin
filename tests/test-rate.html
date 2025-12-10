@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rate 별점 테스트 - Catui</title>
+  <link rel="stylesheet" href="/dist/catui.css">
+  <style>
+    .test-section { padding: 20px; margin-bottom: 20px; background: #fff; border-radius: 8px; }
+    .test-section h3 { margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+    .demo-box { display: flex; gap: 30px; flex-wrap: wrap; align-items: flex-start; }
+    .demo-item { min-width: 200px; }
+    .demo-item label { display: block; margin-bottom: 10px; font-weight: 500; }
+    .code-block { background: #f5f5f5; padding: 15px; border-radius: 4px; margin-top: 10px; font-family: monospace; font-size: 13px; overflow-x: auto; }
+  </style>
+</head>
+<body style="padding: 20px; background: #f5f5f5;">
+  <h2>Rate 별점</h2>
+
+  <!-- 기본 별점 -->
+  <div class="test-section">
+    <h3>기본 별점</h3>
+    <div class="demo-box">
+      <div class="demo-item">
+        <label>기본 (5점 만점)</label>
+        <div id="rate1"></div>
+      </div>
+      <div class="demo-item">
+        <label>초기값 지정</label>
+        <div id="rate2"></div>
+      </div>
+    </div>
+    <div class="code-block">
+rate.render({<br>
+&nbsp;&nbsp;elem: '#rate1',<br>
+&nbsp;&nbsp;value: 3<br>
+});
+    </div>
+  </div>
+
+  <!-- 반별 허용 -->
+  <div class="test-section">
+    <h3>반별 허용 (Half)</h3>
+    <div class="demo-box">
+      <div class="demo-item">
+        <label>반별 선택 가능</label>
+        <div id="rate3"></div>
+      </div>
+      <div class="demo-item">
+        <label>반별 초기값</label>
+        <div id="rate4"></div>
+      </div>
+    </div>
+    <div class="code-block">
+rate.render({<br>
+&nbsp;&nbsp;elem: '#rate3',<br>
+&nbsp;&nbsp;half: true,<br>
+&nbsp;&nbsp;value: 3.5<br>
+});
+    </div>
+  </div>
+
+  <!-- 텍스트 표시 -->
+  <div class="test-section">
+    <h3>텍스트 표시</h3>
+    <div class="demo-box">
+      <div class="demo-item">
+        <label>기본 텍스트</label>
+        <div id="rate5"></div>
+      </div>
+      <div class="demo-item">
+        <label>커스텀 텍스트</label>
+        <div id="rate6"></div>
+      </div>
+    </div>
+    <div class="code-block">
+rate.render({<br>
+&nbsp;&nbsp;elem: '#rate6',<br>
+&nbsp;&nbsp;text: true,<br>
+&nbsp;&nbsp;setText: function(value){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;var texts = ['매우 나쁨', '나쁨', '보통', '좋음', '매우 좋음'];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return texts[value - 1] || '';<br>
+&nbsp;&nbsp;}<br>
+});
+    </div>
+  </div>
+
+  <!-- 읽기 전용 & 비활성화 -->
+  <div class="test-section">
+    <h3>읽기 전용 & 비활성화</h3>
+    <div class="demo-box">
+      <div class="demo-item">
+        <label>읽기 전용</label>
+        <div id="rate7"></div>
+      </div>
+      <div class="demo-item">
+        <label>테마 색상</label>
+        <div id="rate8"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 개수 변경 -->
+  <div class="test-section">
+    <h3>별 개수 변경</h3>
+    <div class="demo-box">
+      <div class="demo-item">
+        <label>10점 만점</label>
+        <div id="rate9"></div>
+      </div>
+      <div class="demo-item">
+        <label>3점 만점</label>
+        <div id="rate10"></div>
+      </div>
+    </div>
+    <div class="code-block">
+rate.render({<br>
+&nbsp;&nbsp;elem: '#rate9',<br>
+&nbsp;&nbsp;length: 10<br>
+});
+    </div>
+  </div>
+
+  <!-- 아이콘 변경 -->
+  <div class="test-section">
+    <h3>아이콘 변경</h3>
+    <div class="demo-box">
+      <div class="demo-item">
+        <label>하트 (favorite)</label>
+        <div id="rate11"></div>
+      </div>
+      <div class="demo-item">
+        <label>하트 반개 허용</label>
+        <div id="rate12"></div>
+      </div>
+      <div class="demo-item">
+        <label>좋아요 (thumb_up)</label>
+        <div id="rate13"></div>
+      </div>
+      <div class="demo-item">
+        <label>이모지 (sentiment_satisfied)</label>
+        <div id="rate14"></div>
+      </div>
+    </div>
+    <div class="code-block">
+rate.render({<br>
+&nbsp;&nbsp;elem: '#rate11',<br>
+&nbsp;&nbsp;icon: 'favorite',<br>
+&nbsp;&nbsp;theme: '#ff4d4f'<br>
+});
+    </div>
+  </div>
+
+  <script src="/dist/catui.js"></script>
+  <script>
+    Catui.use(['$c', 'rate', 'popup'], function(){
+      var rate = Catui.rate;
+      var popup = Catui.popup;
+
+      // 기본 별점
+      rate.render({
+        elem: '#rate1',
+        value: 0,
+        choose: function(value){ popup.msg('선택: ' + value + '점'); }
+      });
+
+      rate.render({
+        elem: '#rate2',
+        value: 3,
+        choose: function(value){ popup.msg('선택: ' + value + '점'); }
+      });
+
+      // 반별 허용
+      rate.render({
+        elem: '#rate3',
+        half: true,
+        choose: function(value){ popup.msg('선택: ' + value + '점'); }
+      });
+
+      rate.render({
+        elem: '#rate4',
+        half: true,
+        value: 3.5,
+        choose: function(value){ popup.msg('선택: ' + value + '점'); }
+      });
+
+      // 텍스트 표시
+      rate.render({
+        elem: '#rate5',
+        value: 3,
+        text: true
+      });
+
+      rate.render({
+        elem: '#rate6',
+        value: 4,
+        text: true,
+        setText: function(value){
+          var texts = ['매우 나쁨', '나쁨', '보통', '좋음', '매우 좋음'];
+          return texts[value - 1] || '';
+        }
+      });
+
+      // 읽기 전용
+      rate.render({
+        elem: '#rate7',
+        value: 4.5,
+        half: true,
+        readonly: true
+      });
+
+      rate.render({
+        elem: '#rate8',
+        value: 4,
+        theme: '#ff5722'
+      });
+
+      // 개수 변경
+      rate.render({
+        elem: '#rate9',
+        length: 10,
+        value: 7
+      });
+
+      rate.render({
+        elem: '#rate10',
+        length: 3,
+        value: 2
+      });
+
+      // 아이콘 변경
+      rate.render({
+        elem: '#rate11',
+        icon: 'favorite',
+        theme: '#ff4d4f',
+        value: 4,
+        choose: function(value){ popup.msg('하트: ' + value + '개'); }
+      });
+
+      rate.render({
+        elem: '#rate12',
+        icon: 'favorite',
+        theme: '#ff4d4f',
+        half: true,
+        value: 3.5,
+        choose: function(value){ popup.msg('하트: ' + value + '개'); }
+      });
+
+      rate.render({
+        elem: '#rate13',
+        icon: 'thumb_up',
+        theme: '#1677ff',
+        value: 3,
+        choose: function(value){ popup.msg('좋아요: ' + value + '개'); }
+      });
+
+      rate.render({
+        elem: '#rate14',
+        icon: 'sentiment_satisfied',
+        theme: '#52c41a',
+        value: 4,
+        choose: function(value){ popup.msg('만족도: ' + value + '점'); }
+      });
+    });
+  </script>
+</body>
+</html>

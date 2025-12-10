@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table 고급 예제 - Catui</title>
+  <link rel="stylesheet" href="/dist/catui.css">
+  <style>
+    body { padding: 20px; background: #f5f5f5; }
+    .demo-section { background: #fff; padding: 20px; margin-bottom: 20px; border-radius: 4px; }
+    .demo-section h3 { margin: 0 0 15px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+    .demo-section h4 { margin: 20px 0 10px; color: #666; }
+    .demo-btns { margin-bottom: 15px; }
+    .demo-btns button { margin-right: 10px; margin-bottom: 5px; }
+    .code-block { background: #f8f8f8; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 13px; overflow-x: auto; margin: 10px 0; }
+    .log-area { background: #333; color: #0f0; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 12px; max-height: 200px; overflow-y: auto; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<h2>Table 고급 예제</h2>
+
+<!-- 섹션 1: 기본 API -->
+<div class="demo-section">
+  <h3>1. 기본 API</h3>
+  
+  <div class="demo-btns">
+    <button class="cui-btn cui-btn-primary" onclick="apiGetData()">getData()</button>
+    <button class="cui-btn cui-btn-primary" onclick="apiCheckStatus()">checkStatus()</button>
+    <button class="cui-btn cui-btn-primary" onclick="apiReload()">reload()</button>
+    <button class="cui-btn cui-btn-primary" onclick="apiResize()">resize()</button>
+    <button class="cui-btn cui-btn-normal" onclick="apiExport()">exportFile()</button>
+    <button class="cui-btn cui-btn-normal" onclick="apiSetChecked()">setRowChecked(0, true)</button>
+  </div>
+
+  <table id="apiTable"></table>
+  
+  <div class="log-area" id="apiLog">// API 호출 결과가 여기에 표시됩니다</div>
+</div>
+
+<!-- 섹션 2: 이벤트 -->
+<div class="demo-section">
+  <h3>2. 이벤트</h3>
+  
+  <h4>지원 이벤트: row, rowDouble, checkbox, tool, edit, sort, toolbar</h4>
+  
+  <script type="text/html" id="eventToolbar">
+    <div class="cui-btn-group">
+      <button class="cui-btn cui-btn-sm cui-btn-primary" cui-event="add"><i class="cui-icon">add</i> 추가</button>
+      <button class="cui-btn cui-btn-sm cui-btn-danger" cui-event="batchDel"><i class="cui-icon">delete</i> 삭제</button>
+    </div>
+  </script>
+  
+  <script type="text/html" id="rowToolbar">
+    <button class="cui-btn cui-btn-xs cui-btn-primary" cui-event="edit">편집</button>
+    <button class="cui-btn cui-btn-xs cui-btn-danger" cui-event="del">삭제</button>
+    <button class="cui-btn cui-btn-xs" cui-event="detail">상세</button>
+  </script>
+
+  <table id="eventTable"></table>
+  
+  <div class="log-area" id="eventLog">// 이벤트 로그가 여기에 표시됩니다</div>
+</div>
+
+<!-- 섹션 3: 셀 편집 -->
+<div class="demo-section">
+  <h3>3. 셀 편집 (edit 옵션)</h3>
+  
+  <p>셀을 클릭하면 편집할 수 있습니다. (이름, 나이 열)</p>
+  
+  <table id="editTable"></table>
+  
+  <div class="log-area" id="editLog">// 편집 로그가 여기에 표시됩니다</div>
+</div>
+
+<!-- 섹션 4: 합계행 -->
+<div class="demo-section">
+  <h3>4. 합계행 (totalRow 옵션)</h3>
+  
+  <table id="totalTable"></table>
+</div>
+
+<!-- 섹션 5: 하단 버튼 -->
+<div class="demo-section">
+  <h3>5. 하단 버튼 (pageBtns 옵션)</h3>
+  
+  <table id="pageBtnTable"></table>
+</div>
+
+<!-- 섹션 6: 템플릿 -->
+<div class="demo-section">
+  <h3>6. 템플릿 (templet 옵션)</h3>
+  
+  <script type="text/html" id="statusTpl">
+    {{# if(d.status === '활성'){ }}
+      <span style="color: #16baaa;">● {{d.status}}</span>
+    {{# } else { }}
+      <span style="color: #999;">○ {{d.status}}</span>
+    {{# } }}
+  </script>
+  
+  <script type="text/html" id="progressTpl">
+    <div style="background:#eee;border-radius:3px;height:18px;overflow:hidden;">
+      <div style="background:#16baaa;height:100%;width:{{d.progress}}%;"></div>
+    </div>
+  </script>
+
+  <table id="templetTable"></table>
+</div>
+
+<!-- 섹션 7: 폼 요소 -->
+<div class="demo-section">
+  <h3>7. 폼 요소 (스위치, 셀렉트 등)</h3>
+  
+  <script type="text/html" id="switchTpl">
+    <input type="checkbox" cui-skin="switch" cui-text="ON|OFF" cui-filter="userSwitch" data-id="{{d.id}}" {{# if(d.active){ }}checked{{# } }}>
+  </script>
+  
+  <script type="text/html" id="selectTpl">
+    <select class="cui-select" cui-filter="roleSelect" data-id="{{d.id}}" style="height:28px;padding:0 25px 0 10px;">
+      <option value="user" {{# if(d.role==='user'){ }}selected{{# } }}>사용자</option>
+      <option value="admin" {{# if(d.role==='admin'){ }}selected{{# } }}>관리자</option>
+      <option value="editor" {{# if(d.role==='editor'){ }}selected{{# } }}>편집자</option>
+    </select>
+  </script>
+  
+  <script type="text/html" id="rateTpl">
+    <div style="color:#ffb800;">
+      {{# for(var i=0; i<5; i++){ }}
+        {{# if(i < d.rate){ }}★{{# } else { }}☆{{# } }}
+      {{# } }}
+    </div>
+  </script>
+
+  <table id="formTable"></table>
+  
+  <div class="log-area" id="formLog">// 폼 이벤트 로그가 여기에 표시됩니다</div>
+</div>
+
+<!-- 섹션 8: URL 데이터 로드 -->
+<div class="demo-section">
+  <h3>8. URL 데이터 로드</h3>
+  
+  <div class="demo-btns">
+    <button class="cui-btn cui-btn-primary" onclick="reloadUrl()">데이터 새로고침</button>
+    <button class="cui-btn" onclick="reloadWithWhere()">검색 조건 추가</button>
+  </div>
+
+  <table id="urlTable"></table>
+</div>
+
+<script src="/dist/catui.js"></script>
+<script>
+  // 샘플 데이터
+  var sampleData = [
+    { id: 1, name: '홍길동', age: 28, email: 'hong@example.com', status: '활성', score: 95, progress: 80 },
+    { id: 2, name: '김철수', age: 32, email: 'kim@example.com', status: '활성', score: 88, progress: 65 },
+    { id: 3, name: '이영희', age: 25, email: 'lee@example.com', status: '비활성', score: 92, progress: 90 },
+    { id: 4, name: '박민수', age: 30, email: 'park@example.com', status: '활성', score: 78, progress: 45 },
+    { id: 5, name: '정수진', age: 27, email: 'jung@example.com', status: '비활성', score: 85, progress: 70 },
+    { id: 6, name: '최동현', age: 35, email: 'choi@example.com', status: '활성', score: 90, progress: 95 },
+    { id: 7, name: '강민아', age: 29, email: 'kang@example.com', status: '활성', score: 82, progress: 55 },
+    { id: 8, name: '윤서연', age: 26, email: 'yoon@example.com', status: '비활성', score: 88, progress: 75 }
+  ];
+
+  // 폼 요소 샘플 데이터
+  var formData = [
+    { id: 1, name: '홍길동', role: 'admin', active: true, rate: 5 },
+    { id: 2, name: '김철수', role: 'user', active: true, rate: 4 },
+    { id: 3, name: '이영희', role: 'editor', active: false, rate: 3 },
+    { id: 4, name: '박민수', role: 'user', active: true, rate: 4 },
+    { id: 5, name: '정수진', role: 'admin', active: false, rate: 5 }
+  ];
+
+  // 로그 함수
+  function log(areaId, msg) {
+    var area = document.getElementById(areaId);
+    var time = new Date().toLocaleTimeString();
+    area.innerHTML = '[' + time + '] ' + msg + '\n' + area.innerHTML;
+  }
+
+  Catui.use(['$c', 'table', 'popup', 'form'], function(){
+    var table = Catui.table;
+    var popup = Catui.popup;
+    var form = Catui.form;
+
+    // =====================
+    // 1. 기본 API 테이블
+    // =====================
+    table.render({
+      elem: '#apiTable',
+      id: 'apiDemo',
+      cols: [[
+        { type: 'checkbox', width: 50 },
+        { field: 'id', title: 'ID', width: 60 },
+        { field: 'name', title: '이름', width: 100 },
+        { field: 'email', title: '이메일' },
+        { field: 'status', title: '상태', width: 80 }
+      ]],
+      data: sampleData,
+      page: true,
+      limit: 5,
+      limits: [5, 10, 20]
+    });
+
+    // API 함수들
+    window.apiGetData = function(){
+      var data = table.getData('apiDemo');
+      log('apiLog', 'getData() → ' + JSON.stringify(data.slice(0, 2)) + '... (총 ' + data.length + '건)');
+    };
+
+    window.apiCheckStatus = function(){
+      var status = table.checkStatus('apiDemo');
+      log('apiLog', 'checkStatus() → 선택: ' + status.data.length + '건, 전체선택: ' + status.isAll);
+    };
+
+    window.apiReload = function(){
+      table.reload('apiDemo', { page: { curr: 1 } });
+      log('apiLog', 'reload() → 테이블 새로고침 완료');
+    };
+
+    window.apiResize = function(){
+      table.resize('apiDemo');
+      log('apiLog', 'resize() → 테이블 크기 재조정 완료');
+    };
+
+    window.apiExport = function(){
+      table.exportFile('apiDemo');
+      log('apiLog', 'exportFile() → CSV 내보내기 완료');
+    };
+
+    window.apiSetChecked = function(){
+      table.setRowChecked('apiDemo', 0, true);
+      log('apiLog', 'setRowChecked(0, true) → 첫 번째 행 선택됨');
+    };
+
+    // =====================
+    // 2. 이벤트 테이블
+    // =====================
+    table.render({
+      elem: '#eventTable',
+      id: 'eventDemo',
+      toolbar: '#eventToolbar',
+      defaultToolbar: ['filter', 'exports', 'print'],
+      cols: [[
+        { type: 'checkbox', width: 50 },
+        { field: 'id', title: 'ID', width: 60, sort: true },
+        { field: 'name', title: '이름', width: 100, sort: true },
+        { field: 'email', title: '이메일' },
+        { field: 'status', title: '상태', width: 80 },
+        { title: '작업', width: 180, templet: '#rowToolbar' }
+      ]],
+      data: sampleData,
+      page: true,
+      limit: 5
+    });
+
+    // 행 클릭
+    table.on('row(eventDemo)', function(obj){
+      log('eventLog', 'row → ' + JSON.stringify(obj.data));
+    });
+
+    // 행 더블 클릭
+    table.on('rowDouble(eventDemo)', function(obj){
+      log('eventLog', 'rowDouble → ID: ' + obj.data.id + ', 이름: ' + obj.data.name);
+      popup.open({
+        title: '상세 정보',
+        type: 1,
+        area: ['400px', '300px'],
+        content: '<pre style="padding:15px;">' + JSON.stringify(obj.data, null, 2) + '</pre>'
+      });
+    });
+
+    // 체크박스
+    table.on('checkbox(eventDemo)', function(obj){
+      log('eventLog', 'checkbox → type: ' + obj.type + ', checked: ' + obj.checked);
+    });
+
+    // 툴바 버튼
+    table.on('toolbar(eventDemo)', function(obj){
+      log('eventLog', 'toolbar → event: ' + obj.event);
+      if(obj.event === 'add'){
+        popup.msg('추가 버튼 클릭');
+      } else if(obj.event === 'batchDel'){
+        var status = table.checkStatus('eventDemo');
+        popup.msg('선택된 ' + status.data.length + '건 삭제');
+      }
+    });
+
+    // 행 도구 버튼
+    table.on('tool(eventDemo)', function(obj){
+      log('eventLog', 'tool → event: ' + obj.event + ', ID: ' + obj.data.id);
+      
+      if(obj.event === 'del'){
+        popup.confirm('정말 삭제하시겠습니까?', function(index){
+          obj.del();
+          popup.close(index);
+          popup.msg('삭제 완료');
+        });
+      } else if(obj.event === 'edit'){
+        popup.msg('편집: ' + obj.data.name);
+      } else if(obj.event === 'detail'){
+        popup.open({
+          title: '상세보기',
+          type: 1,
+          area: ['400px', '300px'],
+          content: '<pre style="padding:15px;">' + JSON.stringify(obj.data, null, 2) + '</pre>'
+        });
+      }
+    });
+
+    // 정렬
+    table.on('sort(eventDemo)', function(obj){
+      log('eventLog', 'sort → field: ' + obj.field + ', type: ' + obj.type);
+    });
+
+    // =====================
+    // 3. 셀 편집 테이블
+    // =====================
+    table.render({
+      elem: '#editTable',
+      id: 'editDemo',
+      cols: [[
+        { field: 'id', title: 'ID', width: 60 },
+        { field: 'name', title: '이름', width: 120, edit: 'text' },
+        { field: 'age', title: '나이', width: 80, edit: 'text' },
+        { field: 'email', title: '이메일' },
+        { field: 'status', title: '상태', width: 80 }
+      ]],
+      data: sampleData.slice(0, 5)
+    });
+
+    // 편집 이벤트
+    table.on('edit(editDemo)', function(obj){
+      log('editLog', 'edit → field: ' + obj.field + ', 이전: ' + obj.oldValue + ', 현재: ' + obj.value);
+      popup.msg(obj.field + ' 수정됨: ' + obj.value);
+    });
+
+    // =====================
+    // 4. 합계행 테이블
+    // =====================
+    table.render({
+      elem: '#totalTable',
+      id: 'totalDemo',
+      cols: [[
+        { field: 'id', title: 'ID', width: 60 },
+        { field: 'name', title: '이름', width: 100 },
+        { field: 'age', title: '나이', width: 80, totalRow: true },
+        { field: 'score', title: '점수', width: 80, totalRow: true },
+        { field: 'status', title: '상태', width: 80 },
+        { field: 'progress', title: '진행률', width: 100, totalRow: function(data){
+          var sum = 0;
+          data.forEach(function(d){ sum += d.progress; });
+          return '평균: ' + Math.round(sum / data.length) + '%';
+        }}
+      ]],
+      data: sampleData,
+      totalRow: true
+    });
+
+    // =====================
+    // 5. 하단 버튼 테이블
+    // =====================
+    table.render({
+      elem: '#pageBtnTable',
+      id: 'pageBtnDemo',
+      cols: [[
+        { type: 'checkbox', width: 50 },
+        { field: 'id', title: 'ID', width: 60 },
+        { field: 'name', title: '이름', width: 100 },
+        { field: 'email', title: '이메일' }
+      ]],
+      data: sampleData,
+      page: true,
+      limit: 5,
+      pageBtns: [
+        { text: '선택 항목 삭제', class: 'cui-btn-danger', callback: function(){
+          var status = table.checkStatus('pageBtnDemo');
+          popup.msg('선택: ' + status.data.length + '건');
+        }},
+        { text: '전체 내보내기', callback: function(){
+          table.exportFile('pageBtnDemo');
+        }},
+        { text: '새로고침', class: 'cui-btn-normal', callback: function(){
+          table.reload('pageBtnDemo');
+          popup.msg('새로고침 완료');
+        }}
+      ]
+    });
+
+    // =====================
+    // 6. 템플릿 테이블
+    // =====================
+    table.render({
+      elem: '#templetTable',
+      id: 'templetDemo',
+      cols: [[
+        { field: 'id', title: 'ID', width: 60 },
+        { field: 'name', title: '이름', width: 100 },
+        { field: 'status', title: '상태', width: 100, templet: '#statusTpl' },
+        { field: 'score', title: '점수', width: 80, templet: function(d){
+          var color = d.score >= 90 ? '#16baaa' : (d.score >= 80 ? '#ffb800' : '#ff5722');
+          return '<span style="color:' + color + ';font-weight:bold;">' + d.score + '</span>';
+        }},
+        { field: 'progress', title: '진행률', width: 150, templet: '#progressTpl' }
+      ]],
+      data: sampleData
+    });
+
+    // =====================
+    // 7. 폼 요소 테이블
+    // =====================
+    table.render({
+      elem: '#formTable',
+      id: 'formDemo',
+      cols: [[
+        { field: 'id', title: 'ID', width: 60 },
+        { field: 'name', title: '이름', width: 100 },
+        { field: 'role', title: '역할', width: 130, templet: '#selectTpl' },
+        { field: 'active', title: '활성화', width: 100, templet: '#switchTpl' },
+        { field: 'rate', title: '평점', width: 120, templet: '#rateTpl' }
+      ]],
+      data: formData,
+      done: function(){
+        // 테이블 렌더링 후 폼 요소 초기화
+        form.render();
+      }
+    });
+
+    // 스위치 이벤트
+    form.on('switch(userSwitch)', function(data){
+      var id = data.elem.getAttribute('data-id');
+      log('formLog', 'switch → ID: ' + id + ', 상태: ' + (data.elem.checked ? 'ON' : 'OFF'));
+    });
+
+    // 셀렉트 변경은 change 이벤트로 처리
+    document.querySelectorAll('[cui-filter="roleSelect"]').forEach(function(sel){
+      sel.addEventListener('change', function(){
+        var id = sel.getAttribute('data-id');
+        log('formLog', 'select → ID: ' + id + ', 역할: ' + sel.value);
+      });
+    });
+
+    // =====================
+    // 8. URL 데이터 로드 테이블
+    // =====================
+    table.render({
+      elem: '#urlTable',
+      id: 'urlDemo',
+      url: '/tests/json/users.json',
+      cols: [[
+        { type: 'checkbox', width: 50 },
+        { field: 'id', title: 'ID', width: 60, sort: true },
+        { field: 'username', title: '사용자명', width: 100 },
+        { field: 'email', title: '이메일' },
+        { field: 'status', title: '상태', width: 80 }
+      ]],
+      page: true,
+      limit: 5,
+      done: function(res, curr, count){
+        console.log('URL 데이터 로드 완료:', count + '건');
+      }
+    });
+
+    // URL 테이블 함수들
+    window.reloadUrl = function(){
+      table.reload('urlDemo');
+      popup.msg('데이터 새로고침 완료');
+    };
+
+    window.reloadWithWhere = function(){
+      table.reload('urlDemo', {
+        where: { status: '활성' }
+      });
+      popup.msg('검색 조건 적용됨');
+    };
+
+  });
+</script>
+
+</body>
+</html>

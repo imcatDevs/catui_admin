@@ -1,0 +1,168 @@
+/**
+ * Catui - Code (코드 하이라이팅)
+ */
+
+/* 기본 스타일 */
+.cui-code,
+pre code {
+  display: block;
+  padding: 15px;
+  background: #282c34;
+  color: #abb2bf;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre;
+  tab-size: 2;
+}
+
+pre {
+  margin: 10px 0;
+}
+
+/* 인라인 코드 */
+code:not(.cui-code):not([data-highlighted]) {
+  background: #f5f5f5;
+  color: #e74c3c;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Consolas', monospace;
+  font-size: 0.9em;
+}
+
+/* 하이라이팅 색상 (One Dark 테마 기반) */
+.cui-code-keyword {
+  color: #c678dd;
+}
+
+.cui-code-string {
+  color: #98c379;
+}
+
+.cui-code-number {
+  color: #d19a66;
+}
+
+.cui-code-comment {
+  color: #5c6370;
+  font-style: italic;
+}
+
+.cui-code-function {
+  color: #61afef;
+}
+
+.cui-code-tag {
+  color: #e06c75;
+}
+
+.cui-code-attr {
+  color: #d19a66;
+}
+
+.cui-code-selector {
+  color: #e06c75;
+}
+
+.cui-code-property {
+  color: #56b6c2;
+}
+
+.cui-code-value {
+  color: #98c379;
+}
+
+/* 줄번호 */
+.cui-code-line .cui-code-line-num {
+  display: inline-block;
+  width: 40px;
+  margin-right: 15px;
+  padding-right: 10px;
+  text-align: right;
+  color: #5c6370;
+  border-right: 1px solid #3e4451;
+  user-select: none;
+}
+
+/* 코드 래퍼 (복사 버튼용) */
+.cui-code-wrapper {
+  position: relative;
+}
+
+.cui-code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 4px;
+  color: #abb2bf;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.cui-code-wrapper:hover .cui-code-copy {
+  opacity: 1;
+}
+
+.cui-code-copy:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.cui-code-copy .cui-icon {
+  font-size: 18px;
+}
+
+/* 언어 배지 */
+.cui-code[data-lang]:before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 8px;
+  right: 48px;
+  padding: 2px 8px;
+  font-size: 11px;
+  color: #5c6370;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* 라이트 테마 */
+.cui-code-light,
+.cui-code-light pre code {
+  background: #fafafa;
+  color: #383a42;
+}
+
+.cui-code-light .cui-code-keyword { color: #a626a4; }
+.cui-code-light .cui-code-string { color: #50a14f; }
+.cui-code-light .cui-code-number { color: #986801; }
+.cui-code-light .cui-code-comment { color: #a0a1a7; }
+.cui-code-light .cui-code-function { color: #4078f2; }
+.cui-code-light .cui-code-tag { color: #e45649; }
+.cui-code-light .cui-code-attr { color: #986801; }
+.cui-code-light .cui-code-selector { color: #e45649; }
+.cui-code-light .cui-code-property { color: #0184bc; }
+.cui-code-light .cui-code-value { color: #50a14f; }
+
+.cui-code-light .cui-code-line-num {
+  color: #a0a1a7;
+  border-right-color: #e5e5e6;
+}
+
+.cui-code-light .cui-code-copy {
+  background: rgba(0, 0, 0, 0.05);
+  color: #383a42;
+}
+
+.cui-code-light .cui-code-copy:hover {
+  background: rgba(0, 0, 0, 0.1);
+}

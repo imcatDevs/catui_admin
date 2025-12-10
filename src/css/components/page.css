@@ -1,0 +1,313 @@
+/**
+ * Catui - Page (Pagination)
+ * Based on layui laypage CSS
+ */
+
+.cui-page {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px 0;
+  font-size: 0;
+}
+
+.cui-page > a:first-child,
+.cui-page > a:first-child em {
+  border-radius: 2px 0 0 2px;
+}
+
+.cui-page > a:last-child,
+.cui-page > a:last-child em {
+  border-radius: 0 2px 2px 0;
+}
+
+.cui-page > *:first-child {
+  margin-left: 0 !important;
+}
+
+.cui-page > *:last-child {
+  margin-right: 0 !important;
+}
+
+.cui-page a,
+.cui-page span,
+.cui-page input,
+.cui-page button,
+.cui-page select {
+  border: 1px solid #eee;
+}
+
+.cui-page a,
+.cui-page span {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 0 15px;
+  height: 28px;
+  line-height: 28px;
+  margin: 0 -1px 5px 0;
+  background-color: #fff;
+  color: #333;
+  font-size: 12px;
+}
+
+.cui-page a[data-page] {
+  color: #333;
+}
+
+.cui-page a {
+  text-decoration: none !important;
+  cursor: pointer;
+}
+
+.cui-page a:hover {
+  color: var(--cui-primary);
+}
+
+.cui-page em {
+  font-style: normal;
+}
+
+.cui-page .cui-page-spr {
+  color: #999;
+  font-weight: 700;
+}
+
+.cui-page .cui-page-curr {
+  position: relative;
+}
+
+.cui-page .cui-page-curr em {
+  position: relative;
+  color: #fff;
+}
+
+.cui-page .cui-page-curr .cui-page-em {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  padding: 1px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--cui-primary);
+}
+
+.cui-page-em {
+  border-radius: 2px;
+}
+
+.cui-page-prev em,
+.cui-page-next em {
+  font-family: Sim sun;
+  font-size: 16px;
+}
+
+.cui-page .cui-page-count,
+.cui-page .cui-page-limits,
+.cui-page .cui-page-refresh,
+.cui-page .cui-page-skip {
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 0;
+  border: none;
+}
+
+.cui-page .cui-page-limits,
+.cui-page .cui-page-refresh {
+  vertical-align: top;
+}
+
+.cui-page .cui-page-refresh i {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.cui-page select {
+  height: 22px;
+  padding: 3px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.cui-page .cui-page-skip {
+  height: 30px;
+  line-height: 30px;
+  color: #999;
+}
+
+.cui-page input,
+.cui-page button {
+  height: 30px;
+  line-height: 30px;
+  border-radius: 2px;
+  vertical-align: top;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.cui-page input {
+  display: inline-block;
+  width: 40px;
+  margin: 0 10px;
+  padding: 0 3px;
+  text-align: center;
+  transition: none;
+}
+
+.cui-page input:focus,
+.cui-page select:focus {
+  border-color: var(--cui-primary) !important;
+}
+
+.cui-page button {
+  margin-left: 10px;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+/* 추가 요소 스타일 */
+.cui-page .cui-page-pages,
+.cui-page .cui-page-info {
+  border: none;
+  background: transparent;
+  cursor: default;
+  color: #999;
+}
+
+.cui-page .cui-page-pages b,
+.cui-page .cui-page-count b {
+  color: var(--cui-primary);
+  font-weight: 600;
+}
+
+/* ========================================
+   사이즈 - Small
+======================================== */
+.cui-page.cui-page-sm a,
+.cui-page.cui-page-sm span {
+  height: 22px;
+  line-height: 22px;
+  padding: 0 8px;
+  font-size: 12px;
+}
+
+.cui-page.cui-page-sm input,
+.cui-page.cui-page-sm button {
+  height: 22px;
+  line-height: 22px;
+}
+
+.cui-page.cui-page-sm select {
+  height: 20px;
+}
+
+/* ========================================
+   사이즈 - Large
+======================================== */
+.cui-page.cui-page-lg a,
+.cui-page.cui-page-lg span {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+.cui-page.cui-page-lg input,
+.cui-page.cui-page-lg button {
+  height: 36px;
+  line-height: 36px;
+}
+
+.cui-page.cui-page-lg select {
+  height: 28px;
+}
+
+/* ========================================
+   스킨 - Outline (테두리만)
+======================================== */
+.cui-page-skin-outline .cui-page-curr .cui-page-em {
+  background: none;
+  border: 1px solid var(--cui-primary);
+}
+
+.cui-page-skin-outline .cui-page-curr em {
+  color: var(--cui-primary);
+}
+
+/* ========================================
+   스킨 - Pill (둥근)
+======================================== */
+.cui-page-skin-pill a,
+.cui-page-skin-pill span,
+.cui-page-skin-pill .cui-page-em {
+  border-radius: 50px;
+}
+
+/* ========================================
+   스킨 - Square (사각)
+======================================== */
+.cui-page-skin-square a,
+.cui-page-skin-square span,
+.cui-page-skin-square .cui-page-em {
+  border-radius: 0;
+}
+
+/* ========================================
+   스킨 - Simple (간단)
+======================================== */
+.cui-page-skin-simple a,
+.cui-page-skin-simple span {
+  margin: 0 3px 5px;
+  padding: 0 10px;
+  border: none;
+}
+
+.cui-page-skin-simple a:hover {
+  color: var(--cui-primary);
+}
+
+.cui-page-skin-simple .cui-page-curr .cui-page-em {
+  border-radius: 2px;
+}
+
+/* ========================================
+   테마 - Molv (녹색)
+======================================== */
+.cui-page-molv .cui-page-curr .cui-page-em {
+  background-color: #009688;
+}
+
+.cui-page-molv a:hover {
+  color: #009688;
+}
+
+/* ========================================
+   테마 - Blue
+======================================== */
+.cui-page-blue .cui-page-curr .cui-page-em {
+  background-color: #1e9fff;
+}
+
+.cui-page-blue a:hover {
+  color: #1e9fff;
+}
+
+/* ========================================
+   테마 - Orange
+======================================== */
+.cui-page-orange .cui-page-curr .cui-page-em {
+  background-color: #ffb800;
+}
+
+.cui-page-orange a:hover {
+  color: #ffb800;
+}
+
+/* ========================================
+   테마 - Red
+======================================== */
+.cui-page-red .cui-page-curr .cui-page-em {
+  background-color: #ff5722;
+}
+
+.cui-page-red a:hover {
+  color: #ff5722;
+}

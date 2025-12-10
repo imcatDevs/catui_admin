@@ -1,0 +1,591 @@
+/**
+ * Catui Carousel 캐러셀
+ * Based on Layui carousel.css
+ */
+
+/* 캐러셀 컨테이너 */
+.cui-carousel {
+  position: relative;
+  left: 0;
+  top: 0;
+  overflow: hidden;
+  background-color: #f8f8f8;
+}
+
+/* 아이템 컨테이너 */
+.cui-carousel > *[carousel-item] {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 로딩 아이콘 */
+.cui-carousel > *[carousel-item]:before {
+  position: absolute;
+  content: 'image';
+  left: 50%;
+  top: 50%;
+  width: 100px;
+  line-height: 20px;
+  margin: -10px 0 0 -50px;
+  text-align: center;
+  color: #c2c2c2;
+  font-family: 'Material Icons';
+  font-size: 30px;
+  font-style: normal;
+}
+
+/* 슬라이드 아이템 */
+.cui-carousel > *[carousel-item] > * {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f8f8;
+  transition-duration: 0.3s;
+}
+
+/* 화살표 버튼 */
+.cui-carousel-arrow {
+  opacity: 0;
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  transition: opacity 0.3s, left 0.3s, right 0.3s;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.cui-carousel-arrow .cui-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.cui-carousel-arrow[data-type="add"] {
+  left: auto !important;
+  right: 10px;
+}
+
+/* 화살표 - 항상 표시 */
+.cui-carousel[cui-arrow="always"] .cui-carousel-arrow {
+  opacity: 1;
+  left: 20px;
+}
+.cui-carousel[cui-arrow="always"] .cui-carousel-arrow[data-type="add"] {
+  right: 20px;
+}
+
+/* 화살표 - 숨김 */
+.cui-carousel[cui-arrow="none"] .cui-carousel-arrow {
+  display: none;
+}
+
+/* 화살표 호버 */
+.cui-carousel-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.cui-carousel:hover .cui-carousel-arrow {
+  opacity: 1;
+  left: 20px;
+}
+.cui-carousel:hover .cui-carousel-arrow[data-type="add"] {
+  right: 20px;
+}
+
+/* 인디케이터 */
+.cui-carousel-ind {
+  position: relative;
+  top: -35px;
+  width: 100%;
+  line-height: 0 !important;
+  text-align: center;
+  font-size: 0;
+  z-index: 10;
+}
+
+.cui-carousel-ind ul {
+  display: inline-block;
+  padding: 5px;
+  margin: 0;
+  list-style: none;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  transition-duration: 0.3s;
+}
+
+.cui-carousel-ind ul:hover {
+  background-color: rgba(0, 0, 0, 0.35);
+}
+
+.cui-carousel-ind ul li {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition-duration: 0.3s;
+}
+
+.cui-carousel-ind ul li:hover {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.cui-carousel-ind ul li.cui-this {
+  background-color: #fff;
+}
+
+/* 인디케이터 - 외부 */
+.cui-carousel[cui-indicator="outside"] {
+  overflow: visible;
+  margin-bottom: 30px;
+}
+.cui-carousel[cui-indicator="outside"] > *[carousel-item] {
+  overflow: hidden;
+}
+.cui-carousel[cui-indicator="outside"] .cui-carousel-ind {
+  top: 10px;
+}
+.cui-carousel[cui-indicator="outside"] .cui-carousel-ind ul {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 인디케이터 - 숨김 */
+.cui-carousel[cui-indicator="none"] .cui-carousel-ind {
+  display: none;
+}
+
+/* 슬라이드 상태 */
+.cui-carousel > *[carousel-item] > .cui-this,
+.cui-carousel > *[carousel-item] > .cui-carousel-prev,
+.cui-carousel > *[carousel-item] > .cui-carousel-next {
+  display: block;
+}
+
+.cui-carousel > *[carousel-item] > .cui-this {
+  transform: translateX(0);
+}
+
+.cui-carousel > *[carousel-item] > .cui-carousel-prev {
+  transform: translateX(-100%);
+}
+
+.cui-carousel > *[carousel-item] > .cui-carousel-next {
+  transform: translateX(100%);
+}
+
+/* 슬라이드 애니메이션 */
+.cui-carousel > *[carousel-item] > .cui-carousel-prev.cui-carousel-right,
+.cui-carousel > *[carousel-item] > .cui-carousel-next.cui-carousel-left {
+  transform: translateX(0);
+}
+
+.cui-carousel > *[carousel-item] > .cui-this.cui-carousel-left {
+  transform: translateX(-100%);
+}
+
+.cui-carousel > *[carousel-item] > .cui-this.cui-carousel-right {
+  transform: translateX(100%);
+}
+
+/* ========================================
+   상하 슬라이드 (updown)
+======================================== */
+.cui-carousel[cui-anim="updown"] .cui-carousel-arrow {
+  left: 50% !important;
+  top: 20px;
+  transform: translateX(-50%);
+}
+
+.cui-carousel[cui-anim="updown"] .cui-carousel-arrow[data-type="add"] {
+  top: auto !important;
+  bottom: 20px;
+}
+
+.cui-carousel[cui-anim="updown"] .cui-carousel-ind {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  width: auto;
+  height: auto;
+  transform: translateY(-50%);
+}
+
+.cui-carousel[cui-anim="updown"] .cui-carousel-ind ul {
+  padding: 3px 5px;
+}
+
+.cui-carousel[cui-anim="updown"] .cui-carousel-ind li {
+  display: block;
+  margin: 6px 0;
+}
+
+.cui-carousel[cui-anim="updown"] > *[carousel-item] > * {
+  left: 0 !important;
+}
+
+.cui-carousel[cui-anim="updown"] > *[carousel-item] > .cui-this {
+  transform: translateY(0);
+}
+
+.cui-carousel[cui-anim="updown"] > *[carousel-item] > .cui-carousel-prev {
+  transform: translateY(-100%);
+}
+
+.cui-carousel[cui-anim="updown"] > *[carousel-item] > .cui-carousel-next {
+  transform: translateY(100%);
+}
+
+.cui-carousel[cui-anim="updown"] > *[carousel-item] > .cui-carousel-prev.cui-carousel-right,
+.cui-carousel[cui-anim="updown"] > *[carousel-item] > .cui-carousel-next.cui-carousel-left {
+  transform: translateY(0);
+}
+
+.cui-carousel[cui-anim="updown"] > *[carousel-item] > .cui-this.cui-carousel-left {
+  transform: translateY(-100%);
+}
+
+.cui-carousel[cui-anim="updown"] > *[carousel-item] > .cui-this.cui-carousel-right {
+  transform: translateY(100%);
+}
+
+/* ========================================
+   페이드 슬라이드 (fade)
+======================================== */
+.cui-carousel[cui-anim="fade"] > *[carousel-item] > * {
+  transform: translateX(0) !important;
+}
+
+.cui-carousel[cui-anim="fade"] > *[carousel-item] > .cui-carousel-prev,
+.cui-carousel[cui-anim="fade"] > *[carousel-item] > .cui-carousel-next {
+  opacity: 0;
+}
+
+.cui-carousel[cui-anim="fade"] > *[carousel-item] > .cui-carousel-prev.cui-carousel-right,
+.cui-carousel[cui-anim="fade"] > *[carousel-item] > .cui-carousel-next.cui-carousel-left {
+  opacity: 1;
+}
+
+.cui-carousel[cui-anim="fade"] > *[carousel-item] > .cui-this.cui-carousel-left,
+.cui-carousel[cui-anim="fade"] > *[carousel-item] > .cui-this.cui-carousel-right {
+  opacity: 0;
+}
+
+/* ========================================
+   줌 슬라이드 (zoom)
+======================================== */
+.cui-carousel[cui-anim="zoom"] > *[carousel-item] > * {
+  transform: scale(0.8) !important;
+  opacity: 0;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+.cui-carousel[cui-anim="zoom"] > *[carousel-item] > .cui-this {
+  transform: scale(1) !important;
+  opacity: 1;
+}
+
+.cui-carousel[cui-anim="zoom"] > *[carousel-item] > .cui-carousel-prev,
+.cui-carousel[cui-anim="zoom"] > *[carousel-item] > .cui-carousel-next {
+  transform: scale(0.8) !important;
+  opacity: 0;
+}
+
+.cui-carousel[cui-anim="zoom"] > *[carousel-item] > .cui-carousel-prev.cui-carousel-right,
+.cui-carousel[cui-anim="zoom"] > *[carousel-item] > .cui-carousel-next.cui-carousel-left {
+  transform: scale(1) !important;
+  opacity: 1;
+}
+
+.cui-carousel[cui-anim="zoom"] > *[carousel-item] > .cui-this.cui-carousel-left,
+.cui-carousel[cui-anim="zoom"] > *[carousel-item] > .cui-this.cui-carousel-right {
+  transform: scale(0.8) !important;
+  opacity: 0;
+}
+
+/* ========================================
+   슬라이드 페이드 (slidefade)
+======================================== */
+.cui-carousel[cui-anim="slidefade"] > *[carousel-item] > * {
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.cui-carousel[cui-anim="slidefade"] > *[carousel-item] > .cui-carousel-prev,
+.cui-carousel[cui-anim="slidefade"] > *[carousel-item] > .cui-carousel-next {
+  opacity: 0;
+}
+
+.cui-carousel[cui-anim="slidefade"] > *[carousel-item] > .cui-carousel-prev.cui-carousel-right,
+.cui-carousel[cui-anim="slidefade"] > *[carousel-item] > .cui-carousel-next.cui-carousel-left {
+  opacity: 1;
+}
+
+.cui-carousel[cui-anim="slidefade"] > *[carousel-item] > .cui-this.cui-carousel-left,
+.cui-carousel[cui-anim="slidefade"] > *[carousel-item] > .cui-this.cui-carousel-right {
+  opacity: 0;
+}
+
+/* ========================================
+   스케일 슬라이드 (scale)
+======================================== */
+.cui-carousel[cui-anim="scale"] > *[carousel-item] > * {
+  transform: translateX(0) scale(0.9) !important;
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.cui-carousel[cui-anim="scale"] > *[carousel-item] > .cui-this {
+  transform: translateX(0) scale(1) !important;
+  opacity: 1;
+}
+
+.cui-carousel[cui-anim="scale"] > *[carousel-item] > .cui-carousel-prev {
+  transform: translateX(-30%) scale(0.9) !important;
+}
+
+.cui-carousel[cui-anim="scale"] > *[carousel-item] > .cui-carousel-next {
+  transform: translateX(30%) scale(0.9) !important;
+}
+
+.cui-carousel[cui-anim="scale"] > *[carousel-item] > .cui-carousel-prev.cui-carousel-right,
+.cui-carousel[cui-anim="scale"] > *[carousel-item] > .cui-carousel-next.cui-carousel-left {
+  transform: translateX(0) scale(1) !important;
+  opacity: 1;
+}
+
+.cui-carousel[cui-anim="scale"] > *[carousel-item] > .cui-this.cui-carousel-left {
+  transform: translateX(-30%) scale(0.9) !important;
+  opacity: 0;
+}
+
+.cui-carousel[cui-anim="scale"] > *[carousel-item] > .cui-this.cui-carousel-right {
+  transform: translateX(30%) scale(0.9) !important;
+  opacity: 0;
+}
+
+/* ========================================
+   슬라이드 내부 컨텐츠 스타일
+======================================== */
+
+/* 슬라이드 제목 */
+.cui-carousel-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin-bottom: 12px;
+}
+
+/* 슬라이드 설명 */
+.cui-carousel-desc {
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+/* 슬라이드 버튼 그룹 */
+.cui-carousel-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* 슬라이드 버튼 */
+.cui-carousel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.cui-carousel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* 주요 버튼 */
+.cui-carousel-btn-primary {
+  background-color: #16b777;
+  border-color: #16b777;
+}
+
+.cui-carousel-btn-primary:hover {
+  background-color: #129462;
+  border-color: #129462;
+}
+
+/* 보조 버튼 */
+.cui-carousel-btn-outline {
+  background-color: transparent;
+  border-color: #fff;
+}
+
+.cui-carousel-btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 슬라이드 캡션 (하단) */
+.cui-carousel-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  padding: 15px 20px;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+}
+
+/* 슬라이드 오버레이 */
+.cui-carousel-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* 슬라이드 컨텐츠 중앙 정렬 */
+.cui-carousel-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+}
+
+/* ========================================
+   썸네일 캐러셀
+======================================== */
+
+/* 썸네일 컨테이너 */
+.cui-carousel-thumbs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 15px;
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+/* 썸네일 아이템 */
+.cui-carousel-thumb {
+  width: 80px;
+  height: 50px;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.cui-carousel-thumb:hover {
+  opacity: 0.9;
+}
+
+.cui-carousel-thumb.cui-this {
+  opacity: 1;
+  border-color: var(--cui-primary, #16b777);
+}
+
+.cui-carousel-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 썸네일 - 세로 배치 */
+.cui-carousel-thumbs-vertical {
+  flex-direction: column;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-top: 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.cui-carousel-thumbs-vertical .cui-carousel-thumb {
+  width: 60px;
+  height: 40px;
+}
+
+/* 썸네일 - 하단 오버레이 */
+.cui-carousel-thumbs-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-top: 0;
+  padding: 15px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  border-radius: 0;
+}
+
+/* 미니 썸네일 */
+.cui-carousel-thumb-mini {
+  width: 50px;
+  height: 35px;
+}
+
+/* 라지 썸네일 */
+.cui-carousel-thumb-lg {
+  width: 120px;
+  height: 75px;
+}
+
+/* 썸네일 - 숫자 표시 */
+.cui-carousel-thumb-num {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 50%;
+}
+
+.cui-carousel-thumb-num.cui-this {
+  background: var(--cui-primary, #16b777);
+}

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>element 요소 테스트</title>
+  <link rel="stylesheet" href="../catui.css">
+  <style>
+    body { padding: 20px; background: #f5f5f5; }
+    .test-result { padding: 10px; margin: 10px 0; background: #fafafa; border-radius: 4px; }
+    .test-pass { color: #16b777; }
+    section { margin-bottom: 30px; background: #fff; padding: 20px; border-radius: 8px; }
+    h3 { margin-top: 0; margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+  <h2>element 요소 테스트</h2>
+
+  <!-- 브레드크럼 -->
+  <section>
+    <h3>브레드크럼 (Breadcrumb)</h3>
+    <div class="cui-breadcrumb">
+      <a href="#">홈</a>
+      <a href="#">카테고리</a>
+      <a href="#">서브 카테고리</a>
+      <span>현재 페이지</span>
+    </div>
+    <br>
+    <div class="cui-breadcrumb" cui-separator=">">
+      <a href="#">홈</a>
+      <a href="#">목록</a>
+      <span>상세</span>
+    </div>
+  </section>
+
+  <!-- 탭 -->
+  <section>
+    <h3>탭 (Tab)</h3>
+    <div class="cui-tab" cui-filter="testTab">
+      <ul class="cui-tab-title">
+        <li class="cui-this" cui-id="tab1">탭 1</li>
+        <li cui-id="tab2">탭 2</li>
+        <li cui-id="tab3">탭 3</li>
+      </ul>
+      <div class="cui-tab-content">
+        <div class="cui-tab-item cui-show">탭 1 내용입니다.</div>
+        <div class="cui-tab-item">탭 2 내용입니다.</div>
+        <div class="cui-tab-item">탭 3 내용입니다.</div>
+      </div>
+    </div>
+    <div id="tabResult" class="test-result">탭 선택 결과</div>
+  </section>
+
+  <!-- 닫기 버튼 탭 -->
+  <section>
+    <h3>탭 - 닫기 버튼 (cui-allowClose)</h3>
+    <div class="cui-tab" cui-filter="closeTab" cui-allowClose>
+      <ul class="cui-tab-title">
+        <li class="cui-this" cui-id="c1">문서 1</li>
+        <li cui-id="c2">문서 2</li>
+        <li cui-id="c3">문서 3</li>
+        <li cui-id="c4">문서 4</li>
+      </ul>
+      <div class="cui-tab-content">
+        <div class="cui-tab-item cui-show">문서 1 내용</div>
+        <div class="cui-tab-item">문서 2 내용</div>
+        <div class="cui-tab-item">문서 3 내용</div>
+        <div class="cui-tab-item">문서 4 내용</div>
+      </div>
+    </div>
+    <button class="cui-btn cui-btn-sm" id="addTabBtn">탭 추가</button>
+  </section>
+
+  <!-- 프로그레스 -->
+  <section>
+    <h3>프로그레스 바</h3>
+    <div class="cui-progress" cui-filter="testProgress">
+      <div class="cui-progress-bar" style="width: 30%;" cui-percent="30%">
+        <span class="cui-progress-text">30%</span>
+      </div>
+    </div>
+    <br>
+    <button class="cui-btn cui-btn-primary" id="progressBtn">50%로 변경</button>
+    <button class="cui-btn cui-btn-success" id="progressBtn2">80%로 변경</button>
+  </section>
+
+  
+  <!-- 네비게이션 -->
+  <section>
+    <h3>네비게이션 (가로)</h3>
+    <ul class="cui-nav" cui-filter="testNav">
+      <li class="cui-nav-item cui-this"><a href="javascript:;">홈</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">소개</a></li>
+      <li class="cui-nav-item">
+        <a href="javascript:;">서비스</a>
+        <dl class="cui-nav-child">
+          <dd><a href="javascript:;">웹 개발</a></dd>
+          <dd><a href="javascript:;">앱 개발</a></dd>
+          <dd><a href="javascript:;">컨설팅</a></dd>
+        </dl>
+      </li>
+      <li class="cui-nav-item"><a href="javascript:;">연락처</a></li>
+    </ul>
+  </section>
+
+  <!-- 수직 네비게이션 -->
+  <section>
+    <h3>네비게이션 (수직, 아코디언)</h3>
+    <div style="width: 200px;">
+      <ul class="cui-nav cui-nav-tree" cui-filter="treeNav" cui-shrink="all">
+        <li class="cui-nav-item cui-this"><a href="javascript:;">대시보드</a></li>
+        <li class="cui-nav-item">
+          <a href="javascript:;">사용자 관리</a>
+          <dl class="cui-nav-child">
+            <dd><a href="javascript:;">사용자 목록</a></dd>
+            <dd><a href="javascript:;">권한 설정</a></dd>
+          </dl>
+        </li>
+        <li class="cui-nav-item">
+          <a href="javascript:;">콘텐츠 관리</a>
+          <dl class="cui-nav-child">
+            <dd><a href="javascript:;">게시물</a></dd>
+            <dd><a href="javascript:;">댓글</a></dd>
+            <dd><a href="javascript:;">카테고리</a></dd>
+          </dl>
+        </li>
+        <li class="cui-nav-item"><a href="javascript:;">설정</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 타임라인 -->
+  <section>
+    <h3>타임라인 (Timeline)</h3>
+    <ul class="cui-timeline">
+      <li class="cui-timeline-item">
+        <div class="cui-timeline-dot"></div>
+        <div class="cui-timeline-title">프로젝트 시작</div>
+        <div class="cui-timeline-content">2024-01-01 프로젝트가 시작되었습니다.</div>
+      </li>
+      <li class="cui-timeline-item">
+        <div class="cui-timeline-dot cui-timeline-dot-success"></div>
+        <div class="cui-timeline-title">개발 완료</div>
+        <div class="cui-timeline-content">2024-03-15 모든 기능 개발이 완료되었습니다.</div>
+      </li>
+      <li class="cui-timeline-item">
+        <div class="cui-timeline-dot cui-timeline-dot-warning"></div>
+        <div class="cui-timeline-title">테스트 진행</div>
+        <div class="cui-timeline-content">2024-03-20 QA 테스트가 진행 중입니다.</div>
+      </li>
+      <li class="cui-timeline-item">
+        <div class="cui-timeline-dot cui-timeline-dot-danger"></div>
+        <div class="cui-timeline-title">출시 예정</div>
+        <div class="cui-timeline-content">2024-04-01 정식 출시 예정입니다.</div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 뱃지 -->
+  <section>
+    <h3>뱃지 (Badge)</h3>
+    <span class="cui-badge">5</span>
+    <span class="cui-badge">99+</span>
+    <span class="cui-badge cui-badge-primary">New</span>
+    <span class="cui-badge cui-badge-success">OK</span>
+    <span class="cui-badge cui-badge-warning">!</span>
+    <br><br>
+    <span>알림 <span class="cui-badge-dot"></span></span>
+    &nbsp;&nbsp;
+    <span>메시지 <span class="cui-badge">3</span></span>
+  </section>
+
+  <!-- 카드 -->
+  <section>
+    <h3>카드 (Card)</h3>
+    <div style="display: flex; gap: 15px;">
+      <div class="cui-card" style="width: 250px;">
+        <div class="cui-card-header">카드 제목</div>
+        <div class="cui-card-body">카드 내용이 여기에 표시됩니다. 다양한 정보를 담을 수 있습니다.</div>
+        <div class="cui-card-footer">
+          <button class="cui-btn cui-btn-sm cui-btn-primary">확인</button>
+        </div>
+      </div>
+      <div class="cui-card" style="width: 250px;">
+        <div class="cui-card-header">다른 카드</div>
+        <div class="cui-card-body">또 다른 카드 예제입니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 접기/펼치기 -->
+  <section>
+    <h3>접기/펼치기 (Collapse)</h3>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 300px;">
+        <h4 style="margin: 0 0 10px; font-size: 14px; color: #666;">기본 스타일</h4>
+        <div class="cui-collapse" cui-filter="collapseDemo">
+          <div class="cui-collapse-item cui-collapse-opened">
+            <div class="cui-collapse-title">섹션 1 (기본 펼침)</div>
+            <div class="cui-collapse-content">첫 번째 섹션의 내용입니다. 기본적으로 펼쳐져 있습니다.</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">섹션 2</div>
+            <div class="cui-collapse-content">두 번째 섹션의 내용입니다.</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">섹션 3</div>
+            <div class="cui-collapse-content">세 번째 섹션의 내용입니다.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="flex: 1; min-width: 300px;">
+        <h4 style="margin: 0 0 10px; font-size: 14px; color: #666;">카드 스타일 (cui-collapse-card)</h4>
+        <div class="cui-collapse cui-collapse-card" cui-filter="collapseCard">
+          <div class="cui-collapse-item cui-collapse-opened">
+            <div class="cui-collapse-title">FAQ 1</div>
+            <div class="cui-collapse-content">자주 묻는 질문에 대한 답변입니다.</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">FAQ 2</div>
+            <div class="cui-collapse-content">두 번째 질문에 대한 답변입니다.</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">FAQ 3</div>
+            <div class="cui-collapse-content">세 번째 질문에 대한 답변입니다.</div>
+          </div>
+        </div>
+      </div>
+      
+      <div style="flex: 1; min-width: 300px;">
+        <h4 style="margin: 0 0 10px; font-size: 14px; color: #666;">심플 스타일 (cui-collapse-simple)</h4>
+        <div class="cui-collapse cui-collapse-simple" cui-filter="collapseSimple">
+          <div class="cui-collapse-item cui-collapse-opened">
+            <div class="cui-collapse-title">항목 1</div>
+            <div class="cui-collapse-content">테두리 없는 심플한 스타일입니다.</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">항목 2</div>
+            <div class="cui-collapse-content">깔끔한 디자인이 특징입니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="collapseResult" class="test-result">클릭하여 접기/펼치기</div>
+    
+    <h4 style="margin: 20px 0 10px; font-size: 14px; color: #666;">컬러 스킨</h4>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 200px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">Primary</p>
+        <div class="cui-collapse cui-collapse-primary" cui-filter="skinPrimary">
+          <div class="cui-collapse-item cui-collapse-opened">
+            <div class="cui-collapse-title">항목 1</div>
+            <div class="cui-collapse-content">Primary 스킨 내용</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">항목 2</div>
+            <div class="cui-collapse-content">내용 2</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 200px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">Success</p>
+        <div class="cui-collapse cui-collapse-success" cui-filter="skinSuccess">
+          <div class="cui-collapse-item cui-collapse-opened">
+            <div class="cui-collapse-title">항목 1</div>
+            <div class="cui-collapse-content">Success 스킨 내용</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">항목 2</div>
+            <div class="cui-collapse-content">내용 2</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 200px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">Danger</p>
+        <div class="cui-collapse cui-collapse-danger" cui-filter="skinDanger">
+          <div class="cui-collapse-item cui-collapse-opened">
+            <div class="cui-collapse-title">항목 1</div>
+            <div class="cui-collapse-content">Danger 스킨 내용</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">항목 2</div>
+            <div class="cui-collapse-content">내용 2</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 200px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">Dark</p>
+        <div class="cui-collapse cui-collapse-dark" cui-filter="skinDark">
+          <div class="cui-collapse-item cui-collapse-opened">
+            <div class="cui-collapse-title">항목 1</div>
+            <div class="cui-collapse-content">Dark 스킨 내용</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">항목 2</div>
+            <div class="cui-collapse-content">내용 2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <h4 style="margin: 20px 0 10px; font-size: 14px; color: #666;">특수 스킨</h4>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 250px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">Shadow (그림자)</p>
+        <div class="cui-collapse cui-collapse-shadow" cui-filter="skinShadow">
+          <div class="cui-collapse-item cui-collapse-opened">
+            <div class="cui-collapse-title">항목 1</div>
+            <div class="cui-collapse-content">그림자 효과</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">항목 2</div>
+            <div class="cui-collapse-content">내용 2</div>
+          </div>
+        </div>
+      </div>
+      <div style="flex: 1; min-width: 250px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">아이콘 왼쪽 (cui-collapse-icon-left)</p>
+        <div class="cui-collapse cui-collapse-icon-left" cui-filter="skinIconLeft">
+          <div class="cui-collapse-item cui-collapse-opened">
+            <div class="cui-collapse-title">항목 1</div>
+            <div class="cui-collapse-content">아이콘이 왼쪽에 있습니다</div>
+          </div>
+          <div class="cui-collapse-item">
+            <div class="cui-collapse-title">항목 2</div>
+            <div class="cui-collapse-content">내용 2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 네비게이션 스킨 -->
+  <section>
+    <h3>네비게이션 스킨 (Nav Skins)</h3>
+    
+    <h4 style="margin: 15px 0 10px; font-size: 14px; color: #666;">기본 (Default) - 서브메뉴 포함</h4>
+    <ul class="cui-nav">
+      <li class="cui-nav-item cui-this"><a href="javascript:;">홈</a></li>
+      <li class="cui-nav-item">
+        <a href="javascript:;">상품관리</a>
+        <dl class="cui-nav-child">
+          <dd><a href="javascript:;">상품 목록</a></dd>
+          <dd><a href="javascript:;">상품 등록</a></dd>
+          <dd><a href="javascript:;">카테고리 관리</a></dd>
+        </dl>
+      </li>
+      <li class="cui-nav-item">
+        <a href="javascript:;">주문관리</a>
+        <dl class="cui-nav-child">
+          <dd><a href="javascript:;">주문 목록</a></dd>
+          <dd><a href="javascript:;">배송 관리</a></dd>
+          <dd><a href="javascript:;">환불/취소</a></dd>
+        </dl>
+      </li>
+      <li class="cui-nav-item"><a href="javascript:;">설정</a></li>
+    </ul>
+    
+    <h4 style="margin: 15px 0 10px; font-size: 14px; color: #666;">다크 (cui-nav-dark) - 서브메뉴 포함</h4>
+    <ul class="cui-nav cui-nav-dark">
+      <li class="cui-nav-item cui-this"><a href="javascript:;">홈</a></li>
+      <li class="cui-nav-item">
+        <a href="javascript:;">사용자</a>
+        <dl class="cui-nav-child">
+          <dd><a href="javascript:;">사용자 목록</a></dd>
+          <dd><a href="javascript:;">권한 설정</a></dd>
+          <dd><a href="javascript:;">그룹 관리</a></dd>
+        </dl>
+      </li>
+      <li class="cui-nav-item">
+        <a href="javascript:;">게시판</a>
+        <dl class="cui-nav-child">
+          <dd><a href="javascript:;">공지사항</a></dd>
+          <dd><a href="javascript:;">자유게시판</a></dd>
+        </dl>
+      </li>
+      <li class="cui-nav-item"><a href="javascript:;">설정</a></li>
+    </ul>
+    
+    <h4 style="margin: 15px 0 10px; font-size: 14px; color: #666;">Primary (cui-nav-primary) - 서브메뉴 포함</h4>
+    <ul class="cui-nav cui-nav-primary">
+      <li class="cui-nav-item cui-this"><a href="javascript:;">대시보드</a></li>
+      <li class="cui-nav-item">
+        <a href="javascript:;">분석</a>
+        <dl class="cui-nav-child">
+          <dd><a href="javascript:;">방문자 통계</a></dd>
+          <dd><a href="javascript:;">매출 분석</a></dd>
+          <dd><a href="javascript:;">사용자 행동 분석</a></dd>
+        </dl>
+      </li>
+      <li class="cui-nav-item"><a href="javascript:;">리포트</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">설정</a></li>
+    </ul>
+    
+    <h4 style="margin: 15px 0 10px; font-size: 14px; color: #666;">주메뉴/서브메뉴 너비 옵션</h4>
+    <p style="font-size: 12px; color: #999; margin-bottom: 10px;">cui-nav-fill: 균등 분배 | cui-nav-justified: 내용 기준 균등 | cui-nav-match: 서브메뉴 부모 너비 맞춤</p>
+    
+    <div style="margin-bottom: 15px;">
+      <strong style="font-size: 13px;">cui-nav-fill (균등 분배)</strong>
+      <ul class="cui-nav cui-nav-fill cui-nav-inverse" style="margin-top: 5px; width: 100%;">
+        <li class="cui-nav-item cui-this"><a href="javascript:;">홈</a></li>
+        <li class="cui-nav-item"><a href="javascript:;">상품</a></li>
+        <li class="cui-nav-item"><a href="javascript:;">주문</a></li>
+        <li class="cui-nav-item"><a href="javascript:;">고객</a></li>
+        <li class="cui-nav-item"><a href="javascript:;">설정</a></li>
+      </ul>
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+      <strong style="font-size: 13px;">cui-nav-fill + cui-nav-match (균등 분배 + 서브메뉴 맞춤)</strong>
+      <ul class="cui-nav cui-nav-fill cui-nav-match cui-nav-primary" style="margin-top: 5px; width: 100%;">
+        <li class="cui-nav-item cui-this"><a href="javascript:;">홈</a></li>
+        <li class="cui-nav-item">
+          <a href="javascript:;">상품관리</a>
+          <dl class="cui-nav-child">
+            <dd><a href="javascript:;">상품 목록</a></dd>
+            <dd><a href="javascript:;">상품 등록</a></dd>
+          </dl>
+        </li>
+        <li class="cui-nav-item">
+          <a href="javascript:;">주문</a>
+          <dl class="cui-nav-child">
+            <dd><a href="javascript:;">주문 목록</a></dd>
+            <dd><a href="javascript:;">배송 관리</a></dd>
+          </dl>
+        </li>
+        <li class="cui-nav-item"><a href="javascript:;">설정</a></li>
+      </ul>
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+      <strong style="font-size: 13px;">cui-nav-match (서브메뉴만 부모 너비에 맞춤)</strong>
+      <ul class="cui-nav cui-nav-match" style="margin-top: 5px;">
+        <li class="cui-nav-item"><a href="javascript:;">홈</a></li>
+        <li class="cui-nav-item">
+          <a href="javascript:;">상품관리메뉴</a>
+          <dl class="cui-nav-child">
+            <dd><a href="javascript:;">목록</a></dd>
+            <dd><a href="javascript:;">등록</a></dd>
+          </dl>
+        </li>
+        <li class="cui-nav-item">
+          <a href="javascript:;">짧은</a>
+          <dl class="cui-nav-child">
+            <dd><a href="javascript:;">A</a></dd>
+            <dd><a href="javascript:;">B</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+    
+    <div style="margin-bottom: 15px;">
+      <strong style="font-size: 13px;">cui-nav-fluid (전체 너비)</strong>
+      <ul class="cui-nav cui-nav-fluid cui-nav-inverse" style="margin-top: 5px; width: 400px;">
+        <li class="cui-nav-item"><a href="javascript:;">홈</a></li>
+        <li class="cui-nav-item">
+          <a href="javascript:;">메뉴</a>
+          <dl class="cui-nav-child">
+            <dd><a href="javascript:;">서브 1</a></dd>
+            <dd><a href="javascript:;">서브 2</a></dd>
+            <dd><a href="javascript:;">서브 3</a></dd>
+          </dl>
+        </li>
+        <li class="cui-nav-item"><a href="javascript:;">설정</a></li>
+      </ul>
+    </div>
+    
+    <h4 style="margin: 15px 0 10px; font-size: 14px; color: #666;">Success (cui-nav-success)</h4>
+    <ul class="cui-nav cui-nav-success">
+      <li class="cui-nav-item cui-this"><a href="javascript:;">홈</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 1</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 2</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 3</a></li>
+    </ul>
+    
+    <h4 style="margin: 15px 0 10px; font-size: 14px; color: #666;">Danger (cui-nav-danger)</h4>
+    <ul class="cui-nav cui-nav-danger">
+      <li class="cui-nav-item cui-this"><a href="javascript:;">홈</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 1</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 2</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 3</a></li>
+    </ul>
+    
+    <h4 style="margin: 15px 0 10px; font-size: 14px; color: #666;">Warning (cui-nav-warning)</h4>
+    <ul class="cui-nav cui-nav-warning">
+      <li class="cui-nav-item cui-this"><a href="javascript:;">홈</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 1</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 2</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 3</a></li>
+    </ul>
+    
+    <h4 style="margin: 15px 0 10px; font-size: 14px; color: #666;">Inverse (cui-nav-inverse)</h4>
+    <ul class="cui-nav cui-nav-inverse">
+      <li class="cui-nav-item cui-this"><a href="javascript:;">홈</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 1</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 2</a></li>
+      <li class="cui-nav-item"><a href="javascript:;">메뉴 3</a></li>
+    </ul>
+  </section>
+
+  <!-- Cui Menu -->
+  <section>
+    <h3>Cui Menu (새 수직 메뉴)</h3>
+    <p style="color: #666; margin-bottom: 15px;">cui-menu는 cui-nav-tree를 대체하는 새로운 수직 메뉴 컴포넌트입니다.</p>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <!-- 기본 (클릭 모드) -->
+      <div style="width: 240px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">클릭 모드 (기본)</p>
+        <ul class="cui-menu" cui-filter="menu1">
+          <li class="cui-menu-item cui-menu-active"><a href="javascript:;"><i class="cui-icon">dashboard</i> 대시보드</a></li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">shopping_cart</i> 주문관리</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">list_alt</i> 주문 목록</a></li>
+              <li class="cui-menu-item">
+                <a href="javascript:;"><i class="cui-icon">local_shipping</i> 배송 관리</a>
+                <ul class="cui-menu-sub">
+                  <li class="cui-menu-item"><a href="javascript:;">국내 배송</a></li>
+                  <li class="cui-menu-item"><a href="javascript:;">해외 배송</a></li>
+                  <li class="cui-menu-item"><a href="javascript:;">배송 추적</a></li>
+                </ul>
+              </li>
+              <li class="cui-menu-item">
+                <a href="javascript:;"><i class="cui-icon">undo</i> 환불/취소</a>
+                <ul class="cui-menu-sub">
+                  <li class="cui-menu-item"><a href="javascript:;">환불 신청</a></li>
+                  <li class="cui-menu-item"><a href="javascript:;">취소 내역</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">inventory</i> 상품관리</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">view_list</i> 상품 목록</a></li>
+              <li class="cui-menu-item">
+                <a href="javascript:;"><i class="cui-icon">category</i> 카테고리</a>
+                <ul class="cui-menu-sub">
+                  <li class="cui-menu-item"><a href="javascript:;">대분류</a></li>
+                  <li class="cui-menu-item"><a href="javascript:;">중분류</a></li>
+                  <li class="cui-menu-item"><a href="javascript:;">소분류</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></li>
+        </ul>
+      </div>
+
+      <!-- 호버 모드 -->
+      <div style="width: 220px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">호버 모드 (cui-trigger="hover")</p>
+        <ul class="cui-menu" cui-filter="menu2" cui-trigger="hover">
+          <li class="cui-menu-item cui-menu-active"><a href="javascript:;"><i class="cui-icon">home</i> 홈</a></li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴 1</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">서브 1-1</a></li>
+              <li class="cui-menu-item">
+                <a href="javascript:;">서브 1-2 (3단)</a>
+                <ul class="cui-menu-sub">
+                  <li class="cui-menu-item"><a href="javascript:;">3단 A</a></li>
+                  <li class="cui-menu-item"><a href="javascript:;">3단 B</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴 2</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">서브 2-1</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">서브 2-2</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></li>
+        </ul>
+      </div>
+
+      <!-- 다크 스킨 -->
+      <div style="width: 200px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">다크 스킨</p>
+        <ul class="cui-menu cui-menu-dark" cui-filter="menu3" cui-accordion>
+          <li class="cui-menu-item cui-menu-active"><a href="javascript:;"><i class="cui-icon">home</i> 홈</a></li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">article</i> 서브 1</a></li>
+              <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">description</i> 서브 2</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></li>
+        </ul>
+      </div>
+
+      <!-- Primary 스킨 -->
+      <div style="width: 200px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">Primary 스킨 (아코디언)</p>
+        <ul class="cui-menu cui-menu-primary" cui-filter="menu4" cui-accordion>
+          <li class="cui-menu-item cui-menu-active"><a href="javascript:;"><i class="cui-icon">home</i> 홈</a></li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">서브 1</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">서브 2</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin: 20px 0 10px;">동작 옵션</h4>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <!-- 아코디언 모드 -->
+      <div style="width: 220px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">아코디언 모드 (cui-accordion)</p>
+        <ul class="cui-menu" cui-filter="menuAccordion" cui-accordion>
+          <li class="cui-menu-item cui-menu-active"><a href="javascript:;"><i class="cui-icon">home</i> 홈</a></li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴 1</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">서브 1-1</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">서브 1-2</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">서브 1-3</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴 2</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">서브 2-1</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">서브 2-2</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴 3</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">서브 3-1</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">서브 3-2</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></li>
+        </ul>
+      </div>
+
+      <!-- 호버 + 아코디언 -->
+      <div style="width: 220px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">호버 + 아코디언</p>
+        <ul class="cui-menu" cui-filter="menuHoverAccordion" cui-trigger="hover" cui-accordion>
+          <li class="cui-menu-item cui-menu-active"><a href="javascript:;"><i class="cui-icon">home</i> 홈</a></li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴 1</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">서브 1-1</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">서브 1-2</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴 2</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">서브 2-1</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">서브 2-2</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <h4 style="margin: 20px 0 10px;">스타일 옵션</h4>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <!-- 컴팩트 모드 -->
+      <div style="width: 180px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">컴팩트 (cui-menu-compact)</p>
+        <ul class="cui-menu cui-menu-compact" cui-filter="menu5">
+          <li class="cui-menu-item cui-menu-active"><a href="javascript:;"><i class="cui-icon">home</i> 홈</a></li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">list</i> 목록</a></li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></li>
+        </ul>
+      </div>
+
+      <!-- 둥근 모서리 -->
+      <div style="width: 200px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">둥근 모서리 (cui-menu-rounded)</p>
+        <ul class="cui-menu cui-menu-rounded cui-menu-borderless" cui-filter="menu6">
+          <li class="cui-menu-item cui-menu-active"><a href="javascript:;"><i class="cui-icon">home</i> 홈</a></li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">analytics</i> 분석</a></li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">logout</i> 로그아웃</a></li>
+        </ul>
+      </div>
+
+      <!-- Success 스킨 -->
+      <div style="width: 200px;">
+        <p style="margin: 0 0 5px; font-size: 12px; color: #999;">Success 스킨 (cui-menu-success)</p>
+        <ul class="cui-menu cui-menu-success" cui-filter="menu7">
+          <li class="cui-menu-item cui-menu-active"><a href="javascript:;"><i class="cui-icon">home</i> 홈</a></li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">folder</i> 메뉴</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">서브 1</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">서브 2</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item"><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div id="menuResult" style="margin-top: 15px; padding: 10px; background: #f5f5f5; border-radius: 4px;"></div>
+  </section>
+
+  <script src="../catui.js"></script>
+  <script>
+    Catui.use(['$c', 'element', 'dropdown'], function(){
+      // 요소 렌더링
+      element.render();
+      
+      // Menu 이벤트 등록 (initMenu 전에!)
+      dropdown.on('menu(menu1)', function(data){
+        console.log('메뉴 클릭:', data);
+        $c('#menuResult').html('<span class="test-pass">✓ 메뉴 클릭:</span> ' + data.title);
+      });
+      
+      // 메뉴 초기화
+      dropdown.initMenu();
+      
+      // 탭 이벤트
+      element.on('tab(testTab)', function(data){
+        $c('#tabResult').html('<span class="test-pass">✓ 탭 선택:</span> index=' + data.index + ', id=' + data.id);
+      });
+
+      // 탭 추가 버튼
+      var tabIdx = 5;
+      $c('#addTabBtn').on('click', function(){
+        element.tabAdd('closeTab', {
+          id: 'new' + tabIdx,
+          title: '새 탭 ' + tabIdx,
+          content: '새 탭 ' + tabIdx + ' 내용'
+        });
+        tabIdx++;
+        element.render(); // 닫기 버튼 재렌더링
+      });
+
+      // 프로그레스 변경
+      $c('#progressBtn').on('click', function(){
+        element.progress('testProgress', '50%');
+      });
+      $c('#progressBtn2').on('click', function(){
+        element.progress('testProgress', '80%');
+      });
+
+      // Collapse 이벤트 (element.js의 initCollapse가 처리)
+      element.on('collapse(collapseDemo)', function(data){
+        var isOpened = data.show;
+        $c('#collapseResult').html('<span class="test-pass">✓ Collapse ' + (isOpened ? '펼침' : '접힘') + '</span>');
+      });
+    });
+  </script>
+</body>
+</html>

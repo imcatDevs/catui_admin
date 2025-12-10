@@ -1,0 +1,166 @@
+/**
+ * Catui - Transfer
+ */
+
+/* 컨테이너 */
+.cui-transfer {
+  display: flex;
+  align-items: stretch;
+}
+
+/* 패널 */
+.cui-transfer-panel {
+  border: 1px solid var(--cui-border, #e6e6e6);
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* 헤더 */
+.cui-transfer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  background: #fafafa;
+  border-bottom: 1px solid var(--cui-border, #e6e6e6);
+}
+
+.cui-transfer-checkbox-wrap {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cui-transfer-checkbox-all {
+  margin-right: 8px;
+}
+
+.cui-transfer-title {
+  font-weight: 500;
+}
+
+.cui-transfer-count {
+  font-size: 12px;
+  color: #999;
+}
+
+.cui-transfer-checked-count {
+  color: #16b777;
+  font-weight: 500;
+}
+
+/* 검색 */
+.cui-transfer-search {
+  position: relative;
+  padding: 10px;
+  border-bottom: 1px solid var(--cui-border, #e6e6e6);
+}
+
+.cui-transfer-search input {
+  width: 100%;
+  padding-right: 30px;
+}
+
+.cui-transfer-search .cui-icon {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--cui-text-secondary);
+}
+
+/* 목록 */
+.cui-transfer-list {
+  overflow-y: auto;
+}
+
+.cui-transfer-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cui-transfer-item {
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cui-transfer-item:hover {
+  background: #f5f5f5;
+}
+
+.cui-transfer-item label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cui-transfer-checkbox {
+  margin-right: 8px;
+}
+
+.cui-transfer-item-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cui-transfer-item-disabled label {
+  cursor: not-allowed;
+}
+
+/* 빈 상태 */
+.cui-transfer-empty {
+  padding: 30px;
+  text-align: center;
+  color: var(--cui-text-secondary);
+}
+
+/* 버튼 영역 */
+.cui-transfer-buttons {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: flex-end;
+  align-content: center;
+  flex-wrap: nowrap;
+  gap: 8px;
+  padding: 0 15px;
+  align-self: center;
+}
+
+.cui-transfer-buttons .cui-btn {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background-color: #fff;
+  border: 1px solid var(--cui-border, #e6e6e6);
+  color: var(--cui-text, #333);
+  transition: all 0.2s ease;
+}
+
+.cui-transfer-buttons .cui-btn:hover:not(:disabled) {
+  background-color: var(--cui-primary, #16b777);
+  border-color: var(--cui-primary, #16b777);
+  color: #fff;
+}
+
+.cui-transfer-buttons .cui-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: #f5f5f5;
+}
+
+.cui-transfer-buttons .cui-btn .cui-icon {
+  font-size: 16px;
+  line-height: 1;
+  display: block;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+}

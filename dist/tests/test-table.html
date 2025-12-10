@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Table 테스트 - Catui</title>
+  <link rel="stylesheet" href="../catui.css">
+  <style>
+    .test-section { padding: 20px; margin-bottom: 20px; background: #fff; border-radius: 8px; }
+    .test-section h3 { margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+  </style>
+</head>
+<body style="padding: 20px; background: #f5f5f5;">
+  <h2>Table 데이터 테이블 테스트</h2>
+
+  <div class="test-section">
+    <h3>기본 테이블</h3>
+    <div id="table1"></div>
+  </div>
+
+  <div class="test-section">
+    <h3>체크박스 & 페이지네이션</h3>
+    <div id="table2"></div>
+    <div style="margin-top: 10px;">
+      <button class="cui-btn cui-btn-sm" onclick="getChecked()">선택된 항목 확인</button>
+    </div>
+  </div>
+
+  <div class="test-section">
+    <h3>툴바 & 정렬</h3>
+    <script type="text/html" id="toolbarTpl">
+      <div class="cui-btn-group">
+        <button class="cui-btn cui-btn-sm cui-btn-primary">
+          <i class="cui-icon">add</i> 추가
+        </button>
+        <button class="cui-btn cui-btn-sm cui-btn-danger">
+          <i class="cui-icon">delete</i> 삭제
+        </button>
+      </div>
+    </script>
+    <div id="table3"></div>
+  </div>
+
+  <div class="test-section">
+    <h3>HTML 테이블 → Catui 테이블 변환</h3>
+    <p style="color:#666;margin-bottom:15px;">일반 HTML 테이블에 <code>cui-filter</code> 속성을 추가하면 자동으로 Catui 테이블로 변환됩니다.</p>
+    
+    <table cui-filter="htmlTable">
+      <thead>
+        <tr>
+          <th cui-data="{field:'product', width:120}">상품명</th>
+          <th cui-data="{field:'price', width:100, sort:true}">가격</th>
+          <th cui-data="{field:'stock', width:80, sort:true}">재고</th>
+          <th cui-data="{field:'category'}">카테고리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>노트북</td><td>1,200,000</td><td>25</td><td>전자제품</td></tr>
+        <tr><td>마우스</td><td>35,000</td><td>150</td><td>주변기기</td></tr>
+        <tr><td>키보드</td><td>89,000</td><td>80</td><td>주변기기</td></tr>
+        <tr><td>모니터</td><td>450,000</td><td>30</td><td>전자제품</td></tr>
+        <tr><td>헤드셋</td><td>120,000</td><td>45</td><td>주변기기</td></tr>
+        <tr><td>USB 허브</td><td>25,000</td><td>200</td><td>주변기기</td></tr>
+        <tr><td>외장하드</td><td>95,000</td><td>60</td><td>저장장치</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="../catui.js"></script>
+  <script>
+    // 샘플 데이터
+    var sampleData = [
+      { id: 1, username: 'admin', email: 'admin@example.com', role: '관리자', status: '활성', joinDate: '2024-01-15' },
+      { id: 2, username: 'user1', email: 'user1@example.com', role: '사용자', status: '활성', joinDate: '2024-02-20' },
+      { id: 3, username: 'user2', email: 'user2@example.com', role: '사용자', status: '비활성', joinDate: '2024-03-10' },
+      { id: 4, username: 'editor', email: 'editor@example.com', role: '편집자', status: '활성', joinDate: '2024-04-05' },
+      { id: 5, username: 'guest', email: 'guest@example.com', role: '게스트', status: '활성', joinDate: '2024-05-12' },
+      { id: 6, username: 'test1', email: 'test1@example.com', role: '사용자', status: '활성', joinDate: '2024-06-01' },
+      { id: 7, username: 'test2', email: 'test2@example.com', role: '사용자', status: '비활성', joinDate: '2024-06-15' },
+      { id: 8, username: 'manager', email: 'manager@example.com', role: '매니저', status: '활성', joinDate: '2024-07-01' }
+    ];
+
+    Catui.use(['$c', 'table', 'popup', 'page', 'form'], function(){
+      var table = Catui.table;
+      var popup = Catui.popup;
+      var page = Catui.page;
+      var form = Catui.form;
+
+      // 기본 테이블 (페이지 없음 + 하단 버튼)
+      table.render({
+        elem: '#table1',
+        id: 'basicTable',
+        cols: [[
+          { field: 'id', title: 'ID', width: 80 },
+          { field: 'username', title: '사용자명', width: 120 },
+          { field: 'email', title: '이메일' },
+          { field: 'role', title: '역할', width: 100 },
+          { field: 'status', title: '상태', width: 80, templet: function(d){
+            return d.status === '활성' 
+              ? '<span style="color: green;">활성</span>' 
+              : '<span style="color: #999;">비활성</span>';
+          }}
+        ]],
+        data: sampleData.slice(0, 5),
+        page: false,
+        pageBtns: [
+          { text: '새로고침', callback: function(){ popup.msg('새로고침'); }},
+          { text: '엑셀 다운로드', class: 'cui-btn-normal', callback: function(){ popup.msg('엑셀 다운로드'); }}
+        ]
+      });
+
+      // 체크박스 & 페이지네이션
+      table.render({
+        elem: '#table2',
+        id: 'checkTable',
+        cols: [[
+          { type: 'checkbox', width: 50 },
+          { type: 'numbers', title: '#', width: 60 },
+          { field: 'username', title: '사용자명', width: 120 },
+          { field: 'email', title: '이메일' },
+          { field: 'joinDate', title: '가입일', width: 120 }
+        ]],
+        data: sampleData,
+        page: true,
+        limit: 5,
+        limits: [5, 10, 20, 30, 50],
+        pageBtns: [
+          { text: '선택 삭제', class: 'cui-btn-danger', callback: function(t){
+            var checked = table.checkStatus('checkTable');
+            popup.msg('선택된 항목: ' + checked.data.length + '개');
+          }},
+          { text: '전체 내보내기', callback: function(t){
+            var allData = sampleData;
+            popup.open({
+              title: '전체 데이터 (JSON)',
+              type: 1,
+              area: ['600px', '400px'],
+              content: '<pre style="padding:15px;margin:0;overflow:auto;height:100%;background:#f5f5f5;font-size:12px;">' + JSON.stringify(allData, null, 2) + '</pre>'
+            });
+          }}
+        ]
+      });
+
+      // 툴바 & 정렬 (JSON URL 사용)
+      table.render({
+        elem: '#table3',
+        id: 'sortTable',
+        url: '/tests/json/users.json',
+        toolbar: '#toolbarTpl',
+        defaultToolbar: ['filter', 'exports', 'print'],
+        cols: [[
+          { field: 'id', title: 'ID', width: 60, sort: true },
+          { field: 'username', title: '사용자명', width: 100, sort: true },
+          { field: 'email', title: '이메일' },
+          { field: 'role', title: '역할', width: 80 },
+          { field: 'status', title: '상태', width: 80 },
+          { field: 'joinDate', title: '가입일', width: 100, sort: true }
+        ]],
+        page: true,
+        limit: 10,
+        even: true,
+        done: function(res, curr, count){
+          console.log('테이블 로드 완료:', res);
+        }
+      });
+
+      // 행 클릭 이벤트 - 팝업으로 JSON 표시
+      table.on('row(sortTable)', function(obj){
+        console.log('행 클릭:', obj.data);
+        popup.open({
+          title: '행 데이터 (JSON)',
+          type: 1,
+          area: ['500px', '300px'],
+          content: '<pre style="padding:15px;margin:0;overflow:auto;height:100%;background:#f5f5f5;font-size:12px;">' + JSON.stringify(obj.data, null, 2) + '</pre>'
+        });
+      });
+    });
+
+    function getChecked(){
+      var checkStatus = Catui.table.checkStatus('checkTable');
+      console.log('선택된 항목:', checkStatus.data);
+      Catui.popup.msg('선택된 항목: ' + checkStatus.data.length + '개');
+    }
+  </script>
+</body>
+</html>

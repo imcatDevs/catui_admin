@@ -1,0 +1,22 @@
+{
+  "code": 0,
+  "msg": "success",
+  "count": 15,
+  "data": [
+    { "id": 1, "username": "admin", "email": "admin@example.com", "role": "관리자", "status": "활성", "joinDate": "2024-01-15" },
+    { "id": 2, "username": "user1", "email": "user1@example.com", "role": "사용자", "status": "활성", "joinDate": "2024-02-20" },
+    { "id": 3, "username": "user2", "email": "user2@example.com", "role": "사용자", "status": "비활성", "joinDate": "2024-03-10" },
+    { "id": 4, "username": "editor", "email": "editor@example.com", "role": "편집자", "status": "활성", "joinDate": "2024-04-05" },
+    { "id": 5, "username": "guest", "email": "guest@example.com", "role": "게스트", "status": "활성", "joinDate": "2024-05-12" },
+    { "id": 6, "username": "test1", "email": "test1@example.com", "role": "사용자", "status": "활성", "joinDate": "2024-06-01" },
+    { "id": 7, "username": "test2", "email": "test2@example.com", "role": "사용자", "status": "비활성", "joinDate": "2024-06-15" },
+    { "id": 8, "username": "manager", "email": "manager@example.com", "role": "매니저", "status": "활성", "joinDate": "2024-07-01" },
+    { "id": 9, "username": "dev1", "email": "dev1@example.com", "role": "개발자", "status": "활성", "joinDate": "2024-07-10" },
+    { "id": 10, "username": "dev2", "email": "dev2@example.com", "role": "개발자", "status": "활성", "joinDate": "2024-08-01" },
+    { "id": 11, "username": "designer", "email": "designer@example.com", "role": "디자이너", "status": "활성", "joinDate": "2024-08-15" },
+    { "id": 12, "username": "tester", "email": "tester@example.com", "role": "테스터", "status": "비활성", "joinDate": "2024-09-01" },
+    { "id": 13, "username": "support", "email": "support@example.com", "role": "지원", "status": "활성", "joinDate": "2024-09-20" },
+    { "id": 14, "username": "hr", "email": "hr@example.com", "role": "인사", "status": "활성", "joinDate": "2024-10-05" },
+    { "id": 15, "username": "finance", "email": "finance@example.com", "role": "재무", "status": "활성", "joinDate": "2024-10-15" }
+  ]
+}

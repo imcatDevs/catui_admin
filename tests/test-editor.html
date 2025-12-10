@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor 리치 에디터 테스트 - Catui</title>
+  <link rel="stylesheet" href="/dist/catui.css">
+  <style>
+    body { padding: 20px; background: #f0f2f5; }
+    .test-section { padding: 20px; margin-bottom: 20px; background: #fff; border-radius: 8px; }
+    .test-section h3 { margin: 0 0 15px; }
+    .control-panel { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .result-box { margin-top: 15px; padding: 15px; background: #f5f5f5; border-radius: 4px; font-size: 13px; max-height: 200px; overflow: auto; }
+    pre { white-space: pre-wrap; word-break: break-all; margin: 0; }
+  </style>
+</head>
+<body>
+  <h2>Editor 리치 에디터</h2>
+
+  <!-- 기본 에디터 -->
+  <div class="test-section">
+    <h3>기본 에디터</h3>
+    <textarea id="editor1" style="display: none;"><p>안녕하세요! <b>Catui Editor</b>입니다.</p><p>텍스트를 자유롭게 편집해보세요.</p></textarea>
+    <div class="control-panel">
+      <button class="cui-btn cui-btn-sm cui-btn-primary" onclick="getContent()">내용 가져오기</button>
+      <button class="cui-btn cui-btn-sm" onclick="getText()">텍스트만</button>
+      <button class="cui-btn cui-btn-sm" onclick="setContent()">내용 설정</button>
+    </div>
+    <div class="result-box" id="result1">
+      <pre>버튼을 클릭하면 결과가 여기에 표시됩니다.</pre>
+    </div>
+  </div>
+
+  <!-- 미니 에디터 -->
+  <div class="test-section">
+    <h3>미니 에디터</h3>
+    <textarea id="editor2"></textarea>
+  </div>
+
+  <!-- 전체 기능 에디터 -->
+  <div class="test-section">
+    <h3>전체 기능 에디터</h3>
+    <textarea id="editor3"></textarea>
+  </div>
+
+  <script src="/dist/catui.js"></script>
+  <script>
+    var editor1;
+
+    Catui.use(['$c', 'editor', 'popup'], function(){
+      var editor = Catui.editor;
+
+      // 기본 에디터
+      editor1 = editor.render({
+        elem: '#editor1',
+        height: 250,
+        placeholder: '내용을 입력하세요...'
+      });
+
+      // 미니 에디터
+      editor.render({
+        elem: '#editor2',
+        height: 150,
+        tool: ['bold', 'italic', 'underline', '|', 'link'],
+        placeholder: '간단한 텍스트를 입력하세요...'
+      });
+
+      // 전체 기능 에디터
+      editor.render({
+        elem: '#editor3',
+        height: 350,
+        tool: [
+          'bold', 'italic', 'underline', 'strikethrough', '|',
+          'left', 'center', 'right', '|',
+          'ul', 'ol', '|',
+          'link', 'unlink', 'image', 'hr', '|',
+          'undo', 'redo', '|',
+          'code', 'fullscreen'
+        ],
+        placeholder: '풍부한 콘텐츠를 작성하세요...'
+      });
+    });
+
+    function getContent(){
+      if(editor1){
+        var html = editor1.getContent();
+        document.getElementById('result1').innerHTML = '<pre>' + html.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</pre>';
+        Catui.popup.msg('HTML 내용 가져옴');
+      }
+    }
+
+    function getText(){
+      if(editor1){
+        var text = editor1.getText();
+        document.getElementById('result1').innerHTML = '<pre>' + text + '</pre>';
+        Catui.popup.msg('텍스트 내용 가져옴');
+      }
+    }
+
+    function setContent(){
+      if(editor1){
+        editor1.setContent('<h2>새로운 제목</h2><p>내용이 <strong>변경</strong>되었습니다!</p><ul><li>항목 1</li><li>항목 2</li></ul>');
+        Catui.popup.msg('내용 설정됨');
+      }
+    }
+  </script>
+</body>
+</html>

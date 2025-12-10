@@ -1,0 +1,177 @@
+/**
+ * Catui - Tree
+ */
+
+/* 트리 컨테이너 */
+.cui-tree {
+  font-size: var(--cui-font-size);
+  color: var(--cui-text-primary);
+}
+
+/* 트리 노드 */
+.cui-tree-set {
+  position: relative;
+}
+
+/* 노드 엔트리 */
+.cui-tree-entry {
+  position: relative;
+  padding: 5px 0;
+}
+
+/* 메인 영역 */
+.cui-tree-main {
+  display: flex;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: var(--cui-border-radius);
+  cursor: pointer;
+  transition: var(--cui-transition);
+}
+
+.cui-tree-main:hover {
+  background: var(--cui-bg-gray);
+}
+
+/* 펼침 아이콘 */
+.cui-tree-icon-click {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.cui-tree-icon-click .cui-icon {
+  font-size: 18px;
+  color: var(--cui-text-secondary);
+  transition: transform 0.2s;
+}
+
+.cui-tree-icon-leaf .cui-icon {
+  font-size: 16px;
+  color: var(--cui-text-secondary);
+}
+
+/* 체크박스 */
+.cui-tree-checkbox {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+/* 텍스트 */
+.cui-tree-txt {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cui-tree-txt a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.cui-tree-txt a:hover {
+  color: var(--cui-primary);
+}
+
+.cui-tree-txt.cui-tree-active {
+  color: var(--cui-primary);
+  font-weight: 500;
+}
+
+/* 자식 노드 컨테이너 */
+.cui-tree-pack {
+  display: none;
+  padding-left: 24px;
+}
+
+.cui-tree-pack.cui-show {
+  display: block;
+}
+
+/* 펼쳐진 상태 */
+.cui-tree-spread > .cui-tree-entry .cui-tree-icon-click .cui-icon {
+  color: var(--cui-primary);
+}
+
+/* 연결선 스타일 */
+.cui-tree-line .cui-tree-pack {
+  position: relative;
+  margin-left: 10px;
+  padding-left: 18px;
+  border-left: 1px solid var(--cui-border-color);
+}
+
+/* 가로선 - 각 노드 앞에 */
+.cui-tree-line .cui-tree-pack > .cui-tree-set > .cui-tree-entry::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: -18px;
+  width: 17px;
+  height: 1px;
+  background: var(--cui-border-color);
+}
+
+/* 마지막 노드 - 세로선 끊기 */
+.cui-tree-line .cui-tree-pack > .cui-tree-set:last-child {
+  position: relative;
+}
+
+.cui-tree-line .cui-tree-pack > .cui-tree-set:last-child::before {
+  content: '';
+  position: absolute;
+  top: 16px;
+  left: -19px;
+  width: 1px;
+  height: calc(100% - 16px);
+  background: inherit;
+  background-color: #fff;
+}
+
+/* 다크모드 마지막 노드 배경 */
+.tree-wrap-dark .cui-tree-line .cui-tree-pack > .cui-tree-set:last-child::before {
+  background-color: #2d2d2d;
+}
+
+/* 편집 버튼 */
+.cui-tree-edit {
+  display: none;
+  margin-left: auto;
+}
+
+.cui-tree-main:hover .cui-tree-edit {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cui-tree-edit .cui-icon {
+  font-size: 16px;
+  color: var(--cui-text-secondary);
+  cursor: pointer;
+  transition: var(--cui-transition);
+}
+
+.cui-tree-edit-add:hover {
+  color: var(--cui-success);
+}
+
+.cui-tree-edit-update:hover {
+  color: var(--cui-primary);
+}
+
+.cui-tree-edit-del:hover {
+  color: var(--cui-danger);
+}
+
+/* 빈 데이터 */
+.cui-tree-empty {
+  padding: 30px;
+  text-align: center;
+  color: var(--cui-text-secondary);
+}

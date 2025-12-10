@@ -1,0 +1,470 @@
+/* ========================================
+   Catui Theme - 테마 시스템
+   ======================================== */
+
+/* ========================================
+   다크 모드 전역 변수
+   ======================================== */
+body.cui-theme-dark,
+.cui-theme-dark,
+[data-theme="dark"] {
+  --cui-text-primary: rgba(255, 255, 255, 0.85);
+  --cui-text-secondary: rgba(255, 255, 255, 0.65);
+  --cui-text-tertiary: rgba(255, 255, 255, 0.45);
+  --cui-text-disabled: rgba(255, 255, 255, 0.25);
+  
+  --cui-bg-base: #141414;
+  --cui-bg-container: #1f1f1f;
+  --cui-bg-elevated: #262626;
+  --cui-bg-layout: #0a0a0a;
+  --cui-bg-gray: #262626;
+  --cui-bg-hover: rgba(255, 255, 255, 0.08);
+  --cui-bg-active: rgba(255, 255, 255, 0.12);
+  
+  --cui-border-color: #424242;
+  --cui-border-color-secondary: #303030;
+  
+  --cui-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --cui-shadow-md: 0 3px 6px rgba(0, 0, 0, 0.4);
+  --cui-shadow-lg: 0 6px 16px rgba(0, 0, 0, 0.5);
+  
+  background-color: var(--cui-bg-layout);
+  color: var(--cui-text-primary);
+}
+
+/* 다크 모드 기본 요소 */
+body.cui-theme-dark .cui-table {
+  background-color: var(--cui-bg-container);
+  color: var(--cui-text-secondary);
+}
+
+body.cui-theme-dark .cui-table th {
+  color: var(--cui-text-primary);
+  background-color: var(--cui-bg-elevated);
+}
+
+body.cui-theme-dark .cui-table thead tr,
+body.cui-theme-dark .cui-table tbody tr:hover {
+  background-color: var(--cui-bg-elevated);
+}
+
+body.cui-theme-dark .cui-card {
+  background: var(--cui-bg-container);
+  border-color: var(--cui-border-color-secondary);
+}
+
+body.cui-theme-dark .cui-card-header {
+  border-color: var(--cui-border-color-secondary);
+}
+
+body.cui-theme-dark .cui-card-footer {
+  background: var(--cui-bg-elevated);
+  border-color: var(--cui-border-color-secondary);
+}
+
+body.cui-theme-dark .cui-btn-default {
+  background: var(--cui-bg-container);
+  border-color: var(--cui-border-color);
+  color: var(--cui-text-primary);
+}
+
+body.cui-theme-dark .cui-btn-default:hover {
+  border-color: var(--cui-primary);
+  color: var(--cui-primary);
+}
+
+body.cui-theme-dark .cui-input {
+  background: var(--cui-bg-container);
+  border-color: var(--cui-border-color);
+  color: var(--cui-text-primary);
+}
+
+body.cui-theme-dark .cui-input:focus {
+  border-color: var(--cui-primary);
+}
+
+body.cui-theme-dark .cui-input::placeholder {
+  color: var(--cui-text-disabled);
+}
+
+body.cui-theme-dark .cui-tab-title {
+  border-color: var(--cui-border-color-secondary);
+}
+
+body.cui-theme-dark .cui-nav {
+  background: var(--cui-bg-container);
+  border-color: var(--cui-border-color-secondary);
+}
+
+body.cui-theme-dark .cui-nav-child {
+  background: var(--cui-bg-elevated);
+  border-color: var(--cui-border-color-secondary);
+}
+
+body.cui-theme-dark .cui-collapse {
+  border-color: var(--cui-border-color-secondary);
+}
+
+body.cui-theme-dark .cui-collapse-title {
+  background: var(--cui-bg-elevated);
+}
+
+body.cui-theme-dark .cui-popup {
+  background: var(--cui-bg-container);
+}
+
+body.cui-theme-dark .cui-popup-title {
+  background: var(--cui-bg-elevated);
+  border-color: var(--cui-border-color-secondary);
+}
+
+body.cui-theme-dark .cui-popup-btn {
+  border-color: var(--cui-border-color-secondary);
+}
+
+body.cui-theme-dark pre,
+body.cui-theme-dark code {
+  background: var(--cui-bg-elevated);
+  color: var(--cui-text-primary);
+}
+
+/* 레이아웃 테마 적용 */
+.cui-layout-admin .cui-header {
+  background: var(--cui-theme-header);
+}
+
+.cui-layout-admin .cui-side {
+  background: var(--cui-theme-sidebar);
+}
+
+.cui-layout-admin .cui-logo {
+  background: var(--cui-theme-logo);
+  color: #fff;
+}
+
+/* ========================================
+   라이트 테마
+   ======================================== */
+.cui-theme-light .cui-header {
+  background: #fff !important;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.cui-theme-light .cui-header .cui-nav-item > a {
+  color: #333;
+}
+
+.cui-theme-light .cui-header .cui-nav-item > a:hover {
+  background: rgba(0,0,0,.04);
+}
+
+.cui-theme-light .cui-side {
+  background: #fff !important;
+  border-right: 1px solid #e8e8e8;
+}
+
+.cui-theme-light .cui-logo {
+  background: #fff !important;
+  color: var(--cui-primary) !important;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.cui-theme-light .cui-menu {
+  background: #fff;
+  border-right: none;
+}
+
+.cui-theme-light .cui-menu-item > a {
+  color: #333;
+  border-left-color: transparent;
+}
+
+.cui-theme-light .cui-menu-item > a:hover {
+  background: #f5f5f5;
+}
+
+.cui-theme-light .cui-menu-item.cui-menu-active > a {
+  color: var(--cui-primary);
+  background: #e6f7ff;
+  border-left-color: var(--cui-primary);
+}
+
+.cui-theme-light .cui-menu-item.cui-menu-open > a {
+  color: var(--cui-primary);
+}
+
+.cui-theme-light .cui-menu-sub {
+  background: #fafafa;
+}
+
+.cui-theme-light .cui-menu-sub .cui-menu-item > a {
+  color: #666;
+}
+
+.cui-theme-light .cui-menu-sub .cui-menu-item > a:hover {
+  color: var(--cui-primary);
+  background: #f0f0f0;
+}
+
+.cui-theme-light .cui-menu-sub .cui-menu-item.cui-menu-active > a {
+  color: var(--cui-primary);
+}
+
+/* ========================================
+   다크 테마
+   ======================================== */
+.cui-theme-dark .cui-header {
+  background: #141414 !important;
+}
+
+.cui-theme-dark .cui-side {
+  background: #141414 !important;
+}
+
+.cui-theme-dark .cui-logo {
+  background: #1f1f1f !important;
+}
+
+.cui-theme-dark .cui-body {
+  background: #1f1f1f;
+}
+
+.cui-theme-dark .cui-card {
+  background: #262626;
+  border-color: #303030;
+}
+
+.cui-theme-dark .cui-card-header {
+  border-color: #303030;
+  color: rgba(255,255,255,.85);
+}
+
+.cui-theme-dark .stat-card {
+  background: #262626;
+}
+
+.cui-theme-dark .stat-card .stat-value {
+  color: rgba(255,255,255,.85);
+}
+
+.cui-theme-dark .data-table th {
+  background: #1f1f1f;
+  color: rgba(255,255,255,.65);
+  border-color: #303030;
+}
+
+.cui-theme-dark .data-table td {
+  color: rgba(255,255,255,.85);
+  border-color: #303030;
+}
+
+.cui-theme-dark .data-table tr:hover {
+  background: #303030;
+}
+
+.cui-theme-dark .quick-btn {
+  background: #262626;
+  border-color: #303030;
+}
+
+.cui-theme-dark .quick-btn .cui-icon,
+.cui-theme-dark .quick-btn span {
+  color: rgba(255,255,255,.65);
+}
+
+.cui-theme-dark .notify-item {
+  border-color: #303030;
+}
+
+.cui-theme-dark .notify-text {
+  color: rgba(255,255,255,.85);
+}
+
+/* ========================================
+   블루 테마
+   ======================================== */
+.cui-theme-blue .cui-header {
+  background: #1677ff !important;
+}
+
+.cui-theme-blue .cui-side {
+  background: #001529 !important;
+}
+
+.cui-theme-blue .cui-logo {
+  background: #002140 !important;
+}
+
+.cui-theme-blue .cui-menu {
+  background: #001529;
+}
+
+.cui-theme-blue .cui-menu-item > a {
+  color: rgba(255,255,255,.65);
+}
+
+.cui-theme-blue .cui-menu-item > a:hover {
+  color: #fff;
+  background: rgba(255,255,255,.08);
+}
+
+.cui-theme-blue .cui-menu-item.cui-menu-active > a {
+  color: #fff;
+  background: var(--cui-primary);
+}
+
+.cui-theme-blue .cui-menu-sub {
+  background: rgba(0,0,0,.3);
+}
+
+.cui-theme-blue .cui-menu-sub .cui-menu-item > a {
+  color: rgba(255,255,255,.55);
+}
+
+.cui-theme-blue .cui-menu-sub .cui-menu-item.cui-menu-active > a {
+  color: #fff;
+}
+
+/* ========================================
+   그린 테마
+   ======================================== */
+.cui-theme-green .cui-header {
+  background: #52c41a !important;
+}
+
+.cui-theme-green .cui-logo {
+  background: #389e0d !important;
+}
+
+/* ========================================
+   퍼플 테마
+   ======================================== */
+.cui-theme-purple .cui-header {
+  background: #722ed1 !important;
+}
+
+.cui-theme-purple .cui-logo {
+  background: #531dab !important;
+}
+
+/* ========================================
+   오렌지 테마
+   ======================================== */
+.cui-theme-orange .cui-header {
+  background: #fa8c16 !important;
+}
+
+.cui-theme-orange .cui-logo {
+  background: #d46b08 !important;
+}
+
+/* ========================================
+   레드 테마
+   ======================================== */
+.cui-theme-red .cui-header {
+  background: #f5222d !important;
+}
+
+.cui-theme-red .cui-logo {
+  background: #cf1322 !important;
+}
+
+/* ========================================
+   시안 테마
+   ======================================== */
+.cui-theme-cyan .cui-header {
+  background: #13c2c2 !important;
+}
+
+.cui-theme-cyan .cui-logo {
+  background: #08979c !important;
+}
+
+/* ========================================
+   핑크 테마
+   ======================================== */
+.cui-theme-pink .cui-header {
+  background: #eb2f96 !important;
+}
+
+.cui-theme-pink .cui-logo {
+  background: #c41d7f !important;
+}
+
+/* ========================================
+   인디고 테마
+   ======================================== */
+.cui-theme-indigo .cui-header {
+  background: #2f54eb !important;
+}
+
+.cui-theme-indigo .cui-side {
+  background: #001529 !important;
+}
+
+.cui-theme-indigo .cui-logo {
+  background: #1d39c4 !important;
+}
+
+/* ========================================
+   티얼 테마
+   ======================================== */
+.cui-theme-teal .cui-header {
+  background: #20c997 !important;
+}
+
+.cui-theme-teal .cui-logo {
+  background: #12b886 !important;
+}
+
+/* ========================================
+   테마 선택기 스타일
+   ======================================== */
+.cui-theme-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cui-theme-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .2s;
+  border: 2px solid transparent;
+}
+
+.cui-theme-dot:hover {
+  transform: scale(1.1);
+}
+
+.cui-theme-dot.active {
+  border-color: #fff;
+  box-shadow: 0 0 0 2px var(--cui-primary);
+}
+
+/* 테마 선택 패널 */
+.cui-theme-panel {
+  padding: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.15);
+}
+
+.cui-theme-panel-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.cui-theme-panel-group {
+  margin-bottom: 15px;
+}
+
+.cui-theme-panel-label {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 8px;
+}

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transfer 이전선택 테스트 - Catui</title>
+  <link rel="stylesheet" href="../catui.css">
+  <style>
+    .test-section { padding: 20px; margin-bottom: 20px; background: #fff; border-radius: 8px; }
+    .test-section h3 { margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+    .code-block { background: #f5f5f5; padding: 15px; border-radius: 4px; margin-top: 10px; font-family: monospace; font-size: 13px; overflow-x: auto; }
+    .control-panel { margin-top: 15px; display: flex; gap: 10px; flex-wrap: wrap; }
+    .result-box { margin-top: 15px; padding: 15px; background: #f5f5f5; border-radius: 4px; min-height: 50px; }
+  </style>
+</head>
+<body style="padding: 20px; background: #f5f5f5;">
+  <h2>Transfer 이전 선택</h2>
+
+  <!-- 기본 Transfer -->
+  <div class="test-section">
+    <h3>기본 Transfer</h3>
+    <div id="transfer1"></div>
+    <div class="control-panel">
+      <button class="cui-btn cui-btn-sm" onclick="getData1()">선택된 데이터 확인</button>
+    </div>
+    <div id="result1" class="result-box">선택된 항목이 여기에 표시됩니다.</div>
+    <div class="code-block">
+transfer.render({<br>
+&nbsp;&nbsp;elem: '#transfer1',<br>
+&nbsp;&nbsp;data: [{value: 1, title: '항목1'}, ...],<br>
+&nbsp;&nbsp;value: [1, 3]<br>
+});
+    </div>
+  </div>
+
+  <!-- 검색 기능 -->
+  <div class="test-section">
+    <h3>검색 기능</h3>
+    <div id="transfer2"></div>
+    <div class="control-panel">
+      <button class="cui-btn cui-btn-sm" onclick="getData2()">선택된 데이터 확인</button>
+    </div>
+    <div id="result2" class="result-box">검색하여 항목을 선택하세요.</div>
+    <div class="code-block">
+transfer.render({<br>
+&nbsp;&nbsp;elem: '#transfer2',<br>
+&nbsp;&nbsp;showSearch: true<br>
+});
+    </div>
+  </div>
+
+  <!-- 커스텀 타이틀 -->
+  <div class="test-section">
+    <h3>커스텀 타이틀</h3>
+    <div id="transfer3"></div>
+    <div class="code-block">
+transfer.render({<br>
+&nbsp;&nbsp;elem: '#transfer3',<br>
+&nbsp;&nbsp;title: ['사용 가능한 기술', '선택한 기술']<br>
+});
+    </div>
+  </div>
+
+  <!-- 크기 설정 -->
+  <div class="test-section">
+    <h3>크기 설정</h3>
+    <div id="transfer4"></div>
+    <div class="code-block">
+transfer.render({<br>
+&nbsp;&nbsp;elem: '#transfer4',<br>
+&nbsp;&nbsp;width: 250,<br>
+&nbsp;&nbsp;height: 300<br>
+});
+    </div>
+  </div>
+
+  <!-- 이벤트 & API -->
+  <div class="test-section">
+    <h3>이벤트 & API</h3>
+    <div id="transfer5"></div>
+    <div class="control-panel">
+      <button class="cui-btn cui-btn-sm" onclick="getData5()">getData()</button>
+      <button class="cui-btn cui-btn-sm cui-btn-primary" onclick="reload5()">reload()</button>
+      <button class="cui-btn cui-btn-sm cui-btn-warning" onclick="setValue5()">setValue([1,2,3])</button>
+    </div>
+    <div id="result5" class="result-box">API 테스트 결과가 여기에 표시됩니다.</div>
+    <div id="eventLog" style="margin-top: 10px; padding: 10px; background: #e6f7ff; border-radius: 4px; max-height: 150px; overflow-y: auto;">이벤트 로그:</div>
+  </div>
+
+  <script src="../catui.js"></script>
+  <script>
+    var transfer1Inst, transfer2Inst, transfer5Inst;
+
+    Catui.use(['$c', 'transfer', 'popup'], function(){
+      var transfer = Catui.transfer;
+      var popup = Catui.popup;
+
+      // 기본 데이터
+      var techData = [
+        { value: 1, title: 'HTML' },
+        { value: 2, title: 'CSS' },
+        { value: 3, title: 'JavaScript' },
+        { value: 4, title: 'TypeScript' },
+        { value: 5, title: 'React' },
+        { value: 6, title: 'Vue' },
+        { value: 7, title: 'Angular' },
+        { value: 8, title: 'Node.js' },
+        { value: 9, title: 'Python' },
+        { value: 10, title: 'Java' }
+      ];
+
+      // 프레임워크 데이터
+      var frameworkData = [
+        { value: 1, title: 'React' },
+        { value: 2, title: 'Vue' },
+        { value: 3, title: 'Angular' },
+        { value: 4, title: 'Svelte' },
+        { value: 5, title: 'Next.js' },
+        { value: 6, title: 'Nuxt.js' },
+        { value: 7, title: 'Express' },
+        { value: 8, title: 'Koa' },
+        { value: 9, title: 'Fastify' },
+        { value: 10, title: 'NestJS' },
+        { value: 11, title: 'Django' },
+        { value: 12, title: 'Flask' },
+        { value: 13, title: 'Spring Boot' },
+        { value: 14, title: 'Ruby on Rails' }
+      ];
+
+      // 기본 Transfer
+      transfer1Inst = transfer.render({
+        elem: '#transfer1',
+        data: techData,
+        value: [3, 5],
+        onchange: function(obj){
+          console.log('Transfer1 변경:', obj.data);
+        }
+      });
+
+      // 검색 기능
+      transfer2Inst = transfer.render({
+        elem: '#transfer2',
+        data: frameworkData,
+        showSearch: true,
+        value: [1, 5],
+        onchange: function(obj){
+          console.log('Transfer2 변경:', obj.data);
+        }
+      });
+
+      // 커스텀 타이틀
+      transfer.render({
+        elem: '#transfer3',
+        data: techData.slice(0, 6),
+        title: ['사용 가능한 기술', '선택한 기술'],
+        value: [1, 2]
+      });
+
+      // 크기 설정
+      transfer.render({
+        elem: '#transfer4',
+        data: frameworkData.slice(0, 8),
+        width: 250,
+        height: 300,
+        showSearch: true
+      });
+
+      // 이벤트 & API
+      transfer5Inst = transfer.render({
+        elem: '#transfer5',
+        id: 'transfer5',
+        data: techData,
+        showSearch: true,
+        value: [1, 3],
+        onchange: function(obj){
+          var log = document.getElementById('eventLog');
+          var time = new Date().toLocaleTimeString();
+          log.innerHTML += '<div>[' + time + '] 변경됨 - ' + obj.data.join(', ') + '</div>';
+          log.scrollTop = log.scrollHeight;
+        }
+      });
+    });
+
+    function getData1(){
+      if(transfer1Inst){
+        var data = transfer1Inst.getData();
+        document.getElementById('result1').textContent = '선택된 값: ' + data.join(', ');
+      }
+    }
+
+    function getData2(){
+      if(transfer2Inst){
+        var data = transfer2Inst.getData();
+        document.getElementById('result2').textContent = '선택된 값: ' + data.join(', ');
+      }
+    }
+
+    function getData5(){
+      if(transfer5Inst){
+        var data = transfer5Inst.getData();
+        document.getElementById('result5').textContent = 'getData() 결과: ' + JSON.stringify(data);
+        Catui.popup.msg('getData: ' + data.join(', '));
+      }
+    }
+
+    function reload5(){
+      if(transfer5Inst){
+        transfer5Inst.reload({
+          data: [
+            { value: 'a', title: '새 항목 A' },
+            { value: 'b', title: '새 항목 B' },
+            { value: 'c', title: '새 항목 C' },
+            { value: 'd', title: '새 항목 D' }
+          ],
+          value: ['a']
+        });
+        document.getElementById('result5').textContent = 'reload() 완료 - 새 데이터로 교체됨';
+        Catui.popup.msg('데이터가 새로고침 되었습니다.');
+      }
+    }
+
+    function setValue5(){
+      if(transfer5Inst){
+        transfer5Inst.setValue([1, 2, 3]);
+        document.getElementById('result5').textContent = 'setValue([1,2,3]) 완료';
+        Catui.popup.msg('값이 설정되었습니다.');
+      }
+    }
+  </script>
+</body>
+</html>

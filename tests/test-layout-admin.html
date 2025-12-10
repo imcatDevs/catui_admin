@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Layout 관리자 레이아웃 - Catui</title>
+  <link rel="stylesheet" href="/dist/catui.css">
+  <style>
+    /* 페이지 전용 스타일 */
+    .cui-body { background: #f4f6f9; }
+    
+    /* 통계 카드 */
+    .stat-card {
+      padding: 20px;
+      border-radius: 8px;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    }
+    .stat-card .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .stat-card .stat-icon .cui-icon { font-size: 24px; color: #fff; }
+    .stat-card .stat-label { font-size: 13px; color: #8c8c8c; margin-bottom: 8px; }
+    .stat-card .stat-value { font-size: 26px; font-weight: 600; color: #1e1e2d; margin: 0; }
+    .stat-card .stat-change { font-size: 12px; margin-top: 8px; }
+    .stat-card .stat-change.up { color: #52c41a; }
+    .stat-card .stat-change.down { color: #ff4d4f; }
+    
+    /* 테이블 스타일 */
+    .data-table { border-collapse: collapse; width: 100%; }
+    .data-table th { background: #fafafa; font-weight: 500; font-size: 13px; color: #666; padding: 12px 15px; text-align: left; border-bottom: 1px solid #f0f0f0; }
+    .data-table td { padding: 12px 15px; border-bottom: 1px solid #f0f0f0; font-size: 14px; color: #333; }
+    .data-table tr:hover { background: #fafafa; }
+    
+    /* 빠른 작업 버튼 */
+    .quick-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+      border: 1px solid #e8e8e8;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .quick-btn:hover { border-color: var(--cui-primary); background: #f6f9ff; }
+    .quick-btn .cui-icon { font-size: 28px; color: #666; margin-bottom: 8px; }
+    .quick-btn span { font-size: 12px; color: #666; }
+    
+    /* 알림 아이템 */
+    .notify-item { padding: 12px 15px; border-bottom: 1px solid #f5f5f5; }
+    .notify-item:last-child { border-bottom: none; }
+    .notify-item .notify-dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 10px; flex-shrink: 0; }
+    .notify-item .notify-text { font-size: 13px; color: #333; }
+    .notify-item .notify-time { font-size: 12px; color: #999; margin-top: 4px; margin-left: 18px; }
+    .cui-logo { color: #fff !important; }
+    
+    /* 테마는 theme.css에서 관리 */
+  </style>
+</head>
+<body class="cui-layout-body">
+  <div class="cui-layout cui-layout-admin">
+    <!-- 헤더 -->
+    <div class="cui-header">
+      <div class="cui-logo" >
+        <b>CATUI</b> Admin
+      </div>
+      
+      <!-- 왼쪽 네비게이션 -->
+      <ul class="cui-nav cui-layout-left">
+        <li class="cui-nav-item" id="toggleMenu" style="cursor: pointer;">
+          <a href="javascript:;">
+            <i class="cui-icon">menu</i>
+          </a>
+        </li>
+        <li class="cui-nav-item cui-hide-xs">
+          <a href="javascript:;">
+            <i class="cui-icon">home</i> 홈
+          </a>
+        </li>
+      </ul>
+      
+      <!-- 오른쪽 네비게이션 -->
+      <ul class="cui-nav cui-layout-right" cui-filter="headerNav">
+        <li class="cui-nav-item cui-hide-xs">
+          <a href="javascript:;">
+            <i class="cui-icon">notifications</i>
+            <span class="cui-badge-dot cui-bg-red" style="position: absolute; top: 15px; right: 10px;"></span>
+          </a>
+        </li>
+        <li class="cui-nav-item">
+          <a href="javascript:;">
+            <i class="cui-icon">palette</i> 테마
+          </a>
+          <dl class="cui-nav-child" style="min-width: 200px; padding: 10px;">
+            <dd style="padding: 0;">
+              <div id="themePicker"></div>
+            </dd>
+          </dl>
+        </li>
+        <li class="cui-nav-item">
+          <a href="javascript:;">
+            <i class="cui-icon">person</i> 관리자
+          </a>
+          <dl class="cui-nav-child">
+            <dd><a href="javascript:;"><i class="cui-icon">account_circle</i> 내 정보</a></dd>
+            <dd><a href="javascript:;"><i class="cui-icon">settings</i> 설정</a></dd>
+            <dd><a href="javascript:;"><i class="cui-icon">logout</i> 로그아웃</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- 사이드바 -->
+    <div class="cui-side" id="sidebar">
+      <div class="cui-side-scroll">
+        <ul class="cui-menu cui-menu-dark" cui-filter="adminMenu" cui-accordion>
+          <li class="cui-menu-item cui-menu-open">
+            <a href="javascript:;"><i class="cui-icon">dashboard</i> 대시보드</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item cui-menu-active"><a href="javascript:;">통계</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">분석</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">리포트</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">people</i> 사용자 관리</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">사용자 목록</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">권한 설정</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">그룹 관리</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">article</i> 게시판 관리</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">공지사항</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">자유게시판</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">Q&amp;A</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">shopping_cart</i> 주문 관리</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">주문 목록</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">배송 관리</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">환불 관리</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">inventory</i> 상품 관리</a>
+            <ul class="cui-menu-sub">
+              <li class="cui-menu-item"><a href="javascript:;">상품 목록</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">카테고리</a></li>
+              <li class="cui-menu-item"><a href="javascript:;">재고 관리</a></li>
+            </ul>
+          </li>
+          <li class="cui-menu-item">
+            <a href="javascript:;"><i class="cui-icon">settings</i> 설정</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- 본문 -->
+    <div class="cui-body" id="mainBody">
+      <div class="cui-main" style="padding: 20px;">
+        <!-- 브레드크럼 -->
+        <div style="margin-bottom: 20px;">
+          <span style="font-size: 13px; color: #8c8c8c;">
+            <i class="cui-icon" style="font-size: 14px; vertical-align: middle;">home</i>
+            홈 / 대시보드 / 통계
+          </span>
+        </div>
+        
+        <!-- 통계 카드 -->
+        <div class="cui-row cui-col-space20">
+          <div class="cui-col-lg3 cui-col-md6 cui-col-sm6">
+            <div class="stat-card">
+              <div class="cui-flex cui-justify-between cui-align-center">
+                <div>
+                  <p class="stat-label">총 사용자</p>
+                  <h2 class="stat-value">12,345</h2>
+                  <div class="stat-change up">
+                    <i class="cui-icon" style="font-size: 12px;">trending_up</i> +12.5%
+                  </div>
+                </div>
+                <div class="stat-icon" style="background: linear-gradient(135deg, #1677ff 0%, #4096ff 100%);">
+                  <i class="cui-icon">people</i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cui-col-lg3 cui-col-md6 cui-col-sm6">
+            <div class="stat-card">
+              <div class="cui-flex cui-justify-between cui-align-center">
+                <div>
+                  <p class="stat-label">오늘 방문</p>
+                  <h2 class="stat-value">5,678</h2>
+                  <div class="stat-change up">
+                    <i class="cui-icon" style="font-size: 12px;">trending_up</i> +8.3%
+                  </div>
+                </div>
+                <div class="stat-icon" style="background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);">
+                  <i class="cui-icon">visibility</i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cui-col-lg3 cui-col-md6 cui-col-sm6">
+            <div class="stat-card">
+              <div class="cui-flex cui-justify-between cui-align-center">
+                <div>
+                  <p class="stat-label">신규 주문</p>
+                  <h2 class="stat-value">89</h2>
+                  <div class="stat-change down">
+                    <i class="cui-icon" style="font-size: 12px;">trending_down</i> -3.2%
+                  </div>
+                </div>
+                <div class="stat-icon" style="background: linear-gradient(135deg, #fa8c16 0%, #ffc53d 100%);">
+                  <i class="cui-icon">shopping_cart</i>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cui-col-lg3 cui-col-md6 cui-col-sm6">
+            <div class="stat-card">
+              <div class="cui-flex cui-justify-between cui-align-center">
+                <div>
+                  <p class="stat-label">매출</p>
+                  <h2 class="stat-value">₩ 1.2M</h2>
+                  <div class="stat-change up">
+                    <i class="cui-icon" style="font-size: 12px;">trending_up</i> +15.7%
+                  </div>
+                </div>
+                <div class="stat-icon" style="background: linear-gradient(135deg, #722ed1 0%, #9254de 100%);">
+                  <i class="cui-icon">payments</i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- 테이블 + 사이드 영역 -->
+        <div class="cui-row cui-col-space20" style="margin-top: 20px;">
+          <div class="cui-col-lg8 cui-col-md12">
+            <div class="cui-card" style="border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08);">
+              <div class="cui-card-header" style="border-bottom: 1px solid #f0f0f0; padding: 15px 20px;">
+                <span style="font-weight: 600; color: #1e1e2d;">최근 주문</span>
+                <button class="cui-btn cui-btn-sm cui-btn-primary" style="float: right;">
+                  <i class="cui-icon">add</i> 신규
+                </button>
+              </div>
+              <div class="cui-card-body cui-p-0">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 100px;">주문번호</th>
+                      <th style="width: 90px;">고객명</th>
+                      <th>상품</th>
+                      <th style="width: 100px;">금액</th>
+                      <th style="width: 80px;">상태</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="color: var(--cui-primary);">ORD-001</td>
+                      <td>홍길동</td>
+                      <td>프리미엄 멤버십 1년 구독권</td>
+                      <td style="font-weight: 500;">₩50,000</td>
+                      <td><span class="cui-badge" style="background: #f6ffed; color: #52c41a; border: 1px solid #b7eb8f;">완료</span></td>
+                    </tr>
+                    <tr>
+                      <td style="color: var(--cui-primary);">ORD-002</td>
+                      <td>김철수</td>
+                      <td>클라우드 스토리지 100GB</td>
+                      <td style="font-weight: 500;">₩35,000</td>
+                      <td><span class="cui-badge" style="background: #fff7e6; color: #fa8c16; border: 1px solid #ffd591;">배송중</span></td>
+                    </tr>
+                    <tr>
+                      <td style="color: var(--cui-primary);">ORD-003</td>
+                      <td>이영희</td>
+                      <td>디자인 템플릿 패키지</td>
+                      <td style="font-weight: 500;">₩120,000</td>
+                      <td><span class="cui-badge" style="background: #e6f7ff; color: #1677ff; border: 1px solid #91caff;">준비중</span></td>
+                    </tr>
+                    <tr>
+                      <td style="color: var(--cui-primary);">ORD-004</td>
+                      <td>박민수</td>
+                      <td>개발자 도구 라이센스</td>
+                      <td style="font-weight: 500;">₩89,000</td>
+                      <td><span class="cui-badge" style="background: #f6ffed; color: #52c41a; border: 1px solid #b7eb8f;">완료</span></td>
+                    </tr>
+                    <tr>
+                      <td style="color: var(--cui-primary);">ORD-005</td>
+                      <td>최지은</td>
+                      <td>온라인 강의 수강권</td>
+                      <td style="font-weight: 500;">₩45,000</td>
+                      <td><span class="cui-badge" style="background: #fff2f0; color: #ff4d4f; border: 1px solid #ffccc7;">취소</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="cui-col-lg4 cui-col-md12">
+            <!-- 빠른 작업 -->
+            <div class="cui-card" style="border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08);">
+              <div class="cui-card-header" style="border-bottom: 1px solid #f0f0f0; padding: 15px 20px;">
+                <span style="font-weight: 600; color: #1e1e2d;">빠른 작업</span>
+              </div>
+              <div class="cui-card-body" style="padding: 15px;">
+                <div class="cui-row cui-col-space10">
+                  <div class="cui-col-xs6"><div class="quick-btn"><i class="cui-icon">person_add</i><span>사용자 추가</span></div></div>
+                  <div class="cui-col-xs6"><div class="quick-btn"><i class="cui-icon">add_shopping_cart</i><span>주문 등록</span></div></div>
+                  <div class="cui-col-xs6" style="margin-top: 10px;"><div class="quick-btn"><i class="cui-icon">edit_note</i><span>글 작성</span></div></div>
+                  <div class="cui-col-xs6" style="margin-top: 10px;"><div class="quick-btn"><i class="cui-icon">upload_file</i><span>파일 업로드</span></div></div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- 알림 -->
+            <div class="cui-card" style="border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-top: 20px;">
+              <div class="cui-card-header" style="border-bottom: 1px solid #f0f0f0; padding: 15px 20px;">
+                <span style="font-weight: 600; color: #1e1e2d;">알림</span>
+              </div>
+              <div class="cui-card-body cui-p-0">
+                <div class="notify-item">
+                  <div class="cui-flex cui-align-center">
+                    <span class="notify-dot" style="background: #1677ff;"></span>
+                    <span class="notify-text">새로운 주문이 접수되었습니다.</span>
+                  </div>
+                  <div class="notify-time">5분 전</div>
+                </div>
+                <div class="notify-item">
+                  <div class="cui-flex cui-align-center">
+                    <span class="notify-dot" style="background: #52c41a;"></span>
+                    <span class="notify-text">결제가 완료되었습니다.</span>
+                  </div>
+                  <div class="notify-time">15분 전</div>
+                </div>
+                <div class="notify-item">
+                  <div class="cui-flex cui-align-center">
+                    <span class="notify-dot" style="background: #fa8c16;"></span>
+                    <span class="notify-text">문의가 등록되었습니다.</span>
+                  </div>
+                  <div class="notify-time">1시간 전</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 푸터 -->
+    <div class="cui-footer">
+      © 2024 <a href="#">Catui Admin</a> · All Rights Reserved
+    </div>
+  </div>
+
+  <script src="/dist/catui.js"></script>
+  <script>
+    Catui.use(['$c', 'popup', 'dropdown', 'element', 'theme'], function(){
+      var $c = window.$c;
+      var popup = window.popup;
+      var dropdown = window.dropdown;
+      var element = window.element;
+      var theme = window.theme;
+      
+      // 상단 네비게이션 초기화
+      element.render();
+      
+      // 테마 선택기 렌더링
+      theme.render('#themePicker', {
+        size: 22,
+        gap: 6,
+        onChange: function(name, data){
+          popup.msg('테마 변경: ' + data.name);
+        }
+      });
+      
+      // 사이드 메뉴 이벤트 등록
+      dropdown.on('menu(adminMenu)', function(data){
+        popup.msg('메뉴 선택: ' + data.title);
+      });
+      
+      // 사이드 메뉴 초기화
+      dropdown.initMenu();
+      
+      // 사이드바 토글
+      var sidebar = document.getElementById('sidebar');
+      var mainBody = document.getElementById('mainBody');
+      var footer = document.querySelector('.cui-footer');
+      var collapsed = false;
+      
+      document.getElementById('toggleMenu').addEventListener('click', function(){
+        collapsed = !collapsed;
+        if(collapsed){
+          sidebar.style.width = '0';
+          mainBody.style.left = '0';
+          footer.style.left = '0';
+        } else {
+          sidebar.style.width = '200px';
+          mainBody.style.left = '200px';
+          footer.style.left = '200px';
+        }
+      });
+      
+      // 버튼 클릭 메시지
+      document.querySelectorAll('.cui-btn').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          popup.msg('버튼 클릭: ' + btn.textContent.trim());
+        });
+      });
+    });
+  </script>
+</body>
+</html>

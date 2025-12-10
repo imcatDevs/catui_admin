@@ -1,0 +1,273 @@
+/* ========================================
+   Cui Menu - 수직 메뉴 컴포넌트
+   ======================================== */
+
+.cui-menu {
+  width: 100%;
+  background: #fff;
+  border-right: 1px solid var(--cui-border-color);
+  font-size: 14px;
+}
+
+/* 메뉴 아이템 */
+.cui-menu-item {
+  display: block;
+  position: relative;
+}
+
+.cui-menu-item > a {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: var(--cui-text-primary);
+  text-decoration: none;
+  transition: all .2s;
+  border-left: 3px solid transparent;
+}
+
+.cui-menu-item > a:hover {
+  background: var(--cui-bg-gray);
+}
+
+.cui-menu-item > a .cui-icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+/* 메뉴 화살표 */
+.cui-menu-arrow {
+  margin-left: auto;
+  font-size: 18px;
+  transition: transform .25s;
+}
+
+.cui-menu-item.cui-menu-open > a .cui-menu-arrow {
+  transform: rotate(180deg);
+}
+
+/* 활성 상태 */
+.cui-menu-item.cui-menu-active > a {
+  color: var(--cui-primary);
+  background: var(--cui-bg-gray);
+  border-left-color: var(--cui-primary);
+}
+
+/* 서브메뉴 (2단) */
+.cui-menu-sub {
+  display: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  background: #f8f9fa;
+  overflow: hidden;
+}
+
+.cui-menu-item.cui-menu-open > .cui-menu-sub {
+  display: block;
+}
+
+.cui-menu-sub .cui-menu-item > a {
+  padding: 10px 16px 10px 46px;
+  font-size: 13px;
+  color: #666;
+  border-left: none;
+}
+
+.cui-menu-sub .cui-menu-item > a:hover {
+  background: #e9ecef;
+  color: var(--cui-primary);
+}
+
+.cui-menu-sub .cui-menu-item.cui-menu-active > a {
+  color: var(--cui-primary);
+  background: #e9ecef;
+}
+
+.cui-menu-sub .cui-menu-item > a .cui-icon {
+  margin-right: 8px;
+  font-size: 18px;
+}
+
+/* 3단 서브메뉴 */
+.cui-menu-sub .cui-menu-sub {
+  background: #f0f0f0;
+}
+
+.cui-menu-sub .cui-menu-sub .cui-menu-item > a {
+  padding-left: 62px;
+}
+
+/* 4단 서브메뉴 */
+.cui-menu-sub .cui-menu-sub .cui-menu-sub .cui-menu-item > a {
+  padding-left: 78px;
+}
+
+/* ========================================
+   트리거 모드
+   ======================================== */
+
+/* 호버 모드 */
+.cui-menu[cui-trigger="hover"] .cui-menu-item:hover > .cui-menu-sub {
+  display: block;
+}
+
+/* ========================================
+   스킨
+   ======================================== */
+
+/* 다크 스킨 */
+.cui-menu-dark {
+  background: #1e1e2d;
+  border-color: transparent;
+}
+
+.cui-menu-dark .cui-menu-item > a {
+  color: rgba(255,255,255,.65);
+  border-left-color: transparent;
+}
+
+.cui-menu-dark .cui-menu-item > a:hover {
+  color: #fff;
+  background: rgba(255,255,255,.06);
+}
+
+.cui-menu-dark .cui-menu-item.cui-menu-active > a {
+  color: #fff;
+  background: rgba(var(--cui-primary-rgb, 22,119,255),.15);
+  border-left-color: var(--cui-primary);
+}
+
+.cui-menu-dark .cui-menu-item.cui-menu-open > a {
+  color: #fff;
+}
+
+.cui-menu-dark .cui-menu-sub {
+  background: rgba(0,0,0,.25);
+}
+
+.cui-menu-dark .cui-menu-sub .cui-menu-item > a {
+  color: rgba(255,255,255,.55);
+  padding-left: 50px;
+}
+
+.cui-menu-dark .cui-menu-sub .cui-menu-item > a:hover {
+  color: #fff;
+  background: rgba(255,255,255,.04);
+}
+
+.cui-menu-dark .cui-menu-sub .cui-menu-item.cui-menu-active > a {
+  color: var(--cui-primary);
+  background: transparent;
+}
+
+.cui-menu-dark .cui-menu-sub .cui-menu-sub {
+  background: rgba(0,0,0,.15);
+}
+
+.cui-menu-dark .cui-menu-sub .cui-menu-sub .cui-menu-item > a {
+  padding-left: 65px;
+}
+
+/* Primary 스킨 */
+.cui-menu-primary {
+  background: var(--cui-primary);
+  border-color: var(--cui-primary);
+}
+
+.cui-menu-primary .cui-menu-item > a {
+  color: rgba(255,255,255,.8);
+}
+
+.cui-menu-primary .cui-menu-item > a:hover,
+.cui-menu-primary .cui-menu-item.cui-menu-active > a {
+  color: #fff;
+  background: rgba(255,255,255,.15);
+  border-left-color: #fff;
+}
+
+.cui-menu-primary .cui-menu-sub {
+  background: rgba(0,0,0,.15);
+}
+
+.cui-menu-primary .cui-menu-sub .cui-menu-item > a {
+  color: rgba(255,255,255,.7);
+}
+
+.cui-menu-primary .cui-menu-sub .cui-menu-item > a:hover,
+.cui-menu-primary .cui-menu-sub .cui-menu-item.cui-menu-active > a {
+  color: #fff;
+  background: rgba(255,255,255,.1);
+}
+
+/* Success 스킨 */
+.cui-menu-success {
+  background: var(--cui-success);
+  border-color: var(--cui-success);
+}
+
+.cui-menu-success .cui-menu-item > a {
+  color: rgba(255,255,255,.8);
+}
+
+.cui-menu-success .cui-menu-item > a:hover,
+.cui-menu-success .cui-menu-item.cui-menu-active > a {
+  color: #fff;
+  background: rgba(255,255,255,.15);
+}
+
+.cui-menu-success .cui-menu-sub {
+  background: rgba(0,0,0,.1);
+}
+
+.cui-menu-success .cui-menu-sub .cui-menu-item > a {
+  color: rgba(255,255,255,.7);
+}
+
+.cui-menu-success .cui-menu-sub .cui-menu-item > a:hover,
+.cui-menu-success .cui-menu-sub .cui-menu-item.cui-menu-active > a {
+  color: #fff;
+  background: rgba(255,255,255,.1);
+}
+
+/* ========================================
+   스타일 옵션
+   ======================================== */
+
+/* 컴팩트 모드 */
+.cui-menu-compact .cui-menu-item > a {
+  padding: 10px 14px;
+  font-size: 13px;
+}
+
+.cui-menu-compact .cui-menu-item > a .cui-icon {
+  font-size: 18px;
+}
+
+.cui-menu-compact .cui-menu-sub .cui-menu-item > a {
+  padding: 8px 14px 8px 42px;
+  font-size: 12px;
+}
+
+/* 테두리 없음 */
+.cui-menu-borderless {
+  border-right: none;
+}
+
+/* 둥근 모서리 */
+.cui-menu-rounded .cui-menu-item > a {
+  margin: 4px 8px;
+  border-radius: 6px;
+  border-left: none;
+}
+
+.cui-menu-rounded .cui-menu-item.cui-menu-active > a {
+  border-left: none;
+}
+
+.cui-menu-rounded .cui-menu-sub .cui-menu-item > a {
+  margin: 2px 8px;
+  padding-left: 38px;
+  border-radius: 6px;
+}
+
+/* 아코디언 모드 - JS로 제어 */
