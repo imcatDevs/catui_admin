@@ -84,8 +84,10 @@
       if(!inst) return;
 
       // DOM 정리
-      if(inst.config.elem && inst.config.elem[0]){
-        inst.config.elem.html('');
+      var $c = get$c();
+      if(inst.config.elem){
+        var elem = $c(inst.config.elem);
+        if(elem[0]) elem.html('');
       }
 
       // 인스턴스 저장소에서 제거
