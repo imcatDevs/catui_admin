@@ -15,16 +15,76 @@ Catui.use(['util'], function(){
 
 ## API 목록
 
+### 시간/날짜
+
 | API | 설명 |
 |-----|------|
 | `timeAgo(time, onlyDate)` | 상대 시간 표시 |
 | `toDateString(time, format)` | 날짜 포맷팅 |
+| `countdown(endTime, serverTime, callback)` | 카운트다운 |
+
+### 숫자/문자열
+
+| API | 설명 |
+|-----|------|
 | `digit(num, length)` | 숫자 앞 0 채우기 |
+| `comma(num)` | 천단위 콤마 |
+| `countUp(options)` | 숫자 카운트업 애니메이션 |
+
+### 유효성 검증
+
+| API | 설명 |
+|-----|------|
+| `isEmpty(value)` | 빈 값 체크 |
+| `isEmail(str)` | 이메일 검증 |
+| `isPhone(str)` | 전화번호 검증 (한국) |
+| `isUrl(str)` | URL 검증 |
+
+### 보안/이스케이프
+
+| API | 설명 |
+|-----|------|
 | `escape(str)` | HTML 이스케이프 |
 | `unescape(str)` | HTML 언이스케이프 |
-| `countdown(endTime, serverTime, callback)` | 카운트다운 |
+| `stripScripts(str)` | 스크립트 태그 제거 |
+| `sanitize(str, options)` | HTML 정화 (화이트리스트) |
+| `escapeSql(str)` | SQL 인젝션 방지 |
+| `escapeRegex(str)` | 정규식 특수문자 이스케이프 |
+| `safeJsonParse(str, defaultValue)` | 안전한 JSON 파싱 |
+| `safeEncodeUri(str)` | URL 파라미터 안전 인코딩 |
+
+### 유틸리티
+
+| API | 설명 |
+|-----|------|
+| `deepClone(obj)` | 딥 복사 |
+| `debounce(fn, delay)` | 디바운스 |
+| `throttle(fn, delay)` | 쓰로틀 |
+| `uuid()` | UUID 생성 |
+| `shortId(length)` | 짧은 ID 생성 |
+
+### 쿼리스트링
+
+| API | 설명 |
+|-----|------|
+| `parseQuery(str)` | 쿼리스트링 파싱 |
+| `toQuery(obj)` | 쿼리스트링 생성 |
+
+### 쿠키
+
+| API | 설명 |
+|-----|------|
+| `setCookie(name, value, days)` | 쿠키 설정 |
+| `getCookie(name)` | 쿠키 가져오기 |
+| `removeCookie(name)` | 쿠키 삭제 |
+
+### DOM/UI
+
+| API | 설명 |
+|-----|------|
+| `scrollTo(to, duration)` | 스크롤 애니메이션 |
 | `fixbar(options)` | 고정 바 |
-| `on(attr, events, callback)` | 이벤트 위임 |
+| `on(elem, event, selector, callback)` | 이벤트 위임 |
 
 ---
 

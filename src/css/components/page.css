@@ -32,7 +32,7 @@
 .cui-page input,
 .cui-page button,
 .cui-page select {
-  border: 1px solid #eee;
+  border: 1px solid var(--cui-border-color-light);
 }
 
 .cui-page a,
@@ -43,13 +43,13 @@
   height: 28px;
   line-height: 28px;
   margin: 0 -1px 5px 0;
-  background-color: #fff;
-  color: #333;
+  background-color: var(--cui-bg-base);
+  color: var(--cui-text-primary);
   font-size: 12px;
 }
 
 .cui-page a[data-page] {
-  color: #333;
+  color: var(--cui-text-primary);
 }
 
 .cui-page a {
@@ -66,7 +66,7 @@
 }
 
 .cui-page .cui-page-spr {
-  color: #999;
+  color: var(--cui-text-tertiary);
   font-weight: 700;
 }
 
@@ -93,10 +93,31 @@
   border-radius: 2px;
 }
 
+.cui-page-first,
+.cui-page-prev,
+.cui-page-next,
+.cui-page-last {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  min-width: auto;
+  text-align: center;
+}
+
+.cui-page-first .cui-icon,
+.cui-page-prev .cui-icon,
+.cui-page-next .cui-icon,
+.cui-page-last .cui-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
 .cui-page-prev em,
 .cui-page-next em {
   font-family: Sim sun;
-  font-size: 16px;
+  font-size: 12px;
+  line-height: 1;
 }
 
 .cui-page .cui-page-count,
@@ -129,7 +150,7 @@
 .cui-page .cui-page-skip {
   height: 30px;
   line-height: 30px;
-  color: #999;
+  color: var(--cui-text-tertiary);
 }
 
 .cui-page input,
@@ -138,7 +159,7 @@
   line-height: 30px;
   border-radius: 2px;
   vertical-align: top;
-  background-color: #fff;
+  background-color: var(--cui-bg-base);
   box-sizing: border-box;
 }
 
@@ -168,7 +189,7 @@
   border: none;
   background: transparent;
   cursor: default;
-  color: #999;
+  color: var(--cui-text-tertiary);
 }
 
 .cui-page .cui-page-pages b,
@@ -198,6 +219,15 @@
   height: 20px;
 }
 
+.cui-page.cui-page-sm .cui-page-first,
+.cui-page.cui-page-sm .cui-page-prev,
+.cui-page.cui-page-sm .cui-page-next,
+.cui-page.cui-page-sm .cui-page-last {
+  height: 22px;
+  line-height: 22px;
+  padding: 0 6px;
+}
+
 /* ========================================
    사이즈 - Large
 ======================================== */
@@ -219,6 +249,15 @@
   height: 28px;
 }
 
+.cui-page.cui-page-lg .cui-page-first,
+.cui-page.cui-page-lg .cui-page-prev,
+.cui-page.cui-page-lg .cui-page-next,
+.cui-page.cui-page-lg .cui-page-last {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 12px;
+}
+
 /* ========================================
    스킨 - Outline (테두리만)
 ======================================== */
@@ -236,8 +275,20 @@
 ======================================== */
 .cui-page-skin-pill a,
 .cui-page-skin-pill span,
-.cui-page-skin-pill .cui-page-em {
+.cui-page-skin-pill .cui-page-em,
+.cui-page-skin-pill > a:first-child,
+.cui-page-skin-pill > a:first-child em,
+.cui-page-skin-pill > a:last-child,
+.cui-page-skin-pill > a:last-child em {
   border-radius: 50px;
+}
+
+.cui-page-skin-pill .cui-page-first,
+.cui-page-skin-pill .cui-page-prev,
+.cui-page-skin-pill .cui-page-next,
+.cui-page-skin-pill .cui-page-last {
+  padding: 0 6px !important;
+  min-width: 28px;
 }
 
 /* ========================================

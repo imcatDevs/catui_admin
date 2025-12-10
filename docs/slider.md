@@ -21,6 +21,26 @@ Catui.use(['slider'], function(){
 
 ---
 
+## API 목록
+
+| API | 설명 |
+|-----|------|
+| `render(options)` | 슬라이더 렌더링 (인스턴스 반환) |
+| `set(options)` | 전역 설정 |
+| `getInst(id)` | 인스턴스 가져오기 |
+| `on(events, callback)` | 이벤트 등록 |
+
+### 인스턴스 메서드
+
+| 메서드 | 설명 |
+|--------|------|
+| `setValue(value, idx)` | 값 설정 (idx: 범위 선택 시 인덱스) |
+| `getValue()` | 값 가져오기 |
+| `destroy()` | 인스턴스 정리 |
+| `config` | 설정 객체 |
+
+---
+
 ## render(options)
 
 슬라이더를 렌더링합니다.

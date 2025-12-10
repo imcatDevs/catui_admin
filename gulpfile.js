@@ -3,6 +3,7 @@ const concat = require('gulp-concat');
 const cleanCSS = require('gulp-clean-css');
 const terser = require('gulp-terser');
 const rename = require('gulp-rename');
+const archiver = require('archiver');
 const browserSync = require('browser-sync').create();
 const fs = require('fs');
 const path = require('path');
@@ -161,6 +162,37 @@ const build = gulp.series(
   copyHTML
 );
 
+// 압축 파일 생성
+function createZip(done) {
+  const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
+  const date = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+  const filename = `catui-${pkg.version}-${date}.zip`;
+  
+  // release 폴더 생성
+  if (!fs.existsSync('release')) {
+    fs.mkdirSync('release', { recursive: true });
+  }
+  
+  const output = fs.createWriteStream(`release/${filename}`);
+  const archive = archiver('zip', { zlib: { level: 9 } });
+  
+  output.on('close', function() {
+    console.log(`📦 ${filename} 생성 완료 (${(archive.pointer() / 1024).toFixed(1)} KB)`);
+    done();
+  });
+  
+  archive.on('error', function(err) {
+    throw err;
+  });
+  
+  archive.pipe(output);
+  archive.directory('dist/', false);
+  archive.finalize();
+}
+
+// 빌드 + 압축
+const release = gulp.series(build, createZip);
+
 // 개발 태스크
 const dev = gulp.series(
   build,
@@ -171,6 +203,8 @@ const dev = gulp.series(
 // 기본 태스크
 exports.default = dev;
 exports.build = build;
+exports.zip = createZip;
+exports.release = release;
 exports.watch = dev;
 exports.serve = gulp.series(build, serve, watchFiles);
 exports.css = buildCSS;

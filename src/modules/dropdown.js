@@ -538,14 +538,16 @@
         } else {
           // 서브메뉴 없는 링크 - 직접 이벤트 바인딩
           var linkNode = aElem[0];
-          linkNode.removeEventListener('click', aNode._menuClickHandler);
-          aNode._menuClickHandler = function(e){
+          if(linkNode._menuClickHandler){
+            linkNode.removeEventListener('click', linkNode._menuClickHandler);
+          }
+          linkNode._menuClickHandler = function(e){
             $c(menu).find('.cui-menu-item').removeClass('cui-menu-active');
             $item.addClass('cui-menu-active');
 
             var eventData = {
               elem: item,
-              a: aNode,
+              a: linkNode,
               title: aElem.text().trim()
             };
 
@@ -554,7 +556,7 @@
               Catui.event(MOD_NAME, 'menu(' + menuFilter + ')', eventData);
             }
           };
-          aNode.addEventListener('click', aNode._menuClickHandler);
+          linkNode.addEventListener('click', linkNode._menuClickHandler);
         }
       };
 

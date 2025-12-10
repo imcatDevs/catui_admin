@@ -21,6 +21,24 @@ Catui.use(['rate'], function(){
 
 ---
 
+## API 목록
+
+| API | 설명 |
+|-----|------|
+| `render(options)` | 별점 렌더링 (인스턴스 반환) |
+| `getInst(id)` | 인스턴스 가져오기 |
+| `on(events, callback)` | 이벤트 등록 |
+
+### 인스턴스 메서드
+
+| 메서드 | 설명 |
+|--------|------|
+| `setValue(value)` | 값 설정 |
+| `getValue()` | 값 가져오기 |
+| `config` | 설정 객체 |
+
+---
+
 ## render(options)
 
 별점을 렌더링합니다.

@@ -238,7 +238,7 @@
 /* 콜랩스 스킨 */
 /* 심플 (테두리 없음) */
 .cui-collapse-simple { border: none; background: none; }
-.cui-collapse-simple .cui-collapse-item { border-bottom: 1px solid #e9ecef; }
+.cui-collapse-simple .cui-collapse-item { border-bottom: 1px solid var(--cui-border-color); }
 .cui-collapse-simple .cui-collapse-title { background: none; padding-left: 0; padding-right: 0; }
 
 /* 카드 스타일 */
@@ -264,8 +264,8 @@
 
 /* Warning 스킨 */
 .cui-collapse-warning { border-color: var(--cui-warning); }
-.cui-collapse-warning .cui-collapse-title { background: var(--cui-warning); color: #333; }
-.cui-collapse-warning .cui-collapse-title::after { color: #333; }
+.cui-collapse-warning .cui-collapse-title { background: var(--cui-warning); color: var(--cui-text-primary); }
+.cui-collapse-warning .cui-collapse-title::after { color: var(--cui-text-primary); }
 .cui-collapse-warning .cui-collapse-item { border-color: var(--cui-warning); }
 
 /* Danger 스킨 */
@@ -281,7 +281,7 @@
 .cui-collapse-dark .cui-collapse-item { border-color: #2c3e50; }
 
 /* 라이트 스킨 (밝은 헤더) */
-.cui-collapse-light .cui-collapse-title { background: #f8f9fa; color: #333; }
+.cui-collapse-light .cui-collapse-title { background: var(--cui-bg-gray); color: var(--cui-text-primary); }
 
 /* 플러시 스킨 (가장자리 없음) */
 .cui-collapse-flush { border: none; border-radius: 0; }
@@ -290,7 +290,7 @@
 
 /* 그림자 효과 */
 .cui-collapse-shadow { border: none; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
-.cui-collapse-shadow .cui-collapse-item { border-bottom-color: #f0f0f0; }
+.cui-collapse-shadow .cui-collapse-item { border-bottom-color: var(--cui-border-color-secondary); }
 
 /* ========================================
    탭 닫기 버튼
@@ -410,10 +410,10 @@
 .cui-nav.cui-nav-warning .cui-nav-item.cui-this > a { color: #000; background: rgba(255,255,255,.3); }
 
 /* 인버스 스킨 */
-.cui-nav.cui-nav-inverse { background: #f8f9fa; border-color: #e9ecef; }
-.cui-nav.cui-nav-inverse .cui-nav-item > a { color: #495057; }
+.cui-nav.cui-nav-inverse { background: var(--cui-bg-gray); border-color: var(--cui-border-color); }
+.cui-nav.cui-nav-inverse .cui-nav-item > a { color: var(--cui-text-secondary); }
 .cui-nav.cui-nav-inverse .cui-nav-item > a:hover,
-.cui-nav.cui-nav-inverse .cui-nav-item.cui-this > a { color: var(--cui-primary); background: #e9ecef; }
+.cui-nav.cui-nav-inverse .cui-nav-item.cui-this > a { color: var(--cui-primary); background: var(--cui-border-color); }
 
 /* ========================================
    브레드크럼 (Breadcrumb)
@@ -528,7 +528,7 @@
   left: 50%;
   width: 100%;
   height: 2px;
-  background: #e9ecef;
+  background: var(--cui-border-color);
 }
 
 .cui-step-item:last-child::before {
@@ -549,8 +549,8 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #e9ecef;
-  color: #999;
+  background: var(--cui-border-color);
+  color: var(--cui-text-tertiary);
   font-size: 14px;
   font-weight: 500;
 }
@@ -570,18 +570,18 @@
 .cui-step-title {
   margin-top: 8px;
   font-size: 14px;
-  color: #999;
+  color: var(--cui-text-tertiary);
 }
 
 .cui-step-item.cui-step-done .cui-step-title,
 .cui-step-item.cui-step-active .cui-step-title {
-  color: #333;
+  color: var(--cui-text-primary);
 }
 
 .cui-step-desc {
   margin-top: 4px;
   font-size: 12px;
-  color: #adb5bd;
+  color: var(--cui-text-disabled);
 }
 
 /* 수직 스텝 */

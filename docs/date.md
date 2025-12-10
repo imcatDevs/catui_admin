@@ -23,6 +23,8 @@ Catui.use(['date'], function(){
 | API | 설명 |
 |-----|------|
 | `render(options)` | 날짜 선택기 렌더링 |
+| `getInst(id)` | 인스턴스 가져오기 |
+| `closeAll()` | 모든 날짜 선택기 닫기 |
 
 ---
 

@@ -16,6 +16,8 @@
     modules: {}   // 모듈 목록
     ,status: {}   // 모듈 상태
     ,timeout: 10  // 모듈 로드 타임아웃 (초)
+    ,maxRetry: 50 // 최대 재시도 횟수 (20ms * 50 = 1초)
+    ,debug: false // 디버그 모드
     ,event: {}    // 이벤트 저장소
   }
 
@@ -44,15 +46,22 @@
     ,'theme': 'modules/theme'   // 테마
   }
 
+  // 로그 출력 (debug 모드일 때만)
+  ,log = function(msg){
+    if(config.debug && window.console && console.log){
+      console.log('[Catui] ' + msg);
+    }
+  }
+
   // 오류 힌트
   ,error = function(msg, type){
     type = type || 'Catui';
-    window.console && console.error && console.error(type + ' error hint: ' + msg);
+    window.console && console.error && console.error(type + ' error: ' + msg);
   }
 
   // 힌트 반환
   ,hint = function(){
-    return { error: error };
+    return { error: error, log: log };
   }
 
   // Catui 생성자
@@ -128,25 +137,52 @@
     }
 
     // 모든 모듈 로드 완료
+    var retryCount = 0;
     var onReady = function(){
       // 모듈이 실제로 등록되었는지 확인
       var allReady = true;
+      var failedMods = [];
+      
       for(var i = 0; i < modNames.length; i++){
-        if(!catui[modNames[i]] && !window[modNames[i]]){
-          allReady = false;
-          break;
+        var modName = modNames[i];
+        if(!catui[modName] && !window[modName]){
+          // 로드 실패 상태인지 확인
+          if(config.status[modName] === false){
+            failedMods.push(modName);
+          } else {
+            allReady = false;
+          }
         }
       }
       
       if(!allReady){
+        retryCount++;
+        // 최대 재시도 횟수 초과 시 타임아웃
+        if(retryCount > config.maxRetry){
+          error('Module load timeout: ' + modNames.filter(function(n){
+            return !catui[n] && !window[n];
+          }).join(', '));
+          // 타임아웃 시에도 콜백 호출 (로드된 모듈만)
+          var args = [];
+          for(var k = 0; k < modNames.length; k++){
+            args.push(catui[modNames[k]] || window[modNames[k]] || null);
+          }
+          callback.apply(catui, args);
+          return;
+        }
         // 모듈이 아직 준비되지 않으면 잠시 대기
         setTimeout(onReady, 20);
         return;
       }
       
+      // 실패한 모듈 경고
+      if(failedMods.length > 0){
+        error('Failed to load modules: ' + failedMods.join(', '));
+      }
+      
       var args = [], j;
       for(j = 0; j < modNames.length; j++){
-        args.push(catui[modNames[j]] || window[modNames[j]]);
+        args.push(catui[modNames[j]] || window[modNames[j]] || null);
       }
       callback.apply(catui, args);
     };
@@ -231,21 +267,16 @@
     return that;
   };
 
-  // 이벤트 등록
-  Catui.prototype.onevent = function(modName, events, callback){
+  // 이벤트 등록 (인스턴스 및 정적 메서드)
+  var oneventHandler = function(modName, events, callback){
     if(typeof modName !== 'string' || typeof callback !== 'function'){
       return this;
     }
     return Catui.event(modName, events, null, callback);
   };
-
-  // 이벤트 등록 (정적 메서드)
-  Catui.onevent = function(modName, events, callback){
-    if(typeof modName !== 'string' || typeof callback !== 'function'){
-      return this;
-    }
-    return Catui.event(modName, events, null, callback);
-  };
+  
+  Catui.prototype.onevent = oneventHandler;
+  Catui.onevent = oneventHandler;
 
   // 이벤트 실행
   Catui.prototype.event = Catui.event = function(modName, events, params, callback){
@@ -311,20 +342,42 @@
     table = table || 'catui';
     storage = storage || localStorage;
 
-    if(!window.JSON || !window.JSON.parse) return;
+    if(!window.JSON || !window.JSON.parse) return null;
 
-    // getter
+    var data = JSON.parse(storage.getItem(table) || '{}');
+
+    // 삭제
     if(settings === null){
-      return storage.removeItem(table);
+      storage.removeItem(table);
+      return true;
     }
-    if(typeof settings === 'object'){
-      return storage.setItem(table, JSON.stringify(settings));
+    
+    // 전체 데이터 반환
+    if(settings === undefined){
+      return data;
     }
+    
+    // 특정 키 값 반환
     if(typeof settings === 'string'){
-      var data = JSON.parse(storage.getItem(table) || '{}');
       return data[settings];
     }
-    return JSON.parse(storage.getItem(table) || '{}');
+    
+    // 객체로 부분 업데이트
+    if(typeof settings === 'object'){
+      for(var key in settings){
+        if(settings.hasOwnProperty(key)){
+          if(settings[key] === null){
+            delete data[key];  // null이면 해당 키 삭제
+          } else {
+            data[key] = settings[key];
+          }
+        }
+      }
+      storage.setItem(table, JSON.stringify(data));
+      return data;
+    }
+    
+    return data;
   };
 
   // 세션 스토리지
@@ -376,7 +429,7 @@
 
   // $c 모듈 즉시 로드
   catui.use('$c', function(){
-    console.log('Catui v' + catui.v + ' ready');
+    log('v' + catui.v + ' ready');
   });
 
 }(window);

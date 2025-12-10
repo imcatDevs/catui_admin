@@ -24,6 +24,28 @@ Catui.use(['carousel'], function(){
 
 ---
 
+## API 목록
+
+| API | 설명 |
+|-----|------|
+| `render(options)` | 캐러셀 렌더링 (인스턴스 반환) |
+| `set(options)` | 전역 설정 |
+| `getInst(id)` | 인스턴스 가져오기 |
+| `on(events, callback)` | 이벤트 등록 |
+
+### 인스턴스 메서드
+
+| 메서드 | 설명 |
+|--------|------|
+| `goto(index)` | 지정 슬라이드로 이동 |
+| `prev()` | 이전 슬라이드 |
+| `next()` | 다음 슬라이드 |
+| `reload(options)` | 리로드 |
+| `destroy()` | 인스턴스 정리 |
+| `config` | 설정 객체 |
+
+---
+
 ## render(options)
 
 캐러셀을 렌더링합니다.

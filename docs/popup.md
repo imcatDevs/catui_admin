@@ -31,6 +31,7 @@ Catui.use(['popup'], function(){
 | `photos(options)` | 사진 뷰어 |
 | `toast(options)` | 토스트 메시지 |
 | `notice(options)` | 공지 (하루 안보기) |
+| `noticeReset(id)` | 공지 숨김 초기화 |
 | `tab(options)` | 탭 레이어 |
 | `drawer(options)` | 슬라이드 오버레이 |
 | `style(index, css)` | 동적 스타일 변경 |

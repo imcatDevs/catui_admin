@@ -1,0 +1,469 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - heading "Table 데이터 테이블 테스트" [level=2] [ref=e2]
+  - generic [ref=e3]:
+    - heading "기본 테이블" [level=3] [ref=e4]
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - table [ref=e8]:
+          - rowgroup [ref=e15]:
+            - row "ID 사용자명 이메일 역할 상태" [ref=e16]:
+              - columnheader "ID" [ref=e17]:
+                - generic [ref=e18]: ID
+              - columnheader "사용자명" [ref=e19]:
+                - generic [ref=e20]: 사용자명
+              - columnheader "이메일" [ref=e21]:
+                - generic [ref=e22]: 이메일
+              - columnheader "역할" [ref=e23]:
+                - generic [ref=e24]: 역할
+              - columnheader "상태" [ref=e25]:
+                - generic [ref=e26]: 상태
+        - table [ref=e28]:
+          - rowgroup [ref=e35]:
+            - row "1 admin admin@example.com 관리자 활성" [ref=e36]:
+              - cell "1" [ref=e37]:
+                - generic [ref=e38]: "1"
+              - cell "admin" [ref=e39]:
+                - generic [ref=e40]: admin
+              - cell "admin@example.com" [ref=e41]:
+                - generic [ref=e42]: admin@example.com
+              - cell "관리자" [ref=e43]:
+                - generic [ref=e44]: 관리자
+              - cell "활성" [ref=e45]:
+                - generic [ref=e46]: 활성
+            - row "2 user1 user1@example.com 사용자 활성" [ref=e47]:
+              - cell "2" [ref=e48]:
+                - generic [ref=e49]: "2"
+              - cell "user1" [ref=e50]:
+                - generic [ref=e51]: user1
+              - cell "user1@example.com" [ref=e52]:
+                - generic [ref=e53]: user1@example.com
+              - cell "사용자" [ref=e54]:
+                - generic [ref=e55]: 사용자
+              - cell "활성" [ref=e56]:
+                - generic [ref=e57]: 활성
+            - row "3 user2 user2@example.com 사용자 비활성" [ref=e58]:
+              - cell "3" [ref=e59]:
+                - generic [ref=e60]: "3"
+              - cell "user2" [ref=e61]:
+                - generic [ref=e62]: user2
+              - cell "user2@example.com" [ref=e63]:
+                - generic [ref=e64]: user2@example.com
+              - cell "사용자" [ref=e65]:
+                - generic [ref=e66]: 사용자
+              - cell "비활성" [ref=e67]:
+                - generic [ref=e68]: 비활성
+            - row "4 editor editor@example.com 편집자 활성" [ref=e69]:
+              - cell "4" [ref=e70]:
+                - generic [ref=e71]: "4"
+              - cell "editor" [ref=e72]:
+                - generic [ref=e73]: editor
+              - cell "editor@example.com" [ref=e74]:
+                - generic [ref=e75]: editor@example.com
+              - cell "편집자" [ref=e76]:
+                - generic [ref=e77]: 편집자
+              - cell "활성" [ref=e78]:
+                - generic [ref=e79]: 활성
+            - row "5 guest guest@example.com 게스트 활성" [ref=e80]:
+              - cell "5" [ref=e81]:
+                - generic [ref=e82]: "5"
+              - cell "guest" [ref=e83]:
+                - generic [ref=e84]: guest
+              - cell "guest@example.com" [ref=e85]:
+                - generic [ref=e86]: guest@example.com
+              - cell "게스트" [ref=e87]:
+                - generic [ref=e88]: 게스트
+              - cell "활성" [ref=e89]:
+                - generic [ref=e90]: 활성
+      - generic [ref=e92]:
+        - button "새로고침" [ref=e93] [cursor=pointer]
+        - button "엑셀 다운로드" [ref=e94] [cursor=pointer]
+  - generic [ref=e95]:
+    - heading "체크박스 & 페이지네이션" [level=3] [ref=e96]
+    - generic [ref=e97]:
+      - generic [ref=e98]:
+        - table [ref=e100]:
+          - rowgroup [ref=e107]:
+            - row "# 사용자명 이메일 가입일" [ref=e108]:
+              - columnheader [ref=e109]:
+                - checkbox [ref=e111] [cursor=pointer]
+              - columnheader "#" [ref=e112]:
+                - generic [ref=e113]: "#"
+              - columnheader "사용자명" [ref=e114]:
+                - generic [ref=e115]: 사용자명
+              - columnheader "이메일" [ref=e116]:
+                - generic [ref=e117]: 이메일
+              - columnheader "가입일" [ref=e118]:
+                - generic [ref=e119]: 가입일
+        - table [ref=e121]:
+          - rowgroup [ref=e128]:
+            - row "1 admin admin@example.com 2024-01-15" [ref=e129]:
+              - cell [ref=e130]:
+                - checkbox [ref=e132] [cursor=pointer]
+              - cell "1" [ref=e133]:
+                - generic [ref=e134]: "1"
+              - cell "admin" [ref=e135]:
+                - generic [ref=e136]: admin
+              - cell "admin@example.com" [ref=e137]:
+                - generic [ref=e138]: admin@example.com
+              - cell "2024-01-15" [ref=e139]:
+                - generic [ref=e140]: 2024-01-15
+            - row "2 user1 user1@example.com 2024-02-20" [ref=e141]:
+              - cell [ref=e142]:
+                - checkbox [ref=e144] [cursor=pointer]
+              - cell "2" [ref=e145]:
+                - generic [ref=e146]: "2"
+              - cell "user1" [ref=e147]:
+                - generic [ref=e148]: user1
+              - cell "user1@example.com" [ref=e149]:
+                - generic [ref=e150]: user1@example.com
+              - cell "2024-02-20" [ref=e151]:
+                - generic [ref=e152]: 2024-02-20
+            - row "3 user2 user2@example.com 2024-03-10" [ref=e153]:
+              - cell [ref=e154]:
+                - checkbox [ref=e156] [cursor=pointer]
+              - cell "3" [ref=e157]:
+                - generic [ref=e158]: "3"
+              - cell "user2" [ref=e159]:
+                - generic [ref=e160]: user2
+              - cell "user2@example.com" [ref=e161]:
+                - generic [ref=e162]: user2@example.com
+              - cell "2024-03-10" [ref=e163]:
+                - generic [ref=e164]: 2024-03-10
+            - row "4 editor editor@example.com 2024-04-05" [ref=e165]:
+              - cell [ref=e166]:
+                - checkbox [ref=e168] [cursor=pointer]
+              - cell "4" [ref=e169]:
+                - generic [ref=e170]: "4"
+              - cell "editor" [ref=e171]:
+                - generic [ref=e172]: editor
+              - cell "editor@example.com" [ref=e173]:
+                - generic [ref=e174]: editor@example.com
+              - cell "2024-04-05" [ref=e175]:
+                - generic [ref=e176]: 2024-04-05
+            - row "5 guest guest@example.com 2024-05-12" [ref=e177]:
+              - cell [ref=e178]:
+                - checkbox [ref=e180] [cursor=pointer]
+              - cell "5" [ref=e181]:
+                - generic [ref=e182]: "5"
+              - cell "guest" [ref=e183]:
+                - generic [ref=e184]: guest
+              - cell "guest@example.com" [ref=e185]:
+                - generic [ref=e186]: guest@example.com
+              - cell "2024-05-12" [ref=e187]:
+                - generic [ref=e188]: 2024-05-12
+      - generic [ref=e189]:
+        - generic [ref=e190]:
+          - generic [ref=e191]: 총 8 건
+          - link "chevron_left" [ref=e192]:
+            - /url: javascript:;
+            - generic [ref=e193]: chevron_left
+          - generic [ref=e194]:
+            - emphasis [ref=e195]
+            - emphasis [ref=e196]: "1"
+          - link "2" [ref=e197] [cursor=pointer]:
+            - /url: javascript:;
+          - link "chevron_right" [ref=e198] [cursor=pointer]:
+            - /url: javascript:;
+            - generic [ref=e199]: chevron_right
+          - combobox [ref=e201] [cursor=pointer]:
+            - option "5 건/페이지" [selected]
+            - option "10 건/페이지"
+            - option "20 건/페이지"
+            - option "30 건/페이지"
+            - option "50 건/페이지"
+        - generic [ref=e202]:
+          - button "선택 삭제" [ref=e203] [cursor=pointer]
+          - button "전체 내보내기" [ref=e204] [cursor=pointer]
+    - button "선택된 항목 확인" [ref=e206] [cursor=pointer]
+  - generic [ref=e207]:
+    - heading "툴바 & 정렬" [level=3] [ref=e208]
+    - generic [ref=e209]:
+      - generic [ref=e210]:
+        - generic [ref=e212]:
+          - button "add 추가" [ref=e213] [cursor=pointer]:
+            - generic [ref=e214]: add
+            - text: 추가
+          - button "delete 삭제" [ref=e215] [cursor=pointer]:
+            - generic [ref=e216]: delete
+            - text: 삭제
+        - generic [ref=e217]:
+          - generic "열 필터" [ref=e218] [cursor=pointer]:
+            - generic [ref=e219]: filter_list
+          - generic "내보내기" [ref=e220] [cursor=pointer]:
+            - generic [ref=e221]: download
+          - generic "인쇄" [ref=e222] [cursor=pointer]:
+            - generic [ref=e223]: print
+      - generic [ref=e224]:
+        - table [ref=e226]:
+          - rowgroup [ref=e234]:
+            - row "ID arrow_drop_up arrow_drop_down 사용자명 arrow_drop_up arrow_drop_down 이메일 역할 상태 가입일 arrow_drop_up arrow_drop_down" [ref=e235]:
+              - columnheader "ID arrow_drop_up arrow_drop_down" [ref=e236] [cursor=pointer]:
+                - generic [ref=e237]:
+                  - text: ID
+                  - generic [ref=e238]:
+                    - generic "오름차순" [ref=e239]: arrow_drop_up
+                    - generic "내림차순" [ref=e240]: arrow_drop_down
+              - columnheader "사용자명 arrow_drop_up arrow_drop_down" [ref=e241] [cursor=pointer]:
+                - generic [ref=e242]:
+                  - text: 사용자명
+                  - generic [ref=e243]:
+                    - generic "오름차순" [ref=e244]: arrow_drop_up
+                    - generic "내림차순" [ref=e245]: arrow_drop_down
+              - columnheader "이메일" [ref=e246]:
+                - generic [ref=e247]: 이메일
+              - columnheader "역할" [ref=e248]:
+                - generic [ref=e249]: 역할
+              - columnheader "상태" [ref=e250]:
+                - generic [ref=e251]: 상태
+              - columnheader "가입일 arrow_drop_up arrow_drop_down" [ref=e252] [cursor=pointer]:
+                - generic [ref=e253]:
+                  - text: 가입일
+                  - generic [ref=e254]:
+                    - generic "오름차순" [ref=e255]: arrow_drop_up
+                    - generic "내림차순" [ref=e256]: arrow_drop_down
+        - table [ref=e258]:
+          - rowgroup [ref=e266]:
+            - row "1 admin admin@example.com 관리자 활성 2024-01-15" [ref=e267]:
+              - cell "1" [ref=e268]:
+                - generic [ref=e269]: "1"
+              - cell "admin" [ref=e270]:
+                - generic [ref=e271]: admin
+              - cell "admin@example.com" [ref=e272]:
+                - generic [ref=e273]: admin@example.com
+              - cell "관리자" [ref=e274]:
+                - generic [ref=e275]: 관리자
+              - cell "활성" [ref=e276]:
+                - generic [ref=e277]: 활성
+              - cell "2024-01-15" [ref=e278]:
+                - generic [ref=e279]: 2024-01-15
+            - row "2 user1 user1@example.com 사용자 활성 2024-02-20" [ref=e280]:
+              - cell "2" [ref=e281]:
+                - generic [ref=e282]: "2"
+              - cell "user1" [ref=e283]:
+                - generic [ref=e284]: user1
+              - cell "user1@example.com" [ref=e285]:
+                - generic [ref=e286]: user1@example.com
+              - cell "사용자" [ref=e287]:
+                - generic [ref=e288]: 사용자
+              - cell "활성" [ref=e289]:
+                - generic [ref=e290]: 활성
+              - cell "2024-02-20" [ref=e291]:
+                - generic [ref=e292]: 2024-02-20
+            - row "3 user2 user2@example.com 사용자 비활성 2024-03-10" [ref=e293]:
+              - cell "3" [ref=e294]:
+                - generic [ref=e295]: "3"
+              - cell "user2" [ref=e296]:
+                - generic [ref=e297]: user2
+              - cell "user2@example.com" [ref=e298]:
+                - generic [ref=e299]: user2@example.com
+              - cell "사용자" [ref=e300]:
+                - generic [ref=e301]: 사용자
+              - cell "비활성" [ref=e302]:
+                - generic [ref=e303]: 비활성
+              - cell "2024-03-10" [ref=e304]:
+                - generic [ref=e305]: 2024-03-10
+            - row "4 editor editor@example.com 편집자 활성 2024-04-05" [ref=e306]:
+              - cell "4" [ref=e307]:
+                - generic [ref=e308]: "4"
+              - cell "editor" [ref=e309]:
+                - generic [ref=e310]: editor
+              - cell "editor@example.com" [ref=e311]:
+                - generic [ref=e312]: editor@example.com
+              - cell "편집자" [ref=e313]:
+                - generic [ref=e314]: 편집자
+              - cell "활성" [ref=e315]:
+                - generic [ref=e316]: 활성
+              - cell "2024-04-05" [ref=e317]:
+                - generic [ref=e318]: 2024-04-05
+            - row "5 guest guest@example.com 게스트 활성 2024-05-12" [ref=e319]:
+              - cell "5" [ref=e320]:
+                - generic [ref=e321]: "5"
+              - cell "guest" [ref=e322]:
+                - generic [ref=e323]: guest
+              - cell "guest@example.com" [ref=e324]:
+                - generic [ref=e325]: guest@example.com
+              - cell "게스트" [ref=e326]:
+                - generic [ref=e327]: 게스트
+              - cell "활성" [ref=e328]:
+                - generic [ref=e329]: 활성
+              - cell "2024-05-12" [ref=e330]:
+                - generic [ref=e331]: 2024-05-12
+            - row "6 test1 test1@example.com 사용자 활성 2024-06-01" [ref=e332]:
+              - cell "6" [ref=e333]:
+                - generic [ref=e334]: "6"
+              - cell "test1" [ref=e335]:
+                - generic [ref=e336]: test1
+              - cell "test1@example.com" [ref=e337]:
+                - generic [ref=e338]: test1@example.com
+              - cell "사용자" [ref=e339]:
+                - generic [ref=e340]: 사용자
+              - cell "활성" [ref=e341]:
+                - generic [ref=e342]: 활성
+              - cell "2024-06-01" [ref=e343]:
+                - generic [ref=e344]: 2024-06-01
+            - row "7 test2 test2@example.com 사용자 비활성 2024-06-15" [ref=e345]:
+              - cell "7" [ref=e346]:
+                - generic [ref=e347]: "7"
+              - cell "test2" [ref=e348]:
+                - generic [ref=e349]: test2
+              - cell "test2@example.com" [ref=e350]:
+                - generic [ref=e351]: test2@example.com
+              - cell "사용자" [ref=e352]:
+                - generic [ref=e353]: 사용자
+              - cell "비활성" [ref=e354]:
+                - generic [ref=e355]: 비활성
+              - cell "2024-06-15" [ref=e356]:
+                - generic [ref=e357]: 2024-06-15
+            - row "8 manager manager@example.com 매니저 활성 2024-07-01" [ref=e358]:
+              - cell "8" [ref=e359]:
+                - generic [ref=e360]: "8"
+              - cell "manager" [ref=e361]:
+                - generic [ref=e362]: manager
+              - cell "manager@example.com" [ref=e363]:
+                - generic [ref=e364]: manager@example.com
+              - cell "매니저" [ref=e365]:
+                - generic [ref=e366]: 매니저
+              - cell "활성" [ref=e367]:
+                - generic [ref=e368]: 활성
+              - cell "2024-07-01" [ref=e369]:
+                - generic [ref=e370]: 2024-07-01
+            - row "9 dev1 dev1@example.com 개발자 활성 2024-07-10" [ref=e371]:
+              - cell "9" [ref=e372]:
+                - generic [ref=e373]: "9"
+              - cell "dev1" [ref=e374]:
+                - generic [ref=e375]: dev1
+              - cell "dev1@example.com" [ref=e376]:
+                - generic [ref=e377]: dev1@example.com
+              - cell "개발자" [ref=e378]:
+                - generic [ref=e379]: 개발자
+              - cell "활성" [ref=e380]:
+                - generic [ref=e381]: 활성
+              - cell "2024-07-10" [ref=e382]:
+                - generic [ref=e383]: 2024-07-10
+            - row "10 dev2 dev2@example.com 개발자 활성 2024-08-01" [ref=e384]:
+              - cell "10" [ref=e385]:
+                - generic [ref=e386]: "10"
+              - cell "dev2" [ref=e387]:
+                - generic [ref=e388]: dev2
+              - cell "dev2@example.com" [ref=e389]:
+                - generic [ref=e390]: dev2@example.com
+              - cell "개발자" [ref=e391]:
+                - generic [ref=e392]: 개발자
+              - cell "활성" [ref=e393]:
+                - generic [ref=e394]: 활성
+              - cell "2024-08-01" [ref=e395]:
+                - generic [ref=e396]: 2024-08-01
+      - generic [ref=e398]:
+        - generic [ref=e399]: 총 15 건
+        - link "chevron_left" [ref=e400]:
+          - /url: javascript:;
+          - generic [ref=e401]: chevron_left
+        - generic [ref=e402]:
+          - emphasis [ref=e403]
+          - emphasis [ref=e404]: "1"
+        - link "2" [ref=e405] [cursor=pointer]:
+          - /url: javascript:;
+        - link "chevron_right" [ref=e406] [cursor=pointer]:
+          - /url: javascript:;
+          - generic [ref=e407]: chevron_right
+        - combobox [ref=e409] [cursor=pointer]:
+          - option "10 건/페이지" [selected]
+          - option "20 건/페이지"
+          - option "30 건/페이지"
+          - option "50 건/페이지"
+          - option "100 건/페이지"
+  - generic [ref=e410]:
+    - heading "HTML 테이블 → Catui 테이블 변환" [level=3] [ref=e411]
+    - paragraph [ref=e412]:
+      - text: 일반 HTML 테이블에
+      - code [ref=e413]: cui-filter
+      - text: 속성을 추가하면 자동으로 Catui 테이블로 변환됩니다.
+    - generic [ref=e415]:
+      - table [ref=e417]:
+        - rowgroup [ref=e423]:
+          - row "상품명 가격 arrow_drop_up arrow_drop_down 재고 arrow_drop_up arrow_drop_down 카테고리" [ref=e424]:
+            - columnheader "상품명" [ref=e425]:
+              - generic [ref=e426]: 상품명
+            - columnheader "가격 arrow_drop_up arrow_drop_down" [ref=e427] [cursor=pointer]:
+              - generic [ref=e428]:
+                - text: 가격
+                - generic [ref=e429]:
+                  - generic "오름차순" [ref=e430]: arrow_drop_up
+                  - generic "내림차순" [ref=e431]: arrow_drop_down
+            - columnheader "재고 arrow_drop_up arrow_drop_down" [ref=e432] [cursor=pointer]:
+              - generic [ref=e433]:
+                - text: 재고
+                - generic [ref=e434]:
+                  - generic "오름차순" [ref=e435]: arrow_drop_up
+                  - generic "내림차순" [ref=e436]: arrow_drop_down
+            - columnheader "카테고리" [ref=e437]:
+              - generic [ref=e438]: 카테고리
+      - table [ref=e440]:
+        - rowgroup [ref=e446]:
+          - row "노트북 1,200,000 25 전자제품" [ref=e447]:
+            - cell "노트북" [ref=e448]:
+              - generic [ref=e449]: 노트북
+            - cell "1,200,000" [ref=e450]:
+              - generic [ref=e451]: 1,200,000
+            - cell "25" [ref=e452]:
+              - generic [ref=e453]: "25"
+            - cell "전자제품" [ref=e454]:
+              - generic [ref=e455]: 전자제품
+          - row "마우스 35,000 150 주변기기" [ref=e456]:
+            - cell "마우스" [ref=e457]:
+              - generic [ref=e458]: 마우스
+            - cell "35,000" [ref=e459]:
+              - generic [ref=e460]: 35,000
+            - cell "150" [ref=e461]:
+              - generic [ref=e462]: "150"
+            - cell "주변기기" [ref=e463]:
+              - generic [ref=e464]: 주변기기
+          - row "키보드 89,000 80 주변기기" [ref=e465]:
+            - cell "키보드" [ref=e466]:
+              - generic [ref=e467]: 키보드
+            - cell "89,000" [ref=e468]:
+              - generic [ref=e469]: 89,000
+            - cell "80" [ref=e470]:
+              - generic [ref=e471]: "80"
+            - cell "주변기기" [ref=e472]:
+              - generic [ref=e473]: 주변기기
+          - row "모니터 450,000 30 전자제품" [ref=e474]:
+            - cell "모니터" [ref=e475]:
+              - generic [ref=e476]: 모니터
+            - cell "450,000" [ref=e477]:
+              - generic [ref=e478]: 450,000
+            - cell "30" [ref=e479]:
+              - generic [ref=e480]: "30"
+            - cell "전자제품" [ref=e481]:
+              - generic [ref=e482]: 전자제품
+          - row "헤드셋 120,000 45 주변기기" [ref=e483]:
+            - cell "헤드셋" [ref=e484]:
+              - generic [ref=e485]: 헤드셋
+            - cell "120,000" [ref=e486]:
+              - generic [ref=e487]: 120,000
+            - cell "45" [ref=e488]:
+              - generic [ref=e489]: "45"
+            - cell "주변기기" [ref=e490]:
+              - generic [ref=e491]: 주변기기
+          - row "USB 허브 25,000 200 주변기기" [ref=e492]:
+            - cell "USB 허브" [ref=e493]:
+              - generic [ref=e494]: USB 허브
+            - cell "25,000" [ref=e495]:
+              - generic [ref=e496]: 25,000
+            - cell "200" [ref=e497]:
+              - generic [ref=e498]: "200"
+            - cell "주변기기" [ref=e499]:
+              - generic [ref=e500]: 주변기기
+          - row "외장하드 95,000 60 저장장치" [ref=e501]:
+            - cell "외장하드" [ref=e502]:
+              - generic [ref=e503]: 외장하드
+            - cell "95,000" [ref=e504]:
+              - generic [ref=e505]: 95,000
+            - cell "60" [ref=e506]:
+              - generic [ref=e507]: "60"
+            - cell "저장장치" [ref=e508]:
+              - generic [ref=e509]: 저장장치
+```

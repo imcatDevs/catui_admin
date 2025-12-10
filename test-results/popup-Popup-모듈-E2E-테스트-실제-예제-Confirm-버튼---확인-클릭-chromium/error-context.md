@@ -1,0 +1,198 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - heading "Popup 컴포넌트 전체 예제" [level=2] [ref=e2]
+  - generic [ref=e3]:
+    - heading "1. 기본 팝업 (alert, confirm, msg)" [level=3] [ref=e4]
+    - generic [ref=e5]:
+      - button "Alert 알림" [ref=e6] [cursor=pointer]
+      - button "Confirm 확인" [active] [ref=e7] [cursor=pointer]
+      - button "Message 메시지" [ref=e8] [cursor=pointer]
+  - generic [ref=e9]:
+    - heading "1-1. Loading 로딩 팝업" [level=3] [ref=e10]
+    - generic [ref=e11]:
+      - button "CSS 스피너 (0)" [ref=e12] [cursor=pointer]
+      - button "refresh (1)" [ref=e13] [cursor=pointer]
+      - button "sync (2)" [ref=e14] [cursor=pointer]
+      - button "hourglass (3)" [ref=e15] [cursor=pointer]
+    - generic [ref=e16]:
+      - button "로딩중... 텍스트" [ref=e17] [cursor=pointer]
+      - button "배경 없음" [ref=e18] [cursor=pointer]
+      - button "배경 없음 + 텍스트" [ref=e19] [cursor=pointer]
+    - heading "특정 요소에 로딩" [level=4] [ref=e20]
+    - generic [ref=e21]:
+      - button "아래 박스에 로딩" [ref=e22] [cursor=pointer]
+      - button "텍스트 포함" [ref=e23] [cursor=pointer]
+    - generic [ref=e24]: 이 영역에 로딩이 표시됩니다.
+  - generic [ref=e25]:
+    - heading "2. Prompt 입력 팝업" [level=3] [ref=e26]
+    - generic [ref=e27]:
+      - button "텍스트 입력" [ref=e28] [cursor=pointer]
+      - button "비밀번호 입력" [ref=e29] [cursor=pointer]
+      - button "텍스트영역 입력" [ref=e30] [cursor=pointer]
+  - generic [ref=e31]:
+    - heading "3. 아이콘 종류 (0~6)" [level=3] [ref=e32]
+    - generic [ref=e33]:
+      - 'button "0: 성공" [ref=e34] [cursor=pointer]'
+      - 'button "1: 에러" [ref=e35] [cursor=pointer]'
+      - 'button "2: 경고" [ref=e36] [cursor=pointer]'
+      - 'button "3: 정보" [ref=e37] [cursor=pointer]'
+      - 'button "4: 잠금" [ref=e38] [cursor=pointer]'
+      - 'button "5: 슬픔" [ref=e39] [cursor=pointer]'
+      - 'button "6: 기쁨" [ref=e40] [cursor=pointer]'
+  - generic [ref=e41]:
+    - heading "4. 애니메이션 종류 (anim 0~6)" [level=3] [ref=e42]
+    - generic [ref=e43]:
+      - 'button "0: Scale" [ref=e44] [cursor=pointer]'
+      - 'button "1: 위에서" [ref=e45] [cursor=pointer]'
+      - 'button "2: 아래에서" [ref=e46] [cursor=pointer]'
+      - 'button "3: 왼쪽에서" [ref=e47] [cursor=pointer]'
+      - 'button "4: 오른쪽에서" [ref=e48] [cursor=pointer]'
+      - 'button "5: Fade" [ref=e49] [cursor=pointer]'
+      - 'button "6: Rotate" [ref=e50] [cursor=pointer]'
+  - generic [ref=e51]:
+    - heading "5. Tips 툴팁 (방향)" [level=3] [ref=e52]
+    - generic [ref=e53]:
+      - button "위쪽 (1)" [ref=e54] [cursor=pointer]
+      - button "오른쪽 (2)" [ref=e55] [cursor=pointer]
+      - button "아래쪽 (3)" [ref=e56] [cursor=pointer]
+      - button "왼쪽 (4)" [ref=e57] [cursor=pointer]
+  - generic [ref=e58]:
+    - heading "6. 드래그 이동 & 최대화/최소화" [level=3] [ref=e59]
+    - generic [ref=e60]:
+      - button "드래그 가능" [ref=e61] [cursor=pointer]
+      - button "최대화/최소화" [ref=e62] [cursor=pointer]
+      - button "화면 밖 이동 허용" [ref=e63] [cursor=pointer]
+  - generic [ref=e64]:
+    - heading "7. 다중 버튼 & 버튼 정렬" [level=3] [ref=e65]
+    - generic [ref=e66]:
+      - button "3개 버튼" [ref=e67] [cursor=pointer]
+      - button "버튼 왼쪽 정렬" [ref=e68] [cursor=pointer]
+      - button "버튼 중앙 정렬" [ref=e69] [cursor=pointer]
+  - generic [ref=e70]:
+    - heading "8. 타입별 팝업 (iframe, page)" [level=3] [ref=e71]
+    - generic [ref=e72]:
+      - button "iframe 팝업" [ref=e73] [cursor=pointer]
+      - button "page 팝업" [ref=e74] [cursor=pointer]
+  - generic [ref=e75]:
+    - heading "9. 기타 옵션" [level=3] [ref=e76]
+    - generic [ref=e77]:
+      - button "배경 클릭 닫기" [ref=e78] [cursor=pointer]
+      - button "제목 없음" [ref=e79] [cursor=pointer]
+      - button "자동 닫기 (3초)" [ref=e80] [cursor=pointer]
+      - button "고정 크기" [ref=e81] [cursor=pointer]
+  - generic [ref=e82]:
+    - heading "10. API 메소드 (title, content 변경)" [level=3] [ref=e83]
+    - generic [ref=e84]:
+      - button "팝업 열기 (제목/내용 변경)" [ref=e85] [cursor=pointer]
+      - button "모든 팝업 닫기" [ref=e86] [cursor=pointer]
+  - generic [ref=e87]:
+    - heading "11. Photos 사진 보기" [level=3] [ref=e88]
+    - button "사진 갤러리" [ref=e90] [cursor=pointer]
+  - generic [ref=e91]:
+    - heading "12. Toast 알림 (여러 개 쌓임)" [level=3] [ref=e92]
+    - generic [ref=e93]:
+      - button "성공 Toast" [ref=e94] [cursor=pointer]
+      - button "에러 Toast" [ref=e95] [cursor=pointer]
+      - button "경고 Toast" [ref=e96] [cursor=pointer]
+      - button "정보 Toast" [ref=e97] [cursor=pointer]
+    - generic [ref=e98]:
+      - button "3개 연속 Toast" [ref=e99] [cursor=pointer]
+      - button "닫기버튼 없음" [ref=e100] [cursor=pointer]
+      - button "긴 시간 (10초)" [ref=e101] [cursor=pointer]
+    - heading "위치" [level=4] [ref=e102]
+    - generic [ref=e103]:
+      - button "우상단 (rt)" [ref=e104] [cursor=pointer]
+      - button "우하단 (rb)" [ref=e105] [cursor=pointer]
+      - button "좌상단 (lt)" [ref=e106] [cursor=pointer]
+      - button "좌하단 (lb)" [ref=e107] [cursor=pointer]
+  - generic [ref=e108]:
+    - heading "13. Notice 공지 (하루 안보기)" [level=3] [ref=e109]
+    - generic [ref=e110]:
+      - button "공지 팝업" [ref=e111] [cursor=pointer]
+      - button "숨김 초기화" [ref=e112] [cursor=pointer]
+  - generic [ref=e113]:
+    - heading "14. 리사이즈 (크기 조절) NEW" [level=3] [ref=e114]
+    - generic [ref=e115]:
+      - button "리사이즈 가능 팝업" [ref=e116] [cursor=pointer]
+      - button "리사이즈 + 최대화/최소화" [ref=e117] [cursor=pointer]
+  - generic [ref=e118]:
+    - heading "15. Style API (동적 스타일 변경) NEW" [level=3] [ref=e119]
+    - button "스타일 변경 테스트" [ref=e121] [cursor=pointer]
+  - generic [ref=e122]:
+    - heading "16. Full / Min / Restore API NEW" [level=3] [ref=e123]
+    - generic [ref=e124]:
+      - button "full() 전체화면" [ref=e125] [cursor=pointer]
+      - button "min() 최소화" [ref=e126] [cursor=pointer]
+      - button "restore() 복원" [ref=e127] [cursor=pointer]
+  - generic [ref=e128]:
+    - heading "17. Tab 레이어 NEW" [level=3] [ref=e129]
+    - button "탭 팝업" [ref=e131] [cursor=pointer]
+  - generic [ref=e132]:
+    - heading "18. beforeEnd 콜백 (닫기 전 확인) NEW" [level=3] [ref=e133]
+    - generic [ref=e134]:
+      - button "beforeEnd 테스트" [ref=e135] [cursor=pointer]
+      - button "Promise 지원" [ref=e136] [cursor=pointer]
+  - generic [ref=e137]:
+    - heading "19. hideOnClose (재사용 팝업) NEW" [level=3] [ref=e138]
+    - button "재사용 팝업 열기" [ref=e140] [cursor=pointer]
+  - generic [ref=e141]:
+    - heading "20. closeLast (마지막 팝업 닫기) NEW" [level=3] [ref=e142]
+    - generic [ref=e143]:
+      - button "팝업 3개 열기" [ref=e144] [cursor=pointer]
+      - button "마지막 팝업 닫기" [ref=e145] [cursor=pointer]
+  - generic [ref=e146]:
+    - heading "21. Photos 강화 (툴바, 키보드) NEW" [level=3] [ref=e147]
+    - button "강화된 사진 뷰어" [ref=e149] [cursor=pointer]
+    - paragraph [ref=e150]: "기능: 확대/축소, 회전, 좌우반전, 마우스 휠 줌, ←→ 키보드 네비게이션"
+  - generic [ref=e151]:
+    - heading "22. Drawer (슬라이드 오버레이 패널) NEW" [level=3] [ref=e152]
+    - generic [ref=e153]:
+      - button "오른쪽 Drawer" [ref=e154] [cursor=pointer]
+      - button "왼쪽 Drawer" [ref=e155] [cursor=pointer]
+      - button "상단 Drawer" [ref=e156] [cursor=pointer]
+      - button "하단 Drawer" [ref=e157] [cursor=pointer]
+  - generic [ref=e158]:
+    - heading "23. 스킨 (Skins) NEW" [level=3] [ref=e159]
+    - heading "색상 스킨" [level=4] [ref=e160]
+    - generic [ref=e161]:
+      - button "Primary" [ref=e162] [cursor=pointer]
+      - button "Success" [ref=e163] [cursor=pointer]
+      - button "Warning" [ref=e164] [cursor=pointer]
+      - button "Danger" [ref=e165] [cursor=pointer]
+      - button "Info" [ref=e166] [cursor=pointer]
+      - button "Dark" [ref=e167] [cursor=pointer]
+    - heading "스타일 스킨" [level=4] [ref=e168]
+    - generic [ref=e169]:
+      - button "Minimal" [ref=e170] [cursor=pointer]
+      - button "Round" [ref=e171] [cursor=pointer]
+      - button "Flat" [ref=e172] [cursor=pointer]
+      - button "Glass" [ref=e173] [cursor=pointer]
+      - button "iOS Style" [ref=e174] [cursor=pointer]
+      - button "Material" [ref=e175] [cursor=pointer]
+  - generic [ref=e176]: ✓ Confirm 확인 클릭!
+  - generic [ref=e177]:
+    - generic [ref=e178]:
+      - generic [ref=e179]: 최대화/최소화 테스트
+      - generic "최대화" [ref=e181] [cursor=pointer]: crop_square
+    - generic [ref=e183] [cursor=pointer]: close
+    - generic [ref=e184]: 우측 상단의 ─ (최소화) 또는 □ (최대화) 버튼을 클릭하세요.
+    - generic [ref=e186] [cursor=pointer]: 닫기
+  - generic [ref=e188]:
+    - generic [ref=e190]: 알림
+    - generic [ref=e192] [cursor=pointer]: close
+    - generic [ref=e193]:
+      - generic [ref=e195]: priority_high
+      - text: 정말 삭제하시겠습니까?
+    - generic [ref=e196]:
+      - generic [ref=e197] [cursor=pointer]: 확인
+      - generic [ref=e198] [cursor=pointer]: 취소
+  - generic [ref=e200]:
+    - generic [ref=e202]: 아이콘 0
+    - generic [ref=e204] [cursor=pointer]: close
+    - generic [ref=e205]:
+      - generic [ref=e207]: check
+      - text: 성공 아이콘입니다.
+    - generic [ref=e209] [cursor=pointer]: 확인
+```

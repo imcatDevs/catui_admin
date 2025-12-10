@@ -4,7 +4,7 @@
 
 .cui-date {
   position: absolute;
-  background: #fff;
+  background: var(--cui-bg-base);
   border-radius: 8px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
   font-size: 14px;
@@ -74,7 +74,7 @@
 .cui-date-table th {
   padding: 8px 0;
   font-weight: 500;
-  color: #666;
+  color: var(--cui-text-secondary);
   font-size: 12px;
 }
 
@@ -95,7 +95,7 @@
 /* 이전/다음 달 */
 .cui-date-table td.cui-date-prev,
 .cui-date-table td.cui-date-next {
-  color: #ccc;
+  color: var(--cui-text-disabled);
 }
 
 /* 오늘 */
@@ -116,7 +116,7 @@
 
 /* 비활성 */
 .cui-date-table td.cui-date-disabled {
-  color: #ddd;
+  color: var(--cui-text-disabled);
   cursor: not-allowed;
   background: transparent !important;
 }
@@ -164,7 +164,7 @@
 }
 
 .cui-date-list li.cui-date-other {
-  color: #ccc;
+  color: var(--cui-text-disabled);
 }
 
 /* 시간 선택 */
@@ -179,7 +179,7 @@
 
 .cui-date-time-header {
   font-size: 12px;
-  color: #666;
+  color: var(--cui-text-secondary);
   margin-bottom: 8px;
 }
 

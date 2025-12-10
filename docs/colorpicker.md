@@ -21,6 +21,25 @@ Catui.use(['colorpicker'], function(){
 
 ---
 
+## API 목록
+
+| API | 설명 |
+|-----|------|
+| `render(options)` | 컬러 선택기 렌더링 (인스턴스 반환) |
+| `set(options)` | 전역 설정 |
+| `getInst(id)` | 인스턴스 가져오기 |
+| `on(events, callback)` | 이벤트 등록 |
+
+### 인스턴스 메서드
+
+| 메서드 | 설명 |
+|--------|------|
+| `setValue(color)` | 색상 설정 |
+| `getValue()` | 색상 가져오기 |
+| `config` | 설정 객체 |
+
+---
+
 ## render(options)
 
 컬러 선택기를 렌더링합니다.

@@ -3,10 +3,12 @@
  */
 
 .cui-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   vertical-align: middle;
   height: 38px;
-  line-height: 36px;
   padding: 0 18px;
   border: 1px solid transparent;
   border-radius: 2px;
@@ -28,21 +30,26 @@
   box-sizing: border-box;
 }
 
-/* 기본 버튼 (테두리만) */
-.cui-btn-default {
-  border-color: #d2d2d2;
-  background: none;
-  color: #5f5f5f;
-}
-
-.cui-btn-default:hover {
-  border-color: var(--cui-primary);
-  color: #333;
+.cui-btn .cui-icon {
+  font-size: 18px;
+  line-height: 1;
 }
 
 .cui-btn:hover {
   opacity: 0.8;
-  color: #fff;
+}
+
+/* 기본 버튼 (테두리만) */
+.cui-btn-default {
+  border-color: var(--cui-border-color-dark);
+  background: none;
+  color: var(--cui-text-secondary);
+}
+
+.cui-btn-default:hover {
+  border-color: var(--cui-primary);
+  color: var(--cui-primary);
+  background: var(--cui-primary-lighter);
 }
 
 .cui-btn:active {
@@ -104,11 +111,6 @@
   border-radius: 100px;
 }
 
-/* 아이콘 */
-.cui-btn .cui-icon {
-  padding: 0 2px;
-  vertical-align: middle;
-}
 
 /* Normal (기본 스타일) */
 .cui-btn-normal {
@@ -118,11 +120,11 @@
 }
 
 /* 버튼 크기 */
-.cui-btn-lg { height: 44px; line-height: 42px; padding: 0 25px; font-size: 16px; }
-.cui-btn-lg .cui-icon { font-size: 20px; }
-.cui-btn-sm { height: 30px; line-height: 28px; padding: 0 10px; font-size: 12px; }
+.cui-btn-lg { height: 44px; padding: 0 25px; font-size: 16px; }
+.cui-btn-lg .cui-icon { font-size: 22px; }
+.cui-btn-sm { height: 30px; padding: 0 10px; font-size: 12px; }
 .cui-btn-sm .cui-icon { font-size: 16px; }
-.cui-btn-xs { height: 22px; line-height: 20px; padding: 0 5px; font-size: 12px; }
+.cui-btn-xs { height: 22px; padding: 0 5px; font-size: 12px; }
 .cui-btn-xs .cui-icon { font-size: 14px; }
 
 /* 버튼 그룹 */
@@ -180,9 +182,9 @@
 .cui-btn-disabled:active,
 .cui-btn.cui-disabled,
 .cui-btn[disabled] {
-  border-color: #eee !important;
-  background-color: #FBFBFB !important;
-  color: #d2d2d2 !important;
+  border-color: var(--cui-border-color-light) !important;
+  background-color: var(--cui-bg-gray) !important;
+  color: var(--cui-text-disabled) !important;
   cursor: not-allowed !important;
   opacity: 1;
 }

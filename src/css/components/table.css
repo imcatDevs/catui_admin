@@ -101,8 +101,8 @@
 .cui-table-view {
   position: relative;
   margin: 10px 0;
-  background-color: #fff;
-  border: 1px solid #eee;
+  background-color: var(--cui-bg-base);
+  border: 1px solid var(--cui-border-color-light);
   border-radius: var(--cui-border-radius, 2px);
   overflow: hidden;
 }
@@ -135,7 +135,7 @@
   border-width: 0;
   border-bottom-width: 1px;
   overflow: hidden;
-  background-color: #FAFAFA;
+  background-color: var(--cui-bg-gray);
 }
 
 .cui-table-header .cui-table {
@@ -156,7 +156,7 @@
   line-height: 26px;
   padding: 30px 15px;
   text-align: center;
-  color: #999;
+  color: var(--cui-text-tertiary);
 }
 
 .cui-table-error {
@@ -183,10 +183,10 @@
   width: 26px;
   height: 100%;
   padding: 5px 0;
-  border-left: 1px solid #eee;
+  border-left: 1px solid var(--cui-border-color-light);
   text-align: center;
-  background-color: #fff;
-  color: #999;
+  background-color: var(--cui-bg-base);
+  color: var(--cui-text-tertiary);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -198,8 +198,8 @@
 }
 
 .cui-table-grid-down:hover {
-  background-color: #fbfbfb;
-  color: #666;
+  background-color: var(--cui-bg-gray);
+  color: var(--cui-text-secondary);
 }
 
 .cui-table-view td {
@@ -218,9 +218,9 @@
   padding: 10px 15px;
   font-size: 14px;
   overflow-y: auto;
-  background-color: #fff;
-  color: #666;
-  border: 1px solid #eee;
+  background-color: var(--cui-bg-base);
+  color: var(--cui-text-secondary);
+  border: 1px solid var(--cui-border-color-light);
   border-radius: 2px;
   line-height: 1.6;
   word-break: break-all;
@@ -235,8 +235,8 @@
   line-height: 22px;
   text-align: center;
   font-size: 14px;
-  color: #fff;
-  background-color: #666;
+  color: var(--cui-bg-base);
+  background-color: var(--cui-text-secondary);
   border-radius: 50%;
   cursor: pointer;
 }
@@ -278,17 +278,17 @@
   font-size: 18px;
   line-height: 1;
   margin: -5px 0;
-  color: #b2b2b2;
+  color: var(--cui-text-disabled);
   cursor: pointer;
   transition: color .2s;
 }
 
 .cui-table-sort .cui-icon:hover {
-  color: #666;
+  color: var(--cui-text-secondary);
 }
 
 .cui-table-sort .cui-icon.cui-this {
-  color: #000;
+  color: var(--cui-text-primary);
 }
 
 .cui-unselect {
@@ -311,7 +311,7 @@
 
 .cui-table-loading .cui-icon {
   font-size: 30px;
-  color: #c2c2c2;
+  color: var(--cui-text-disabled);
 }
 
 /* 툴바 */
@@ -322,8 +322,8 @@
   min-height: 50px;
   line-height: 30px;
   padding: 10px 15px;
-  border-bottom: 1px solid #eee;
-  background-color: #FAFAFA;
+  border-bottom: 1px solid var(--cui-border-color-light);
+  background-color: var(--cui-bg-gray);
   box-sizing: border-box;
 }
 
@@ -352,10 +352,10 @@
   height: 26px;
   line-height: 16px;
   text-align: center;
-  color: #333;
-  border: 1px solid #ccc;
+  color: var(--cui-text-primary);
+  border: 1px solid var(--cui-border-color-dark);
   border-left: none;
-  background: #fff;
+  background: var(--cui-bg-base);
   cursor: pointer;
   transition: .3s all;
   display: flex;
@@ -364,7 +364,7 @@
 }
 
 .cui-table-tool-self .cui-inline:first-child {
-  border-left: 1px solid #ccc;
+  border-left: 1px solid var(--cui-border-color-dark);
   border-radius: 2px 0 0 2px;
 }
 
@@ -380,8 +380,8 @@
   min-width: 150px;
   max-height: 300px;
   padding: 5px 0;
-  border: 1px solid #d2d2d2;
-  background: #fff;
+  border: 1px solid var(--cui-border-color-dark);
+  background: var(--cui-bg-base);
   box-shadow: 0 2px 4px rgba(0,0,0,.12);
   z-index: 999;
   overflow-y: auto;
@@ -404,7 +404,7 @@
 }
 
 .cui-table-tool-panel li:hover {
-  background: #f6f6f6;
+  background: var(--cui-bg-gray);
 }
 
 .cui-table-tool-panel li input[type="checkbox"] {
@@ -415,11 +415,11 @@
 
 .cui-table-tool-panel li span {
   font-size: 13px;
-  color: #333;
+  color: var(--cui-text-primary);
 }
 
 .cui-table-tool-self .cui-inline:hover {
-  border-color: #999;
+  border-color: var(--cui-text-tertiary);
 }
 
 .cui-table-tool-self .cui-icon {
@@ -441,7 +441,7 @@
   justify-content: flex-start;
   gap: 15px;
   box-sizing: border-box;
-  background: #fafafa;
+  background: var(--cui-bg-gray);
 }
 
 /* 하단 버튼 영역 */
@@ -452,7 +452,7 @@
 }
 
 .cui-table-page-info {
-  color: #999;
+  color: var(--cui-text-tertiary);
 }
 
 .cui-table-page-nav {
@@ -475,7 +475,7 @@
   transition: all .2s;
   text-decoration: none;
   color: #333;
-  background: #fff;
+  background: var(--cui-bg-base);
 }
 
 .cui-table-page-btn:hover,
@@ -491,19 +491,19 @@
 }
 
 .cui-table-page-btn.cui-disabled {
-  color: #d2d2d2;
+  color: var(--cui-text-disabled);
   cursor: not-allowed;
-  background-color: #f8f8f8;
+  background-color: var(--cui-bg-gray);
 }
 
 .cui-table-page-btn.cui-disabled:hover {
-  border-color: #eee;
-  color: #d2d2d2;
+  border-color: var(--cui-border-color-light);
+  color: var(--cui-text-disabled);
 }
 
 .cui-table-page-ellipsis {
   padding: 0 5px;
-  color: #999;
+  color: var(--cui-text-tertiary);
 }
 
 .cui-table-page-limit {
@@ -526,17 +526,17 @@
 
 /* 합계행 */
 .cui-table-total {
-  background-color: #f6f6f6;
+  background-color: var(--cui-bg-gray);
   font-weight: bold;
 }
 
 .cui-table-total td {
-  border-top: 1px solid #e6e6e6;
+  border-top: 1px solid var(--cui-border-color);
 }
 
 /* 짝수행 */
 .cui-table-even tbody tr:nth-child(even) {
-  background-color: #FAFAFA;
+  background-color: var(--cui-bg-gray);
 }
 
 /* 스킨: 선 */
@@ -545,7 +545,7 @@
   border-width: 0;
   border-bottom-width: 1px;
   border-style: solid;
-  border-color: #eee;
+  border-color: var(--cui-border-color-light);
 }
 
 /* 스킨: 행 */
@@ -554,7 +554,7 @@
   border-width: 0;
   border-right-width: 1px;
   border-style: solid;
-  border-color: #eee;
+  border-color: var(--cui-border-color-light);
 }
 
 /* 스킨: 테두리 없음 */

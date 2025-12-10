@@ -4,15 +4,15 @@
 
 /* 컨테이너 */
 .cui-editor {
-  border: 1px solid #e6e6e6;
-  border-radius: 4px;
-  background: #fff;
+  border: 1px solid var(--cui-border-color);
+  border-radius: var(--cui-border-radius-lg);
+  background: var(--cui-bg-base);
   overflow: hidden;
 }
 
 .cui-editor-focus {
-  border-color: #16b777;
-  box-shadow: 0 0 0 2px rgba(22, 183, 119, 0.1);
+  border-color: var(--cui-success);
+  box-shadow: 0 0 0 2px rgba(var(--cui-primary-rgb), 0.1);
 }
 
 /* 툴바 */
@@ -21,8 +21,8 @@
   flex-wrap: wrap;
   gap: 2px;
   padding: 8px;
-  background: #fafafa;
-  border-bottom: 1px solid #e6e6e6;
+  background: var(--cui-bg-gray);
+  border-bottom: 1px solid var(--cui-border-color);
 }
 
 .cui-editor-btn {
@@ -35,17 +35,17 @@
   background: transparent;
   border-radius: 4px;
   cursor: pointer;
-  color: #666;
-  transition: all 0.2s;
+  color: var(--cui-text-secondary);
+  transition: var(--cui-transition);
 }
 
 .cui-editor-btn:hover {
-  background: #e6e6e6;
-  color: #333;
+  background: var(--cui-border-color);
+  color: var(--cui-text-primary);
 }
 
 .cui-editor-btn:active {
-  background: #d9d9d9;
+  background: var(--cui-border-color-dark);
 }
 
 .cui-editor-btn .cui-icon {
@@ -55,7 +55,7 @@
 .cui-editor-separator {
   width: 1px;
   height: 24px;
-  background: #e6e6e6;
+  background: var(--cui-border-color);
   margin: 4px 6px;
 }
 
@@ -71,7 +71,7 @@
 
 .cui-editor-body:empty:before {
   content: attr(data-placeholder);
-  color: #bbb;
+  color: var(--cui-text-disabled);
   pointer-events: none;
 }
 
@@ -122,7 +122,7 @@
 }
 
 .cui-editor-body a {
-  color: #16b777;
+  color: var(--cui-success);
   text-decoration: underline;
 }
 
@@ -133,19 +133,19 @@
 
 .cui-editor-body hr {
   border: none;
-  border-top: 1px solid #e6e6e6;
+  border-top: 1px solid var(--cui-border-color);
   margin: 20px 0;
 }
 
 .cui-editor-body blockquote {
   margin: 10px 0;
   padding: 10px 15px;
-  border-left: 4px solid #16b777;
-  background: #f9f9f9;
+  border-left: 4px solid var(--cui-success);
+  background: var(--cui-bg-gray);
 }
 
 .cui-editor-body code {
-  background: #f5f5f5;
+  background: var(--cui-bg-layout);
   padding: 2px 6px;
   border-radius: 3px;
   font-family: 'Consolas', monospace;
@@ -168,11 +168,146 @@
 
 .cui-editor-body table td,
 .cui-editor-body table th {
-  border: 1px solid #e6e6e6;
+  border: 1px solid var(--cui-border-color);
   padding: 8px 12px;
 }
 
 .cui-editor-body table th {
-  background: #fafafa;
+  background: var(--cui-bg-gray);
   font-weight: 500;
+}
+
+/* 업로드 팝업 */
+.cui-editor-upload {
+  padding: 20px;
+}
+
+.cui-editor-upload-area {
+  border: 2px dashed var(--cui-border-color-dark);
+  border-radius: 8px;
+  padding: 40px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  background: var(--cui-bg-gray);
+}
+
+.cui-editor-upload-area:hover,
+.cui-editor-upload-area.cui-upload-drag-over {
+  border-color: var(--cui-success);
+  background: var(--cui-primary-lighter);
+}
+
+.cui-editor-upload-area .cui-icon {
+  font-size: 48px;
+  color: var(--cui-text-disabled);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.cui-editor-upload-area:hover .cui-icon {
+  color: var(--cui-success);
+}
+
+.cui-editor-upload-area p {
+  margin: 0;
+  color: var(--cui-text-secondary);
+  font-size: 14px;
+}
+
+.cui-editor-upload-hint {
+  margin-top: 8px !important;
+  font-size: 12px !important;
+  color: var(--cui-text-tertiary) !important;
+}
+
+.cui-editor-upload-nourl {
+  padding: 30px 20px;
+  text-align: center;
+  background: #fff8e6;
+  border: 1px solid #ffe58f;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.cui-editor-upload-nourl .cui-icon {
+  font-size: 36px;
+  color: #faad14;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.cui-editor-upload-nourl p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.cui-editor-upload-preview {
+  text-align: center;
+  padding: 20px;
+  background: #fafafa;
+  border-radius: 8px;
+}
+
+.cui-editor-upload-preview img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.cui-editor-upload-progress {
+  margin-top: 15px;
+  height: 6px;
+  background: var(--cui-border-color);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.cui-editor-upload-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cui-success), var(--cui-success-hover));
+  border-radius: 3px;
+  transition: width 0.3s;
+}
+
+.cui-editor-upload-done {
+  display: inline-block;
+  color: var(--cui-success);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.cui-editor-upload-error {
+  display: inline-block;
+  color: var(--cui-danger);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.cui-editor-upload-url {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--cui-border-color);
+}
+
+.cui-editor-upload-url input {
+  width: 100%;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid var(--cui-border-color);
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.cui-editor-upload-url input:focus {
+  border-color: var(--cui-success);
+}
+
+.cui-editor-upload-url input::placeholder {
+  color: var(--cui-text-disabled);
 }

@@ -162,14 +162,26 @@
       ,dataType: 'json'
       ,contentType: 'application/x-www-form-urlencoded'
       ,headers: {}
+      ,timeout: 0           // 타임아웃 (ms), 0이면 무제한
       ,success: function(){}
       ,error: function(){}
       ,complete: function(){}
     }, options);
 
     var xhr = new XMLHttpRequest();
+    var timedOut = false;
 
     xhr.open(options.type.toUpperCase(), options.url, true);
+
+    // 타임아웃 설정
+    if(options.timeout > 0){
+      xhr.timeout = options.timeout;
+      xhr.ontimeout = function(){
+        timedOut = true;
+        options.error(xhr, 'timeout');
+        options.complete(xhr);
+      };
+    }
 
     // 헤더 설정
     for(var key in options.headers){
@@ -182,7 +194,7 @@
     }
 
     xhr.onreadystatechange = function(){
-      if(xhr.readyState === 4){
+      if(xhr.readyState === 4 && !timedOut){
         options.complete(xhr);
         if(xhr.status >= 200 && xhr.status < 300){
           var response = xhr.responseText;
@@ -191,7 +203,7 @@
           }
           options.success(response, xhr);
         } else {
-          options.error(xhr);
+          options.error(xhr, 'error');
         }
       }
     };
@@ -911,11 +923,6 @@
   if(window.Catui){
     window.Catui['$c'] = $c;
     window.Catui.$ = $c;
-    
-    // 상태 등록
-    if(Catui.config && typeof Catui.config === 'function'){
-      // config.status에 등록
-    }
   } else {
     // Catui 없을 때 임시 저장
     window._catuiModules = window._catuiModules || {};

@@ -23,6 +23,25 @@ Catui.use(['transfer'], function(){
 
 ---
 
+## API 목록
+
+| API | 설명 |
+|-----|------|
+| `render(options)` | 트랜스퍼 렌더링 (인스턴스 반환) |
+| `set(options)` | 전역 설정 |
+| `getInst(id)` | 인스턴스 가져오기 |
+| `on(events, callback)` | 이벤트 등록 |
+
+### 인스턴스 메서드
+
+| 메서드 | 설명 |
+|--------|------|
+| `reload(options)` | 리로드 |
+| `getData()` | 선택된 데이터 가져오기 |
+| `config` | 설정 객체 |
+
+---
+
 ## render(options)
 
 트랜스퍼를 렌더링합니다.

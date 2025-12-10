@@ -38,8 +38,11 @@
     ,render: function(options){
       var inst = new Class(options);
       return {
-        setvalue: function(value){
+        setValue: function(value){
           inst.setValue(value);
+        }
+        ,getValue: function(){
+          return inst.value;
         }
         ,config: inst.config
       };

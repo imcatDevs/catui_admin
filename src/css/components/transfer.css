@@ -10,10 +10,10 @@
 
 /* 패널 */
 .cui-transfer-panel {
-  border: 1px solid var(--cui-border, #e6e6e6);
+  border: 1px solid var(--cui-border-color);
   border-radius: 4px;
   overflow: hidden;
-  background: #fff;
+  background: var(--cui-bg-base);
 }
 
 /* 헤더 */
@@ -22,8 +22,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 15px;
-  background: #fafafa;
-  border-bottom: 1px solid var(--cui-border, #e6e6e6);
+  background: var(--cui-bg-gray);
+  border-bottom: 1px solid var(--cui-border-color);
 }
 
 .cui-transfer-checkbox-wrap {
@@ -42,11 +42,11 @@
 
 .cui-transfer-count {
   font-size: 12px;
-  color: #999;
+  color: var(--cui-text-tertiary);
 }
 
 .cui-transfer-checked-count {
-  color: #16b777;
+  color: var(--cui-success);
   font-weight: 500;
 }
 
@@ -88,7 +88,7 @@
 }
 
 .cui-transfer-item:hover {
-  background: #f5f5f5;
+  background: var(--cui-bg-layout);
 }
 
 .cui-transfer-item label {
@@ -138,22 +138,22 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  background-color: #fff;
-  border: 1px solid var(--cui-border, #e6e6e6);
-  color: var(--cui-text, #333);
+  background-color: var(--cui-bg-base);
+  border: 1px solid var(--cui-border-color);
+  color: var(--cui-text-primary);
   transition: all 0.2s ease;
 }
 
 .cui-transfer-buttons .cui-btn:hover:not(:disabled) {
-  background-color: var(--cui-primary, #16b777);
-  border-color: var(--cui-primary, #16b777);
+  background-color: var(--cui-primary);
+  border-color: var(--cui-primary);
   color: #fff;
 }
 
 .cui-transfer-buttons .cui-btn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
-  background-color: #f5f5f5;
+  background-color: var(--cui-bg-layout);
 }
 
 .cui-transfer-buttons .cui-btn .cui-icon {
