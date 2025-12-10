@@ -129,6 +129,10 @@ describe('Tree Module', () => {
   });
 
   describe('reload', () => {
+    test('reload 메소드가 존재함', () => {
+      expect(typeof window.tree.reload).toBe('function');
+    });
+
     test('트리 리로드', () => {
       window.tree.render({
         elem: '#treeContainer',
@@ -145,6 +149,119 @@ describe('Tree Module', () => {
       });
 
       expect(window.tree.that['reloadTree']).toBeDefined();
+    });
+  });
+
+  describe('set', () => {
+    test('set 메소드가 존재함', () => {
+      expect(typeof window.tree.set).toBe('function');
+    });
+
+    test('전역 설정', () => {
+      const result = window.tree.set({ showLine: true });
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('on', () => {
+    test('on 메소드가 존재함', () => {
+      expect(typeof window.tree.on).toBe('function');
+    });
+
+    test('click 이벤트 등록', () => {
+      const result = window.tree.on('click(filter)', function() {});
+      expect(result).toBeDefined();
+    });
+
+    test('checkbox 이벤트 등록', () => {
+      const result = window.tree.on('checkbox(filter)', function() {});
+      expect(result).toBeDefined();
+    });
+
+    test('operate 이벤트 등록', () => {
+      const result = window.tree.on('operate(filter)', function() {});
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('옵션', () => {
+    test('showLine 옵션', () => {
+      const inst = window.tree.render({
+        elem: '#treeContainer',
+        id: 'lineTree',
+        showLine: true,
+        data: [{ id: 1, title: '노드' }]
+      });
+
+      expect(inst.config.showLine).toBe(true);
+    });
+
+    test('accordion 옵션', () => {
+      const inst = window.tree.render({
+        elem: '#treeContainer',
+        id: 'accordionTree',
+        accordion: true,
+        data: [{ id: 1, title: '노드' }]
+      });
+
+      expect(inst.config.accordion).toBe(true);
+    });
+
+    test('onlyIconControl 옵션', () => {
+      const inst = window.tree.render({
+        elem: '#treeContainer',
+        id: 'iconControlTree',
+        onlyIconControl: true,
+        data: [{ id: 1, title: '노드' }]
+      });
+
+      expect(inst.config.onlyIconControl).toBe(true);
+    });
+
+    test('edit 옵션 (편집 버튼)', () => {
+      const inst = window.tree.render({
+        elem: '#treeContainer',
+        id: 'editTree',
+        edit: ['add', 'update', 'del'],
+        data: [{ id: 1, title: '노드' }]
+      });
+
+      expect(inst.config.edit.length).toBe(3);
+    });
+
+    test('spread 옵션 (펼침 상태)', () => {
+      const inst = window.tree.render({
+        elem: '#treeContainer',
+        id: 'spreadTree',
+        data: [
+          {
+            id: 1,
+            title: '노드',
+            spread: true,
+            children: [{ id: 2, title: '자식' }]
+          }
+        ]
+      });
+
+      expect(inst).toBeDefined();
+    });
+  });
+
+  describe('setChecked', () => {
+    test('노드 체크 설정', () => {
+      window.tree.render({
+        elem: '#treeContainer',
+        id: 'setCheckedTree',
+        showCheckbox: true,
+        data: [
+          { id: 1, title: '노드 1' },
+          { id: 2, title: '노드 2' }
+        ]
+      });
+
+      expect(() => {
+        window.tree.setChecked('setCheckedTree', 1);
+      }).not.toThrow();
     });
   });
 });

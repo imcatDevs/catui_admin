@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var doc = document
@@ -93,13 +93,13 @@
       first: function(){
         if(config.first === false) return '';
         var icon = useIcon ? '<i class="cui-icon">first_page</i>' : '첫 페이지';
-        return '<a href="javascript:;" class="cui-page-first' + (config.curr == 1 ? (' ' + DISABLED) : '') + '" data-page="1" title="첫 페이지">' + icon + '</a>';
+        return '<a href="javascript:;" class="cui-page-first' + (config.curr === 1 ? (' ' + DISABLED) : '') + '" data-page="1" title="첫 페이지">' + icon + '</a>';
       }()
 
       // 이전 페이지
       ,prev: function(){
         return config.prev
-          ? '<a href="javascript:;" class="cui-page-prev' + (config.curr == 1 ? (' ' + DISABLED) : '') + '" data-page="' + (config.curr - 1) + '">' + config.prev + '</a>'
+          ? '<a href="javascript:;" class="cui-page-prev' + (config.curr === 1 ? (' ' + DISABLED) : '') + '" data-page="' + (config.curr - 1) + '">' + config.prev + '</a>'
           : '';
       }()
 
@@ -159,7 +159,7 @@
       // 다음 페이지
       ,next: function(){
         return config.next
-          ? '<a href="javascript:;" class="cui-page-next' + (config.curr == config.pages ? (' ' + DISABLED) : '') + '" data-page="' + (config.curr + 1) + '">' + config.next + '</a>'
+          ? '<a href="javascript:;" class="cui-page-next' + (config.curr === config.pages ? (' ' + DISABLED) : '') + '" data-page="' + (config.curr + 1) + '">' + config.next + '</a>'
           : '';
       }()
 
@@ -167,7 +167,7 @@
       ,last: function(){
         if(config.last === false) return '';
         var icon = useIcon ? '<i class="cui-icon">last_page</i>' : '끝 페이지';
-        return '<a href="javascript:;" class="cui-page-last' + (config.curr == config.pages ? (' ' + DISABLED) : '') + '" data-page="' + config.pages + '" title="마지막 페이지">' + icon + '</a>';
+        return '<a href="javascript:;" class="cui-page-last' + (config.curr === config.pages ? (' ' + DISABLED) : '') + '" data-page="' + config.pages + '" title="마지막 페이지">' + icon + '</a>';
       }()
 
       // 데이터 총 개수

@@ -4,14 +4,13 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
   
   // 이미 로드된 경우 종료
   if(window.$c && window.$c._loaded) return;
 
   var document = window.document
-  ,MOD_NAME = '$c'
   
   // 데이터 저장소 (WeakMap)
   ,dataStore = new WeakMap()
@@ -188,7 +187,7 @@
         if(xhr.status >= 200 && xhr.status < 300){
           var response = xhr.responseText;
           if(options.dataType === 'json'){
-            try{ response = JSON.parse(response); }catch(e){}
+            try{ response = JSON.parse(response); }catch(_e){}
           }
           options.success(response, xhr);
         } else {
@@ -233,7 +232,7 @@
   $c.parseJSON = function(str){
     try {
       return JSON.parse(str);
-    } catch(e){
+    } catch(_e){
       return null;
     }
   };

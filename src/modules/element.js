@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
@@ -16,7 +16,7 @@
   // 상수
   ,THIS = 'cui-this'
   ,SHOW = 'cui-show'
-  ,HIDE = 'cui-hide'
+  ,_HIDE = 'cui-hide'
 
   // Element 생성자
   ,Element = function(){

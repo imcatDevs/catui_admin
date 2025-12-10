@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
@@ -21,13 +21,13 @@
 
   // 상수
   ,STR_ELEM = 'cui-dropdown'
-  ,STR_HIDE = 'cui-hide'
+  ,_STR_HIDE = 'cui-hide'
   ,STR_DISABLED = 'cui-disabled'
   ,STR_MENU_ITEM = 'cui-dropdown-item'
   ,STR_MENU_DIVIDER = 'cui-dropdown-divider'
   ,STR_MENU_TITLE = 'cui-dropdown-title'
   ,STR_MENU_CHILD = 'cui-dropdown-child'
-  ,STR_ITEM_ACTIVE = 'cui-dropdown-item-active'
+  ,_STR_ITEM_ACTIVE = 'cui-dropdown-item-active'
 
   // 외부 인터페이스
   ,dropdown = {
@@ -163,8 +163,7 @@
   Class.prototype.render = function(){
     var that = this
     ,$c = get$c()
-    ,config = that.config
-    ,elem = that.elem;
+    ,config = that.config;
 
     // 이미 열려있으면 닫기
     if(that.dropdown){
@@ -538,8 +537,8 @@
           });
         } else {
           // 서브메뉴 없는 링크 - 직접 이벤트 바인딩
-          var aNode = aElem[0];
-          aNode.removeEventListener('click', aNode._menuClickHandler);
+          var linkNode = aElem[0];
+          linkNode.removeEventListener('click', aNode._menuClickHandler);
           aNode._menuClickHandler = function(e){
             $c(menu).find('.cui-menu-item').removeClass('cui-menu-active');
             $item.addClass('cui-menu-active');

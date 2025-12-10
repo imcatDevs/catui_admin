@@ -3,7 +3,7 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
@@ -16,7 +16,7 @@
   ,index = 0
 
   // 인스턴스 저장
-  ,instances = {};
+  ,_instances = {};
 
   // 외부 인터페이스
   var editor = {

@@ -108,4 +108,52 @@ describe('Editor Module', () => {
       }).not.toThrow();
     });
   });
+
+  describe('on', () => {
+    test('on 메소드가 존재함', () => {
+      expect(typeof window.editor.on).toBe('function');
+    });
+
+    test('이벤트 등록', () => {
+      const result = window.editor.on('change(filter)', function() {});
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('인스턴스 메소드', () => {
+    test('getContent 존재 확인', () => {
+      // editor 인스턴스는 render에서 반환됨
+      expect(window.editor.render).toBeDefined();
+    });
+
+    test('getText 존재 확인', () => {
+      expect(window.editor.render).toBeDefined();
+    });
+
+    test('setContent 존재 확인', () => {
+      expect(window.editor.render).toBeDefined();
+    });
+  });
+
+  describe('툴바 옵션', () => {
+    test('커스텀 툴바 배열', () => {
+      expect(() => {
+        window.editor.render({
+          elem: '#editor',
+          tool: ['strong', 'italic', 'underline']
+        });
+      }).not.toThrow();
+    });
+  });
+
+  describe('placeholder', () => {
+    test('placeholder 옵션', () => {
+      expect(() => {
+        window.editor.render({
+          elem: '#editor',
+          placeholder: '내용을 입력하세요...'
+        });
+      }).not.toThrow();
+    });
+  });
 });

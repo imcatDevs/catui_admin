@@ -136,4 +136,97 @@ describe('Page Module', () => {
       expect(totalPages).toBe(1);
     });
   });
+
+  describe('render 반환값', () => {
+    test('render 실행', () => {
+      const inst = window.page.render({
+        elem: '#pageContainer',
+        count: 100
+      });
+      expect(inst).toBeDefined();
+    });
+  });
+
+  describe('on', () => {
+    test('on 메소드가 존재함', () => {
+      expect(typeof window.page.on).toBe('function');
+    });
+
+    test('이벤트 등록', () => {
+      const result = window.page.on('jump(filter)', function() {});
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('추가 옵션', () => {
+    test('layout 옵션', () => {
+      const inst = window.page.render({
+        elem: '#pageContainer',
+        count: 100,
+        layout: ['prev', 'page', 'next']
+      });
+      expect(inst).toBeDefined();
+    });
+
+    test('theme 옵션', () => {
+      const inst = window.page.render({
+        elem: '#pageContainer',
+        count: 100,
+        theme: '#ff6600'
+      });
+      expect(inst).toBeDefined();
+    });
+
+    test('first/last 텍스트', () => {
+      const inst = window.page.render({
+        elem: '#pageContainer',
+        count: 100,
+        first: '처음',
+        last: '끝'
+      });
+      expect(inst).toBeDefined();
+    });
+
+    test('prev/next 텍스트', () => {
+      const inst = window.page.render({
+        elem: '#pageContainer',
+        count: 100,
+        prev: '◀',
+        next: '▶'
+      });
+      expect(inst).toBeDefined();
+    });
+
+    test('hash 옵션', () => {
+      const inst = window.page.render({
+        elem: '#pageContainer',
+        count: 100,
+        hash: 'page'
+      });
+      expect(inst).toBeDefined();
+    });
+  });
+
+  describe('limits', () => {
+    test('limits 옵션 (페이지당 항목 수 선택)', () => {
+      const inst = window.page.render({
+        elem: '#pageContainer',
+        count: 100,
+        layout: ['limit', 'page'],
+        limits: [10, 20, 30, 50]
+      });
+      expect(inst).toBeDefined();
+    });
+  });
+
+  describe('skip', () => {
+    test('skip 옵션 (페이지 이동 입력)', () => {
+      const inst = window.page.render({
+        elem: '#pageContainer',
+        count: 100,
+        layout: ['page', 'skip']
+      });
+      expect(inst).toBeDefined();
+    });
+  });
 });

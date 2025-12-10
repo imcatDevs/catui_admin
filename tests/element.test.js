@@ -125,5 +125,86 @@ describe('Element Module', () => {
         window.element.render('tab');
       }).not.toThrow();
     });
+
+    test('nav 렌더링', () => {
+      expect(() => {
+        window.element.render('nav');
+      }).not.toThrow();
+    });
+
+    test('collapse 렌더링', () => {
+      expect(() => {
+        window.element.render('collapse');
+      }).not.toThrow();
+    });
+  });
+
+  describe('set', () => {
+    test('set 메소드가 존재함', () => {
+      expect(typeof window.element.set).toBe('function');
+    });
+
+    test('전역 설정', () => {
+      const result = window.element.set({ open: 'all' });
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('on', () => {
+    test('tab 이벤트 등록', () => {
+      const result = window.element.on('tab(testTab)', function() {});
+      expect(result).toBeDefined();
+    });
+
+    test('nav 이벤트 등록', () => {
+      const result = window.element.on('nav(testNav)', function() {});
+      expect(result).toBeDefined();
+    });
+
+    test('collapse 이벤트 등록', () => {
+      const result = window.element.on('collapse(testCollapse)', function() {});
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('Nav', () => {
+    test('navGroup 요소 렌더링', () => {
+      document.body.innerHTML = `
+        <ul class="cui-nav cui-nav-tree" cui-filter="navTree">
+          <li class="cui-nav-item">
+            <a href="javascript:;">메뉴 1</a>
+            <dl class="cui-nav-child">
+              <dd><a href="#">하위 1</a></dd>
+              <dd><a href="#">하위 2</a></dd>
+            </dl>
+          </li>
+        </ul>
+      `;
+      
+      expect(() => {
+        window.element.render('nav');
+      }).not.toThrow();
+    });
+  });
+
+  describe('Collapse', () => {
+    test('아코디언 모드', () => {
+      document.body.innerHTML = `
+        <div class="cui-collapse" cui-filter="accordion" cui-accordion>
+          <div class="cui-collapse-item">
+            <h2 class="cui-collapse-title">패널 1</h2>
+            <div class="cui-collapse-content">내용 1</div>
+          </div>
+          <div class="cui-collapse-item">
+            <h2 class="cui-collapse-title">패널 2</h2>
+            <div class="cui-collapse-content">내용 2</div>
+          </div>
+        </div>
+      `;
+      
+      expect(() => {
+        window.element.render('collapse');
+      }).not.toThrow();
+    });
   });
 });

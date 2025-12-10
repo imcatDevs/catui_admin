@@ -3,14 +3,14 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
   ,MOD_NAME = 'code'
   
   // $c 동적 참조
-  ,get$c = function(){ return window.$c; }
+  ,get$c = function(){ return window.$c; };
 
   // 키워드 정의
   var KEYWORDS = {

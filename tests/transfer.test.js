@@ -125,4 +125,69 @@ describe('Transfer Module', () => {
       expect(inst.config.onchange).toBeDefined();
     });
   });
+
+  describe('on', () => {
+    test('on 메소드가 존재함', () => {
+      expect(typeof window.transfer.on).toBe('function');
+    });
+
+    test('이벤트 등록', () => {
+      const result = window.transfer.on('change(filter)', function() {});
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('인스턴스 reload', () => {
+    test('인스턴스에 reload 메소드가 존재함', () => {
+      const inst = window.transfer.render({
+        elem: '#transfer',
+        id: 'reloadTest',
+        data: []
+      });
+      expect(typeof inst.reload).toBe('function');
+    });
+  });
+
+  describe('인스턴스 getData', () => {
+    test('인스턴스에 getData 메소드가 존재함', () => {
+      const inst = window.transfer.render({
+        elem: '#transfer',
+        id: 'getDataTest',
+        data: []
+      });
+      expect(typeof inst.getData).toBe('function');
+    });
+  });
+
+  describe('추가 옵션', () => {
+    test('parseData 옵션', () => {
+      const inst = window.transfer.render({
+        elem: '#transfer',
+        data: [
+          { id: 1, name: '항목 1' }
+        ],
+        parseData: function(item) {
+          return {
+            value: item.id,
+            title: item.name
+          };
+        }
+      });
+
+      expect(inst.config.parseData).toBeDefined();
+    });
+
+    test('text 옵션 (버튼 텍스트)', () => {
+      const inst = window.transfer.render({
+        elem: '#transfer',
+        data: [],
+        text: {
+          none: '데이터 없음',
+          searchNone: '검색 결과 없음'
+        }
+      });
+
+      expect(inst.config.text).toBeDefined();
+    });
+  });
 });

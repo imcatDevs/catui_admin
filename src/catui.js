@@ -3,11 +3,10 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
-  ,location = window.location
 
   // 버전
   ,version = '1.0.0'
@@ -145,9 +144,9 @@
         return;
       }
       
-      var args = [];
-      for(var i = 0; i < modNames.length; i++){
-        args.push(catui[modNames[i]] || window[modNames[i]]);
+      var args = [], j;
+      for(j = 0; j < modNames.length; j++){
+        args.push(catui[modNames[j]] || window[modNames[j]]);
       }
       callback.apply(catui, args);
     };

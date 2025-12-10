@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
@@ -15,10 +15,10 @@
 
   // 상수
   ,ELEM = '.cui-form'
-  ,THIS = 'cui-this'
-  ,SHOW = 'cui-show'
-  ,HIDE = 'cui-hide'
-  ,DISABLED = 'cui-disabled'
+  ,_THIS = 'cui-this'
+  ,_SHOW = 'cui-show'
+  ,_HIDE = 'cui-hide'
+  ,_DISABLED = 'cui-disabled'
 
   // Form 생성자
   ,Form = function(){
@@ -97,7 +97,7 @@
           itemElem[0].checked = !!object[key];
         } else if(type === 'radio'){
           itemElem.each(function(i, elem){
-            if(elem.value == object[key]){
+            if(elem.value === object[key]){
               elem.checked = true;
             }
           });
@@ -134,7 +134,6 @@
   // filter가 문자열이면 cui-filter로 검색, DOM 요소면 해당 요소 내에서 검색
   Form.prototype.render = function(type, filter){
     var that = this
-    ,options = that.config
     ,$c = get$c();
     
     // $c가 없으면 대기 후 재시도
@@ -684,7 +683,6 @@
     if(!$c) return;
     $c(document).on('submit', ELEM, function(e){
       var filter = this.getAttribute('cui-filter') || '';
-      var isDefaultPrevented = false;
 
       if(window.Catui && Catui.event){
         var result = Catui.event(MOD_NAME, 'submit(' + filter + ')', {
@@ -692,7 +690,7 @@
           ,field: form.getValue(filter, $c(this))
         });
         if(result === false){
-          isDefaultPrevented = true;
+          // 기본 동작 방지됨
         }
       }
 

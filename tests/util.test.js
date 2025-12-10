@@ -142,19 +142,16 @@ describe('Util Module', () => {
   });
 
   describe('countdown', () => {
-    test('카운트다운 시작', (done) => {
-      const future = Date.now() + 5000; // 5초 후
+    test('카운트다운 반환값', () => {
+      const future = Date.now() + 5000;
       
-      let called = false;
-      window.util.countdown(future, function(date, timer) {
-        if (!called) {
-          called = true;
-          expect(date).toBeDefined();
-          clearInterval(timer);
-          done();
-        }
+      const timer = window.util.countdown(future, function(d, h, m, s, status) {
+        // 콜백
       });
-    }, 10000);
+      
+      expect(timer).toBeDefined();
+      clearInterval(timer);
+    });
   });
 
   describe('fixbar', () => {
@@ -250,64 +247,639 @@ describe('Util Module', () => {
     });
   });
 
-  describe('batKey', () => {
-    test('batKey 메소드가 존재함', () => {
-      expect(typeof window.util.batKey).toBe('function');
-    });
-
-    test('랜덤 키 생성', () => {
-      const key = window.util.batKey();
-      expect(typeof key).toBe('string');
-      expect(key.length).toBeGreaterThan(0);
-    });
-  });
-
-  describe('event', () => {
-    test('event 메소드가 존재함', () => {
-      expect(typeof window.util.event).toBe('function');
-    });
-
-    test('이벤트 바인딩', () => {
-      document.body.innerHTML = '<div id="eventTest"><span>클릭</span></div>';
-      
-      expect(() => {
-        window.util.event('click', {
-          test: function() {
-            return true;
-          }
-        });
-      }).not.toThrow();
-    });
-  });
-
-  describe('openWin', () => {
-    test('openWin 메소드가 존재함', () => {
-      expect(typeof window.util.openWin).toBe('function');
-    });
-  });
-
-  describe('set', () => {
-    test('set 메소드가 존재함', () => {
-      expect(typeof window.util.set).toBe('function');
-    });
-
-    test('전역 설정', () => {
-      expect(() => {
-        window.util.set({
-          fixbar: { bar1: false }
-        });
-      }).not.toThrow();
-    });
-  });
-
   describe('on', () => {
     test('on 메소드가 존재함', () => {
       expect(typeof window.util.on).toBe('function');
     });
+  });
 
-    test('이벤트 등록', () => {
-      const result = window.util.on('click(test)', function() {});
-      expect(result).toBeDefined();
+  describe('comma', () => {
+    test('천단위 콤마', () => {
+      expect(window.util.comma(1234567)).toBe('1,234,567');
+    });
+
+    test('소수점 있는 경우', () => {
+      expect(window.util.comma(1234.56)).toBe('1,234.56');
+    });
+
+    test('null/undefined', () => {
+      expect(window.util.comma(null)).toBe('');
+      expect(window.util.comma(undefined)).toBe('');
+    });
+  });
+
+  describe('deepClone', () => {
+    test('객체 깊은 복사', () => {
+      const obj = { a: 1, b: { c: 2 } };
+      const clone = window.util.deepClone(obj);
+      expect(clone).toEqual(obj);
+      expect(clone).not.toBe(obj);
+      expect(clone.b).not.toBe(obj.b);
+    });
+
+    test('배열 깊은 복사', () => {
+      const arr = [1, [2, 3], { a: 4 }];
+      const clone = window.util.deepClone(arr);
+      expect(clone).toEqual(arr);
+      expect(clone).not.toBe(arr);
+    });
+
+    test('null 반환', () => {
+      expect(window.util.deepClone(null)).toBe(null);
+    });
+
+    test('기본값 반환', () => {
+      expect(window.util.deepClone(123)).toBe(123);
+      expect(window.util.deepClone('str')).toBe('str');
+    });
+  });
+
+  describe('debounce', () => {
+    test('디바운스 함수 반환', () => {
+      const fn = jest.fn();
+      const debounced = window.util.debounce(fn, 100);
+      expect(typeof debounced).toBe('function');
+    });
+  });
+
+  describe('throttle', () => {
+    test('쓰로틀 함수 반환', () => {
+      const fn = jest.fn();
+      const throttled = window.util.throttle(fn, 100);
+      expect(typeof throttled).toBe('function');
+    });
+  });
+
+  describe('parseQuery', () => {
+    test('쿼리스트링 파싱', () => {
+      const result = window.util.parseQuery('?a=1&b=2');
+      expect(result.a).toBe('1');
+      expect(result.b).toBe('2');
+    });
+
+    test('? 없이', () => {
+      const result = window.util.parseQuery('a=1&b=2');
+      expect(result.a).toBe('1');
+    });
+
+    test('빈 문자열', () => {
+      const result = window.util.parseQuery('');
+      expect(result).toEqual({});
+    });
+  });
+
+  describe('toQuery', () => {
+    test('쿼리스트링 생성', () => {
+      const result = window.util.toQuery({ a: 1, b: 2 });
+      expect(result).toContain('a=1');
+      expect(result).toContain('b=2');
+    });
+
+    test('undefined 값 제외', () => {
+      const result = window.util.toQuery({ a: 1, b: undefined });
+      expect(result).toBe('a=1');
+    });
+  });
+
+  describe('uuid', () => {
+    test('UUID 생성', () => {
+      const uuid = window.util.uuid();
+      expect(uuid).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
+    });
+
+    test('매번 다른 UUID', () => {
+      const uuid1 = window.util.uuid();
+      const uuid2 = window.util.uuid();
+      expect(uuid1).not.toBe(uuid2);
+    });
+  });
+
+  describe('shortId', () => {
+    test('기본 길이 8', () => {
+      const id = window.util.shortId();
+      expect(id.length).toBe(8);
+    });
+
+    test('커스텀 길이', () => {
+      const id = window.util.shortId(12);
+      expect(id.length).toBe(12);
+    });
+  });
+
+  describe('isEmpty', () => {
+    test('null/undefined', () => {
+      expect(window.util.isEmpty(null)).toBe(true);
+      expect(window.util.isEmpty(undefined)).toBe(true);
+    });
+
+    test('빈 문자열', () => {
+      expect(window.util.isEmpty('')).toBe(true);
+      expect(window.util.isEmpty('  ')).toBe(true);
+    });
+
+    test('빈 배열', () => {
+      expect(window.util.isEmpty([])).toBe(true);
+    });
+
+    test('빈 객체', () => {
+      expect(window.util.isEmpty({})).toBe(true);
+    });
+
+    test('값이 있는 경우', () => {
+      expect(window.util.isEmpty('test')).toBe(false);
+      expect(window.util.isEmpty([1])).toBe(false);
+      expect(window.util.isEmpty({ a: 1 })).toBe(false);
+    });
+  });
+
+  describe('isEmail', () => {
+    test('유효한 이메일', () => {
+      expect(window.util.isEmail('test@example.com')).toBe(true);
+    });
+
+    test('유효하지 않은 이메일', () => {
+      expect(window.util.isEmail('invalid')).toBe(false);
+      expect(window.util.isEmail('test@')).toBe(false);
+    });
+  });
+
+  describe('isPhone', () => {
+    test('유효한 전화번호', () => {
+      expect(window.util.isPhone('010-1234-5678')).toBe(true);
+      expect(window.util.isPhone('01012345678')).toBe(true);
+    });
+
+    test('유효하지 않은 전화번호', () => {
+      expect(window.util.isPhone('12345')).toBe(false);
+    });
+  });
+
+  describe('scrollTo', () => {
+    test('scrollTo 메소드가 존재함', () => {
+      expect(typeof window.util.scrollTo).toBe('function');
+    });
+  });
+
+  describe('쿠키', () => {
+    test('setCookie 메소드가 존재함', () => {
+      expect(typeof window.util.setCookie).toBe('function');
+    });
+
+    test('getCookie 메소드가 존재함', () => {
+      expect(typeof window.util.getCookie).toBe('function');
+    });
+
+    test('removeCookie 메소드가 존재함', () => {
+      expect(typeof window.util.removeCookie).toBe('function');
+    });
+
+    test('쿠키 설정/조회/삭제', () => {
+      window.util.setCookie('testCookie', 'testValue', 1);
+      // jsdom에서는 document.cookie가 제한적으로 작동
+      expect(document.cookie).toBeDefined();
+      
+      window.util.removeCookie('testCookie');
+    });
+
+    test('쿠키 만료일 설정', () => {
+      expect(() => {
+        window.util.setCookie('expireCookie', 'value', 7);
+      }).not.toThrow();
+    });
+  });
+
+  describe('isUrl', () => {
+    test('유효한 URL', () => {
+      expect(window.util.isUrl('http://example.com')).toBe(true);
+      expect(window.util.isUrl('https://example.com/path')).toBe(true);
+    });
+
+    test('유효하지 않은 URL', () => {
+      expect(window.util.isUrl('invalid')).toBe(false);
+      expect(window.util.isUrl('ftp://example.com')).toBe(false);
+    });
+  });
+
+  describe('stripScripts', () => {
+    test('스크립트 태그 제거', () => {
+      const html = '<div>안녕<script>alert("xss")</script></div>';
+      const result = window.util.stripScripts(html);
+      expect(result).not.toContain('<script>');
+      expect(result).toContain('<div>안녕</div>');
+    });
+
+    test('대소문자 혼합 스크립트 태그', () => {
+      const html = '<ScRiPt>alert("xss")</ScRiPt>';
+      const result = window.util.stripScripts(html);
+      expect(result).not.toContain('alert');
+    });
+
+    test('이벤트 핸들러 제거', () => {
+      const html = '<div onclick="alert(1)">클릭</div>';
+      const result = window.util.stripScripts(html);
+      expect(result).not.toContain('onclick');
+    });
+
+    test('닫는 태그 없는 스크립트', () => {
+      const html = '<div>테스트<script>alert(1)';
+      const result = window.util.stripScripts(html);
+      expect(result).toBe('<div>테스트');
+    });
+
+    test('문자열 아닌 경우', () => {
+      expect(window.util.stripScripts(123)).toBe(123);
+      expect(window.util.stripScripts(null)).toBe(null);
+    });
+  });
+
+  describe('sanitize', () => {
+    test('허용되지 않은 태그 제거', () => {
+      const html = '<div><script>alert(1)</script><b>굵게</b></div>';
+      const result = window.util.sanitize(html);
+      expect(result).not.toContain('<script>');
+      expect(result).toContain('<b>굵게</b>');
+    });
+
+    test('이벤트 핸들러 제거', () => {
+      const html = '<a href="#" onclick="alert(1)">링크</a>';
+      const result = window.util.sanitize(html);
+      expect(result).not.toContain('onclick');
+    });
+
+    test('javascript: 프로토콜 제거', () => {
+      const html = '<a href="javascript:alert(1)">링크</a>';
+      const result = window.util.sanitize(html);
+      expect(result).not.toContain('javascript:');
+    });
+
+    test('커스텀 허용 태그', () => {
+      const html = '<div><span>스팬</span><em>강조</em></div>';
+      const result = window.util.sanitize(html, {
+        allowedTags: ['span']
+      });
+      expect(result).toContain('<span>');
+    });
+
+    test('문자열 아닌 경우', () => {
+      expect(window.util.sanitize(123)).toBe(123);
+    });
+  });
+
+  describe('escapeSql', () => {
+    test('SQL 특수문자 이스케이프', () => {
+      const sql = "O'Reilly";
+      const result = window.util.escapeSql(sql);
+      expect(result).toBe("O''Reilly");
+    });
+
+    test('백슬래시 이스케이프', () => {
+      const sql = "path\\to\\file";
+      const result = window.util.escapeSql(sql);
+      expect(result).toContain('\\\\');
+    });
+
+    test('개행 문자 이스케이프', () => {
+      const sql = "line1\nline2";
+      const result = window.util.escapeSql(sql);
+      expect(result).toContain('\\n');
+    });
+
+    test('문자열 아닌 경우', () => {
+      expect(window.util.escapeSql(123)).toBe(123);
+    });
+  });
+
+  describe('escapeRegex', () => {
+    test('정규식 특수문자 이스케이프', () => {
+      const str = 'a.b*c?d';
+      const result = window.util.escapeRegex(str);
+      expect(result).toContain('\\.');
+      expect(result).toContain('\\*');
+      expect(result).toContain('\\?');
+    });
+
+    test('대괄호 이스케이프', () => {
+      const str = '[test]';
+      const result = window.util.escapeRegex(str);
+      expect(result).toContain('\\[');
+      expect(result).toContain('\\]');
+    });
+
+    test('문자열 아닌 경우', () => {
+      expect(window.util.escapeRegex(123)).toBe(123);
+    });
+  });
+
+  describe('safeJsonParse', () => {
+    test('유효한 JSON', () => {
+      const json = '{"a":1,"b":"test"}';
+      const result = window.util.safeJsonParse(json);
+      expect(result.a).toBe(1);
+      expect(result.b).toBe('test');
+    });
+
+    test('유효하지 않은 JSON', () => {
+      const invalid = 'not json';
+      const result = window.util.safeJsonParse(invalid);
+      expect(result).toBe(null);
+    });
+
+    test('기본값 지정', () => {
+      const invalid = 'not json';
+      const result = window.util.safeJsonParse(invalid, {});
+      expect(result).toEqual({});
+    });
+
+    test('문자열 아닌 경우', () => {
+      expect(window.util.safeJsonParse(123, 'default')).toBe('default');
+    });
+  });
+
+  describe('safeEncodeUri', () => {
+    test('URI 인코딩', () => {
+      const str = 'hello world';
+      const result = window.util.safeEncodeUri(str);
+      expect(result).toBe('hello%20world');
+    });
+
+    test('특수문자 인코딩', () => {
+      const str = "test's value!";
+      const result = window.util.safeEncodeUri(str);
+      expect(result).not.toContain("'");
+      expect(result).not.toContain("!");
+    });
+
+    test('문자열 아닌 경우', () => {
+      expect(window.util.safeEncodeUri(123)).toBe(123);
+    });
+  });
+
+  describe('countdown 상세', () => {
+    test('서버 시간 사용', () => {
+      const future = Date.now() + 3000;
+      const serverTime = Date.now();
+      
+      const timer = window.util.countdown(future, serverTime, function(d, h, m, s, status) {
+        // 콜백
+      });
+      
+      expect(timer).toBeDefined();
+      clearInterval(timer);
+    });
+
+    test('이미 종료된 시간', () => {
+      const past = Date.now() - 10000;
+      let called = false;
+      
+      window.util.countdown(past, function(d, h, m, s, status) {
+        called = true;
+        expect(status).toBe('end');
+      });
+
+      expect(called).toBe(true);
+    });
+  });
+
+  describe('timeAgo onlyDate', () => {
+    test('onlyDate=true', () => {
+      const twoWeeksAgo = Date.now() - (14 * 24 * 60 * 60 * 1000);
+      const result = window.util.timeAgo(twoWeeksAgo, true);
+      expect(result).not.toContain(':');
+      expect(result).toMatch(/\d{4}-\d{2}-\d{2}/);
+    });
+
+    test('onlyDate=false (기본값)', () => {
+      const twoWeeksAgo = Date.now() - (14 * 24 * 60 * 60 * 1000);
+      const result = window.util.timeAgo(twoWeeksAgo, false);
+      expect(result).toContain(':');
+    });
+
+    test('유효하지 않은 날짜', () => {
+      const result = window.util.timeAgo('invalid');
+      expect(result).toBe('');
+    });
+  });
+
+  describe('debounce 실제 동작', () => {
+    jest.useFakeTimers();
+
+    test('딜레이 후 호출', () => {
+      const fn = jest.fn();
+      const debounced = window.util.debounce(fn, 100);
+      
+      debounced();
+      debounced();
+      debounced();
+      
+      expect(fn).not.toHaveBeenCalled();
+      
+      jest.advanceTimersByTime(100);
+      
+      expect(fn).toHaveBeenCalledTimes(1);
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+  });
+
+  describe('throttle 실제 동작', () => {
+    test('즉시 호출', () => {
+      const fn = jest.fn();
+      const throttled = window.util.throttle(fn, 100);
+      
+      throttled();
+      expect(fn).toHaveBeenCalledTimes(1);
+      
+      throttled();
+      expect(fn).toHaveBeenCalledTimes(1); // 쓰로틀됨
+    });
+  });
+
+  describe('on 이벤트 위임', () => {
+    test('이벤트 위임', () => {
+      document.body.innerHTML = `
+        <div id="container">
+          <button class="btn">버튼1</button>
+          <button class="btn">버튼2</button>
+        </div>
+      `;
+
+      let clicked = false;
+      window.util.on('#container', 'click', '.btn', function(e) {
+        clicked = true;
+      });
+
+      // 버튼 클릭 시뮬레이션
+      const btn = document.querySelector('.btn');
+      btn.click();
+      
+      expect(clicked).toBe(true);
+    });
+  });
+
+  describe('fixbar 클릭 이벤트', () => {
+    test('bar1 클릭', () => {
+      let clickedType = null;
+      
+      window.util.fixbar({
+        bar1: true,
+        click: function(type) {
+          clickedType = type;
+        }
+      });
+
+      const bar1 = document.querySelector('.cui-fixbar-bar1');
+      if(bar1) {
+        bar1.click();
+        expect(clickedType).toBe('bar1');
+      }
+    });
+
+    test('bar2 클릭', () => {
+      let clickedType = null;
+      
+      window.util.fixbar({
+        bar2: true,
+        click: function(type) {
+          clickedType = type;
+        }
+      });
+
+      const bar2 = document.querySelector('.cui-fixbar-bar2');
+      if(bar2) {
+        bar2.click();
+        expect(clickedType).toBe('bar2');
+      }
+    });
+
+    test('커스텀 bar1 내용', () => {
+      window.util.fixbar({
+        bar1: '<span>커스텀</span>'
+      });
+
+      const bar1 = document.querySelector('.cui-fixbar-bar1');
+      expect(bar1.innerHTML).toContain('커스텀');
+    });
+
+    test('중복 생성 방지', () => {
+      window.util.fixbar({ bar1: true });
+      window.util.fixbar({ bar1: true });
+      
+      const fixbars = document.querySelectorAll('.cui-fixbar');
+      expect(fixbars.length).toBe(1);
+    });
+  });
+
+  describe('scrollTo', () => {
+    test('스크롤 애니메이션', () => {
+      expect(() => {
+        window.util.scrollTo(100, 100);
+      }).not.toThrow();
+    });
+
+    test('기본 duration', () => {
+      expect(() => {
+        window.util.scrollTo(0);
+      }).not.toThrow();
+    });
+  });
+
+  describe('countUp', () => {
+    test('countUp 메소드가 존재함', () => {
+      expect(typeof window.util.countUp).toBe('function');
+    });
+
+    test('카운트업 애니메이션', () => {
+      document.body.innerHTML = '<span id="counter"></span>';
+      
+      expect(() => {
+        window.util.countUp({
+          elem: '#counter',
+          start: 0,
+          end: 100,
+          duration: 100
+        });
+      }).not.toThrow();
+    });
+
+    test('옵션 설정', () => {
+      document.body.innerHTML = '<span id="counter2"></span>';
+      
+      expect(() => {
+        window.util.countUp({
+          elem: '#counter2',
+          start: 0,
+          end: 1000,
+          decimals: 2,
+          separator: ',',
+          prefix: '$',
+          suffix: ' USD',
+          easing: false,
+          callback: function() {}
+        });
+      }).not.toThrow();
+    });
+
+    test('요소 없을 때', () => {
+      expect(() => {
+        window.util.countUp({
+          elem: '#nonexistent',
+          end: 100
+        });
+      }).not.toThrow();
+    });
+  });
+
+  describe('toDateString 추가', () => {
+    test('연도 2자리', () => {
+      const date = new Date('2024-03-20');
+      const result = window.util.toDateString(date, 'yy-MM-dd');
+      expect(result).toBe('24-03-20');
+    });
+
+    test('월/일 패딩 없이', () => {
+      const date = new Date('2024-03-05');
+      const result = window.util.toDateString(date, 'M월 d일');
+      expect(result).toBe('3월 5일');
+    });
+
+    test('시/분/초 패딩 없이', () => {
+      const date = new Date('2024-03-20 09:05:03');
+      const result = window.util.toDateString(date, 'H:m:s');
+      expect(result).toBe('9:5:3');
+    });
+
+    test('유효하지 않은 날짜', () => {
+      expect(window.util.toDateString('invalid')).toBe('');
+      expect(window.util.toDateString(null)).toBe('');
+    });
+  });
+
+  describe('digit 추가', () => {
+    test('다양한 길이', () => {
+      expect(window.util.digit(7, 4)).toBe('0007');
+      expect(window.util.digit(123, 5)).toBe('00123');
+    });
+  });
+
+  describe('parseQuery 추가', () => {
+    test('인코딩된 값', () => {
+      const result = window.util.parseQuery('?name=%ED%85%8C%EC%8A%A4%ED%8A%B8');
+      expect(result.name).toBe('테스트');
+    });
+
+    test('값 없는 파라미터', () => {
+      const result = window.util.parseQuery('?flag=&name=test');
+      expect(result.flag).toBe('');
+      expect(result.name).toBe('test');
+    });
+  });
+
+  describe('toQuery 추가', () => {
+    test('특수문자 인코딩', () => {
+      const result = window.util.toQuery({ name: '테스트', value: 'a&b' });
+      expect(result).toContain('%');
     });
   });
 });

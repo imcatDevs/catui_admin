@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
@@ -573,8 +573,8 @@
         }
       }
       
-      var inst = new Class(config);
-      return inst.index;
+      var popupInst = new Class(config);
+      return popupInst.index;
     }
 
     // 팝업 닫기
@@ -965,7 +965,7 @@
         var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
         var height = iframeDoc.body.scrollHeight;
         iframe.style.height = height + 'px';
-      } catch(e){}
+      } catch(_e){}
     }
 
     // 알림 팝업

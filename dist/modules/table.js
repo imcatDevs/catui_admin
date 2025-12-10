@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
@@ -629,7 +629,7 @@
           var res;
           try {
             res = JSON.parse(xhr.responseText);
-          } catch(e){
+          } catch(_e){
             that.renderError('데이터 파싱 오류');
             return;
           }
@@ -638,7 +638,7 @@
             res = config.parseData(res) || res;
           }
 
-          if(res[response.statusName] == response.statusCode){
+          if(res[response.statusName] === response.statusCode){
             var allData = res[response.dataName] || [];
             var totalCount = res[response.countName] || allData.length;
             
@@ -691,17 +691,16 @@
     else if(Array.isArray(config.data)){
       that.hideLoading();
       
-      var res = {};
-      var startLimit = (curr - 1) * config.limit;
-      
-      res[response.dataName] = config.data.slice(startLimit, startLimit + config.limit);
-      res[response.countName] = config.data.length;
+      var localStartLimit = (curr - 1) * config.limit;
+      var localRes = {};
+      localRes[response.dataName] = config.data.slice(localStartLimit, localStartLimit + config.limit);
+      localRes[response.countName] = config.data.length;
 
-      that.renderData(res, curr, res[response.countName]);
+      that.renderData(localRes, curr, localRes[response.countName]);
       that.setColsWidth();
       
       if(typeof config.done === 'function'){
-        config.done(res, curr, res[response.countName]);
+        config.done(localRes, curr, localRes[response.countName]);
       }
     }
     // 데이터 없음
@@ -936,49 +935,49 @@
       var limit = config.limit;
       var pages = Math.ceil(count / limit);
 
-      var html = '<div class="cui-table-page-info">총 ' + count + '건</div>';
-      html += '<div class="cui-table-page-nav">';
+      var pageHtml = '<div class="cui-table-page-info">총 ' + count + '건</div>';
+      pageHtml += '<div class="cui-table-page-nav">';
       
-      html += '<a class="cui-table-page-btn' + (curr <= 1 ? ' ' + DISABLED : '') + '" data-page="' + (curr - 1) + '"><i class="cui-icon">chevron_left</i></a>';
+      pageHtml += '<a class="cui-table-page-btn' + (curr <= 1 ? ' ' + DISABLED : '') + '" data-page="' + (curr - 1) + '"><i class="cui-icon">chevron_left</i></a>';
       
       var start = Math.max(1, curr - 2);
       var end = Math.min(pages, curr + 2);
       
       if(start > 1){
-        html += '<a class="cui-table-page-num" data-page="1">1</a>';
-        if(start > 2) html += '<span class="cui-table-page-ellipsis">...</span>';
+        pageHtml += '<a class="cui-table-page-num" data-page="1">1</a>';
+        if(start > 2) pageHtml += '<span class="cui-table-page-ellipsis">...</span>';
       }
       
       for(var i = start; i <= end; i++){
-        html += '<a class="cui-table-page-num' + (i === curr ? ' ' + THIS : '') + '" data-page="' + i + '">' + i + '</a>';
+        pageHtml += '<a class="cui-table-page-num' + (i === curr ? ' ' + THIS : '') + '" data-page="' + i + '">' + i + '</a>';
       }
       
       if(end < pages){
-        if(end < pages - 1) html += '<span class="cui-table-page-ellipsis">...</span>';
-        html += '<a class="cui-table-page-num" data-page="' + pages + '">' + pages + '</a>';
+        if(end < pages - 1) pageHtml += '<span class="cui-table-page-ellipsis">...</span>';
+        pageHtml += '<a class="cui-table-page-num" data-page="' + pages + '">' + pages + '</a>';
       }
       
-      html += '<a class="cui-table-page-btn' + (curr >= pages ? ' ' + DISABLED : '') + '" data-page="' + (curr + 1) + '"><i class="cui-icon">chevron_right</i></a>';
-      html += '</div>';
+      pageHtml += '<a class="cui-table-page-btn' + (curr >= pages ? ' ' + DISABLED : '') + '" data-page="' + (curr + 1) + '"><i class="cui-icon">chevron_right</i></a>';
+      pageHtml += '</div>';
       
-      html += '<div class="cui-table-page-limit"><select class="cui-select cui-table-page-select">';
+      pageHtml += '<div class="cui-table-page-limit"><select class="cui-select cui-table-page-select">';
       config.limits.forEach(function(n){
-        html += '<option value="' + n + '"' + (n === limit ? ' selected' : '') + '>' + n + '개/페이지</option>';
+        pageHtml += '<option value="' + n + '"' + (n === limit ? ' selected' : '') + '>' + n + '개/페이지</option>';
       });
-      html += '</select></div>';
+      pageHtml += '</select></div>';
 
       // 하단 버튼
       if(config.pageBtns && config.pageBtns.length){
-        html += '<div class="cui-table-page-btns">';
+        pageHtml += '<div class="cui-table-page-btns">';
         config.pageBtns.forEach(function(btn, idx){
           var text = typeof btn === 'string' ? btn : btn.text;
           var cls = typeof btn === 'object' && btn.class ? ' ' + btn.class : '';
-          html += '<button class="cui-btn cui-btn-sm cui-btn-primary' + cls + '" data-btn-idx="' + idx + '">' + text + '</button>';
+          pageHtml += '<button class="cui-btn cui-btn-sm cui-btn-primary' + cls + '" data-btn-idx="' + idx + '">' + text + '</button>';
         });
-        html += '</div>';
+        pageHtml += '</div>';
       }
 
-      that.layPage.innerHTML = html;
+      that.layPage.innerHTML = pageHtml;
 
       // 페이지 클릭
       that.layPage.querySelectorAll('[data-page]').forEach(function(btn){
@@ -1378,7 +1377,7 @@
   // 열 표시/숨김
   Class.prototype.toggleCol = function(idx, show){
     var that = this;
-    var selector = 'td[data-field], th[data-field]';
+    // var selector = 'td[data-field], th[data-field]';
     
     // 해당 열의 모든 셀
     that.layView.querySelectorAll('col[data-key$="-' + idx + '"]').forEach(function(col){
@@ -1691,7 +1690,6 @@
       if(elem.getAttribute('cui-rendered')) return;
       elem.setAttribute('cui-rendered', 'true');
 
-      var tableFilter = elem.getAttribute('cui-filter');
       var tableData = elem.getAttribute('cui-data') || '{}';
       
       try {
@@ -1713,7 +1711,7 @@
           var col = new Function('return ' + colData)();
           col.title = col.title || th.textContent.trim();
           options.cols[0].push(col);
-        } catch(e){
+        } catch(_e){
           options.cols[0].push({ title: th.textContent.trim() });
         }
       });

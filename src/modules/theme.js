@@ -1,4 +1,4 @@
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var MOD_NAME = 'theme'
@@ -456,14 +456,6 @@
         });
       });
 
-      return this;
-    },
-
-    // 이벤트 등록
-    on: function(events, callback){
-      if(window.Catui && Catui.onevent){
-        return Catui.onevent.call(this, MOD_NAME, events, callback);
-      }
       return this;
     }
   };

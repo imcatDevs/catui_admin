@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
@@ -353,7 +353,7 @@
     ,config = that.config;
 
     var fromList = direction === 'right' ? that.leftList : that.rightList;
-    var toList = direction === 'right' ? that.rightList : that.leftList;
+    var _toList = direction === 'right' ? that.rightList : that.leftList;
     var fromData = direction === 'right' ? that.leftData : that.rightData;
     var toData = direction === 'right' ? that.rightData : that.leftData;
 

@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
@@ -20,9 +20,9 @@
   ,instances = {}
 
   // 상수
-  ,ELEM = 'cui-upload'
+  ,_ELEM = 'cui-upload'
   ,ELEM_FILE = 'cui-upload-file'
-  ,ELEM_DRAG = 'cui-upload-drag'
+  ,_ELEM_DRAG = 'cui-upload-drag'
   ,ELEM_DRAG_OVER = 'cui-upload-drag-over'
 
   // MIME 타입 매핑
@@ -518,7 +518,7 @@
             if(xhr.status >= 200 && xhr.status < 300){
               successful++;
               var response = xhr.responseText;
-              try{ response = JSON.parse(response); }catch(e){}
+              try{ response = JSON.parse(response); }catch(_e){}
 
               // 완료 콜백
               if(typeof config.done === 'function'){

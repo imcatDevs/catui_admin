@@ -206,5 +206,233 @@ describe('Upload Module', () => {
 
       expect(typeof inst.upload).toBe('function');
     });
+
+    test('config 속성', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload'
+      });
+
+      expect(inst.config).toBeDefined();
+      expect(inst.config.url).toBe('/upload');
+    });
+  });
+
+  describe('set', () => {
+    test('set 메소드가 존재함', () => {
+      expect(typeof window.upload.set).toBe('function');
+    });
+
+    test('전역 설정', () => {
+      expect(() => {
+        window.upload.set({
+          size: 2048
+        });
+      }).not.toThrow();
+    });
+  });
+
+  describe('accept 옵션', () => {
+    test('video 허용', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        accept: 'video'
+      });
+      expect(inst.config.accept).toBe('video');
+    });
+
+    test('audio 허용', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        accept: 'audio'
+      });
+      expect(inst.config.accept).toBe('audio');
+    });
+
+    test('file (모든 파일)', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        accept: 'file'
+      });
+      expect(inst.config.accept).toBe('file');
+    });
+  });
+
+  describe('필드명', () => {
+    test('기본 필드명', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload'
+      });
+      expect(inst.config.field).toBe('file');
+    });
+
+    test('커스텀 필드명', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        field: 'myFile'
+      });
+      expect(inst.config.field).toBe('myFile');
+    });
+  });
+
+  describe('bindAction', () => {
+    test('bindAction 옵션', () => {
+      document.body.innerHTML = `
+        <button id="uploadBtn">선택</button>
+        <button id="submitBtn">업로드</button>
+      `;
+
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        auto: false,
+        bindAction: '#submitBtn'
+      });
+
+      expect(inst.config.bindAction).toBe('#submitBtn');
+    });
+  });
+
+  describe('ID', () => {
+    test('ID 설정', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        id: 'myUpload'
+      });
+
+      expect(inst.config.id).toBe('myUpload');
+    });
+  });
+
+  describe('allDone', () => {
+    test('allDone 콜백 존재', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        multiple: true,
+        allDone: function(obj) {
+          console.log('전체 완료');
+        }
+      });
+
+      expect(inst.config.allDone).toBeDefined();
+    });
+  });
+
+  describe('progress', () => {
+    test('progress 콜백 존재', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        progress: function(n, elem, res, index) {
+          console.log('진행률:', n);
+        }
+      });
+
+      expect(inst.config.progress).toBeDefined();
+    });
+  });
+
+  describe('on', () => {
+    test('이벤트 등록', () => {
+      const result = window.upload.on('choose', function() {});
+      expect(result).toBe(window.upload);
+    });
+  });
+
+  describe('getInst', () => {
+    test('인스턴스 가져오기', () => {
+      window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        id: 'testUpload'
+      });
+
+      const inst = window.upload.getInst('testUpload');
+      expect(inst).toBeDefined();
+    });
+
+    test('존재하지 않는 인스턴스', () => {
+      const inst = window.upload.getInst('notExist');
+      expect(inst).toBeUndefined();
+    });
+  });
+
+  describe('size 옵션', () => {
+    test('숫자로 크기 제한 (KB)', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        size: 1024
+      });
+      expect(inst.config.size).toBe(1024);
+    });
+
+    test('문자열로 크기 제한 (MB)', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        size: '10MB'
+      });
+      expect(inst.config.size).toBe('10MB');
+    });
+
+    test('minSize 옵션', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        minSize: '1KB'
+      });
+      expect(inst.config.minSize).toBe('1KB');
+    });
+  });
+
+  describe('acceptMime', () => {
+    test('직접 MIME 타입 지정', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        acceptMime: 'image/png,image/jpeg'
+      });
+      expect(inst.config.acceptMime).toBe('image/png,image/jpeg');
+    });
+  });
+
+  describe('method', () => {
+    test('기본 메소드 POST', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload'
+      });
+      expect(inst.config.method).toBe('POST');
+    });
+
+    test('커스텀 메소드', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        method: 'PUT'
+      });
+      expect(inst.config.method).toBe('PUT');
+    });
+  });
+
+  describe('validateError', () => {
+    test('validateError 콜백', () => {
+      const inst = window.upload.render({
+        elem: '#uploadBtn',
+        url: '/upload',
+        validateError: function(obj) {
+          console.log('검증 실패:', obj.msg);
+        }
+      });
+      expect(inst.config.validateError).toBeDefined();
+    });
   });
 });

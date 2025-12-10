@@ -95,4 +95,23 @@ describe('Flow Module', () => {
     });
   });
 
+  describe('스크롤 옵션', () => {
+    test('scrollElem 옵션', () => {
+      document.body.innerHTML = `
+        <div id="scrollContainer" style="height:200px;overflow:auto;">
+          <div id="flowContent"></div>
+        </div>
+      `;
+
+      expect(() => {
+        window.flow.load({
+          elem: '#flowContent',
+          scrollElem: '#scrollContainer',
+          done: function(page, next) {
+            next('', false);
+          }
+        });
+      }).not.toThrow();
+    });
+  });
 });

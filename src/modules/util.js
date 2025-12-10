@@ -4,14 +4,14 @@
  * MIT Licensed
  */
 
-;!function(window, undefined){
+!function(window, undefined){
   "use strict";
 
   var document = window.document
   ,MOD_NAME = 'util'
   
   // $c 동적 참조
-  ,get$c = function(){ return window.$c; }
+  ,get$c = function(){ return window.$c; };
 
   // 유틸리티 인터페이스
   var util = {
@@ -520,7 +520,7 @@
       if(typeof str !== 'string') return defaultValue !== undefined ? defaultValue : null;
       try {
         return JSON.parse(str);
-      } catch(e){
+      } catch(_e){
         return defaultValue !== undefined ? defaultValue : null;
       }
     }

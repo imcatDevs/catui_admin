@@ -4,7 +4,7 @@
  * MIT Licensed
  */
 
-;!function(window, document){
+!function(window, document){
   "use strict";
 
   var MOD_NAME = 'date'
@@ -19,14 +19,14 @@
   ,instances = {}
 
   // 상수
-  ,ELEM = '.cui-date'
+  ,_ELEM = '.cui-date'
   ,THIS = 'cui-this'
-  ,SHOW = 'cui-show'
+  ,_SHOW = 'cui-show'
   ,DISABLED = 'cui-date-disabled'
   ,ELEM_STATIC = 'cui-date-static'
 
   // 날짜 형식 문자
-  ,dateType = 'yyyy|y|MM|M|dd|d|HH|H|mm|m|ss|s';
+  ,_dateType = 'yyyy|y|MM|M|dd|d|HH|H|mm|m|ss|s';
 
   // 날짜 선택기 인터페이스
   var date = {
@@ -1036,12 +1036,12 @@
       ,that.startDate.seconds || 0
     );
 
-    var value = that.formatDate(that.dateTime);
-    that.setValue(value);
+    var formattedValue = that.formatDate(that.dateTime);
+    that.setValue(formattedValue);
 
     // done 콜백
     if(typeof config.done === 'function'){
-      config.done(value, that.dateTime);
+      config.done(formattedValue, that.dateTime);
     }
 
     if(config.position !== 'static'){
