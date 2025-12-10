@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">12.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/107</span>
+                <span class='fraction'>13/107</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">5.55% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/54</span>
+                <span class='fraction'>3/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">14.28% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>3/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">12.24% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/98</span>
+                <span class='fraction'>12/98</span>
             </div>
         
             
@@ -322,24 +322,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -351,12 +351,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -563,10 +563,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -576,24 +576,24 @@
  * MIT Licensed
  */
 &nbsp;
-;<span class="cstat-no" title="statement not covered" >!<span class="fstat-no" title="function not covered" >fu</span>nction(window, undefined){</span>
+;!function(window, undefined){
   "use strict";
 &nbsp;
-  var document = <span class="cstat-no" title="statement not covered" >window.document</span>
-  ,MOD_NAME = <span class="cstat-no" title="statement not covered" >'code'</span>
+  var document = window.document
+  ,MOD_NAME = 'code'
   
   // $c 동적 참조
-  ,get$c = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >fu</span>nction(){ <span class="cstat-no" title="statement not covered" >return window.$c; </span>}</span>
+  ,get$c = function(){ return window.$c; }
 &nbsp;
   // 키워드 정의
-  var KEYWORDS = <span class="cstat-no" title="statement not covered" >{</span>
+  var KEYWORDS = {
     javascript: ['function', 'var', 'let', 'const', 'if', 'else', 'for', 'while', 'do', 'switch', 'case', 'break', 'continue', 'return', 'try', 'catch', 'finally', 'throw', 'new', 'delete', 'typeof', 'instanceof', 'in', 'this', 'class', 'extends', 'super', 'import', 'export', 'default', 'from', 'async', 'await', 'yield', 'static', 'get', 'set', 'true', 'false', 'null', 'undefined', 'NaN', 'Infinity'],
     html: ['html', 'head', 'body', 'div', 'span', 'p', 'a', 'img', 'ul', 'ol', 'li', 'table', 'tr', 'td', 'th', 'form', 'input', 'button', 'select', 'option', 'textarea', 'label', 'script', 'style', 'link', 'meta', 'title', 'header', 'footer', 'nav', 'main', 'section', 'article', 'aside', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr'],
     css: ['color', 'background', 'margin', 'padding', 'border', 'width', 'height', 'display', 'position', 'top', 'left', 'right', 'bottom', 'font', 'text', 'flex', 'grid', 'align', 'justify', 'transform', 'transition', 'animation', 'opacity', 'overflow', 'z-index', 'box-shadow', 'border-radius']
   };
 &nbsp;
   // 외부 인터페이스
-  var code = <span class="cstat-no" title="statement not covered" >{</span>
+  var code = {
     config: {}
 &nbsp;
     // 전역 설정
@@ -604,12 +604,12 @@
     }
 &nbsp;
     // 자동 하이라이팅
-    ,render: <span class="fstat-no" title="function not covered" >fu</span>nction(filter){
-      var $c = <span class="cstat-no" title="statement not covered" >get$c();</span>
-<span class="cstat-no" title="statement not covered" >      if(!$c) <span class="cstat-no" title="statement not covered" >return;</span></span>
+    ,render: function(filter){
+      var $c = get$c();
+      <span class="missing-if-branch" title="if path not taken" >I</span>if(!$c) <span class="cstat-no" title="statement not covered" >return;</span>
 &nbsp;
-      var selector = <span class="cstat-no" title="statement not covered" >filter || 'pre code, .cui-code';</span>
-<span class="cstat-no" title="statement not covered" >      $c(selector).each(<span class="fstat-no" title="function not covered" >fu</span>nction(i, elem){</span>
+      var selector = filter || <span class="branch-1 cbranch-no" title="branch not covered" >'pre code, .cui-code';</span>
+      $c(selector).each(<span class="fstat-no" title="function not covered" >fu</span>nction(i, elem){
 <span class="cstat-no" title="statement not covered" >        code.highlight(elem);</span>
       });
     }
@@ -817,10 +817,10 @@
   };
 &nbsp;
   // 전역 노출
-<span class="cstat-no" title="statement not covered" >  window.code = code;</span>
+  window.code = code;
 &nbsp;
   // Catui 모듈 등록
-<span class="cstat-no" title="statement not covered" >  if(window.Catui){</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if(window.Catui){
 <span class="cstat-no" title="statement not covered" >    window.Catui[MOD_NAME] = code;</span>
   }
 &nbsp;
@@ -832,7 +832,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-12-10T03:35:17.049Z
+                at 2025-12-10T03:46:52.007Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
