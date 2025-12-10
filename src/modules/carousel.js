@@ -1,6 +1,6 @@
 /*!
  * Catui carousel - 캐러셀 컴포넌트
- * Based on Layui carousel.js, jQuery-free
+ * jQuery-free
  * MIT Licensed
  */
 
@@ -45,7 +45,7 @@
       return inst.thisCarousel();
     }
 
-    // 이벤트 등록 (Layui 방식)
+    // 이벤트 등록
     ,on: function(events, callback){
       if(window.Catui && Catui.onevent){
         return Catui.onevent.call(this, MOD_NAME, events, callback);
@@ -92,19 +92,49 @@
       ,next: function(){
         that.slide('add');
       }
+      ,reload: function(opts){
+        that.reload(opts);
+      }
+      ,destroy: function(){
+        that.destroy();
+      }
       ,pause: function(){
         that.pause();
       }
       ,play: function(){
         that.autoplay();
       }
-      ,reload: function(opts){
-        that.reload(opts);
-      }
       ,config: that.config
       ,elemItem: that.elemItem
       ,elemInd: that.elemInd
     };
+  };
+
+  // 인스턴스 정리
+  Class.prototype.destroy = function(){
+    var that = this
+    ,config = that.config;
+
+    // 타이머 정리
+    if(that.timer){
+      clearInterval(that.timer);
+      that.timer = null;
+    }
+
+    // 화살표 제거
+    if(config.elem[0]){
+      var arrows = config.elem[0].querySelector('.' + ELEM_ARROW);
+      if(arrows) arrows.remove();
+    }
+
+    // 인디케이터 제거
+    if(that.elemInd && that.elemInd[0]){
+      that.elemInd.remove();
+      that.elemInd = null;
+    }
+
+    // 인스턴스 저장소에서 제거
+    delete carousel.that[that.key];
   };
 
   // 기본 설정
@@ -336,7 +366,7 @@
     that.timer = null;
   };
 
-  // 슬라이드 (Layui 방식 - CSS 클래스 기반 애니메이션)
+  // 슬라이드 (CSS 클래스 기반 애니메이션)
   // type: 'add' (다음) / 'sub' (이전)
   // num: 이동 수 (기본 1)
   Class.prototype.slide = function(type, num){

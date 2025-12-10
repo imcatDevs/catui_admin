@@ -183,7 +183,7 @@
           var wrap = document.createElement('div');
           wrap.className = 'cui-form-switch' + disabled + (item.checked ? ' cui-form-checked' : '');
           
-          // layui 스타일: <em>텍스트</em><i></i>
+          // 스위치 스타일: <em>텍스트</em><i></i>
           wrap.innerHTML = '<em>' + ((item.checked ? texts[0] : texts[1]) || '') + '</em><i></i>';
 
           item.parentNode.insertBefore(wrap, item.nextSibling);

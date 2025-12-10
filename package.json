@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "gulp watch",
     "build": "gulp build",
-    "serve": "gulp serve"
+    "serve": "gulp serve",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "keywords": [
     "ui",
@@ -23,6 +26,8 @@
     "gulp-clean-css": "^4.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^2.0.0",
-    "gulp-terser": "^2.1.0"
+    "gulp-terser": "^2.1.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }

@@ -77,6 +77,20 @@
       }
       return this;
     }
+
+    // 인스턴스 정리
+    ,destroy: function(id){
+      var inst = tree.that[id];
+      if(!inst) return;
+
+      // DOM 정리
+      if(inst.config.elem && inst.config.elem[0]){
+        inst.config.elem.html('');
+      }
+
+      // 인스턴스 저장소에서 제거
+      delete tree.that[id];
+    }
   };
 
   // 생성자

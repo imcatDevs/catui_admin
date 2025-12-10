@@ -1,6 +1,6 @@
 # Catui 모듈 문서
 
-Catui는 Layui 기반의 한국어 UI 프레임워크입니다.
+Catui는 한국어 UI 프레임워크입니다.
 
 ## 모듈 목록
 
@@ -25,6 +25,7 @@ Catui는 Layui 기반의 한국어 UI 프레임워크입니다.
 - [slider.js](./slider.md) - 슬라이더
 - [rate.js](./rate.md) - 평점/별점
 - [colorpicker.js](./colorpicker.md) - 컬러 선택기
+- [theme.js](./theme.md) - 테마 관리
 
 ### 유틸리티
 

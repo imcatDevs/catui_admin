@@ -49,6 +49,25 @@ Catui.use(['slider'], function(){
 | `change(value)` | 값 변경 시 |
 | `done(value)` | 드래그 완료 시 |
 
+### 인스턴스 메소드
+
+```javascript
+var inst = slider.render({
+  elem: '#slider',
+  value: 50
+});
+
+inst.setValue(75);      // 값 설정
+inst.getValue();        // 값 가져오기 (75)
+inst.destroy();         // 인스턴스 정리
+```
+
+| 메소드 | 설명 |
+|--------|------|
+| `setValue(value, idx)` | 값 설정 (범위: idx로 지정) |
+| `getValue()` | 현재 값 가져오기 |
+| `destroy()` | 인스턴스 정리 |
+
 ---
 
 ## 범위 선택 (range)

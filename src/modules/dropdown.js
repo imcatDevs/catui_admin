@@ -73,6 +73,12 @@
       }
       return this;
     }
+
+    // 인스턴스 정리 (close와 동일, 일관성 위해 추가)
+    ,destroy: function(id){
+      dropdown.close(id);
+      if(id) delete instances[id];
+    }
   };
 
   // 생성자

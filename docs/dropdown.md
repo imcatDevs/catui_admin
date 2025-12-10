@@ -32,6 +32,8 @@ Catui.use(['dropdown'], function(){
 |-----|------|
 | `render(options)` | 드롭다운 렌더링 |
 | `reload(id, options)` | 드롭다운 리로드 |
+| `close(id)` | 드롭다운 닫기 |
+| `destroy(id)` | 인스턴스 정리 |
 
 ---
 

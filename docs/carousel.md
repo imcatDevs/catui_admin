@@ -33,7 +33,7 @@ Catui.use(['carousel'], function(){
 | 옵션 | 타입 | 기본값 | 설명 |
 |------|------|--------|------|
 | `elem` | String/DOM | - | 대상 요소 (필수) |
-| `width` | String | '100%' | 너비 |
+| `width` | String | '600px' | 너비 |
 | `height` | String | '280px' | 높이 |
 | `full` | Boolean | false | 전체 화면 |
 | `anim` | String | 'default' | 애니메이션 |
@@ -48,6 +48,43 @@ Catui.use(['carousel'], function(){
 | 콜백 | 설명 |
 |------|------|
 | `change(index)` | 슬라이드 변경 시 |
+
+---
+
+## 인스턴스 메소드
+
+`render()` 반환 객체에서 사용할 수 있는 메소드입니다.
+
+```javascript
+var inst = carousel.render({
+  elem: '#carousel',
+  autoplay: true
+});
+
+// 특정 슬라이드로 이동
+inst.goto(2);
+
+// 이전/다음 슬라이드
+inst.prev();
+inst.next();
+
+// 일시정지/재생
+inst.pause();
+inst.play();
+
+// 인스턴스 정리
+inst.destroy();
+```
+
+| 메소드 | 설명 |
+|--------|------|
+| `goto(index)` | 특정 슬라이드로 이동 |
+| `prev()` | 이전 슬라이드 |
+| `next()` | 다음 슬라이드 |
+| `pause()` | 자동재생 일시정지 |
+| `play()` | 자동재생 재개 |
+| `reload(options)` | 옵션 변경 후 리로드 |
+| `destroy()` | 인스턴스 정리 |
 
 ---
 

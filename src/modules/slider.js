@@ -44,6 +44,9 @@
         ,getValue: function(){
           return inst.getValue();
         }
+        ,destroy: function(){
+          inst.destroy();
+        }
         ,config: inst.config
       };
     }
@@ -491,6 +494,20 @@
     ,config = that.config;
 
     return config.range ? that.values.slice() : that.values[0];
+  };
+
+  // 인스턴스 정리
+  Class.prototype.destroy = function(){
+    var that = this
+    ,config = that.config;
+
+    // 렌더링된 요소 제거
+    if(that.sliderElem && that.sliderElem[0]){
+      that.sliderElem.remove();
+    }
+
+    // 인스턴스 저장소에서 제거
+    delete instances[config.id];
   };
 
   // 전역 노출

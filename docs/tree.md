@@ -33,6 +33,7 @@ Catui.use(['tree'], function(){
 | `getChecked(id)` | 체크된 노드 가져오기 |
 | `setChecked(id, nodeId)` | 노드 체크 설정 |
 | `getInst(id)` | 인스턴스 가져오기 |
+| `destroy(id)` | 인스턴스 정리 |
 | `on(events, callback)` | 이벤트 등록 |
 
 ---

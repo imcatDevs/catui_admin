@@ -35,6 +35,7 @@ Catui.use(['table'], function(){
 | `setRowChecked(id, opts)` | 행 체크 설정 |
 | `resize(id)` | 크기 재조정 |
 | `exportFile(id, data, type)` | 파일 내보내기 |
+| `destroy(id)` | 인스턴스 정리 |
 | `on(events, callback)` | 이벤트 등록 |
 
 ---

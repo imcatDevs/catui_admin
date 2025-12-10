@@ -1148,7 +1148,6 @@ img {
 
 /**
  * Catui - Input
- * Based on layui input CSS
  */
 
 .cui-input,
@@ -1243,7 +1242,6 @@ img {
 
 /**
  * Catui - Page (Pagination)
- * Based on layui laypage CSS
  */
 
 .cui-page {
@@ -2915,7 +2913,7 @@ input[type="radio"] {
 }
 
 /* ========================================
-   스위치 (토글) - Layui 스타일
+   스위치 (토글)
 ======================================== */
 .cui-form-switch {
   position: relative;
@@ -4958,7 +4956,6 @@ input[type="radio"] {
 
 /**
  * Catui - Table
- * Based on layui table CSS
  */
 
 /* 기본 테이블 */
@@ -6192,7 +6189,6 @@ input[type="radio"] {
 
 /**
  * Catui Carousel 캐러셀
- * Based on Layui carousel.css
  */
 
 /* 캐러셀 컨테이너 */

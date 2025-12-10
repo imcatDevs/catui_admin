@@ -1,6 +1,6 @@
 /*!
  * Catui table - 데이터 테이블 컴포넌트
- * Based on layui table, jQuery-free
+ * jQuery-free
  * MIT Licensed
  */
 
@@ -161,6 +161,23 @@
         tr.classList.toggle('cui-table-checked', checked);
       }
       inst.updateCheckAll();
+    }
+
+    // 인스턴스 정리
+    ,destroy: function(id){
+      var inst = table.that[id];
+      if(!inst) return;
+
+      // 캐시 정리
+      delete table.cache[id];
+
+      // DOM 정리
+      if(inst.layView){
+        inst.layView.remove();
+      }
+
+      // 인스턴스 저장소에서 제거
+      delete table.that[id];
     }
   };
 
