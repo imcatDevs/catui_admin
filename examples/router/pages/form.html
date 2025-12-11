@@ -1,0 +1,96 @@
+<div class="cui-card">
+  <div class="cui-card-header">
+    <h3>📝 폼 예제</h3>
+  </div>
+  <div class="cui-card-body">
+    <p class="cui-text-secondary cui-mb-20">라우터로 로드된 페이지에서 폼이 자동으로 렌더링됩니다.</p>
+    
+    <form class="cui-form" cui-filter="routerForm">
+      <div class="cui-form-item">
+        <label class="cui-form-label">이름</label>
+        <div class="cui-input-block">
+          <input type="text" name="name" class="cui-input" placeholder="이름 입력" cui-verify="required">
+        </div>
+      </div>
+      
+      <div class="cui-form-item">
+        <label class="cui-form-label">이메일</label>
+        <div class="cui-input-block">
+          <input type="email" name="email" class="cui-input" placeholder="이메일 입력" cui-verify="email">
+        </div>
+      </div>
+      
+      <div class="cui-form-item">
+        <label class="cui-form-label">날짜</label>
+        <div class="cui-input-block">
+          <input type="text" id="dateInput" class="cui-input" placeholder="날짜 선택" cui-date>
+        </div>
+      </div>
+      
+      <div class="cui-form-item">
+        <label class="cui-form-label">상태</label>
+        <div class="cui-input-block">
+          <select name="status">
+            <option value="">선택하세요</option>
+            <option value="1">활성</option>
+            <option value="0">비활성</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="cui-form-item">
+        <label class="cui-form-label">성별</label>
+        <div class="cui-input-block">
+          <input type="radio" name="gender" value="M" title="남성">
+          <input type="radio" name="gender" value="F" title="여성">
+        </div>
+      </div>
+      
+      <div class="cui-form-item">
+        <label class="cui-form-label">알림</label>
+        <div class="cui-input-block">
+          <input type="checkbox" name="notify" cui-switch title="알림 받기">
+        </div>
+      </div>
+      
+      <div class="cui-form-item">
+        <div class="cui-input-block">
+          <button type="button" class="cui-btn cui-btn-primary" cui-submit cui-filter="routerForm">제출</button>
+          <button type="reset" class="cui-btn cui-btn-default">초기화</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="formResult" class="cui-card cui-mt-20" style="display:none;">
+  <div class="cui-card-header">
+    <h3>제출 결과</h3>
+  </div>
+  <div class="cui-card-body">
+    <pre id="resultData"></pre>
+  </div>
+</div>
+
+<script>
+  // 이 페이지에서 필요한 모듈 로드
+  Catui.use(['form', 'date', 'popup'], function(){
+    // 폼 렌더링 (select, radio, checkbox 등)
+    form.render();
+    
+    // 날짜 선택기 렌더링
+    date.render({
+      elem: '#dateInput',
+      type: 'date'
+    });
+    
+    // 폼 제출 이벤트
+    form.on('submit(routerForm)', function(data){
+      document.getElementById('formResult').style.display = 'block';
+      document.getElementById('resultData').textContent = JSON.stringify(data.field, null, 2);
+      
+      popup.msg('제출 완료!', { icon: 0 });
+      return false;
+    });
+  });
+</script>

@@ -14,7 +14,8 @@
       sidebar: '#1e1e2d',
       logo: 'var(--cui-primary)',
       primary: '#1677ff',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     },
     // 라이트 테마
     'light': {
@@ -24,10 +25,7 @@
       logo: '#ffffff',
       primary: '#1677ff',
       isDark: false,
-      vars: {
-        '--cui-theme-header-text': '#333333',
-        '--cui-theme-sidebar-text': '#333333'
-      }
+      sidebarDark: false
     },
     // 다크 테마 (전체)
     'dark': {
@@ -36,7 +34,8 @@
       sidebar: '#141414',
       logo: '#1f1f1f',
       primary: '#1677ff',
-      isDark: true
+      isDark: true,
+      sidebarDark: true
     },
     // 블루 테마
     'blue': {
@@ -45,7 +44,8 @@
       sidebar: '#001529',
       logo: '#002140',
       primary: '#1677ff',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     },
     // 그린 테마
     'green': {
@@ -54,7 +54,8 @@
       sidebar: '#1e1e2d',
       logo: '#389e0d',
       primary: '#52c41a',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     },
     // 퍼플 테마
     'purple': {
@@ -63,7 +64,8 @@
       sidebar: '#1e1e2d',
       logo: '#531dab',
       primary: '#722ed1',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     },
     // 오렌지 테마
     'orange': {
@@ -72,7 +74,8 @@
       sidebar: '#1e1e2d',
       logo: '#d46b08',
       primary: '#fa8c16',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     },
     // 레드 테마
     'red': {
@@ -81,7 +84,8 @@
       sidebar: '#1e1e2d',
       logo: '#cf1322',
       primary: '#ff4d4f',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     },
     // 시안 테마
     'cyan': {
@@ -90,7 +94,8 @@
       sidebar: '#1e1e2d',
       logo: '#08979c',
       primary: '#13c2c2',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     },
     // 핑크 테마
     'pink': {
@@ -99,7 +104,8 @@
       sidebar: '#1e1e2d',
       logo: '#c41d7f',
       primary: '#eb2f96',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     },
     // 인디고 테마
     'indigo': {
@@ -108,7 +114,8 @@
       sidebar: '#001529',
       logo: '#1d39c4',
       primary: '#2f54eb',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     },
     // 티얼 테마
     'teal': {
@@ -117,7 +124,8 @@
       sidebar: '#1e1e2d',
       logo: '#12b886',
       primary: '#20c997',
-      isDark: false
+      isDark: false,
+      sidebarDark: true
     }
   };
 
@@ -216,7 +224,8 @@
         }
       }
 
-      // body에 data-theme 속성 설정
+      // html과 body에 data-theme 속성 설정
+      document.documentElement.setAttribute('data-theme', currentTheme);
       document.body.setAttribute('data-theme', currentTheme);
 
       // 레이아웃 클래스 변경
@@ -232,12 +241,43 @@
         if(name && name !== 'default'){
           layout.classList.add('cui-theme-' + name);
         }
+        
+        // 사이드바 배경 직접 설정
+        var side = layout.querySelector('.cui-side');
+        if(side){
+          side.style.background = themeData.sidebar;
+          
+          // 사이드바 다크 모드 클래스
+          if(themeData.sidebarDark){
+            side.classList.add('cui-side-dark');
+            side.classList.remove('cui-side-light');
+          } else {
+            side.classList.add('cui-side-light');
+            side.classList.remove('cui-side-dark');
+          }
+        }
+        
+        // 헤더 배경 직접 설정
+        var header = layout.querySelector('.cui-header');
+        if(header){
+          header.style.background = themeData.header;
+        }
+        
+        // 로고 배경 직접 설정
+        var logo = layout.querySelector('.cui-logo');
+        if(logo){
+          logo.style.background = themeData.logo;
+          // 로고 텍스트 색상
+          logo.style.color = '#fff';
+        }
       }
 
       // 다크 모드 처리
       if(themeData.isDark){
+        document.documentElement.setAttribute('data-theme', 'dark');
         document.body.classList.add('cui-theme-dark');
       } else {
+        document.documentElement.removeAttribute('data-theme');
         document.body.classList.remove('cui-theme-dark');
       }
 

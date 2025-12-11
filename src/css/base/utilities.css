@@ -247,14 +247,14 @@
 .cui-panel-footer { padding: 12px 15px; border-top: 1px solid #e9ecef; background: #fafafa; border-radius: 0 0 4px 4px; }
 .cui-panel-window { position: relative; padding: 15px; border-radius: 0; border-top: 5px solid #e9ecef; background-color: #fff; }
 
-/* 패널 색상 */
-.cui-panel-primary { border-color: var(--cui-primary); }
+/* 패널 색상 - 왼쪽 테두리만 강조 */
+.cui-panel-primary { border-left: 3px solid var(--cui-primary); }
 .cui-panel-primary .cui-panel-header { background: var(--cui-primary); color: #fff; border-color: var(--cui-primary); }
-.cui-panel-success { border-color: var(--cui-success); }
+.cui-panel-success { border-left: 3px solid var(--cui-success); }
 .cui-panel-success .cui-panel-header { background: var(--cui-success); color: #fff; border-color: var(--cui-success); }
-.cui-panel-warning { border-color: var(--cui-warning); }
+.cui-panel-warning { border-left: 3px solid var(--cui-warning); }
 .cui-panel-warning .cui-panel-header { background: var(--cui-warning); color: #333; border-color: var(--cui-warning); }
-.cui-panel-danger { border-color: var(--cui-danger); }
+.cui-panel-danger { border-left: 3px solid var(--cui-danger); }
 .cui-panel-danger .cui-panel-header { background: var(--cui-danger); color: #fff; border-color: var(--cui-danger); }
 
 /* ========== 카드 ========== */
@@ -380,3 +380,32 @@
   100% { opacity: 0; }
 }
 .cui-anim-fadeout { animation-name: cui-fadeout; }
+
+/* ==================== 라우터 ==================== */
+
+/* cui-href 속성 - 클릭 가능 스타일 */
+[cui-href] {
+  cursor: pointer;
+}
+[cui-href]:hover {
+  opacity: 0.85;
+}
+
+/* 라우터 활성 링크 */
+.cui-router-active {
+  color: var(--cui-primary);
+}
+
+/* 라우터 로딩 상태 */
+.cui-router-loading {
+  position: relative;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* 라우터 에러 */
+.cui-router-error {
+  padding: 40px;
+  text-align: center;
+  color: var(--cui-danger);
+}

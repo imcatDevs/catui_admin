@@ -142,6 +142,9 @@
       return that;
     }
     
+    // 이벤트 바인딩 확인 (render 호출 시마다 체크)
+    bindFormSubmit($c);
+    
     var elemForm;
     if(filter && typeof filter === 'object' && filter.nodeType){
       // DOM 요소가 전달된 경우
@@ -662,25 +665,31 @@
     var $c = get$c();
     if($c){
       $c(function(){
-        form.render();
         bindFormSubmit($c);
       });
     } else {
       if(document.readyState === 'loading'){
         document.addEventListener('DOMContentLoaded', function(){
-          form.render();
           bindFormSubmit(get$c());
         });
       } else {
-        form.render();
         bindFormSubmit(get$c());
       }
     }
   };
 
+  // 이벤트 바인딩 플래그
+  var eventsBound = false;
+  
   // 폼 제출 이벤트 바인딩
   function bindFormSubmit($c){
     if(!$c) return;
+    
+    // 이미 바인딩되어 있으면 스킵
+    if(eventsBound) return;
+    eventsBound = true;
+    
+    // 폼 submit 이벤트
     $c(document).on('submit', ELEM, function(e){
       var filter = this.getAttribute('cui-filter') || '';
 
@@ -695,6 +704,35 @@
       }
 
       // 폼 기본 제출 방지
+      e.preventDefault();
+    });
+    
+    // cui-submit 버튼 클릭 이벤트
+    $c(document).on('click', '[cui-submit]', function(e){
+      var filter = this.getAttribute('cui-filter') || '';
+      var formElem = null;
+      
+      // cui-filter가 있으면 해당 폼 찾기
+      if(filter){
+        formElem = document.querySelector(ELEM + '[cui-filter="' + filter + '"]');
+      }
+      // 없으면 가장 가까운 폼 찾기
+      if(!formElem){
+        formElem = $c(this).closest(ELEM)[0];
+        if(formElem){
+          filter = formElem.getAttribute('cui-filter') || '';
+        }
+      }
+      
+      if(!formElem) return;
+      
+      if(window.Catui && Catui.event){
+        Catui.event(MOD_NAME, 'submit(' + filter + ')', {
+          elem: formElem
+          ,field: form.getValue(filter, $c(formElem))
+        });
+      }
+      
       e.preventDefault();
     });
   }

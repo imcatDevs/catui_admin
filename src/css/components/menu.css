@@ -5,7 +5,6 @@
 .cui-menu {
   width: 100%;
   background: #fff;
-  border-right: 1px solid var(--cui-border-color);
   font-size: 14px;
 }
 
@@ -46,7 +45,8 @@
 }
 
 /* 활성 상태 */
-.cui-menu-item.cui-menu-active > a {
+.cui-menu-item.cui-menu-active > a,
+.cui-menu-item > a.cui-menu-active {
   color: var(--cui-primary);
   background: var(--cui-primary-light);
   border-left-color: var(--cui-primary);

@@ -1,0 +1,124 @@
+<div class="cui-card">
+  <div class="cui-card-header">
+    <h3>💬 팝업 예제</h3>
+  </div>
+  <div class="cui-card-body">
+    <p class="cui-text-secondary cui-mb-20">라우터로 로드된 페이지에서 팝업을 사용할 수 있습니다.</p>
+    
+    <h4>기본 팝업</h4>
+    <div class="cui-btn-container cui-mb-20">
+      <button class="cui-btn" onclick="showAlert()">Alert</button>
+      <button class="cui-btn" onclick="showConfirm()">Confirm</button>
+      <button class="cui-btn" onclick="showPrompt()">Prompt</button>
+      <button class="cui-btn" onclick="showMsg()">Msg</button>
+      <button class="cui-btn" onclick="showLoading()">Loading</button>
+    </div>
+    
+    <h4>토스트 & 팁</h4>
+    <div class="cui-btn-container cui-mb-20">
+      <button class="cui-btn cui-btn-success" onclick="showToast('success')">성공 토스트</button>
+      <button class="cui-btn cui-btn-danger" onclick="showToast('error')">에러 토스트</button>
+      <button class="cui-btn cui-btn-warning" onclick="showToast('warning')">경고 토스트</button>
+      <button class="cui-btn cui-btn-info" id="tipsBtn" onclick="showTips()">툴팁 표시</button>
+    </div>
+    
+    <h4>고급 팝업</h4>
+    <div class="cui-btn-container cui-mb-20">
+      <button class="cui-btn cui-btn-primary" onclick="showCustom()">커스텀 팝업</button>
+      <button class="cui-btn cui-btn-primary" onclick="showDrawer()">Drawer</button>
+      <button class="cui-btn cui-btn-primary" onclick="showPage()">페이지 로드</button>
+    </div>
+    
+    <h4>페이지 이동과 팝업</h4>
+    <div class="cui-btn-container">
+      <button class="cui-btn cui-btn-default" onclick="confirmAndGo()">확인 후 이동</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 이 페이지에서 필요한 모듈 로드
+  Catui.use(['popup'], function(){
+    
+    window.showAlert = function(){
+      popup.alert('알림 메시지입니다.');
+    };
+    
+    window.showConfirm = function(){
+      popup.confirm('진행하시겠습니까?', function(idx){
+        popup.close(idx);
+        popup.msg('확인됨', { icon: 0 });
+      });
+    };
+    
+    window.showPrompt = function(){
+      popup.prompt({ title: '입력', formType: 0 }, function(value, idx){
+        popup.close(idx);
+        popup.msg('입력값: ' + value);
+      });
+    };
+    
+    window.showMsg = function(){
+      popup.msg('메시지입니다!', { icon: 3 });
+    };
+    
+    window.showLoading = function(){
+      var idx = popup.load(1);
+      setTimeout(function(){
+        popup.close(idx);
+        popup.msg('로딩 완료!', { icon: 0 });
+      }, 2000);
+    };
+    
+    window.showToast = function(type){
+      var icons = { success: 0, error: 1, warning: 2 };
+      popup.toast({
+        content: type + ' 토스트 메시지',
+        icon: icons[type] !== undefined ? icons[type] : 3
+      });
+    };
+    
+    window.showTips = function(){
+      popup.tips('이것은 툴팁입니다!', '#tipsBtn');
+    };
+    
+    window.showCustom = function(){
+      popup.open({
+        title: '커스텀 팝업',
+        content: '<div style="padding:20px;"><h4>제목</h4><p>커스텀 내용입니다.</p></div>',
+        area: ['400px', '300px'],
+        btn: ['확인', '취소'],
+        skin: 'cui-popup-skin-primary',
+        yes: function(idx){
+          popup.close(idx);
+          popup.msg('확인됨');
+        }
+      });
+    };
+    
+    window.showDrawer = function(){
+      popup.drawer({
+        title: 'Drawer 패널',
+        content: '<div style="padding:20px;"><p>오른쪽에서 슬라이드되는 패널입니다.</p></div>',
+        direction: 'r',
+        size: '350px'
+      });
+    };
+    
+    window.showPage = function(){
+      popup.open({
+        type: 2,
+        title: '페이지 로드',
+        area: ['80%', '80%'],
+        content: '/examples/router/pages/home.html'
+      });
+    };
+    
+    window.confirmAndGo = function(){
+      popup.confirm('홈으로 이동하시겠습니까?', function(idx){
+        popup.close(idx);
+        router.go('/examples/router/pages/home.html');
+      });
+    };
+  });
+</script>

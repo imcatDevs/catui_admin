@@ -248,9 +248,9 @@
     // 저장
     popups[times] = that;
 
-    // success 콜백
+    // success 콜백 (DOM 요소 전달)
     if(typeof config.success === 'function'){
-      config.success(that.layero, that.index);
+      config.success(that.layero[0], that.index);
     }
   };
 
@@ -302,7 +302,7 @@
     // 닫기 버튼
     that.layero.find('.cui-popup-close').on('click', function(){
       if(typeof config.cancel === 'function'){
-        if(config.cancel(that.index, that.layero) === false) return;
+        if(config.cancel(that.index, that.layero[0]) === false) return;
       }
       popup.close(that.index);
     });
@@ -311,7 +311,7 @@
     if(config.shadeClose && that.shadeo && that.shadeo[0]){
       that.shadeo.on('click', function(){
         if(typeof config.cancel === 'function'){
-          if(config.cancel(that.index, that.layero) === false) return;
+          if(config.cancel(that.index, that.layero[0]) === false) return;
         }
         popup.close(that.index);
       });
@@ -322,7 +322,7 @@
       $c(btn).on('click', function(){
         var callback = config['btn' + (i + 1)] || (i === 0 ? config.yes : null);
         if(typeof callback === 'function'){
-          if(callback(that.index, that.layero) === false) return;
+          if(callback(that.index, that.layero[0]) === false) return;
         }
         popup.close(that.index);
       });
@@ -356,7 +356,7 @@
         if(that.index !== maxIdx) return;
         
         if(typeof config.cancel === 'function'){
-          if(config.cancel(that.index, that.layero) === false) return;
+          if(config.cancel(that.index, that.layero[0]) === false) return;
         }
         popup.close(that.index);
       }
@@ -423,7 +423,7 @@
       
       // moveEnd 콜백
       if(typeof config.moveEnd === 'function'){
-        config.moveEnd(that.layero, that.index);
+        config.moveEnd(that.layero[0], that.index);
       }
     };
 
@@ -517,7 +517,7 @@
 
       // resizing 콜백
       if(typeof config.resizing === 'function'){
-        config.resizing(that.layero, that.index);
+        config.resizing(that.layero[0], that.index);
       }
     };
 
@@ -595,7 +595,7 @@
 
       // beforeEnd 콜백 처리
       if(typeof config.beforeEnd === 'function'){
-        var result = config.beforeEnd(idx, inst.layero);
+        var result = config.beforeEnd(idx, inst.layero[0]);
         // Promise 지원
         if(result && typeof result.then === 'function'){
           result.then(function(res){
@@ -889,8 +889,9 @@
         ,skin: 'cui-popup-tab'
         ,resize: false
         ,success: function(layero, idx){
-          var titles = layero.find('.cui-popup-tab-title');
-          var items = layero.find('.cui-popup-tab-item');
+          var $layero = $c(layero);
+          var titles = $layero.find('.cui-popup-tab-title');
+          var items = $layero.find('.cui-popup-tab-item');
           
           titles.each(function(i, elem){
             $c(elem).on('click', function(e){
@@ -1002,21 +1003,30 @@
       }, type ? {} : options));
     }
 
-    // 메시지 팝업
+    // 메시지 팝업 (Alert 스타일)
+    // icon: 0=success, 1=error, 2=warning, 3=info
     ,msg: function(content, options, end){
       var type = typeof options === 'function';
       if(type) end = options;
+      
+      options = type ? {} : (options || {});
+      
+      // 아이콘 타입에 따른 스킨 클래스
+      var iconTypes = ['success', 'error', 'warning', 'info'];
+      var iconType = iconTypes[options.icon] || 'info';
+      var skinClass = 'cui-popup-msg cui-popup-msg-' + iconType;
 
       var config = get$c().extend({
         content: content
         ,time: 3000
         ,shade: false
         ,title: false
-        ,closeBtn: false
+        ,closeBtn: options.closeBtn || false
         ,btn: false
-        ,skin: 'cui-popup-msg'
+        ,skin: skinClass
+        ,icon: options.icon !== undefined ? options.icon : 3
         ,end: end
-      }, type ? {} : options);
+      }, options);
 
       return popup.open(config);
     }
@@ -1124,19 +1134,19 @@
         ,btn: ready.btn
         ,area: options.area || '380px'
         ,success: function(layero, idx){
-          var input = layero.find('.cui-popup-prompt-input')[0];
+          var input = layero.querySelector('.cui-popup-prompt-input');
           if(input){
             input.focus();
             // Enter 키로 확인
             input.addEventListener('keydown', function(e){
               if(e.keyCode === 13 && formType !== 2){
-                layero.find('.cui-popup-btn0')[0].click();
+                layero.querySelector('.cui-popup-btn0').click();
               }
             });
           }
         }
         ,yes: function(idx, layero){
-          var input = layero.find('.cui-popup-prompt-input')[0];
+          var input = layero.querySelector('.cui-popup-prompt-input');
           var val = input ? input.value : '';
           if(typeof yes === 'function'){
             yes(val, idx, layero);
@@ -1169,8 +1179,8 @@
         ,success: function(layero, index){
           // 요소의 뷰포트 기준 좌표
           var rect = followElem.getBoundingClientRect();
-          var popW = layero[0].offsetWidth;
-          var popH = layero[0].offsetHeight;
+          var popW = layero.offsetWidth;
+          var popH = layero.offsetHeight;
           
           var tipTop, tipLeft;
           
@@ -1193,11 +1203,9 @@
               break;
           }
           
-          layero.css({
-            position: 'fixed'
-            ,top: tipTop + 'px'
-            ,left: tipLeft + 'px'
-          });
+          layero.style.position = 'fixed';
+          layero.style.top = tipTop + 'px';
+          layero.style.left = tipLeft + 'px';
         }
       }, options));
       
@@ -1228,12 +1236,13 @@
       };
 
       var showPhoto = function(layero, idx){
-        var img = layero.find('.cui-popup-photos-img')[0];
+        var $layero = $c(layero);
+        var img = $layero.find('.cui-popup-photos-img')[0];
         img.src = data[current].src;
         
         // 푸터 업데이트
-        layero.find('.cui-popup-photos-title').html(data[current].alt || '');
-        layero.find('.cui-popup-photos-page').html((current + 1) + ' / ' + data.length);
+        $layero.find('.cui-popup-photos-title').html(data[current].alt || '');
+        $layero.find('.cui-popup-photos-page').html((current + 1) + ' / ' + data.length);
         
         // 변환 초기화
         scale = 1;
@@ -1281,23 +1290,24 @@
         ,move: '.cui-popup-photos-main'
         ,moveOut: true
         ,success: function(layero, index){
-          var img = layero.find('.cui-popup-photos-img')[0];
+          var $layero = $c(layero);
+          var img = $layero.find('.cui-popup-photos-img')[0];
           
           // 이전/다음
           if(data.length > 1){
-            layero.find('.cui-popup-photos-prev').on('click', function(){
+            $layero.find('.cui-popup-photos-prev').on('click', function(){
               current = current > 0 ? current - 1 : data.length - 1;
               showPhoto(layero, index);
             });
             
-            layero.find('.cui-popup-photos-next').on('click', function(){
+            $layero.find('.cui-popup-photos-next').on('click', function(){
               current = current < data.length - 1 ? current + 1 : 0;
               showPhoto(layero, index);
             });
           }
 
           // 툴바 이벤트
-          layero.find('.cui-popup-photos-tool').each(function(i, elem){
+          $layero.find('.cui-popup-photos-tool').each(function(i, elem){
             $c(elem).on('click', function(){
               var action = this.getAttribute('data-action');
               switch(action){
@@ -1327,7 +1337,7 @@
           });
 
           // 마우스 휠 줌
-          layero.find('.cui-popup-photos-main').on('wheel', function(e){
+          $layero.find('.cui-popup-photos-main').on('wheel', function(e){
             e.preventDefault();
             var delta = e.originalEvent ? e.originalEvent.deltaY : e.deltaY;
             if(delta < 0){
@@ -1377,21 +1387,33 @@
 
     // Toast 알림 (여러 개 쌓임)
     // position: 'rt'(우상단), 'rb'(우하단), 'lt'(좌상단), 'lb'(좌하단)
+    // 사용법: popup.toast('메시지', { icon: 1 }) 또는 popup.toast({ content: '메시지', icon: 1 })
     ,toast: function(content, options){
       var $c = get$c();
+      
+      // 첫 번째 인자가 객체인 경우 처리
+      if(typeof content === 'object' && content !== null){
+        options = content;
+        content = options.content || '';
+      }
       options = options || {};
       
       var position = options.position || 'rt'; // 기본 우상단
-      var icon = options.icon;
+      var icon = options.icon !== undefined ? options.icon : 3; // 기본 info
+      
+      // 아이콘 타입
+      var icons = ['check_circle', 'error', 'warning', 'info'];
+      var iconTypes = ['success', 'error', 'warning', 'info'];
+      var iconType = iconTypes[icon] || 'info';
       
       // 아이콘 HTML
-      var iconHtml = '';
-      if(icon !== undefined && icon !== -1){
-        var icons = ['check', 'close', 'priority_high', 'info'];
-        var iconClasses = ['success', 'error', 'warning', 'info'];
-        iconHtml = '<span class="cui-toast-icon cui-toast-icon-' + (iconClasses[icon] || 'info') + '">'
-          + '<i class="cui-icon">' + (icons[icon] || 'info') + '</i></span>';
-      }
+      var iconHtml = '<span class="cui-toast-icon">'
+        + '<i class="cui-icon">' + (icons[icon] || 'info') + '</i></span>';
+      
+      // 제목과 내용 분리
+      var title = options.title || '';
+      var titleHtml = title ? '<div class="cui-toast-title">' + title + '</div>' : '';
+      var textHtml = '<div class="cui-toast-text">' + content + '</div>';
       
       // Toast 컨테이너 확인/생성
       var containerId = 'cui-toast-container-' + position;
@@ -1405,8 +1427,9 @@
       
       // Toast 요소 생성
       var toastElem = document.createElement('div');
-      toastElem.className = 'cui-toast cui-anim-slide-right';
-      toastElem.innerHTML = '<div class="cui-toast-content">' + iconHtml + '<span class="cui-toast-text">' + content + '</span></div>'
+      toastElem.className = 'cui-toast cui-toast-' + iconType;
+      toastElem.innerHTML = iconHtml 
+        + '<div class="cui-toast-content">' + titleHtml + textHtml + '</div>'
         + (options.closeBtn !== false ? '<span class="cui-toast-close"><i class="cui-icon">close</i></span>' : '');
       
       container.appendChild(toastElem);
@@ -1481,7 +1504,7 @@
         ,success: function(layero, index){
           // 체크박스를 버튼 영역에 추가
           if(options.hideToday !== false){
-            var btnArea = layero.find('.cui-popup-btn')[0];
+            var btnArea = layero.querySelector('.cui-popup-btn');
             if(btnArea){
               var checkDiv = document.createElement('div');
               checkDiv.className = 'cui-notice-hide';
@@ -1492,7 +1515,7 @@
         }
         ,yes: function(index, layero){
           // 체크박스 확인
-          var checkbox = layero.find('.cui-notice-hide-check')[0];
+          var checkbox = layero.querySelector('.cui-notice-hide-check');
           if(checkbox && checkbox.checked){
             // 오늘 자정까지 숨김
             var tomorrow = new Date();

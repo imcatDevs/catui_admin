@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 package-lock.json
+layuiAdmin/
 
 # Build output
 dist/
@@ -27,7 +28,10 @@ npm-debug.log*
 *.temp
 .cache/
 
-# Test coverage
+# Test
+tests/
+test-results/
+playwright-report/
 coverage/
 
 # Environment

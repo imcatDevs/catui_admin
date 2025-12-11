@@ -4,6 +4,7 @@
   "description": "Modern modular Front-End UI library",
   "main": "dist/catui.js",
   "scripts": {
+    "start": "gulp serve",
     "dev": "gulp watch",
     "build": "gulp build",
     "zip": "gulp zip",

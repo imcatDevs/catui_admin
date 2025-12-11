@@ -1,0 +1,145 @@
+<div class="cui-card">
+  <div class="cui-card-header">
+    <h3>⏱️ 타이머 예제 (인스턴스 관리)</h3>
+  </div>
+  <div class="cui-card-body">
+    <p class="cui-text-secondary cui-mb-20">
+      이 페이지는 <code>router.addInterval</code>, <code>router.addTimeout</code>, <code>router.bindEvent</code>를 사용하여
+      페이지 이동 시 자동으로 정리되는 인스턴스 관리를 보여줍니다.
+    </p>
+    
+    <!-- 타이머 표시 -->
+    <div class="cui-card cui-bg-gray-light cui-mb-20">
+      <div class="cui-card-body" style="text-align:center;">
+        <h2 id="timerDisplay" style="font-size:48px; font-family:monospace;">00:00:00</h2>
+        <p class="cui-text-secondary">1초마다 업데이트 (router.addInterval)</p>
+      </div>
+    </div>
+    
+    <!-- 카운터 -->
+    <div class="cui-row cui-mb-20">
+      <div class="cui-col-md-4">
+        <div class="cui-card">
+          <div class="cui-card-body" style="text-align:center;">
+            <h3 id="intervalCount">0</h3>
+            <p class="cui-text-secondary">Interval 횟수</p>
+          </div>
+        </div>
+      </div>
+      <div class="cui-col-md-4">
+        <div class="cui-card">
+          <div class="cui-card-body" style="text-align:center;">
+            <h3 id="clickCount">0</h3>
+            <p class="cui-text-secondary">버튼 클릭 횟수</p>
+          </div>
+        </div>
+      </div>
+      <div class="cui-col-md-4">
+        <div class="cui-card">
+          <div class="cui-card-body" style="text-align:center;">
+            <h3 id="timeoutStatus">대기중</h3>
+            <p class="cui-text-secondary">5초 Timeout</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 버튼 -->
+    <div class="cui-btn-container cui-mb-20">
+      <button id="clickBtn" class="cui-btn cui-btn-primary">클릭 카운트 (bindEvent)</button>
+      <button id="resetBtn" class="cui-btn cui-btn-default">리셋</button>
+    </div>
+    
+    <!-- 로그 -->
+    <div class="cui-card">
+      <div class="cui-card-header">
+        <h4>콘솔 로그</h4>
+      </div>
+      <div class="cui-card-body">
+        <pre id="logArea" style="max-height:200px; overflow-y:auto; background:#f5f5f5; padding:10px; font-size:12px;"></pre>
+      </div>
+    </div>
+    
+    <!-- 안내 -->
+    <div class="cui-alert cui-alert-info cui-mt-20">
+      <strong>테스트 방법:</strong><br>
+      1. 타이머가 1초마다 업데이트되는지 확인<br>
+      2. 버튼을 클릭하여 카운트 증가 확인<br>
+      3. <strong>다른 페이지로 이동</strong> 후 콘솔(F12)에서 타이머가 멈추는지 확인<br>
+      4. 다시 이 페이지로 돌아오면 새로운 타이머 시작
+    </div>
+  </div>
+</div>
+
+<script>
+  var intervalCount = 0;
+  var clickCount = 0;
+  var startTime = Date.now();
+  
+  // 로그 함수 (UI에만 표시)
+  function addLog(msg){
+    var logArea = document.getElementById('logArea');
+    var time = new Date().toLocaleTimeString();
+    logArea.textContent = '[' + time + '] ' + msg + '\n' + logArea.textContent;
+  }
+  
+  addLog('페이지 초기화');
+  
+  // 1. router.addInterval - 1초마다 타이머 업데이트
+  router.addInterval(function(){
+    intervalCount++;
+    
+    // 경과 시간 계산
+    var elapsed = Math.floor((Date.now() - startTime) / 1000);
+    var hours = String(Math.floor(elapsed / 3600)).padStart(2, '0');
+    var minutes = String(Math.floor((elapsed % 3600) / 60)).padStart(2, '0');
+    var seconds = String(elapsed % 60).padStart(2, '0');
+    
+    document.getElementById('timerDisplay').textContent = hours + ':' + minutes + ':' + seconds;
+    document.getElementById('intervalCount').textContent = intervalCount;
+    
+    if(intervalCount % 5 === 0){
+      addLog('Interval 실행: ' + intervalCount + '회');
+    }
+  }, 1000);
+  
+  addLog('Interval 등록됨 (1초)');
+  
+  // 2. router.addTimeout - 5초 후 실행
+  router.addTimeout(function(){
+    document.getElementById('timeoutStatus').textContent = '완료!';
+    document.getElementById('timeoutStatus').style.color = 'green';
+    addLog('Timeout 완료 (5초)');
+  }, 5000);
+  
+  addLog('Timeout 등록됨 (5초)');
+  
+  // 3. router.bindEvent - 버튼 클릭 이벤트
+  router.bindEvent('#clickBtn', 'click', function(){
+    clickCount++;
+    document.getElementById('clickCount').textContent = clickCount;
+    addLog('버튼 클릭: ' + clickCount + '회');
+  });
+  
+  router.bindEvent('#resetBtn', 'click', function(){
+    intervalCount = 0;
+    clickCount = 0;
+    startTime = Date.now();
+    document.getElementById('intervalCount').textContent = '0';
+    document.getElementById('clickCount').textContent = '0';
+    document.getElementById('timerDisplay').textContent = '00:00:00';
+    document.getElementById('timeoutStatus').textContent = '대기중';
+    document.getElementById('timeoutStatus').style.color = '';
+    addLog('리셋됨');
+  });
+  
+  addLog('이벤트 리스너 등록됨');
+  
+  // 4. router.addCleanup - 페이지 정리 시 실행
+  router.addCleanup(function(){
+    addLog('페이지 정리 (cleanup) 실행됨');
+  });
+  
+  addLog('Cleanup 함수 등록됨');
+  addLog('=== 초기화 완료 ===');
+</script>

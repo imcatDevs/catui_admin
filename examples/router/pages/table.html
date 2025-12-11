@@ -1,0 +1,78 @@
+<div class="cui-card">
+  <div class="cui-card-header">
+    <h3>📊 테이블 예제</h3>
+  </div>
+  <div class="cui-card-body">
+    <p class="cui-text-secondary cui-mb-20">라우터로 로드된 페이지에서 테이블이 자동으로 렌더링됩니다.</p>
+    
+    <table id="routerTable"></table>
+  </div>
+</div>
+
+<div class="cui-card cui-mt-20">
+  <div class="cui-card-header">
+    <h3>선택된 데이터</h3>
+  </div>
+  <div class="cui-card-body">
+    <button class="cui-btn cui-btn-primary cui-btn-sm" onclick="getChecked()">체크된 항목 가져오기</button>
+    <pre id="checkedData" class="cui-mt-10" style="background:#f5f5f5;padding:10px;border-radius:4px;"></pre>
+  </div>
+</div>
+
+<script>
+  // 이 페이지에서 필요한 모듈 로드
+  Catui.use(['table', 'popup'], function(){
+    
+    // 테이블 렌더링
+    table.render({
+      elem: '#routerTable',
+      id: 'routerTableId',
+      data: [
+        { id: 1, name: '홍길동', email: 'hong@test.com', status: '활성' },
+        { id: 2, name: '김철수', email: 'kim@test.com', status: '활성' },
+        { id: 3, name: '이영희', email: 'lee@test.com', status: '비활성' },
+        { id: 4, name: '박지민', email: 'park@test.com', status: '활성' },
+        { id: 5, name: '최수진', email: 'choi@test.com', status: '활성' }
+      ],
+      cols: [[
+        { type: 'checkbox' },
+        { field: 'id', title: 'ID', width: 80, sort: true },
+        { field: 'name', title: '이름', width: 120 },
+        { field: 'email', title: '이메일' },
+        { field: 'status', title: '상태', width: 100, templet: function(d){
+          return d.status === '활성' 
+            ? '<span class="cui-badge cui-bg-success">활성</span>'
+            : '<span class="cui-badge cui-bg-gray">비활성</span>';
+        }},
+        { title: '작업', width: 150, toolbar: '#tableBar' }
+      ]],
+      page: true,
+      limit: 10
+    });
+    
+    // 툴바 버튼 이벤트
+    table.on('tool(routerTableId)', function(obj){
+      if(obj.event === 'edit'){
+        popup.alert('수정: ' + obj.data.name);
+      } else if(obj.event === 'del'){
+        popup.confirm('삭제하시겠습니까?', function(idx){
+          obj.del();
+          popup.close(idx);
+          popup.msg('삭제 완료');
+        });
+      }
+    });
+    
+    // 체크된 데이터 가져오기 함수를 전역으로 노출
+    window.getChecked = function(){
+      var checked = table.checkStatus('routerTableId');
+      document.getElementById('checkedData').textContent = JSON.stringify(checked.data, null, 2);
+    };
+  });
+</script>
+
+<!-- 테이블 툴바 템플릿 -->
+<script type="text/html" id="tableBar">
+  <button class="cui-btn cui-btn-xs cui-btn-primary" cui-event="edit">수정</button>
+  <button class="cui-btn cui-btn-xs cui-btn-danger" cui-event="del">삭제</button>
+</script>

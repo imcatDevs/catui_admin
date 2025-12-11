@@ -1,0 +1,75 @@
+<div class="cui-card">
+  <div class="cui-card-header">
+    <h3>🏠 홈</h3>
+  </div>
+  <div class="cui-card-body">
+    <p>Router 모듈 테스트 페이지입니다.</p>
+    
+    <h4 class="cui-mt-20">특징</h4>
+    <ul>
+      <li><strong>cui-href</strong> - 링크 클릭 시 페이지 로드</li>
+      <li><strong>cui-target-content</strong> - 페이지 렌더링 영역</li>
+      <li><strong>페이지별 모듈 로드</strong> - Catui.use로 필요한 모듈만 로드</li>
+      <li><strong>인스턴스 관리</strong> - 페이지 이동 시 자동 정리 (메모리 누수 방지)</li>
+    </ul>
+    
+    <h4 class="cui-mt-20">빠른 이동</h4>
+    <div class="cui-btn-container">
+      <a cui-href="/examples/router/pages/form.html" class="cui-btn cui-btn-primary">폼 예제</a>
+      <a cui-href="/examples/router/pages/table.html" class="cui-btn cui-btn-success">테이블 예제</a>
+      <a cui-href="/examples/router/pages/popup.html" class="cui-btn cui-btn-warning">팝업 예제</a>
+      <a cui-href="/examples/router/pages/components.html" class="cui-btn cui-btn-info">컴포넌트</a>
+      <a cui-href="/examples/router/pages/timer.html" class="cui-btn cui-btn-danger">타이머 (인스턴스 관리)</a>
+    </div>
+  </div>
+</div>
+
+<div class="cui-card cui-mt-20">
+  <div class="cui-card-header">
+    <h3>기본 API</h3>
+  </div>
+  <div class="cui-card-body">
+    <table class="cui-table">
+      <thead>
+        <tr>
+          <th>메서드</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>router.go(path)</code></td><td>페이지 이동</td></tr>
+        <tr><td><code>router.back()</code></td><td>뒤로 가기</td></tr>
+        <tr><td><code>router.forward()</code></td><td>앞으로 가기</td></tr>
+        <tr><td><code>router.reload()</code></td><td>새로고침</td></tr>
+        <tr><td><code>router.current()</code></td><td>현재 라우트 정보</td></tr>
+        <tr><td><code>router.clearCache()</code></td><td>캐시 클리어</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="cui-card cui-mt-20">
+  <div class="cui-card-header">
+    <h3>인스턴스 관리 API (메모리 누수 방지)</h3>
+  </div>
+  <div class="cui-card-body">
+    <table class="cui-table">
+      <thead>
+        <tr>
+          <th>메서드</th>
+          <th>설명</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>router.addInterval(fn, delay)</code></td><td>setInterval 등록 (자동 정리)</td></tr>
+        <tr><td><code>router.addTimeout(fn, delay)</code></td><td>setTimeout 등록 (자동 정리)</td></tr>
+        <tr><td><code>router.bindEvent(elem, type, fn)</code></td><td>이벤트 리스너 등록 (자동 정리)</td></tr>
+        <tr><td><code>router.addCleanup(fn)</code></td><td>커스텀 정리 함수 등록</td></tr>
+      </tbody>
+    </table>
+    <p class="cui-text-secondary cui-mt-10">
+      <strong>타이머 예제</strong> 페이지에서 인스턴스 관리 동작을 확인할 수 있습니다.
+    </p>
+  </div>
+</div>
+

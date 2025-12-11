@@ -46,7 +46,7 @@ const paths = {
     dest: 'dist/'
   },
   fonts: {
-    src: 'fonts/material-icons-v145-latin-regular.woff2',
+    src: 'fonts/*.woff2',
     dest: 'dist/fonts/'
   },
   html: {
@@ -89,8 +89,36 @@ function copyFonts() {
     fs.mkdirSync(paths.fonts.dest, { recursive: true });
   }
   
+  // Noto Sans KR 폰트 파일명 매핑 (Google Fonts subset 순서)
+  const notoFontMap = {
+    'PbykFmXiEBPT4ITbgNA5CgmG0X7t': 'NotoSansKR-0',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.119': 'NotoSansKR-1',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.118': 'NotoSansKR-2',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.117': 'NotoSansKR-3',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.116': 'NotoSansKR-4',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.115': 'NotoSansKR-5',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.114': 'NotoSansKR-6',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.113': 'NotoSansKR-7',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.112': 'NotoSansKR-8',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.111': 'NotoSansKR-9',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.110': 'NotoSansKR-10',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.109': 'NotoSansKR-11',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.108': 'NotoSansKR-12',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.105': 'NotoSansKR-13',
+    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.103': 'NotoSansKR-14'
+  };
+  
   return gulp.src(paths.fonts.src)
-    .pipe(rename('material-icons.woff2'))
+    .pipe(rename(function(path) {
+      // material-icons 폰트는 간단한 이름으로 변경
+      if (path.basename.includes('material-icons')) {
+        path.basename = 'material-icons';
+      }
+      // Noto Sans KR 폰트는 매핑된 이름으로 변경
+      else if (notoFontMap[path.basename]) {
+        path.basename = notoFontMap[path.basename];
+      }
+    }))
     .pipe(gulp.dest(paths.fonts.dest));
 }
 
@@ -130,11 +158,14 @@ function copyHTML() {
   return Promise.resolve();
 }
 
-// 개발 서버 - dist 폴더만 제공
+// 개발 서버 - dist + 루트 폴더 제공
 function serve(done) {
   browserSync.init({
     server: {
-      baseDir: 'dist'
+      baseDir: ['.', 'dist'],  // 루트와 dist 둘 다 서빙
+      routes: {
+        '/dist': 'dist'  // /dist 경로 매핑
+      }
     },
     port: 3000,
     open: true,

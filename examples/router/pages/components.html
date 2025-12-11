@@ -1,0 +1,120 @@
+<div class="cui-card">
+  <div class="cui-card-header">
+    <h3>🧩 컴포넌트 예제</h3>
+  </div>
+  <div class="cui-card-body">
+    <p class="cui-text-secondary cui-mb-20">다양한 컴포넌트가 자동으로 렌더링됩니다.</p>
+    
+    <!-- 탭 -->
+    <h4>탭</h4>
+    <div class="cui-tab cui-mb-20" cui-filter="routerTab">
+      <ul class="cui-tab-title">
+        <li class="cui-this" cui-id="tab1">탭1</li>
+        <li cui-id="tab2">탭2</li>
+        <li cui-id="tab3">탭3</li>
+      </ul>
+      <div class="cui-tab-content">
+        <div class="cui-tab-item cui-show">탭1 내용입니다.</div>
+        <div class="cui-tab-item">탭2 내용입니다.</div>
+        <div class="cui-tab-item">탭3 내용입니다.</div>
+      </div>
+    </div>
+    
+    <!-- 프로그레스 -->
+    <h4>프로그레스 바</h4>
+    <div class="cui-progress cui-mb-10" cui-filter="routerProgress">
+      <div class="cui-progress-bar" cui-percent="60%"></div>
+    </div>
+    <button class="cui-btn cui-btn-xs cui-mb-20" onclick="updateProgress()">진행률 변경</button>
+    
+    <!-- 아코디언 -->
+    <h4>아코디언</h4>
+    <div class="cui-collapse cui-mb-20">
+      <div class="cui-collapse-item">
+        <h2 class="cui-collapse-title">섹션 1</h2>
+        <div class="cui-collapse-content">
+          <p>섹션 1의 내용입니다.</p>
+        </div>
+      </div>
+      <div class="cui-collapse-item">
+        <h2 class="cui-collapse-title">섹션 2</h2>
+        <div class="cui-collapse-content">
+          <p>섹션 2의 내용입니다.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 인용문 -->
+    <h4>인용문</h4>
+    <blockquote class="cui-quote cui-quote-primary cui-mb-20">
+      라우터 모듈은 SPA 방식의 페이지 로딩을 지원합니다.
+    </blockquote>
+    
+    <!-- 뱃지 -->
+    <h4>뱃지</h4>
+    <div class="cui-mb-20">
+      <span class="cui-badge">기본</span>
+      <span class="cui-badge cui-bg-primary">Primary</span>
+      <span class="cui-badge cui-bg-success">Success</span>
+      <span class="cui-badge cui-bg-warning">Warning</span>
+      <span class="cui-badge cui-bg-danger">Danger</span>
+    </div>
+    
+    <!-- 버튼 그룹 -->
+    <h4>버튼</h4>
+    <div class="cui-btn-group cui-mb-20">
+      <button class="cui-btn cui-btn-primary">버튼1</button>
+      <button class="cui-btn cui-btn-primary">버튼2</button>
+      <button class="cui-btn cui-btn-primary">버튼3</button>
+    </div>
+  </div>
+</div>
+
+<div class="cui-card cui-mt-20">
+  <div class="cui-card-header">
+    <h3>패널/카드</h3>
+  </div>
+  <div class="cui-card-body">
+    <div class="cui-row">
+      <div class="cui-col-md-4">
+        <div class="cui-panel">
+          <div class="cui-panel-header">패널 1</div>
+          <div class="cui-panel-body">내용</div>
+        </div>
+      </div>
+      <div class="cui-col-md-4">
+        <div class="cui-panel cui-panel-primary">
+          <div class="cui-panel-header">패널 2</div>
+          <div class="cui-panel-body">내용</div>
+        </div>
+      </div>
+      <div class="cui-col-md-4">
+        <div class="cui-panel cui-panel-success">
+          <div class="cui-panel-header">패널 3</div>
+          <div class="cui-panel-body">내용</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 이 페이지에서 필요한 모듈 로드
+  Catui.use(['element'], function(){
+    
+    // element 렌더링 (탭, 프로그레스, 아코디언 등)
+    element.render();
+    
+    var progress = 60;
+    
+    window.updateProgress = function(){
+      progress = progress >= 100 ? 0 : progress + 20;
+      element.progress('routerProgress', progress + '%');
+    };
+    
+    // 탭 변경 이벤트
+    element.on('tab(routerTab)', function(data){
+      // 탭 변경 시 처리
+    });
+  });
+</script>

@@ -31,6 +31,10 @@ Catui는 한국어 UI 프레임워크입니다.
 - [colorpicker.js](./colorpicker.md) - 컬러 선택기
 - [theme.js](./theme.md) - 테마 관리
 
+### 라우팅
+
+- [router.js](./router.md) - SPA 라우터
+
 ### 유틸리티
 
 - [util.js](./util.md) - 유틸리티 함수

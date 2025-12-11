@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Router 모듈 테스트</title>
+  <link rel="stylesheet" href="/dist/catui.css">
+</head>
+<body class="cui-layout-body">
+  <div class="cui-layout-admin cui-theme-light">
+    <!-- 헤더 -->
+    <div class="cui-header">
+      <div class="cui-logo">Router 테스트</div>
+      <ul class="cui-nav cui-layout-right">
+        <li class="cui-nav-item">
+          <a href="javascript:;" onclick="openThemePanel()" title="테마 설정">
+            <i class="cui-icon">palette</i>
+          </a>
+        </li>
+        <li class="cui-nav-item">
+          <a href="javascript:;" onclick="toggleDarkMode()" title="다크모드 전환">
+            <i class="cui-icon" id="darkModeIcon">dark_mode</i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    
+    <!-- 레이아웃 컨테이너 (사이드바 + 본문) -->
+    <div class="cui-layout-container">
+      <!-- 사이드바 -->
+      <div class="cui-side cui-side-scroll">
+        <ul class="cui-menu">
+          <li class="cui-menu-item"><a cui-href="/examples/router/pages/home.html"><i class="cui-icon">home</i><span>홈</span></a></li>
+          <li class="cui-menu-item"><a cui-href="/examples/router/pages/form.html"><i class="cui-icon">edit_note</i><span>폼 예제</span></a></li>
+          <li class="cui-menu-item"><a cui-href="/examples/router/pages/table.html"><i class="cui-icon">table_chart</i><span>테이블 예제</span></a></li>
+          <li class="cui-menu-item"><a cui-href="/examples/router/pages/popup.html"><i class="cui-icon">chat_bubble</i><span>팝업 예제</span></a></li>
+          <li class="cui-menu-item"><a cui-href="/examples/router/pages/components.html"><i class="cui-icon">widgets</i><span>컴포넌트</span></a></li>
+          <li class="cui-menu-item"><a cui-href="/examples/router/pages/timer.html"><i class="cui-icon">timer</i><span>타이머</span></a></li>
+        </ul>
+        
+        <div class="cui-menu-title">프로그래밍 방식</div>
+        <div class="cui-p-15">
+          <button class="cui-btn cui-btn-sm cui-btn-fluid cui-mb-10" onclick="router.go('/examples/router/pages/home.html')">홈으로</button>
+          <button class="cui-btn cui-btn-sm cui-btn-default cui-btn-fluid cui-mb-10" onclick="router.back()">← 뒤로</button>
+          <button class="cui-btn cui-btn-sm cui-btn-default cui-btn-fluid cui-mb-10" onclick="router.reload()">↻ 새로고침</button>
+          <button class="cui-btn cui-btn-sm cui-btn-default cui-btn-fluid" onclick="showRoute()">현재 라우트</button>
+        </div>
+      </div>
+      
+      <!-- 메인 컨텐츠 -->
+      <div class="cui-body">
+        <div class="cui-main">
+          <div cui-target-content>
+            <div class="cui-text-center cui-p-20">
+              <h2>Router 모듈 테스트</h2>
+              <p class="cui-text-secondary">왼쪽 메뉴를 클릭하여 페이지를 로드해보세요.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/dist/catui.js"></script>
+  <script>
+    // 라우터 및 테마 모듈 로드
+    Catui.use(['router', 'theme', 'popup'], function(){
+      
+      // 라우터 설정
+      router.set({
+        cache: true,
+        transition: true,
+        activeClass: 'cui-menu-active',
+        
+        beforeEach: function(to){
+          return true;
+        },
+        
+        onError: function(xhr, status, path){
+          console.error('[Router] 에러:', status, path);
+          if(window.popup){
+            popup.msg('페이지를 불러올 수 없습니다: ' + path, { icon: 2 });
+          } else {
+            alert('페이지를 불러올 수 없습니다: ' + path);
+          }
+        }
+      });
+      
+      // 초기 페이지 (해시가 없으면 홈으로)
+      if(!location.hash){
+        router.go('/examples/router/pages/home.html');
+      }
+      
+      // 테마 변경 이벤트
+      theme.on('change', function(data){
+        updateDarkModeIcon(data.isDark);
+      });
+    });
+    
+    // 현재 라우트 표시
+    function showRoute(){
+      var route = router.current();
+      popup.alert(
+        '<pre style="text-align:left">' + JSON.stringify(route, null, 2) + '</pre>',
+        { title: '현재 라우트 정보' }
+      );
+    }
+    
+    // 테마 패널 열기
+    function openThemePanel(){
+      var themeList = theme.list();
+      var currentTheme = theme.current();
+      
+      var html = '<div class="cui-p-15">';
+      html += '<h4 class="cui-mb-15">테마 선택</h4>';
+      html += '<div class="theme-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">';
+      
+      for(var key in themeList){
+        var t = themeList[key];
+        var isActive = currentTheme === key ? ' theme-active' : '';
+        var border = key === 'light' ? 'border: 1px solid #ddd;' : '';
+        html += '<div class="theme-item' + isActive + '" data-theme="' + key + '" style="cursor: pointer; text-align: center;">';
+        html += '<div style="width: 100%; height: 40px; background: ' + t.header + '; border-radius: 4px; margin-bottom: 5px; ' + border + '"></div>';
+        html += '<span style="font-size: 12px;">' + t.name + '</span>';
+        html += '</div>';
+      }
+      
+      html += '</div>';
+      html += '<hr class="cui-mt-15 cui-mb-15">';
+      html += '<h4 class="cui-mb-15">커스텀 Primary 색상</h4>';
+      html += '<div style="display: flex; gap: 10px; align-items: center;">';
+      html += '<input type="color" id="customPrimary" value="#16baaa" style="width: 50px; height: 35px; border: none; cursor: pointer;">';
+      html += '<button class="cui-btn cui-btn-sm" onclick="applyCustomColor()">적용</button>';
+      html += '</div>';
+      html += '</div>';
+      
+      popup.open({
+        type: 'drawer',
+        title: '테마 설정',
+        area: '320px',
+        offset: 'r',
+        content: html,
+        success: function(layero){
+          // 테마 아이템 클릭 이벤트
+          layero.querySelectorAll('.theme-item').forEach(function(item){
+            item.addEventListener('click', function(){
+              var themeName = this.getAttribute('data-theme');
+              theme.set(themeName);
+              
+              // 활성 상태 변경
+              layero.querySelectorAll('.theme-item').forEach(function(el){
+                el.classList.remove('theme-active');
+              });
+              this.classList.add('theme-active');
+              
+              popup.msg(themeList[themeName].name + ' 테마 적용됨', { icon: 1 });
+            });
+          });
+        }
+      });
+    }
+    
+    // 커스텀 색상 적용
+    function applyCustomColor(){
+      var color = document.getElementById('customPrimary').value;
+      theme.setPrimary(color);
+      popup.msg('커스텀 색상 적용됨: ' + color, { icon: 1 });
+    }
+    
+    // 다크모드 토글
+    function toggleDarkMode(){
+      var current = theme.current();
+      if(current === 'dark'){
+        theme.set('light');
+      } else {
+        theme.set('dark');
+      }
+    }
+    
+    // 다크모드 아이콘 업데이트
+    function updateDarkModeIcon(isDark){
+      var icon = document.getElementById('darkModeIcon');
+      if(icon){
+        icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+      }
+    }
+  </script>
+  
+  <style>
+    .theme-item { transition: transform 0.2s; }
+    .theme-item:hover { transform: scale(1.05); }
+    .theme-active { outline: 2px solid var(--cui-primary); outline-offset: 2px; border-radius: 4px; }
+  </style>
+</body>
+</html>

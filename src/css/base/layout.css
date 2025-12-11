@@ -5,29 +5,31 @@
 
 /* ========== 기본 레이아웃 ========== */
 .cui-main { position: relative; width: 1140px; margin: 0 auto; }
-.cui-header { position: relative; z-index: 1000; height: 60px; }
+.cui-header { position: relative; z-index: 1000; height: 50px; }
 .cui-header a:hover { transition: all .5s; -webkit-transition: all .5s; }
-.cui-side { position: fixed; left: 0; top: 0; bottom: 0; z-index: 999; width: 200px; overflow-x: hidden; }
-.cui-side-scroll { position: relative; width: 220px; height: 100%; overflow-x: hidden; }
-.cui-body { position: relative; left: 200px; right: 0; top: 0; bottom: 0; z-index: 900; width: auto; box-sizing: border-box; }
+.cui-side { width: 200px; min-height: 100vh; overflow-x: hidden; overflow-y: auto; flex-shrink: 0; }
+.cui-side-scroll { width: 100%; height: 100%; overflow-x: hidden; overflow-y: auto; }
+.cui-body { flex: 1; min-width: 0; box-sizing: border-box; padding: 4px; }
 .cui-footer { position: relative; padding: 20px; text-align: center; }
 
-/* 관리자 레이아웃 */
-.cui-layout-body { overflow-x: hidden; }
-.cui-layout-admin .cui-header { position: fixed; top: 0; left: 0; right: 0; background-color: #23262E; }
-.cui-layout-admin .cui-side { top: 60px; width: 200px; overflow-x: hidden; }
-.cui-layout-admin .cui-body { position: absolute; top: 60px; padding-bottom: 44px; }
-.cui-layout-admin .cui-main { width: auto; margin: 0 15px; }
+/* 관리자 레이아웃 - Flexbox 기반 */
+.cui-layout-body { overflow-x: hidden; min-height: 100vh; }
+.cui-layout-admin { display: flex; flex-direction: column; min-height: 100vh; }
+.cui-layout-admin .cui-header { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; height: 50px; background-color: #23262E; }
+.cui-layout-admin .cui-layout-container { display: flex; flex: 1; margin-top: 50px; align-items: flex-start; }
+.cui-layout-admin .cui-side { width: 200px; height: calc(100vh - 50px); overflow-x: hidden; overflow-y: auto; flex-shrink: 0; background: var(--cui-bg-card, #fff); position: sticky; top: 50px; }
+.cui-layout-admin .cui-body { flex: 1; min-width: 0; padding: 4px; padding-top: 0; box-sizing: border-box; background: var(--cui-bg-layout); }
+.cui-layout-admin .cui-main { width: auto; margin: 0; }
 .cui-layout-admin .cui-footer { position: fixed; left: 200px; right: 0; bottom: 0; z-index: 990; height: 44px; line-height: 44px; padding: 0 15px; box-shadow: -1px 0 4px rgb(0 0 0 / 12%); background-color: #FAFAFA; }
-.cui-layout-admin .cui-logo { position: absolute; left: 0; top: 0; width: 200px; height: 100%; line-height: 60px; text-align: center; color: #1677ff; font-size: 16px; box-shadow: 0 1px 2px 0 rgb(0 0 0 / 15%); }
+.cui-layout-admin .cui-logo { position: absolute; left: 0; top: 0; width: 200px; height: 100%; line-height: 50px; text-align: center; color: #1677ff; font-size: 16px; }
 .cui-layout-admin .cui-header .cui-nav { background: none; border: none; }
 
 /* 헤더 네비게이션 (다크) */
 .cui-layout-admin .cui-header .cui-nav-item { display: inline-block; }
-.cui-layout-admin .cui-header .cui-nav-item > a { color: rgba(255,255,255,.7); padding: 0 15px; line-height: 60px; height: 60px; display: flex; align-items: center; }
+.cui-layout-admin .cui-header .cui-nav-item > a { color: rgba(255,255,255,.7); padding: 0 15px; line-height: 50px; height: 50px; display: flex; align-items: center; }
 .cui-layout-admin .cui-header .cui-nav-item > a:hover { color: #fff; background: rgba(255,255,255,.1); }
 .cui-layout-admin .cui-header .cui-nav-item > a .cui-icon { margin-right: 5px; }
-.cui-layout-admin .cui-header .cui-nav-child { position: absolute; top: 60px; right: 0; min-width: 150px; background: #fff; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.15); display: none; }
+.cui-layout-admin .cui-header .cui-nav-child { position: absolute; top: 50px; right: 0; min-width: 150px; background: #fff; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,.15); display: none; }
 .cui-layout-admin .cui-header .cui-nav-item:hover > .cui-nav-child { display: block; }
 .cui-layout-admin .cui-header .cui-nav-child dd { margin: 0; }
 .cui-layout-admin .cui-header .cui-nav-child dd a { display: block; padding: 10px 15px; color: #333; white-space: nowrap; }
