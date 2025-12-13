@@ -1,0 +1,207 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">게시글 상세</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;" onclick="router.go('/examples/router/pages/board-list.html')">게시판</a>
+      <span>상세보기</span>
+    </div>
+  </div>
+
+  <!-- 게시글 상세 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span id="boardStatus"></span>
+      <div class="cui-text-secondary" id="boardMeta"></div>
+    </div>
+    <div class="cui-card-body">
+      <h3 class="cui-mb-15" id="boardTitle" style="font-size: 20px; font-weight: 600;"></h3>
+      <div class="cui-divider"></div>
+      <div id="boardContent" class="cui-mt-15" style="min-height: 200px; line-height: 1.8;"></div>
+    </div>
+  </div>
+
+  <!-- 첨부파일 -->
+  <div class="cui-card cui-mb-15" id="attachSection" style="display: none;">
+    <div class="cui-card-header">
+      <span><i class="cui-icon cui-mr-5">attach_file</i> 첨부파일</span>
+    </div>
+    <div class="cui-card-body">
+      <div id="attachList"></div>
+    </div>
+  </div>
+
+  <!-- 버튼 영역 -->
+  <div class="cui-card">
+    <div class="cui-card-body cui-flex cui-flex-between">
+      <div>
+        <button type="button" class="cui-btn" id="btnPrev"><i class="cui-icon">arrow_back</i> 이전글</button>
+        <button type="button" class="cui-btn" id="btnNext">다음글 <i class="cui-icon">arrow_forward</i></button>
+      </div>
+      <div>
+        <button type="button" class="cui-btn cui-btn-primary" id="btnEdit"><i class="cui-icon">edit</i> 수정</button>
+        <button type="button" class="cui-btn cui-btn-danger" id="btnDelete"><i class="cui-icon">delete</i> 삭제</button>
+        <button type="button" class="cui-btn" id="btnList"><i class="cui-icon">list</i> 목록</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 댓글 영역 -->
+  <div class="cui-card cui-mt-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span><i class="cui-icon cui-mr-5">chat</i> 댓글 <span id="commentCount" class="cui-text-primary">0</span></span>
+    </div>
+    <div class="cui-card-body">
+      <!-- 댓글 목록 -->
+      <div id="commentList"></div>
+      
+      <!-- 댓글 작성 -->
+      <div class="cui-mt-15">
+        <div class="cui-form-item cui-mb-10">
+          <textarea id="commentInput" class="cui-textarea" placeholder="댓글을 입력하세요" style="height: 80px;"></textarea>
+        </div>
+        <div class="cui-text-right">
+          <button type="button" class="cui-btn cui-btn-primary cui-btn-sm" id="btnComment"><i class="cui-icon">send</i> 댓글 등록</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['popup'], function(){
+  // URL에서 ID 파싱
+  var query = router.getQuery ? router.getQuery() : {};
+  var boardId = query.id || 1;
+
+  // 샘플 데이터 (실제로는 API 호출)
+  var boardData = {
+    id: boardId,
+    status: boardId % 3 === 0 ? '공지' : '일반',
+    title: '게시글 제목 ' + boardId + ' - 샘플 데이터입니다',
+    content: '안녕하세요.<br><br>이것은 게시글 ' + boardId + '번의 상세 내용입니다.<br><br>' +
+             'CatUI 프레임워크를 사용한 게시판 CRUD 예제입니다.<br>' +
+             '테이블, 폼, 팝업 등 다양한 컴포넌트를 활용하여 구현되었습니다.<br><br>' +
+             '주요 기능:<br>' +
+             '- 게시글 목록 조회 (검색, 페이지네이션)<br>' +
+             '- 게시글 등록/수정/삭제<br>' +
+             '- 댓글 기능<br>' +
+             '- 첨부파일 업로드<br><br>' +
+             '감사합니다.',
+    writer: ['홍길동', '김철수', '이영희', '박지민', '최수진'][boardId % 5],
+    date: '2024-12-10 14:30',
+    views: Math.floor(Math.random() * 500) + 100,
+    files: boardId % 2 === 0 ? [
+      { name: '첨부파일1.pdf', size: '2.5MB' },
+      { name: '이미지.png', size: '1.2MB' }
+    ] : []
+  };
+
+  var comments = [
+    { id: 1, writer: '사용자1', content: '좋은 글 감사합니다!', date: '2024-12-10 15:00' },
+    { id: 2, writer: '사용자2', content: '많은 도움이 되었습니다.', date: '2024-12-10 16:30' }
+  ];
+
+  // 게시글 렌더링
+  document.getElementById('boardStatus').innerHTML = boardData.status === '공지' 
+    ? '<span class="cui-badge cui-badge-primary">공지</span>' 
+    : '<span class="cui-badge">일반</span>';
+  document.getElementById('boardMeta').innerHTML = '작성자: ' + boardData.writer + ' | 작성일: ' + boardData.date + ' | 조회수: ' + boardData.views;
+  document.getElementById('boardTitle').textContent = boardData.title;
+  document.getElementById('boardContent').innerHTML = boardData.content;
+
+  // 첨부파일
+  if(boardData.files.length > 0){
+    document.getElementById('attachSection').style.display = 'block';
+    var attachHtml = '';
+    boardData.files.forEach(function(file){
+      attachHtml += '<div class="cui-flex cui-flex-middle cui-mb-5">';
+      attachHtml += '<i class="cui-icon cui-mr-5">insert_drive_file</i>';
+      attachHtml += '<a href="javascript:;" class="cui-link">' + file.name + '</a>';
+      attachHtml += '<span class="cui-text-secondary cui-ml-10">(' + file.size + ')</span>';
+      attachHtml += '</div>';
+    });
+    document.getElementById('attachList').innerHTML = attachHtml;
+  }
+
+  // 댓글 렌더링
+  function renderComments(){
+    document.getElementById('commentCount').textContent = comments.length;
+    var html = '';
+    if(comments.length === 0){
+      html = '<div class="cui-text-secondary cui-text-center cui-p-20">댓글이 없습니다.</div>';
+    } else {
+      comments.forEach(function(c){
+        html += '<div class="cui-p-10 cui-mb-10" style="background: var(--cui-bg-secondary); border-radius: 4px;">';
+        html += '<div class="cui-flex cui-flex-between cui-mb-5">';
+        html += '<strong>' + c.writer + '</strong>';
+        html += '<span class="cui-text-secondary cui-text-sm">' + c.date + '</span>';
+        html += '</div>';
+        html += '<div>' + c.content + '</div>';
+        html += '</div>';
+      });
+    }
+    document.getElementById('commentList').innerHTML = html;
+  }
+  renderComments();
+
+  // 댓글 등록
+  document.getElementById('btnComment').addEventListener('click', function(){
+    var content = document.getElementById('commentInput').value.trim();
+    if(!content){
+      popup.msg('댓글을 입력하세요', { icon: 'warning' });
+      return;
+    }
+    comments.push({
+      id: comments.length + 1,
+      writer: '관리자',
+      content: content,
+      date: new Date().toLocaleString('ko-KR')
+    });
+    document.getElementById('commentInput').value = '';
+    renderComments();
+    popup.msg('댓글이 등록되었습니다', { icon: 'success' });
+  });
+
+  // 이전글/다음글
+  document.getElementById('btnPrev').addEventListener('click', function(){
+    var prevId = parseInt(boardId) - 1;
+    if(prevId < 1){
+      popup.msg('이전글이 없습니다', { icon: 'info' });
+      return;
+    }
+    router.go('/examples/router/pages/board-view.html?id=' + prevId);
+  });
+
+  document.getElementById('btnNext').addEventListener('click', function(){
+    var nextId = parseInt(boardId) + 1;
+    router.go('/examples/router/pages/board-view.html?id=' + nextId);
+  });
+
+  // 수정
+  document.getElementById('btnEdit').addEventListener('click', function(){
+    router.go('/examples/router/pages/board-edit.html?id=' + boardId);
+  });
+
+  // 삭제
+  document.getElementById('btnDelete').addEventListener('click', function(){
+    popup.confirm('정말 삭제하시겠습니까?', { icon: 'warning' }, function(idx){
+      popup.close(idx);
+      popup.msg('삭제되었습니다', { icon: 'success' });
+      setTimeout(function(){
+        router.go('/examples/router/pages/board-list.html');
+      }, 500);
+    });
+  });
+
+  // 목록
+  document.getElementById('btnList').addEventListener('click', function(){
+    router.go('/examples/router/pages/board-list.html');
+  });
+});
+</script>
+</div>

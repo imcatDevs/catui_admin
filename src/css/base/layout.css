@@ -147,6 +147,9 @@
 .cui-side-dark { background: #1e3a5f; display: flex; flex-direction: column; }
 .cui-side-dark .cui-side-logo { height: 50px; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgb(255,255,255,.1); flex-shrink: 0; }
 .cui-side-dark .cui-side-logo .cui-logo-text { color: #ffffff; font-size: 15px; font-weight: 600; }
+.cui-side-logo .header-brand { display: flex; align-items: center; text-decoration: none; }
+.cui-side-logo .header-logo { width: 120px; height: auto; transition: filter .3s; }
+.cui-side-dark .cui-side-logo .header-logo { filter: brightness(0) invert(1); }
 .cui-side-dark .cui-menu { padding: 0; margin: 0; list-style: none; flex: 1; overflow-y: auto; }
 .cui-side-dark .cui-menu-item { display: block; }
 .cui-side-dark .cui-menu-item > a { display: flex; align-items: center; padding: 10px 15px; color: rgb(255,255,255,.8); text-decoration: none; transition: all .2s; border-left: 3px solid transparent; font-size: 12px; }

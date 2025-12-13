@@ -5,8 +5,8 @@
 .cui-input,
 .cui-textarea,
 .cui-select {
-  height: 38px;
-  line-height: 1.3;
+  height: 32px;
+  line-height: 30px;
   border-width: 1px;
   border-style: solid;
   border-color: var(--cui-border-color-light);
@@ -80,14 +80,12 @@
 
 .cui-input-wrap .cui-input-prefix ~ .cui-input,
 .cui-input-with-icon.cui-input-prefix-icon {
-  padding-left: 38px;
-}
+  padding-left: 32px;}
 
 .cui-input-wrap .cui-input-suffix ~ .cui-input,
 .cui-input-with-icon.cui-input-suffix-icon {
-  padding-right: 38px;
-}
+  padding-right: 32px;}
 
 .cui-input-wrap .cui-input-prefix ~ .cui-input-with-icon {
-  padding-left: 38px;
+  padding-left: 32px;
 }

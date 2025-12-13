@@ -115,7 +115,18 @@
       { "title": "갤러리", "icon": "photo_library", "href": "/examples/router/pages/gallery.html" },
       { "title": "메일함", "icon": "mail", "href": "/examples/router/pages/mailbox.html" },
       { "title": "타임라인", "icon": "timeline", "href": "/examples/router/pages/timeline.html" },
-      { "title": "404 에러", "icon": "error", "href": "/examples/router/pages/error404.html" }
+      {
+    "title": "게시판",
+    "icon": "article",
+    "children": [
+      { "title": "목록", "icon": "list", "href": "/examples/router/pages/board-list.html" },
+      { "title": "글쓰기", "icon": "edit", "href": "/examples/router/pages/board-write.html" }
+    ]
+  },
+      { "title": "404 에러", "icon": "error", "href": "/examples/router/pages/error404.html" },
+      { "title": "500 에러", "icon": "warning", "href": "/examples/router/pages/error500.html" },
+      { "title": "시스템 점검", "icon": "build", "href": "/examples/router/pages/maintenance.html" },
+      { "title": "Coming Soon", "icon": "rocket_launch", "href": "/examples/router/pages/coming-soon.html" }
     ]
   },
   {
@@ -127,6 +138,7 @@
       { "title": "알림 센터", "icon": "notifications", "href": "/examples/router/pages/notification.html" }
     ]
   },
+  
   {
     "title": "사용자",
     "icon": "people",

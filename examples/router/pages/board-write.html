@@ -1,0 +1,141 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">게시글 작성</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;" onclick="router.go('/examples/router/pages/board-list.html')">게시판</a>
+      <span>글쓰기</span>
+    </div>
+  </div>
+
+  <!-- 작성 폼 -->
+  <div class="cui-card">
+    <div class="cui-card-header">
+      <span>새 게시글 작성</span>
+    </div>
+    <div class="cui-card-body">
+      <form class="cui-form" cui-filter="boardForm">
+        <div class="cui-form-item">
+          <label class="cui-form-label cui-form-required">구분</label>
+          <div class="cui-form-input">
+            <select name="status" class="cui-select" cui-verify="required">
+              <option value="">선택하세요</option>
+              <option value="일반">일반</option>
+              <option value="공지">공지</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="cui-form-item">
+          <label class="cui-form-label cui-form-required">제목</label>
+          <div class="cui-form-input">
+            <input type="text" name="title" class="cui-input" placeholder="제목을 입력하세요" cui-verify="required" maxlength="100">
+          </div>
+        </div>
+
+        <div class="cui-form-item">
+          <label class="cui-form-label cui-form-required">내용</label>
+          <div class="cui-form-input">
+            <textarea name="content" class="cui-textarea" placeholder="내용을 입력하세요" cui-verify="required" style="height: 300px;"></textarea>
+          </div>
+        </div>
+
+        <div class="cui-form-item">
+          <label class="cui-form-label">첨부파일</label>
+          <div class="cui-form-input">
+            <div id="uploadArea">
+              <button type="button" class="cui-btn" id="btnUpload"><i class="cui-icon">attach_file</i> 파일 첨부</button>
+              <span class="cui-text-secondary cui-ml-10">최대 10MB, jpg/png/pdf 허용</span>
+            </div>
+            <div id="fileList" class="cui-mt-10"></div>
+          </div>
+        </div>
+
+        <div class="cui-form-item">
+          <label class="cui-form-label">작성자</label>
+          <div class="cui-form-input">
+            <input type="text" name="writer" class="cui-input" value="관리자" readonly style="width: 200px;">
+          </div>
+        </div>
+
+        <div class="cui-form-item">
+          <div class="cui-form-input">
+            <button type="submit" class="cui-btn cui-btn-primary cui-btn-lg"><i class="cui-icon">save</i> 저장</button>
+            <button type="reset" class="cui-btn cui-btn-lg"><i class="cui-icon">refresh</i> 초기화</button>
+            <button type="button" class="cui-btn cui-btn-lg" id="btnCancel"><i class="cui-icon">arrow_back</i> 목록</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['form', 'popup', 'upload'], function(){
+  // 폼 렌더링
+  form.render();
+
+  // 파일 업로드
+  upload.render({
+    elem: '#btnUpload',
+    url: '/api/upload',
+    accept: 'file',
+    exts: 'jpg|png|pdf',
+    size: 10240,
+    multiple: true,
+    before: function(){
+      popup.load(1);
+    },
+    done: function(res){
+      popup.closeAll('loading');
+      if(res.code === 0){
+        var html = '<div class="cui-flex cui-flex-middle cui-mb-5">';
+        html += '<i class="cui-icon cui-mr-5">insert_drive_file</i>';
+        html += '<span>' + res.data.filename + '</span>';
+        html += '<a href="javascript:;" class="cui-text-danger cui-ml-10" onclick="this.parentNode.remove()"><i class="cui-icon">close</i></a>';
+        html += '</div>';
+        document.getElementById('fileList').insertAdjacentHTML('beforeend', html);
+        popup.msg('업로드 완료');
+      }
+    },
+    error: function(){
+      popup.closeAll('loading');
+      popup.msg('업로드 실패 (데모용 - 실제 서버 없음)', { icon: 'info' });
+    }
+  });
+
+  // 폼 제출
+  form.on('submit(boardForm)', function(data){
+    console.log('게시글 데이터:', data.field);
+    
+    popup.confirm('게시글을 등록하시겠습니까?', { icon: 'help' }, function(idx){
+      popup.close(idx);
+      popup.load(1);
+      
+      setTimeout(function(){
+        popup.closeAll('loading');
+        popup.msg('게시글이 등록되었습니다', { icon: 'success' });
+        
+        setTimeout(function(){
+          router.go('/examples/router/pages/board-list.html');
+        }, 500);
+      }, 1000);
+    });
+    
+    return false;
+  });
+
+  // 목록으로
+  document.getElementById('btnCancel').addEventListener('click', function(){
+    popup.confirm('작성을 취소하시겠습니까?<br>입력한 내용은 저장되지 않습니다.', { icon: 'warning' }, function(idx){
+      popup.close(idx);
+      router.go('/examples/router/pages/board-list.html');
+    });
+  });
+});
+</script>
+</div>

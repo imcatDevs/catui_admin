@@ -729,16 +729,20 @@ input[cui-rendered="switch"] {
 /* ========================================
    입력 크기
 ======================================== */
-.cui-input-lg {
-  height: 44px;
-  padding: 10px 15px;
-  font-size: 16px;
+.cui-input-lg,
+.cui-select-lg {
+  height: 38px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 24px;
 }
 
-.cui-input-sm {
-  height: 30px;
-  padding: 4px 10px;
+.cui-input-sm,
+.cui-select-sm {
+  height: 26px;
+  padding: 2px 8px;
   font-size: 12px;
+  line-height: 22px;
 }
 
 /* ========================================

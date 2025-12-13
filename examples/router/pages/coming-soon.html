@@ -1,0 +1,239 @@
+<!-- 커밍순 Coming Soon -->
+<div class="cui-fluid">
+  <div class="cui-flex cui-flex-center cui-flex-middle" style="min-height: calc(100vh - 150px);">
+    <div class="cui-text-center" style="max-width: 650px;">
+      
+      <!-- 로켓 애니메이션 -->
+      <div class="cui-mb-25 rocket-container">
+        <div class="rocket-bg"></div>
+        <i class="cui-icon rocket-icon">rocket_launch</i>
+      </div>
+
+      <div class="cui-mb-5" style="display: inline-block; background: linear-gradient(135deg, var(--cui-primary), #667eea); color: #fff; padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">
+        LAUNCHING SOON
+      </div>
+      
+      <h1 class="cui-mb-10" style="font-size: 42px; font-weight: 800; letter-spacing: -1px; background: linear-gradient(135deg, var(--cui-text-primary), var(--cui-primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        Something Amazing<br>is Coming
+      </h1>
+      <p class="cui-text-secondary cui-mb-35" style="font-size: 16px; line-height: 1.6;">
+        새로운 경험을 준비하고 있습니다. 곧 만나요!
+      </p>
+
+      <!-- 런칭 카운트다운 -->
+      <div class="cui-flex cui-flex-center cui-cols-gap-15 cui-mb-35">
+        <div class="launch-count-box">
+          <span id="days" class="launch-count-num">00</span>
+          <span class="launch-count-label">일</span>
+        </div>
+        <div class="launch-count-box">
+          <span id="hours" class="launch-count-num">00</span>
+          <span class="launch-count-label">시간</span>
+        </div>
+        <div class="launch-count-box">
+          <span id="minutes" class="launch-count-num">00</span>
+          <span class="launch-count-label">분</span>
+        </div>
+        <div class="launch-count-box">
+          <span id="seconds" class="launch-count-num">00</span>
+          <span class="launch-count-label">초</span>
+        </div>
+      </div>
+
+      <!-- 알림 신청 -->
+      <div class="cui-mb-30" style="max-width: 420px; margin: 0 auto;">
+        <p class="cui-text-tertiary cui-mb-15 cui-text-sm">런칭 알림을 받아보세요</p>
+        <form class="cui-form" cui-filter="notifyForm">
+          <div class="notify-input-wrap">
+            <i class="cui-icon notify-input-icon">mail</i>
+            <input type="email" name="email" class="cui-input notify-input" placeholder="이메일 주소 입력">
+            <button type="submit" class="cui-btn cui-btn-primary notify-btn">알림 신청</button>
+          </div>
+        </form>
+        <p class="cui-text-tertiary cui-text-xs cui-mt-10">스팸 메일은 보내지 않습니다. 언제든 구독 해제 가능합니다.</p>
+      </div>
+
+      <!-- 진행률 -->
+      <div class="cui-mb-30" style="max-width: 350px; margin: 0 auto;">
+        <div class="cui-flex cui-flex-between cui-mb-5">
+          <span class="cui-text-tertiary cui-text-sm">개발 진행률</span>
+          <span class="cui-text-primary cui-text-sm cui-text-bold">78%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: 78%;"></div>
+        </div>
+      </div>
+
+      <!-- 소셜 링크 -->
+      <div class="cui-flex cui-flex-center cui-cols-gap-10">
+        <a href="javascript:;" class="social-btn" title="Twitter"><i class="cui-icon">flutter_dash</i></a>
+        <a href="javascript:;" class="social-btn" title="Instagram"><i class="cui-icon">photo_camera</i></a>
+        <a href="javascript:;" class="social-btn" title="YouTube"><i class="cui-icon">smart_display</i></a>
+        <a href="javascript:;" class="social-btn" title="GitHub"><i class="cui-icon">code</i></a>
+      </div>
+
+      <div class="cui-mt-25">
+        <a href="javascript:;" class="cui-link cui-text-sm" cui-href="/examples/router/pages/home.html"><i class="cui-icon cui-mr-5" style="font-size: 16px;">arrow_back</i>홈으로 돌아가기</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.rocket-container {
+  position: relative;
+  height: 120px;
+}
+.rocket-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, rgba(var(--cui-primary-rgb), 0.15), rgba(102, 126, 234, 0.15));
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+.rocket-icon {
+  position: relative;
+  font-size: 64px;
+  color: var(--cui-primary);
+  animation: float 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.3; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.launch-count-box {
+  background: var(--cui-bg-card);
+  border: 1px solid var(--cui-border-color);
+  border-radius: 16px;
+  padding: 20px 15px;
+  min-width: 85px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.launch-count-num {
+  display: block;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--cui-text-primary);
+  line-height: 1;
+}
+.launch-count-label {
+  display: block;
+  font-size: 12px;
+  color: var(--cui-text-tertiary);
+  margin-top: 6px;
+}
+
+.notify-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--cui-bg-card);
+  border: 1px solid var(--cui-border-color);
+  border-radius: 50px;
+  padding: 4px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.notify-input-icon {
+  position: absolute;
+  left: 16px;
+  color: var(--cui-text-tertiary);
+  font-size: 20px;
+}
+.notify-input {
+  flex: 1;
+  border: none !important;
+  background: transparent !important;
+  padding-left: 45px !important;
+  box-shadow: none !important;
+}
+.notify-btn {
+  border-radius: 50px !important;
+  padding: 8px 20px !important;
+  white-space: nowrap;
+}
+
+.progress-bar-bg {
+  height: 6px;
+  background: var(--cui-bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--cui-primary), #667eea);
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+.social-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--cui-bg-secondary);
+  color: var(--cui-text-secondary);
+  transition: all 0.2s;
+}
+.social-btn:hover {
+  background: var(--cui-primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+</style>
+
+<script>
+Catui.use(['form', 'popup'], function(){
+  var launchDate = new Date();
+  launchDate.setDate(launchDate.getDate() + 30);
+
+  function updateLaunchCountdown() {
+    var now = new Date();
+    var diff = launchDate - now;
+    
+    if(diff <= 0) {
+      document.getElementById('days').textContent = '00';
+      document.getElementById('hours').textContent = '00';
+      document.getElementById('minutes').textContent = '00';
+      document.getElementById('seconds').textContent = '00';
+      return;
+    }
+    
+    var days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
+    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+  }
+
+  updateLaunchCountdown();
+  var timer = setInterval(updateLaunchCountdown, 1000);
+
+  if(window.router) {
+    router.addCleanup(function() { clearInterval(timer); });
+  }
+
+  form.on('submit(notifyForm)', function(data){
+    if(!data.field.email) {
+      popup.msg('이메일을 입력하세요', { icon: 'warning' });
+      return false;
+    }
+    popup.msg('알림 신청이 완료되었습니다!', { icon: 'success' });
+    return false;
+  });
+});
+</script>

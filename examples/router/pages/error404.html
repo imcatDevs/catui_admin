@@ -1,9 +1,23 @@
 <!-- 404 에러 -->
-<div class="cui-p-15 cui-text-center" style="padding-top: 100px;">
-  <i class="cui-icon cui-text-warning" style="font-size: 120px;">error_outline</i>
-  <h1 class="cui-mt-20 cui-mb-10" style="font-size: 72px;">404</h1>
-  <h3 class="cui-mb-15">페이지를 찾을 수 없습니다</h3>
-  <p class="cui-text-secondary cui-mb-20">요청하신 페이지가 존재하지 않거나 이동되었습니다.</p>
-  <button class="cui-btn cui-btn-primary" onclick="history.back()"><i class="cui-icon">arrow_back</i> 이전 페이지</button>
-  <button class="cui-btn cui-btn-default" cui-href="/examples/router/pages/home.html"><i class="cui-icon">home</i> 홈으로</button>
+<div class="cui-fluid">
+  <div class="cui-flex cui-flex-center cui-flex-middle" style="min-height: calc(100vh - 150px);">
+    <div class="cui-text-center">
+      <div class="cui-mb-20" style="position: relative; display: inline-block;">
+        <i class="cui-icon" style="font-size: 180px; color: var(--cui-border-color);">cloud_off</i>
+        <span style="position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 48px; font-weight: 700; color: var(--cui-warning);">404</span>
+      </div>
+      <h2 class="cui-mb-10" style="font-size: 28px; font-weight: 600;">페이지를 찾을 수 없습니다</h2>
+      <p class="cui-text-secondary cui-mb-30" style="font-size: 16px;">
+        요청하신 페이지가 존재하지 않거나 삭제되었습니다.<br>
+        주소를 다시 확인하거나 아래 버튼을 이용해주세요.
+      </p>
+      <div class="cui-flex cui-flex-center cui-cols-gap-10">
+        <button class="cui-btn cui-btn-lg" onclick="history.back()"><i class="cui-icon">arrow_back</i> 이전 페이지</button>
+        <button class="cui-btn cui-btn-lg cui-btn-primary" cui-href="/examples/router/pages/home.html"><i class="cui-icon">home</i> 홈으로</button>
+      </div>
+      <div class="cui-mt-30">
+        <p class="cui-text-tertiary cui-text-sm">오류가 계속되면 관리자에게 문의하세요.</p>
+      </div>
+    </div>
+  </div>
 </div>
