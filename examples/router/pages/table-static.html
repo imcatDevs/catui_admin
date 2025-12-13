@@ -1,0 +1,152 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">정적 테이블을 변환</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>정적 변환</span>
+    </div>
+  </div>
+
+  <!-- 기본 HTML 테이블 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 HTML 테이블 (변환 전)</span>
+      <code class="cui-text-secondary">.cui-table</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">CSS 클래스만 적용한 기본 HTML 테이블</p>
+      <table class="cui-table cui-table-border">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>이름</th>
+            <th>이메일</th>
+            <th>부서</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>홍길동</td>
+            <td>hong@test.com</td>
+            <td>개발팀</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>김철수</td>
+            <td>kim@test.com</td>
+            <td>디자인팀</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>이영희</td>
+            <td>lee@test.com</td>
+            <td>마케팅팀</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 동적 테이블로 변환 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>동적 테이블로 변환 (변환 후)</span>
+      <code class="cui-text-secondary">table.render()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">table.render()로 생성된 동적 테이블 (정렬, 필터 등 기능 사용 가능)</p>
+      <table id="tableDynamic"></table>
+    </div>
+  </div>
+
+  <!-- 스타일 변형 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>스타일 변형</span>
+      <code class="cui-text-secondary">skin | even | size</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-6 cui-mb-15">
+          <h4 class="cui-mb-10">행 스킨 (skin: 'row')</h4>
+          <table id="tableSkinRow"></table>
+        </div>
+        <div class="cui-col-6 cui-mb-15">
+          <h4 class="cui-mb-10">줄 스킨 (skin: 'line')</h4>
+          <table id="tableSkinLine"></table>
+        </div>
+        <div class="cui-col-6 cui-mb-15">
+          <h4 class="cui-mb-10">짝수행 배경 (even: true)</h4>
+          <table id="tableEven"></table>
+        </div>
+        <div class="cui-col-6 cui-mb-15">
+          <h4 class="cui-mb-10">작은 사이즈 (size: 'sm')</h4>
+          <table id="tableSm"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table'], function(){
+  var sampleData = [
+    { id: 1, name: '홍길동', email: 'hong@test.com', department: '개발팀' },
+    { id: 2, name: '김철수', email: 'kim@test.com', department: '디자인팀' },
+    { id: 3, name: '이영희', email: 'lee@test.com', department: '마케팅팀' }
+  ];
+
+  var cols = [[
+    { field: 'id', title: 'ID', width: 60, sort: true },
+    { field: 'name', title: '이름', width: 100 },
+    { field: 'email', title: '이메일' },
+    { field: 'department', title: '부서', width: 100 }
+  ]];
+
+  // 동적 테이블
+  table.render({
+    elem: '#tableDynamic',
+    data: sampleData,
+    cols: cols
+  });
+
+  // 행 스킨
+  table.render({
+    elem: '#tableSkinRow',
+    data: sampleData,
+    skin: 'row',
+    cols: cols
+  });
+
+  // 줄 스킨
+  table.render({
+    elem: '#tableSkinLine',
+    data: sampleData,
+    skin: 'line',
+    cols: cols
+  });
+
+  // 짝수행 배경
+  table.render({
+    elem: '#tableEven',
+    data: sampleData,
+    even: true,
+    cols: cols
+  });
+
+  // 작은 사이즈
+  table.render({
+    elem: '#tableSm',
+    data: sampleData,
+    size: 'sm',
+    cols: cols
+  });
+});
+</script>
+</div>

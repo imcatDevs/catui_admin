@@ -1,0 +1,275 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">유틸리티 - 일반</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>유틸리티 일반</span>
+    </div>
+  </div>
+
+  <!-- 숫자 포맷 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>숫자 포맷</span>
+      <code class="cui-text-secondary">util.comma() / util.digit()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-form-inline cui-mb-10">
+        <div class="cui-form-item">
+          <label class="cui-form-label">숫자 입력</label>
+          <div class="cui-form-input">
+            <input type="text" id="numberInput" class="cui-input" value="1234567890" style="width:150px;">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <button id="btnComma" class="cui-btn cui-btn-primary">천단위 콤마</button>
+        </div>
+        <div class="cui-form-item">
+          <button id="btnDigit" class="cui-btn">자릿수 맞춤 (6자리)</button>
+        </div>
+      </div>
+      <div id="numberResult" class="cui-text-secondary"></div>
+    </div>
+  </div>
+
+  <!-- 시간 경과 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>시간 경과 표시</span>
+      <code class="cui-text-secondary">util.timeAgo(time)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">주어진 시간이 얼마나 지났는지 표시합니다.</p>
+      <table class="cui-table">
+        <thead>
+          <tr><th>원본 시간</th><th>경과 표시</th></tr>
+        </thead>
+        <tbody id="timeAgoTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 날짜 포맷 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>날짜 포맷</span>
+      <code class="cui-text-secondary">util.toDateString(date, format)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">다양한 형식으로 날짜를 포맷팅합니다.</p>
+      <table class="cui-table">
+        <thead>
+          <tr><th>포맷</th><th>결과</th></tr>
+        </thead>
+        <tbody id="dateFormatTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 검증 함수 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>검증 함수</span>
+      <code class="cui-text-secondary">isEmail / isPhone / isUrl / isEmpty</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-form-inline cui-mb-10">
+        <div class="cui-form-item">
+          <label class="cui-form-label">값 입력</label>
+          <div class="cui-form-input">
+            <input type="text" id="validateInput" class="cui-input" placeholder="이메일, 전화번호, URL..." style="width:250px;">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <button id="btnValidate" class="cui-btn cui-btn-primary">검증</button>
+        </div>
+      </div>
+      <div id="validateResult"></div>
+    </div>
+  </div>
+
+  <!-- ID 생성 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>ID 생성</span>
+      <code class="cui-text-secondary">util.uuid() / util.shortId()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-10 cui-mb-10">
+        <button id="btnUuid" class="cui-btn">UUID 생성</button>
+        <button id="btnShortId" class="cui-btn">Short ID 생성</button>
+        <button id="btnShortId16" class="cui-btn">Short ID (16자)</button>
+      </div>
+      <div id="idResult" class="cui-text-secondary" style="font-family:monospace;"></div>
+    </div>
+  </div>
+
+  <!-- 쿼리스트링 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>쿼리스트링</span>
+      <code class="cui-text-secondary">util.parseQuery() / util.toQuery()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-10">
+        <label class="cui-text-sm cui-block cui-mb-5">쿼리스트링 입력</label>
+        <input type="text" id="queryInput" class="cui-input" value="name=홍길동&age=30&city=서울" style="width:100%;">
+      </div>
+      <div class="cui-flex cui-gap-10 cui-mb-10">
+        <button id="btnParseQuery" class="cui-btn cui-btn-primary">파싱 (parseQuery)</button>
+        <button id="btnToQuery" class="cui-btn">객체→쿼리 (toQuery)</button>
+      </div>
+      <pre id="queryResult" style="background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;"></pre>
+    </div>
+  </div>
+
+  <!-- FAB & Back to Top -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>FAB & Back to Top</span>
+      <code class="cui-text-secondary">util.fab() / util.backTop()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">플로팅 액션 버튼과 맨 위로 버튼을 표시합니다.</p>
+      <div class="cui-flex cui-gap-10 cui-flex-wrap">
+        <button id="btnFab" class="cui-btn cui-btn-primary">FAB 표시</button>
+        <button id="btnFabCustom" class="cui-btn">커스텀 FAB</button>
+        <button id="btnBackTop" class="cui-btn">Back to Top</button>
+        <button id="btnRemoveFab" class="cui-btn cui-btn-danger">제거</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['util', 'popup'], function(){
+  
+  // 숫자 포맷
+  document.getElementById('btnComma').addEventListener('click', function(){
+    var num = document.getElementById('numberInput').value;
+    document.getElementById('numberResult').innerHTML = 'util.comma(' + num + ') = <strong>' + util.comma(num) + '</strong>';
+  });
+  
+  document.getElementById('btnDigit').addEventListener('click', function(){
+    var num = document.getElementById('numberInput').value;
+    document.getElementById('numberResult').innerHTML = 'util.digit(' + num + ', 6) = <strong>' + util.digit(num, 6) + '</strong>';
+  });
+
+  // 시간 경과
+  var now = Date.now();
+  var times = [
+    now - 30 * 1000,           // 30초 전
+    now - 5 * 60 * 1000,       // 5분 전
+    now - 2 * 60 * 60 * 1000,  // 2시간 전
+    now - 3 * 24 * 60 * 60 * 1000, // 3일 전
+    now - 10 * 24 * 60 * 60 * 1000 // 10일 전
+  ];
+  
+  var html = times.map(function(t){
+    var d = new Date(t);
+    return '<tr><td>' + d.toLocaleString() + '</td><td><strong>' + util.timeAgo(t) + '</strong></td></tr>';
+  }).join('');
+  document.getElementById('timeAgoTable').innerHTML = html;
+
+  // 날짜 포맷
+  var d = new Date();
+  var formats = [
+    'yyyy-MM-dd',
+    'yyyy-MM-dd HH:mm:ss',
+    'yyyy년 MM월 dd일',
+    'yy/M/d H:m',
+    'MM-dd HH:mm'
+  ];
+  
+  html = formats.map(function(fmt){
+    return '<tr><td><code>' + fmt + '</code></td><td><strong>' + util.toDateString(d, fmt) + '</strong></td></tr>';
+  }).join('');
+  document.getElementById('dateFormatTable').innerHTML = html;
+
+  // 검증 함수
+  document.getElementById('btnValidate').addEventListener('click', function(){
+    var val = document.getElementById('validateInput').value;
+    var results = [
+      { name: 'isEmpty', result: util.isEmpty(val) },
+      { name: 'isEmail', result: util.isEmail(val) },
+      { name: 'isPhone', result: util.isPhone(val) },
+      { name: 'isUrl', result: util.isUrl(val) }
+    ];
+    
+    var html = results.map(function(r){
+      var cls = r.result ? 'cui-text-success' : 'cui-text-danger';
+      var icon = r.result ? 'check_circle' : 'cancel';
+      return '<span class="' + cls + '" style="margin-right:15px;"><i class="cui-icon" style="font-size:14px;vertical-align:middle;">' + icon + '</i> ' + r.name + '</span>';
+    }).join('');
+    document.getElementById('validateResult').innerHTML = html;
+  });
+
+  // ID 생성
+  document.getElementById('btnUuid').addEventListener('click', function(){
+    document.getElementById('idResult').innerHTML = 'UUID: <strong>' + util.uuid() + '</strong>';
+  });
+  
+  document.getElementById('btnShortId').addEventListener('click', function(){
+    document.getElementById('idResult').innerHTML = 'Short ID (8): <strong>' + util.shortId() + '</strong>';
+  });
+  
+  document.getElementById('btnShortId16').addEventListener('click', function(){
+    document.getElementById('idResult').innerHTML = 'Short ID (16): <strong>' + util.shortId(16) + '</strong>';
+  });
+
+  // 쿼리스트링
+  document.getElementById('btnParseQuery').addEventListener('click', function(){
+    var query = document.getElementById('queryInput').value;
+    var obj = util.parseQuery('?' + query);
+    document.getElementById('queryResult').textContent = 'parseQuery 결과:\n' + JSON.stringify(obj, null, 2);
+  });
+  
+  document.getElementById('btnToQuery').addEventListener('click', function(){
+    var obj = { name: '홍길동', age: 30, city: '서울', active: true };
+    var query = util.toQuery(obj);
+    document.getElementById('queryResult').textContent = 'toQuery 결과:\n' + query + '\n\n원본 객체:\n' + JSON.stringify(obj, null, 2);
+  });
+
+  // FAB & Back to Top
+  document.getElementById('btnFab').addEventListener('click', function(){
+    util.fab({
+      showFab: true,
+      showBackTop: true,
+      icon: 'add',
+      click: function(){
+        popup.msg('FAB 클릭!');
+      }
+    });
+  });
+  
+  document.getElementById('btnFabCustom').addEventListener('click', function(){
+    util.fab({
+      showFab: true,
+      showBackTop: true,
+      icon: 'add',
+      bgcolor: '#52c41a',
+      actions: [
+        { icon: 'edit', label: '글쓰기', click: function(){ popup.msg('글쓰기'); } },
+        { icon: 'image', label: '이미지', click: function(){ popup.msg('이미지 업로드'); } },
+        { icon: 'link', label: '링크', click: function(){ popup.msg('링크 추가'); } }
+      ]
+    });
+  });
+  
+  document.getElementById('btnBackTop').addEventListener('click', function(){
+    util.fab({ showFab: false, showBackTop: true });
+    popup.msg('스크롤하면 Back to Top 버튼이 나타납니다');
+  });
+  
+  document.getElementById('btnRemoveFab').addEventListener('click', function(){
+    var fab = document.querySelector('.cui-fab-wrap');
+    if(fab) fab.remove();
+  });
+});
+</script>
+</div>

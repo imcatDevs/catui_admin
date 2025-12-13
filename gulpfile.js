@@ -82,31 +82,12 @@ function copyModules() {
     .pipe(gulp.dest(paths.js.dest + 'modules/'));
 }
 
-// 폰트 복사
+// 폰트 복사 (material-icons만)
 function copyFonts() {
   // 폰트 디렉토리 생성
   if (!fs.existsSync(paths.fonts.dest)) {
     fs.mkdirSync(paths.fonts.dest, { recursive: true });
   }
-  
-  // Noto Sans KR 폰트 파일명 매핑 (Google Fonts subset 순서)
-  const notoFontMap = {
-    'PbykFmXiEBPT4ITbgNA5CgmG0X7t': 'NotoSansKR-0',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.119': 'NotoSansKR-1',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.118': 'NotoSansKR-2',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.117': 'NotoSansKR-3',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.116': 'NotoSansKR-4',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.115': 'NotoSansKR-5',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.114': 'NotoSansKR-6',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.113': 'NotoSansKR-7',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.112': 'NotoSansKR-8',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.111': 'NotoSansKR-9',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.110': 'NotoSansKR-10',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.109': 'NotoSansKR-11',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.108': 'NotoSansKR-12',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.105': 'NotoSansKR-13',
-    'PbykFmXiEBPT4ITbgNA5Cgm20xz64px_1hVWr0wuPNGmlQNMEfD4.103': 'NotoSansKR-14'
-  };
   
   return gulp.src(paths.fonts.src)
     .pipe(rename(function(path) {
@@ -114,45 +95,45 @@ function copyFonts() {
       if (path.basename.includes('material-icons')) {
         path.basename = 'material-icons';
       }
-      // Noto Sans KR 폰트는 매핑된 이름으로 변경
-      else if (notoFontMap[path.basename]) {
-        path.basename = notoFontMap[path.basename];
-      }
     }))
     .pipe(gulp.dest(paths.fonts.dest));
 }
 
 // HTML 복사 (경로 수정)
 function copyHTML() {
-  // index.html 복사 (경로 수정)
-  const indexContent = fs.readFileSync('index.html', 'utf-8')
-    .replace(/href="\/dist\//g, 'href="./')
-    .replace(/src="\/dist\//g, 'src="./')
-    .replace(/src="\/tests\//g, 'src="./tests/');
-  fs.writeFileSync('dist/index.html', indexContent);
-  
-  // tests 폴더 복사 (경로 수정)
-  if (!fs.existsSync('dist/tests')) {
-    fs.mkdirSync('dist/tests', { recursive: true });
+  // index.html 복사 (경로 수정) - index.html이 있을 때만
+  if (fs.existsSync('index.html')) {
+    const indexContent = fs.readFileSync('index.html', 'utf-8')
+      .replace(/href="\/dist\//g, 'href="./')
+      .replace(/src="\/dist\//g, 'src="./')
+      .replace(/src="\/tests\//g, 'src="./tests/');
+    fs.writeFileSync('dist/index.html', indexContent);
   }
   
-  const testFiles = fs.readdirSync('tests').filter(f => f.endsWith('.html'));
-  testFiles.forEach(file => {
-    let content = fs.readFileSync(`tests/${file}`, 'utf-8')
-      .replace(/href="\/dist\//g, 'href="../')
-      .replace(/src="\/dist\//g, 'src="../');
-    fs.writeFileSync(`dist/tests/${file}`, content);
-  });
-  
-  // json 폴더 복사
-  if (fs.existsSync('tests/json')) {
-    if (!fs.existsSync('dist/tests/json')) {
-      fs.mkdirSync('dist/tests/json', { recursive: true });
+  // tests 폴더 복사 (경로 수정) - tests 폴더가 있을 때만
+  if (fs.existsSync('tests')) {
+    if (!fs.existsSync('dist/tests')) {
+      fs.mkdirSync('dist/tests', { recursive: true });
     }
-    const jsonFiles = fs.readdirSync('tests/json');
-    jsonFiles.forEach(file => {
-      fs.copyFileSync(`tests/json/${file}`, `dist/tests/json/${file}`);
+    
+    const testFiles = fs.readdirSync('tests').filter(f => f.endsWith('.html'));
+    testFiles.forEach(file => {
+      let content = fs.readFileSync(`tests/${file}`, 'utf-8')
+        .replace(/href="\/dist\//g, 'href="../')
+        .replace(/src="\/dist\//g, 'src="../');
+      fs.writeFileSync(`dist/tests/${file}`, content);
     });
+    
+    // json 폴더 복사
+    if (fs.existsSync('tests/json')) {
+      if (!fs.existsSync('dist/tests/json')) {
+        fs.mkdirSync('dist/tests/json', { recursive: true });
+      }
+      const jsonFiles = fs.readdirSync('tests/json');
+      jsonFiles.forEach(file => {
+        fs.copyFileSync(`tests/json/${file}`, `dist/tests/json/${file}`);
+      });
+    }
   }
   
   return Promise.resolve();

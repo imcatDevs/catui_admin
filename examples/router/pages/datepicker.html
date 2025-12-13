@@ -1,0 +1,181 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">날짜/시간 선택 (Date)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>날짜/시간</span>
+    </div>
+  </div>
+  <!-- 기본 날짜 선택 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 날짜 선택</span>
+      <code class="cui-text-secondary">date.render()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">날짜 선택</label>
+          <input type="text" class="cui-input" id="date1" placeholder="날짜 선택">
+        </div>
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">년월 선택</label>
+          <input type="text" class="cui-input" id="date2" placeholder="년월 선택">
+        </div>
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">년도 선택</label>
+          <input type="text" class="cui-input" id="date3" placeholder="년도 선택">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 시간 선택 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>시간 선택</span>
+      <code class="cui-text-secondary">type: 'time' | 'datetime'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">시간 선택</label>
+          <input type="text" class="cui-input" id="time1" placeholder="시간 선택">
+        </div>
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">날짜+시간</label>
+          <input type="text" class="cui-input" id="datetime1" placeholder="날짜+시간">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 범위 선택 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>범위 선택</span>
+      <code class="cui-text-secondary">range: true</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-6 cui-mb-15">
+          <label class="cui-form-label">날짜 범위</label>
+          <input type="text" class="cui-input" id="range1" placeholder="시작일 - 종료일">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 옵션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">제한 및 마크</div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">최소/최대 날짜</label>
+          <input type="text" class="cui-input" id="limit1" placeholder="2024년만 선택 가능">
+        </div>
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">날짜 마크</label>
+          <input type="text" class="cui-input" id="mark1" placeholder="특정 날짜 마크">
+        </div>
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">초기값 설정</label>
+          <input type="text" class="cui-input" id="init1" placeholder="초기값 있음">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API 테이블 -->
+  <div class="cui-card">
+    <div class="cui-card-header">date API</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-border">
+        <thead>
+          <tr><th>메서드</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>date.render(options)</code></td><td>날짜 선택기 렌더링</td></tr>
+          <tr><td><code>date.getInst(id)</code></td><td>인스턴스 가져오기</td></tr>
+          <tr><td><code>date.closeAll()</code></td><td>모든 날짜 선택기 닫기</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['date'], function(date){
+  // 기본 날짜
+  date.render({
+    elem: '#date1',
+    done: function(value){ console.log('선택:', value); }
+  });
+
+  // 년월
+  date.render({
+    elem: '#date2',
+    type: 'month',
+    format: 'yyyy-MM'
+  });
+
+  // 년도
+  date.render({
+    elem: '#date3',
+    type: 'year',
+    format: 'yyyy'
+  });
+
+  // 시간
+  date.render({
+    elem: '#time1',
+    type: 'time',
+    format: 'HH:mm:ss'
+  });
+
+  // 날짜+시간
+  date.render({
+    elem: '#datetime1',
+    type: 'datetime',
+    format: 'yyyy-MM-dd HH:mm:ss'
+  });
+
+  // 날짜 범위
+  date.render({
+    elem: '#range1',
+    range: true
+  });
+
+  // 최소/최대
+  date.render({
+    elem: '#limit1',
+    min: '2024-01-01',
+    max: '2024-12-31'
+  });
+
+  // 마크 (0-월-일 형식: 매년 적용, 년-월-일 형식: 특정 년도)
+  var today = new Date();
+  var mark = {};
+  // 매년 적용되는 마크 (년도를 0으로)
+  mark['0-' + (today.getMonth()+1) + '-' + today.getDate()] = '오늘';
+  mark['0-1-1'] = '신정';
+  mark['0-12-25'] = '성탄';
+  date.render({
+    elem: '#mark1',
+    mark: mark
+  });
+
+  // 초기값
+  date.render({
+    elem: '#init1',
+    value: '2024-06-15'
+  });
+});
+</script>
+</div>

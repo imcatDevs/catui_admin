@@ -1,0 +1,163 @@
+<!-- 대시보드1 - 통계 중심 -->
+<div class="cui-p-15">
+ <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">대시보드1</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <span>대시보드1</span>
+    </div>
+  </div>
+  
+  <!-- 통계 카드 -->
+  <div class="cui-row cui-row-space10">
+    <div class="cui-col-md3 cui-col-sm6 cui-mb-10">
+      <div class="cui-card cui-stat-card cui-card-hover">
+        <div class="cui-stat-icon cui-bg-primary"><i class="cui-icon">person</i></div>
+        <div class="cui-stat-content">
+          <div class="cui-stat-value">1,024</div>
+          <div class="cui-stat-label">총 사용자</div>
+          <div class="cui-text-success cui-text-xs">↑ 12% 증가</div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-md3 cui-col-sm6 cui-mb-10">
+      <div class="cui-card cui-stat-card cui-card-hover">
+        <div class="cui-stat-icon cui-bg-warning"><i class="cui-icon">visibility</i></div>
+        <div class="cui-stat-content">
+          <div class="cui-stat-value">8,846</div>
+          <div class="cui-stat-label">오늘 방문</div>
+          <div class="cui-text-success cui-text-xs">↑ 8% 증가</div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-md3 cui-col-sm6 cui-mb-10">
+      <div class="cui-card cui-stat-card cui-card-hover">
+        <div class="cui-stat-icon cui-bg-success"><i class="cui-icon">shopping_cart</i></div>
+        <div class="cui-stat-content">
+          <div class="cui-stat-value">356</div>
+          <div class="cui-stat-label">신규 주문</div>
+          <div class="cui-text-danger cui-text-xs">↓ 3% 감소</div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-md3 cui-col-sm6 cui-mb-10">
+      <div class="cui-card cui-stat-card cui-card-hover">
+        <div class="cui-stat-icon cui-bg-danger"><i class="cui-icon">payments</i></div>
+        <div class="cui-stat-content">
+          <div class="cui-stat-value">₩12.5M</div>
+          <div class="cui-stat-label">총 매출</div>
+          <div class="cui-text-success cui-text-xs">↑ 15% 증가</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 차트 & 시스템 상태 -->
+  <div class="cui-row cui-row-space10">
+    <div class="cui-col-md8 cui-mb-10">
+      <div class="cui-card">
+        <div class="cui-card-header">방문자 통계</div>
+        <div class="cui-card-body">
+          <div class="cui-bg-gray cui-radius cui-flex cui-flex-center cui-flex-middle cui-text-secondary" style="height:200px">
+            차트 영역 (Chart.js 연동 가능)
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-md4 cui-mb-10">
+      <div class="cui-card">
+        <div class="cui-card-header">시스템 상태</div>
+        <div class="cui-card-body">
+          <div class="cui-progress-item">
+            <div class="cui-progress-label"><span>CPU 사용률</span><span>58%</span></div>
+            <div class="cui-progress"><div class="cui-progress-bar cui-bg-primary" style="width:58%"></div></div>
+          </div>
+          <div class="cui-progress-item">
+            <div class="cui-progress-label"><span>메모리 사용률</span><span>72%</span></div>
+            <div class="cui-progress"><div class="cui-progress-bar cui-bg-warning" style="width:72%"></div></div>
+          </div>
+          <div class="cui-progress-item">
+            <div class="cui-progress-label"><span>디스크 사용률</span><span>45%</span></div>
+            <div class="cui-progress"><div class="cui-progress-bar cui-bg-success" style="width:45%"></div></div>
+          </div>
+          <div class="cui-progress-item">
+            <div class="cui-progress-label"><span>네트워크</span><span>33%</span></div>
+            <div class="cui-progress"><div class="cui-progress-bar cui-bg-info" style="width:33%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 빠른 실행 & 최근 활동 -->
+  <div class="cui-row cui-row-space10">
+    <div class="cui-col-md4 cui-mb-10">
+      <div class="cui-card">
+        <div class="cui-card-header">빠른 실행</div>
+        <div class="cui-card-body">
+          <div class="cui-row cui-row-space10">
+            <div class="cui-col-xs4">
+              <a class="cui-shortcut-item" cui-href="/examples/router/pages/form.html">
+                <i class="cui-icon cui-text-primary">edit_note</i>
+                <span>새 글 작성</span>
+              </a>
+            </div>
+            <div class="cui-col-xs4">
+              <a class="cui-shortcut-item" cui-href="/examples/router/pages/table.html">
+                <i class="cui-icon cui-text-success">table_chart</i>
+                <span>데이터 관리</span>
+              </a>
+            </div>
+            <div class="cui-col-xs4">
+              <a class="cui-shortcut-item" cui-href="/examples/router/pages/components.html">
+                <i class="cui-icon cui-text-warning">settings</i>
+                <span>설정</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-md8 cui-mb-10">
+      <div class="cui-card">
+        <div class="cui-card-header">최근 활동</div>
+        <div class="cui-card-body">
+          <ul class="cui-timeline">
+            <li class="cui-timeline-item">
+              <div class="cui-timeline-dot cui-bg-primary"></div>
+              <div class="cui-timeline-content">
+                <p>새 사용자가 가입했습니다</p>
+                <span class="cui-text-secondary">5분 전</span>
+              </div>
+            </li>
+            <li class="cui-timeline-item">
+              <div class="cui-timeline-dot cui-bg-success"></div>
+              <div class="cui-timeline-content">
+                <p>주문 #1234가 완료되었습니다</p>
+                <span class="cui-text-secondary">30분 전</span>
+              </div>
+            </li>
+            <li class="cui-timeline-item">
+              <div class="cui-timeline-dot cui-bg-warning"></div>
+              <div class="cui-timeline-content">
+                <p>시스템 업데이트가 적용되었습니다</p>
+                <span class="cui-text-secondary">1시간 전</span>
+              </div>
+            </li>
+            <li class="cui-timeline-item">
+              <div class="cui-timeline-dot cui-bg-info"></div>
+              <div class="cui-timeline-content">
+                <p>새 댓글이 등록되었습니다</p>
+                <span class="cui-text-secondary">2시간 전</span>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

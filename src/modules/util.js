@@ -16,93 +16,131 @@
   // 유틸리티 인터페이스
   var util = {
     
-    // 고정바 (플로팅 버튼)
-    fixbar: function(options){
+    // FAB (Floating Action Button)
+    fab: function(options){
       var $c = get$c();
       if(!$c) return;
       
       options = $c.extend({
-        bar1: false           // 첫 번째 버튼 (아이콘/텍스트)
-        ,bar2: false          // 두 번째 버튼
+        icon: 'add'           // 메인 아이콘
+        ,closeIcon: 'close'   // 닫기 아이콘
         ,bgcolor: ''          // 배경색
-        ,showHeight: 200      // 표시 스크롤 위치
-        ,css: {}              // 추가 스타일
-        ,click: null          // 클릭 콜백
+        ,actions: []          // 확장 액션 [{icon, label, click}]
+        ,showFab: true        // FAB 버튼 표시
+        ,showBackTop: false   // 맨 위로 버튼 표시
+        ,showHeight: 200      // backTop 표시 스크롤 위치
+        ,click: null          // 메인 버튼 클릭 (actions 없을 때)
       }, options);
+      
+      // 하위 호환: backTop -> showBackTop
+      if(options.backTop !== undefined){
+        options.showBackTop = options.backTop;
+      }
 
-      var ELEM = 'cui-fixbar';
+      var ELEM = 'cui-fab';
+      var isOpen = false;
       
       // 기존 요소 제거
-      var existing = document.querySelector('.' + ELEM);
+      var existing = document.querySelector('.' + ELEM + '-wrap');
       if(existing) existing.remove();
 
       // 컨테이너 생성
-      var container = document.createElement('ul');
-      container.className = ELEM;
-      
-      // 스타일 적용
+      var wrap = document.createElement('div');
+      wrap.className = ELEM + '-wrap';
+
       if(options.bgcolor){
-        container.style.setProperty('--cui-fixbar-bg', options.bgcolor);
-      }
-      for(var key in options.css){
-        container.style[key] = options.css[key];
+        wrap.style.setProperty('--cui-fab-bg', options.bgcolor);
       }
 
-      // bar1
-      if(options.bar1){
-        var li1 = document.createElement('li');
-        li1.className = 'cui-fixbar-item cui-fixbar-bar1';
-        li1.innerHTML = options.bar1 === true 
-          ? '<i class="cui-icon">chat</i>' 
-          : options.bar1;
-        li1.addEventListener('click', function(){
-          if(typeof options.click === 'function'){
-            options.click('bar1');
+      var fab = null;
+      var toggleFab = function(){};
+
+      // FAB 버튼 (showFab: true)
+      if(options.showFab){
+        // 확장 액션 버튼들
+        if(options.actions && options.actions.length){
+          var actionsWrap = document.createElement('div');
+          actionsWrap.className = ELEM + '-actions';
+          
+          options.actions.forEach(function(action){
+            var actionBtn = document.createElement('button');
+            actionBtn.type = 'button';
+            actionBtn.className = ELEM + '-action';
+            actionBtn.innerHTML = '<i class="cui-icon">' + action.icon + '</i>';
+            if(action.label){
+              actionBtn.innerHTML += '<span class="' + ELEM + '-label">' + action.label + '</span>';
+            }
+            actionBtn.addEventListener('click', function(e){
+              e.stopPropagation();
+              if(typeof action.click === 'function') action.click();
+              toggleFab(false);
+            });
+            actionsWrap.appendChild(actionBtn);
+          });
+          wrap.appendChild(actionsWrap);
+        }
+
+        // 메인 FAB 버튼
+        fab = document.createElement('button');
+        fab.type = 'button';
+        fab.className = ELEM;
+        fab.innerHTML = '<i class="cui-icon ' + ELEM + '-icon-main">' + options.icon + '</i>';
+        if(options.actions && options.actions.length){
+          fab.innerHTML += '<i class="cui-icon ' + ELEM + '-icon-close">' + options.closeIcon + '</i>';
+        }
+
+        // 토글 함수
+        toggleFab = function(open){
+          isOpen = open !== undefined ? open : !isOpen;
+          wrap.classList.toggle(ELEM + '-open', isOpen);
+        };
+
+        fab.addEventListener('click', function(){
+          if(options.actions && options.actions.length){
+            toggleFab();
+          } else if(typeof options.click === 'function'){
+            options.click();
           }
         });
-        container.appendChild(li1);
+
+        wrap.appendChild(fab);
       }
 
-      // bar2
-      if(options.bar2){
-        var li2 = document.createElement('li');
-        li2.className = 'cui-fixbar-item cui-fixbar-bar2';
-        li2.innerHTML = options.bar2 === true 
-          ? '<i class="cui-icon">help</i>' 
-          : options.bar2;
-        li2.addEventListener('click', function(){
-          if(typeof options.click === 'function'){
-            options.click('bar2');
-          }
+      // backTop 버튼 (showBackTop: true)
+      var backTopBtn = null;
+      if(options.showBackTop){
+        backTopBtn = document.createElement('button');
+        backTopBtn.type = 'button';
+        backTopBtn.className = ELEM + '-top';
+        backTopBtn.innerHTML = '<i class="cui-icon">keyboard_arrow_up</i>';
+        backTopBtn.style.display = 'none';
+        backTopBtn.addEventListener('click', function(e){
+          e.stopPropagation();
+          util.scrollTo(0, 300);
         });
-        container.appendChild(li2);
+        wrap.appendChild(backTopBtn);
       }
 
-      // 맨 위로 버튼
-      var liTop = document.createElement('li');
-      liTop.className = 'cui-fixbar-item cui-fixbar-top';
-      liTop.innerHTML = '<i class="cui-icon">vertical_align_top</i>';
-      liTop.style.display = 'none';
-      liTop.addEventListener('click', function(){
-        util.scrollTo(0, 200);
-        if(typeof options.click === 'function'){
-          options.click('top');
+      document.body.appendChild(wrap);
+
+      // backTop 스크롤 이벤트
+      if(backTopBtn){
+        var onScroll = function(){
+          var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+          backTopBtn.style.display = scrollTop >= options.showHeight ? 'flex' : 'none';
+        };
+        window.addEventListener('scroll', onScroll);
+        onScroll();
+      }
+
+      // 외부 클릭 시 닫기
+      document.addEventListener('click', function(e){
+        if(isOpen && !wrap.contains(e.target)){
+          toggleFab(false);
         }
       });
-      container.appendChild(liTop);
 
-      document.body.appendChild(container);
-
-      // 스크롤 이벤트
-      var onScroll = function(){
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        liTop.style.display = scrollTop >= options.showHeight ? '' : 'none';
-      };
-
-      window.addEventListener('scroll', onScroll);
-      onScroll();
-
-      return container;
+      return wrap;
     }
 
     // 카운트다운

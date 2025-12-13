@@ -1,0 +1,127 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">정렬</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>정렬</span>
+    </div>
+  </div>
+
+  <!-- 기본 정렬 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 정렬</span>
+      <code class="cui-text-secondary">sort: true</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">열에 <code>sort: true</code>를 설정하면 헤더 클릭으로 오름차순/내림차순 정렬합니다.</p>
+      <table id="tableSort"></table>
+    </div>
+  </div>
+
+  <!-- 초기 정렬 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>초기 정렬</span>
+      <code class="cui-text-secondary">initSort: { field, type }</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">테이블 로드 시 특정 열로 자동 정렬합니다.</p>
+      <table id="tableInitSort"></table>
+    </div>
+  </div>
+
+  <!-- 정렬 이벤트 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>정렬 이벤트</span>
+      <code class="cui-text-secondary">table.on('sort(id)')</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">정렬 시 이벤트가 발생하며, 서버 측 정렬에 활용할 수 있습니다.</p>
+      <div id="sortLog" class="cui-mb-10 cui-text-secondary"></div>
+      <table id="tableSortEvent"></table>
+    </div>
+  </div>
+
+  <!-- 정렬 비활성화 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>자동 정렬 비활성화</span>
+      <code class="cui-text-secondary">autoSort: false</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>autoSort: false</code>로 클라이언트 정렬을 비활성화하고, 이벤트만 받아 서버 요청을 처리합니다.</p>
+      <table id="tableNoAutoSort"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  var sampleData = [
+    { id: 5, name: '최수진', score: 92, date: '2024-03-15' },
+    { id: 2, name: '김철수', score: 78, date: '2024-01-20' },
+    { id: 4, name: '박지민', score: 85, date: '2024-02-28' },
+    { id: 1, name: '홍길동', score: 95, date: '2024-01-05' },
+    { id: 3, name: '이영희', score: 88, date: '2024-02-10' }
+  ];
+
+  var cols = [[
+    { field: 'id', title: 'ID', width: 80, sort: true },
+    { field: 'name', title: '이름', width: 120, sort: true },
+    { field: 'score', title: '점수', width: 100, sort: true },
+    { field: 'date', title: '등록일', sort: true }
+  ]];
+
+  // 기본 정렬
+  table.render({
+    elem: '#tableSort',
+    data: JSON.parse(JSON.stringify(sampleData)),
+    cols: cols
+  });
+
+  // 초기 정렬 (점수 내림차순)
+  table.render({
+    elem: '#tableInitSort',
+    data: JSON.parse(JSON.stringify(sampleData)),
+    initSort: { field: 'score', type: 'desc' },
+    cols: cols
+  });
+
+  // 정렬 이벤트
+  table.render({
+    elem: '#tableSortEvent',
+    id: 'sortEventTable',
+    data: JSON.parse(JSON.stringify(sampleData)),
+    cols: cols
+  });
+
+  table.on('sort(sortEventTable)', function(obj){
+    document.getElementById('sortLog').innerHTML = 
+      '<i class="cui-icon" style="vertical-align:middle">info</i> ' +
+      '정렬됨: <strong>' + obj.field + '</strong> (' + 
+      (obj.type === 'asc' ? '오름차순 ↑' : '내림차순 ↓') + ')';
+  });
+
+  // 자동 정렬 비활성화
+  table.render({
+    elem: '#tableNoAutoSort',
+    id: 'noAutoSortTable',
+    data: JSON.parse(JSON.stringify(sampleData)),
+    autoSort: false,
+    cols: cols
+  });
+
+  table.on('sort(noAutoSortTable)', function(obj){
+    popup.msg('서버 정렬 요청: ' + obj.field + ' ' + obj.type);
+    // 실제로는 여기서 서버에 정렬된 데이터를 요청하고 reload
+  });
+});
+</script>
+</div>

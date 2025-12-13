@@ -60,7 +60,7 @@
     return this;
   };
 
-  // 탭 삭제
+  // 탭 삭제 (cui-id 기반)
   Element.prototype.tabDelete = function(filter, layid){
     var tabElem = get$c()('.cui-tab[cui-filter="' + filter + '"]');
     var titElem = tabElem.find('.cui-tab-title');
@@ -71,6 +71,32 @@
     if(!liElem[0] || !titElem[0]) return this;
     
     var index = Array.prototype.indexOf.call(titElem[0].children, liElem[0]);
+
+    // 선택된 탭이면 이전/다음 탭 선택
+    if(liElem.hasClass(THIS)){
+      var nextLi = liElem.next()[0] || liElem.prev()[0];
+      if(nextLi){
+        get$c()(nextLi).addClass(THIS);
+        var nextIndex = Array.prototype.indexOf.call(titElem[0].children, nextLi);
+        contElem.find('.cui-tab-item').eq(nextIndex).addClass(SHOW);
+      }
+    }
+
+    liElem.remove();
+    contElem.find('.cui-tab-item').eq(index).remove();
+
+    return this;
+  };
+
+  // 탭 삭제 (인덱스 기반)
+  Element.prototype.tabDeleteByIndex = function(filter, index){
+    var tabElem = get$c()('.cui-tab[cui-filter="' + filter + '"]');
+    var titElem = tabElem.find('.cui-tab-title');
+    var contElem = tabElem.find('.cui-tab-content');
+    var liElem = titElem.find('li').eq(index);
+    
+    // 요소가 없으면 종료
+    if(!liElem[0] || !titElem[0]) return this;
 
     // 선택된 탭이면 이전/다음 탭 선택
     if(liElem.hasClass(THIS)){
@@ -174,7 +200,9 @@
           
           closeBtn.addEventListener('click', function(e){
             e.stopPropagation();
-            that.tabDelete(tab.getAttribute('cui-filter'), li.getAttribute('cui-id'));
+            var liElem = e.target.parentNode;
+            var idx = Array.prototype.indexOf.call(titElem[0].children, liElem);
+            that.tabDeleteByIndex(tab.getAttribute('cui-filter'), idx);
           });
         }
 

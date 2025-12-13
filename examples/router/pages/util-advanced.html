@@ -1,0 +1,345 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">유틸리티 - 고급</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>유틸리티 고급</span>
+    </div>
+  </div>
+
+  <!-- 카운트다운 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>카운트다운</span>
+      <code class="cui-text-secondary">util.countdown(endTime, callback)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">특정 시간까지 남은 시간을 실시간으로 표시합니다.</p>
+      <div class="cui-flex cui-gap-10 cui-mb-15">
+        <button id="btnCountdown1" class="cui-btn cui-btn-primary">1분 카운트다운</button>
+        <button id="btnCountdown5" class="cui-btn">5분 카운트다운</button>
+      </div>
+      <div id="countdownDisplay" class="cui-flex cui-gap-10 cui-flex-center" style="font-size:32px;font-weight:700;">
+        <div class="cui-text-center"><span id="cdDays">00</span><div class="cui-text-xs cui-text-secondary">일</div></div>
+        <span>:</span>
+        <div class="cui-text-center"><span id="cdHours">00</span><div class="cui-text-xs cui-text-secondary">시</div></div>
+        <span>:</span>
+        <div class="cui-text-center"><span id="cdMinutes">00</span><div class="cui-text-xs cui-text-secondary">분</div></div>
+        <span>:</span>
+        <div class="cui-text-center"><span id="cdSeconds">00</span><div class="cui-text-xs cui-text-secondary">초</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 카운트업 애니메이션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>숫자 카운트업</span>
+      <code class="cui-text-secondary">util.countUp(options)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">숫자가 애니메이션과 함께 증가합니다.</p>
+      <div class="cui-flex cui-gap-20 cui-mb-15">
+        <div class="cui-text-center">
+          <div id="countUp1" style="font-size:36px;font-weight:700;color:var(--cui-primary);">0</div>
+          <div class="cui-text-secondary">방문자</div>
+        </div>
+        <div class="cui-text-center">
+          <div id="countUp2" style="font-size:36px;font-weight:700;color:var(--cui-success);">0</div>
+          <div class="cui-text-secondary">매출</div>
+        </div>
+        <div class="cui-text-center">
+          <div id="countUp3" style="font-size:36px;font-weight:700;color:var(--cui-warning);">0%</div>
+          <div class="cui-text-secondary">성장률</div>
+        </div>
+      </div>
+      <button id="btnCountUp" class="cui-btn cui-btn-primary">카운트업 시작</button>
+    </div>
+  </div>
+
+  <!-- 디바운스 / 쓰로틀 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>디바운스 / 쓰로틀</span>
+      <code class="cui-text-secondary">util.debounce() / util.throttle()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">연속적인 이벤트 호출을 제어합니다.</p>
+      <div class="cui-mb-15">
+        <label class="cui-text-sm cui-block cui-mb-5">입력 테스트 (각각 디바운스/쓰로틀 적용)</label>
+        <input type="text" id="debounceInput" class="cui-input" placeholder="디바운스 입력 (300ms)" style="width:100%;">
+      </div>
+      <div class="cui-flex cui-gap-10 cui-mb-10">
+        <button id="throttleBtn" class="cui-btn cui-btn-primary" style="flex:1;">쓰로틀 버튼 (연타해보세요)</button>
+      </div>
+      <div id="debounceLogs" style="height:120px;overflow:auto;background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;font-family:monospace;"></div>
+    </div>
+  </div>
+
+  <!-- XSS 방지 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>XSS 방지</span>
+      <code class="cui-text-secondary">util.escape() / util.sanitize() / util.stripScripts()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">사용자 입력에서 위험한 스크립트를 제거합니다.</p>
+      <div class="cui-mb-10">
+        <label class="cui-text-sm cui-block cui-mb-5">위험한 HTML 입력</label>
+        <textarea id="xssInput" class="cui-textarea" rows="3" style="width:100%;">&lt;script&gt;alert('XSS!')&lt;/script&gt;&lt;p onclick="evil()"&gt;클릭&lt;/p&gt;&lt;a href="javascript:alert(1)"&gt;링크&lt;/a&gt;</textarea>
+      </div>
+      <div class="cui-flex cui-gap-10 cui-mb-10">
+        <button id="btnEscape" class="cui-btn">escape</button>
+        <button id="btnStripScripts" class="cui-btn">stripScripts</button>
+        <button id="btnSanitize" class="cui-btn cui-btn-primary">sanitize</button>
+      </div>
+      <pre id="xssResult" style="background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;white-space:pre-wrap;word-break:break-all;"></pre>
+    </div>
+  </div>
+
+  <!-- 쿠키 관리 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>쿠키 관리</span>
+      <code class="cui-text-secondary">setCookie / getCookie / removeCookie</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-form-inline cui-mb-10">
+        <div class="cui-form-item">
+          <label class="cui-form-label">키</label>
+          <div class="cui-form-input">
+            <input type="text" id="cookieKey" class="cui-input" value="testCookie" style="width:120px;">
+          </div>
+        </div>
+        <div class="cui-form-item" style="flex:1;">
+          <label class="cui-form-label">값</label>
+          <div class="cui-form-input" style="display:flex;gap:10px;">
+            <input type="text" id="cookieValue" class="cui-input" value="Hello World!" style="flex:1;">
+          </div>
+        </div>
+      </div>
+      <div class="cui-flex cui-gap-10 cui-mb-10">
+        <button id="btnSetCookie" class="cui-btn cui-btn-primary">저장 (7일)</button>
+        <button id="btnGetCookie" class="cui-btn">읽기</button>
+        <button id="btnRemoveCookie" class="cui-btn cui-btn-danger">삭제</button>
+      </div>
+      <div id="cookieResult" class="cui-text-secondary"></div>
+    </div>
+  </div>
+
+  <!-- 딥 복사 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>딥 복사</span>
+      <code class="cui-text-secondary">util.deepClone(obj)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">중첩된 객체를 완전히 복사합니다. 원본 수정이 복사본에 영향을 주지 않습니다.</p>
+      <button id="btnDeepClone" class="cui-btn cui-btn-primary">딥 복사 테스트</button>
+      <pre id="deepCloneResult" class="cui-mt-10" style="background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;"></pre>
+    </div>
+  </div>
+
+  <!-- 스크롤 애니메이션 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>스크롤 애니메이션</span>
+      <code class="cui-text-secondary">util.scrollTo(position, duration)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">부드러운 스크롤 애니메이션으로 특정 위치로 이동합니다.</p>
+      <div class="cui-flex cui-gap-10">
+        <button id="btnScrollTop" class="cui-btn">맨 위로</button>
+        <button id="btnScrollBottom" class="cui-btn">맨 아래로</button>
+        <button id="btnScroll500" class="cui-btn cui-btn-primary">500px 위치로</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['util', 'popup'], function(){
+  
+  var countdownTimer = null;
+  
+  // 카운트다운 (router.addInterval로 메모리 누수 방지)
+  function startCountdown(minutes){
+    if(countdownTimer) clearInterval(countdownTimer);
+    
+    var endTime = Date.now() + minutes * 60 * 1000;
+    countdownTimer = util.countdown(endTime, function(d, h, m, s, status){
+      document.getElementById('cdDays').textContent = util.digit(d);
+      document.getElementById('cdHours').textContent = util.digit(h);
+      document.getElementById('cdMinutes').textContent = util.digit(m);
+      document.getElementById('cdSeconds').textContent = util.digit(s);
+      
+      if(status === 'end'){
+        popup.msg('카운트다운 종료!');
+      }
+    });
+    
+    // 페이지 이동 시 자동 정리
+    if(window.router){
+      router.addCleanup(function(){
+        if(countdownTimer) clearInterval(countdownTimer);
+      });
+    }
+  }
+  
+  // 이벤트 바인딩 (router.bindEvent로 메모리 누수 방지)
+  var bindEvent = window.router ? router.bindEvent.bind(router) : function(el, type, fn){
+    document.getElementById(el.replace('#','')).addEventListener(type, fn);
+  };
+  
+  bindEvent('#btnCountdown1', 'click', function(){
+    startCountdown(1);
+    popup.msg('1분 카운트다운 시작');
+  });
+  
+  bindEvent('#btnCountdown5', 'click', function(){
+    startCountdown(5);
+    popup.msg('5분 카운트다운 시작');
+  });
+
+  // 카운트업
+  bindEvent('#btnCountUp', 'click', function(){
+    util.countUp({
+      elem: '#countUp1',
+      start: 0,
+      end: 12847,
+      duration: 2000,
+      separator: ','
+    });
+    
+    util.countUp({
+      elem: '#countUp2',
+      start: 0,
+      end: 8456200,
+      duration: 2000,
+      separator: ',',
+      prefix: '₩'
+    });
+    
+    util.countUp({
+      elem: '#countUp3',
+      start: 0,
+      end: 23.5,
+      duration: 2000,
+      decimals: 1,
+      suffix: '%'
+    });
+  });
+
+  // 디바운스
+  var logEl = document.getElementById('debounceLogs');
+  function log(msg){
+    var time = new Date().toLocaleTimeString();
+    logEl.innerHTML = '<div>[' + time + '] ' + msg + '</div>' + logEl.innerHTML;
+  }
+  
+  var debouncedHandler = util.debounce(function(val){
+    log('🔵 Debounced: "' + val + '"');
+  }, 300);
+  
+  bindEvent('#debounceInput', 'input', function(e){
+    log('⚪ Input: "' + e.target.value + '"');
+    debouncedHandler(e.target.value);
+  });
+
+  // 쓰로틀
+  var throttleCount = 0;
+  var throttledHandler = util.throttle(function(){
+    throttleCount++;
+    log('🟢 Throttled 실행 #' + throttleCount);
+  }, 500);
+  
+  bindEvent('#throttleBtn', 'click', function(){
+    log('⚪ 버튼 클릭');
+    throttledHandler();
+  });
+
+  // XSS 방지
+  bindEvent('#btnEscape', 'click', function(){
+    var input = document.getElementById('xssInput').value;
+    document.getElementById('xssResult').textContent = 'util.escape() 결과:\n\n' + util.escape(input);
+  });
+  
+  bindEvent('#btnStripScripts', 'click', function(){
+    var input = document.getElementById('xssInput').value;
+    document.getElementById('xssResult').textContent = 'util.stripScripts() 결과:\n\n' + util.stripScripts(input);
+  });
+  
+  bindEvent('#btnSanitize', 'click', function(){
+    var input = document.getElementById('xssInput').value;
+    document.getElementById('xssResult').textContent = 'util.sanitize() 결과:\n\n' + util.sanitize(input);
+  });
+
+  // 쿠키 관리
+  bindEvent('#btnSetCookie', 'click', function(){
+    var key = document.getElementById('cookieKey').value;
+    var val = document.getElementById('cookieValue').value;
+    util.setCookie(key, val, 7);
+    document.getElementById('cookieResult').innerHTML = '✅ 쿠키 저장됨: <strong>' + key + ' = ' + val + '</strong> (7일)';
+  });
+  
+  bindEvent('#btnGetCookie', 'click', function(){
+    var key = document.getElementById('cookieKey').value;
+    var val = util.getCookie(key);
+    document.getElementById('cookieResult').innerHTML = val 
+      ? '📖 쿠키 읽기: <strong>' + key + ' = ' + val + '</strong>'
+      : '⚠️ 쿠키 없음: ' + key;
+  });
+  
+  bindEvent('#btnRemoveCookie', 'click', function(){
+    var key = document.getElementById('cookieKey').value;
+    util.removeCookie(key);
+    document.getElementById('cookieResult').innerHTML = '🗑️ 쿠키 삭제됨: <strong>' + key + '</strong>';
+  });
+
+  // 딥 복사
+  bindEvent('#btnDeepClone', 'click', function(){
+    var original = {
+      name: '홍길동',
+      info: {
+        age: 30,
+        address: { city: '서울', zip: '12345' }
+      },
+      tags: ['개발자', 'JS']
+    };
+    
+    var clone = util.deepClone(original);
+    
+    // 원본 수정
+    original.info.age = 99;
+    original.info.address.city = '부산';
+    original.tags.push('수정됨');
+    
+    var result = '원본 (수정 후):\n' + JSON.stringify(original, null, 2) + 
+                 '\n\n복사본 (영향 없음):\n' + JSON.stringify(clone, null, 2);
+    document.getElementById('deepCloneResult').textContent = result;
+  });
+
+  // 스크롤 애니메이션
+  bindEvent('#btnScrollTop', 'click', function(){
+    util.scrollTo(0, 500);
+  });
+  
+  bindEvent('#btnScrollBottom', 'click', function(){
+    var docHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
+    );
+    util.scrollTo(docHeight, 500);
+  });
+  
+  bindEvent('#btnScroll500', 'click', function(){
+    util.scrollTo(500, 500);
+  });
+});
+</script>
+</div>

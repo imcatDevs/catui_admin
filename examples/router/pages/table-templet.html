@@ -1,0 +1,159 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">템플릿 / 커스텀 렌더링</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>템플릿</span>
+    </div>
+  </div>
+
+  <!-- 함수 템플릿 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>함수 템플릿</span>
+      <code class="cui-text-secondary">templet: function(d){ }</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">함수로 셀 내용을 커스터마이징합니다.</p>
+      <table id="tableFuncTemplet"></table>
+    </div>
+  </div>
+
+  <!-- HTML 템플릿 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>HTML 템플릿</span>
+      <code class="cui-text-secondary">templet: '#tplId'</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">script 태그의 HTML 템플릿을 사용합니다. <code>{{d.field}}</code> 문법으로 데이터 바인딩.</p>
+      <table id="tableHtmlTemplet"></table>
+    </div>
+  </div>
+
+  <!-- 복합 예제 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>복합 예제</span>
+      <code class="cui-text-secondary">다양한 커스텀 렌더링</code>
+    </div>
+    <div class="cui-card-body">
+      <table id="tableComplexTemplet"></table>
+    </div>
+  </div>
+</div>
+
+<!-- HTML 템플릿들 -->
+<script type="text/html" id="tplStatus">
+  {{# if(d.status === 'active'){ }}
+    <span class="cui-badge cui-bg-success">활성</span>
+  {{# } else if(d.status === 'pending'){ }}
+    <span class="cui-badge cui-bg-warm">대기</span>
+  {{# } else { }}
+    <span class="cui-badge cui-bg-gray">비활성</span>
+  {{# } }}
+</script>
+
+<script type="text/html" id="tplActions">
+  <div class="cui-flex cui-gap-5">
+    <button class="cui-btn cui-btn-xs" cui-event="view"><i class="cui-icon">visibility</i></button>
+    <button class="cui-btn cui-btn-xs cui-btn-primary" cui-event="edit"><i class="cui-icon">edit</i></button>
+    <button class="cui-btn cui-btn-xs cui-btn-danger" cui-event="del"><i class="cui-icon">delete</i></button>
+  </div>
+</script>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  // 함수 템플릿
+  table.render({
+    elem: '#tableFuncTemplet',
+    data: [
+      { id: 1, name: '홍길동', price: 1500000, progress: 75 },
+      { id: 2, name: '김철수', price: 850000, progress: 45 },
+      { id: 3, name: '이영희', price: 2300000, progress: 90 },
+      { id: 4, name: '박지민', price: 450000, progress: 30 }
+    ],
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'price', title: '금액', width: 150, templet: function(d){
+        return '<strong style="color:#1677ff">' + d.price.toLocaleString() + '</strong>원';
+      }},
+      { field: 'progress', title: '진행률', templet: function(d){
+        var color = d.progress >= 80 ? '#52c41a' : d.progress >= 50 ? '#faad14' : '#ff4d4f';
+        return '<div class="cui-progress cui-progress-sm" style="width:100px;display:inline-flex;vertical-align:middle;margin-right:8px;">' +
+          '<div class="cui-progress-bar" style="width:' + d.progress + '%;background:' + color + '"></div>' +
+          '</div>' + d.progress + '%';
+      }}
+    ]]
+  });
+
+  // HTML 템플릿
+  table.render({
+    elem: '#tableHtmlTemplet',
+    id: 'htmlTempletTable',
+    data: [
+      { id: 1, name: '사용자 A', email: 'a@test.com', status: 'active' },
+      { id: 2, name: '사용자 B', email: 'b@test.com', status: 'pending' },
+      { id: 3, name: '사용자 C', email: 'c@test.com', status: 'inactive' },
+      { id: 4, name: '사용자 D', email: 'd@test.com', status: 'active' }
+    ],
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 100, templet: '#tplStatus' },
+      { title: '작업', width: 130, toolbar: '#tplActions' }
+    ]]
+  });
+
+  table.on('tool(htmlTempletTable)', function(obj){
+    if(obj.event === 'view'){
+      popup.alert('상세 정보:\n' + JSON.stringify(obj.data, null, 2));
+    } else if(obj.event === 'edit'){
+      popup.msg('수정: ' + obj.data.name);
+    } else if(obj.event === 'del'){
+      popup.confirm('삭제하시겠습니까?', function(){
+        obj.del();
+        popup.msg('삭제 완료');
+      });
+    }
+  });
+
+  // 복합 예제
+  table.render({
+    elem: '#tableComplexTemplet',
+    data: [
+      { id: 1, avatar: 'H', name: '홍길동', role: 'Admin', lastLogin: '2024-03-15 14:30', online: true },
+      { id: 2, avatar: 'K', name: '김철수', role: 'Editor', lastLogin: '2024-03-14 09:15', online: false },
+      { id: 3, avatar: 'L', name: '이영희', role: 'Viewer', lastLogin: '2024-03-15 11:45', online: true },
+      { id: 4, avatar: 'P', name: '박지민', role: 'Editor', lastLogin: '2024-03-13 16:20', online: false }
+    ],
+    cols: [[
+      { field: 'id', title: 'ID', width: 60 },
+      { title: '사용자', templet: function(d){
+        var onlineClass = d.online ? 'cui-bg-success' : 'cui-bg-gray';
+        return '<div class="cui-flex cui-flex-middle cui-gap-10">' +
+          '<div style="width:36px;height:36px;border-radius:50%;background:var(--cui-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;">' + d.avatar + '</div>' +
+          '<div>' +
+            '<div style="font-weight:500;">' + d.name + ' <span class="cui-badge ' + onlineClass + '" style="font-size:10px;">' + (d.online ? 'Online' : 'Offline') + '</span></div>' +
+            '<div class="cui-text-secondary cui-text-xs">' + d.role + '</div>' +
+          '</div>' +
+        '</div>';
+      }},
+      { field: 'lastLogin', title: '마지막 로그인', width: 160, templet: function(d){
+        return '<i class="cui-icon cui-text-secondary" style="font-size:14px;vertical-align:middle;">schedule</i> ' + d.lastLogin;
+      }},
+      { title: '작업', width: 100, align: 'center', templet: function(d){
+        return '<button class="cui-btn cui-btn-xs cui-btn-primary" cui-event="manage">관리</button>';
+      }}
+    ]]
+  });
+});
+</script>
+</div>

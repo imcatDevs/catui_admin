@@ -111,9 +111,11 @@
     if(!that.elem[0]) return;
 
     // 현재 색상
-    that.color = config.color || '#1677ff';
-    that.hsv = that.hexToHsv(that.color);
     that.alpha = 1;
+    var normalized = that.normalizeColor(config.color || '#1677ff');
+    that.color = normalized.hex;
+    that.alpha = normalized.alpha;
+    that.hsv = that.hexToHsv(that.color);
 
     // 컨테이너 생성
     var sizeClass = config.size ? ' cui-colorpicker-' + config.size : '';
@@ -185,7 +187,8 @@
 
     // 프리셋 색상
     if(config.predefine){
-      var presetColors = Array.isArray(config.predefine) ? config.predefine : that.presetColors;
+      var presetColors = Array.isArray(config.colors) ? config.colors
+        : (Array.isArray(config.predefine) ? config.predefine : that.presetColors);
       var preset = document.createElement('div');
       preset.className = 'cui-colorpicker-preset';
       
@@ -204,7 +207,7 @@
     // 입력 및 버튼
     var footer = document.createElement('div');
     footer.className = 'cui-colorpicker-footer';
-    footer.innerHTML = '<input type="text" class="cui-input cui-colorpicker-input" value="' + that.color + '">'
+    footer.innerHTML = '<input type="text" class="cui-input cui-colorpicker-input" value="' + that.getValue() + '">'
       + '<div class="cui-colorpicker-buttons">'
       + '<button type="button" class="cui-btn cui-btn-xs cui-colorpicker-clear">초기화</button>'
       + '<button type="button" class="cui-btn cui-btn-xs cui-btn-primary cui-colorpicker-confirm">확인</button>'
@@ -365,6 +368,7 @@
 
     // 초기화 버튼
     that.panel.find('.cui-colorpicker-clear').on('click', function(){
+      that.alpha = 1;
       that.setValue(that.config.color || '#1677ff');
     });
 
@@ -460,13 +464,44 @@
     
     if(!color) return;
 
-    that.color = color;
-    that.hsv = that.hexToHsv(color);
+    var normalized = that.normalizeColor(color);
+    that.color = normalized.hex;
+    that.alpha = normalized.alpha;
+    that.hsv = that.hexToHsv(that.color);
     
     that.updateBox();
     if(that.panel){
       that.updatePanel();
     }
+  };
+
+  // 색상 파싱: hex/rgb/rgba -> { hex, alpha }
+  Class.prototype.normalizeColor = function(color){
+    var that = this;
+    var fallback = { hex: '#1677ff', alpha: 1 };
+    if(!color || typeof color !== 'string') return fallback;
+
+    var c = color.trim();
+
+    // HEX (#rgb, #rrggbb)
+    if(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(c)){
+      if(c.length === 4){
+        c = '#' + c.slice(1).split('').map(function(ch){ return ch + ch; }).join('');
+      }
+      return { hex: c.toLowerCase(), alpha: 1 };
+    }
+
+    // rgb()/rgba()
+    var m = c.match(/^rgba?\(\s*([\d.]+)\s*,\s*([\d.]+)\s*,\s*([\d.]+)(?:\s*,\s*([\d.]+))?\s*\)$/i);
+    if(m){
+      var r = Math.max(0, Math.min(255, parseFloat(m[1])));
+      var g = Math.max(0, Math.min(255, parseFloat(m[2])));
+      var b = Math.max(0, Math.min(255, parseFloat(m[3])));
+      var a = m[4] !== undefined ? Math.max(0, Math.min(1, parseFloat(m[4]))) : 1;
+      return { hex: that.rgbToHex(Math.round(r), Math.round(g), Math.round(b)), alpha: isNaN(a) ? 1 : a };
+    }
+
+    return fallback;
   };
 
   // 값 가져오기

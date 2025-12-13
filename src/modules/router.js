@@ -56,8 +56,23 @@
       transition: true,         // 트랜지션 효과
       beforeEach: null,         // 라우트 전 훅
       afterEach: null,          // 라우트 후 훅
-      onError: null             // 에러 핸들러
+      onError: null,            // 에러 핸들러
+      
+      // 페이지 탭 설정 (layuiAdmin 방식)
+      pageTabs: false,          // 페이지 탭 활성화
+      pageTabsNames: {},        // 페이지 이름 매핑 { 'page.html': { name: '이름', icon: 'icon' } }
+      
+      // 퀵링크 설정 (레거시 - pageTabs 사용 권장)
+      quicklink: false,         // 퀵링크 활성화
+      quicklinkContainer: null, // 퀵링크 컨테이너 (CSS 선택자)
+      quicklinkHome: null,      // 홈 경로 (퀵링크에서 제외)
+      quicklinkNames: {},       // 페이지 이름 매핑 { 'page.html': { name: '이름', icon: 'icon' } }
+      onQuicklinkAdd: null,     // 퀵링크 추가 콜백
+      onQuicklinkRemove: null   // 퀵링크 제거 콜백
     }
+    
+    // 퀵링크 저장소
+    ,quicklinks: {}
 
     // 전역 설정
     ,set: function(options){
@@ -100,6 +115,8 @@
           var href = target.getAttribute(that.config.linkAttr);
           if(href){
             e.preventDefault();
+            // 캐시 삭제 후 이동 (동적 페이지 대응)
+            that.clearCache(href);
             that.go(href, target);
             return;
           }
@@ -130,6 +147,34 @@
         that.loadRoute(initialPath);
       }
 
+      // resize 이벤트 - 퀵링크 위치 재계산
+      var resizeTimer;
+      window.addEventListener('resize', function(){
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function(){
+          that.resetQuicklinksScroll();
+        }, 100);
+      });
+
+      return that;
+    }
+    
+    // 퀵링크 스크롤 위치 리셋
+    ,resetQuicklinksScroll: function(){
+      var that = this;
+      var config = that.config;
+      if(!config.quicklinkContainer) return that;
+      
+      var listContainer = document.querySelector(config.quicklinkContainer);
+      if(listContainer){
+        // 현재 활성 탭이 보이도록 스크롤
+        var activeItem = listContainer.querySelector('.cui-quicklink-active');
+        if(activeItem){
+          var items = listContainer.querySelectorAll('.cui-quicklink-item');
+          var index = Array.prototype.indexOf.call(items, activeItem);
+          that.scrollQuicklinks('auto', index);
+        }
+      }
       return that;
     }
 
@@ -185,6 +230,19 @@
       } else {
         history.pushState({ path: path }, '', path);
         that.loadRoute(path, container);
+      }
+
+      // pageTabs 연동
+      if(that.config.pageTabs && window.pagetabs){
+        var filename = path.split('/').pop().split('?')[0];
+        var tabInfo = that.config.pageTabsNames[filename] || {};
+        window.pagetabs.add({
+          id: path,
+          path: path,
+          title: tabInfo.name || filename.replace('.html', ''),
+          icon: tabInfo.icon || ''
+        });
+        window.pagetabs.active(path);
       }
 
       return that;
@@ -457,6 +515,17 @@
       return this;
     }
 
+    // 현재 페이지 새로고침
+    ,refresh: function(){
+      var that = this;
+      var path = currentRoute.path;
+      if(path){
+        that.clearCache(path);
+        that.go(path);
+      }
+      return that;
+    }
+
     // 프리로드
     ,preload: function(paths){
       var that = this;
@@ -545,6 +614,172 @@
       clearTimeout(id);
       var idx = pageInstances.timeouts.indexOf(id);
       if(idx > -1) pageInstances.timeouts.splice(idx, 1);
+      return that;
+    }
+
+    // 퀵링크 추가
+    ,addQuicklink: function(path){
+      var that = this;
+      var config = that.config;
+      
+      if(!config.quicklink || !config.quicklinkContainer) return that;
+      
+      // 이미 존재하면 활성화만
+      if(that.quicklinks[path]){
+        that.setActiveQuicklink(path);
+        return that;
+      }
+      
+      var container = document.querySelector(config.quicklinkContainer);
+      if(!container) return that;
+      
+      // 페이지 정보 가져오기
+      var filename = path.split('/').pop();
+      var info = config.quicklinkNames[filename] || { name: filename, icon: 'description' };
+      
+      // 퀵링크 요소 생성
+      var link = document.createElement('a');
+      link.className = 'cui-quicklink-item cui-quicklink-active';
+      link.href = 'javascript:;';
+      link.setAttribute('data-path', path);
+      link.innerHTML = '<i class="cui-icon cui-quicklink-icon">' + info.icon + '</i>'
+        + '<span class="cui-quicklink-title">' + info.name + '</span>'
+        + '<span class="cui-quicklink-close"><i class="cui-icon">close</i></span>';
+      
+      // 클릭 이벤트 - 캐시 무시하고 리로드
+      link.addEventListener('click', function(e){
+        if(!e.target.closest('.cui-quicklink-close')){
+          e.preventDefault();
+          // 캐시 삭제 후 이동
+          router.clearCache(path);
+          router.go(path);
+        }
+      });
+      
+      // 닫기 버튼 이벤트
+      link.querySelector('.cui-quicklink-close').addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        router.removeQuicklink(path);
+      });
+      
+      container.appendChild(link);
+      that.quicklinks[path] = link;
+      that.setActiveQuicklink(path);
+      that.updateQuicklinkVisibility();
+      
+      if(typeof config.onQuicklinkAdd === 'function'){
+        config.onQuicklinkAdd(path, link);
+      }
+      
+      return that;
+    }
+    
+    // 퀵링크 제거
+    ,removeQuicklink: function(path){
+      var that = this;
+      var config = that.config;
+      var link = that.quicklinks[path];
+      
+      if(link){
+        link.remove();
+        delete that.quicklinks[path];
+        that.updateQuicklinkVisibility();
+        
+        if(typeof config.onQuicklinkRemove === 'function'){
+          config.onQuicklinkRemove(path);
+        }
+        
+        // 다른 퀵링크로 이동
+        var keys = Object.keys(that.quicklinks);
+        if(keys.length > 0){
+          router.go(keys[keys.length - 1]);
+        }
+      }
+      
+      return that;
+    }
+    
+    // 활성 퀵링크 설정
+    ,setActiveQuicklink: function(path){
+      var that = this;
+      document.querySelectorAll('.cui-quicklink-item').forEach(function(el){
+        el.classList.remove('cui-quicklink-active');
+      });
+      if(path && that.quicklinks[path]){
+        that.quicklinks[path].classList.add('cui-quicklink-active');
+      }
+      return that;
+    }
+    
+    // 퀵링크 컨테이너 가시성 업데이트
+    ,updateQuicklinkVisibility: function(){
+      var that = this;
+      var config = that.config;
+      if(!config.quicklinkContainer) return that;
+      
+      var wrapper = document.querySelector(config.quicklinkContainer);
+      if(wrapper && wrapper.parentElement){
+        var parent = wrapper.closest('.cui-quicklinks');
+        if(parent){
+          var count = Object.keys(that.quicklinks).length;
+          parent.style.display = count > 0 ? 'flex' : 'none';
+        }
+      }
+      return that;
+    }
+    
+    // 퀵링크 스크롤 (layuiAdmin 방식)
+    ,scrollQuicklinks: function(direction, autoIndex){
+      var that = this;
+      var config = that.config;
+      if(!config.quicklinkContainer) return that;
+      
+      var listContainer = document.querySelector(config.quicklinkContainer);
+      if(!listContainer) return that;
+      
+      var quicklinksWrap = listContainer.parentElement; // .cui-quicklinks-wrap
+      var items = listContainer.querySelectorAll('.cui-quicklink-item');
+      if(!items.length) return that;
+      
+      var scrollWidth = listContainer.scrollWidth;
+      var outerWidth = quicklinksWrap.clientWidth; // wrap 자체가 이미 버튼 제외한 영역
+      var currentLeft = parseFloat(listContainer.style.left) || 0;
+      
+      if(direction === 'auto' && typeof autoIndex === 'number'){
+        // 자동 스크롤 (특정 탭으로)
+        var targetItem = items[autoIndex];
+        if(!targetItem) return that;
+        
+        var targetLeft = targetItem.offsetLeft;
+        var targetWidth = targetItem.offsetWidth;
+        
+        // 왼쪽으로 벗어난 경우
+        if(targetLeft < -currentLeft){
+          listContainer.style.left = -targetLeft + 'px';
+        }
+        // 오른쪽으로 벗어난 경우
+        else if(targetLeft + targetWidth > outerWidth - currentLeft){
+          var newLeft = -(targetLeft + targetWidth - outerWidth);
+          listContainer.style.left = newLeft + 'px';
+        }
+      } else if(direction === -1){
+        // 왼쪽으로 스크롤
+        if(currentLeft >= 0) return that;
+        
+        var newLeft = currentLeft + outerWidth;
+        if(newLeft > 0) newLeft = 0;
+        listContainer.style.left = newLeft + 'px';
+      } else {
+        // 오른쪽으로 스크롤
+        var maxScroll = -(scrollWidth - outerWidth);
+        if(currentLeft <= maxScroll) return that;
+        
+        var newLeft = currentLeft - outerWidth;
+        if(newLeft < maxScroll) newLeft = maxScroll;
+        listContainer.style.left = newLeft + 'px';
+      }
+      
       return that;
     }
 

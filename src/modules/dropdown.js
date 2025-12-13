@@ -52,13 +52,14 @@
       return instances[id];
     }
 
-    // 모두 닫기
-    ,close: function(id){
+    // 모두 닫기 (exceptId: 제외할 ID)
+    ,close: function(id, exceptId){
       if(id){
         var inst = instances[id];
         if(inst) inst.remove();
       } else {
         for(var key in instances){
+          if(key == exceptId) continue;  // 제외
           if(instances[key] && instances[key].remove){
             instances[key].remove();
           }
@@ -165,14 +166,19 @@
     ,$c = get$c()
     ,config = that.config;
 
-    // 이미 열려있으면 닫기
+    // 이미 열려있으면
     if(that.dropdown){
+      // hover 트리거는 열린 상태 유지
+      if(config.trigger === 'hover'){
+        return;
+      }
+      // click 트리거는 토글
       that.remove();
       return;
     }
 
-    // 다른 드롭다운 닫기
-    dropdown.close();
+    // 다른 드롭다운 닫기 (자기 자신 제외)
+    dropdown.close(null, that.config.id);
 
     // 드롭다운 컨테이너 생성
     var container = document.createElement('div');
@@ -325,14 +331,12 @@
     ,config = that.config
     ,elem = that.elem;
 
-    var delayTimer = null;
-
     if(config.trigger === 'hover'){
       elem.off('mouseenter mouseleave').on('mouseenter', function(){
-        clearTimeout(delayTimer);
+        clearTimeout(that.delayTimer);
         that.render();
       }).on('mouseleave', function(){
-        delayTimer = setTimeout(function(){
+        that.delayTimer = setTimeout(function(){
           that.remove();
         }, config.delay);
       });
@@ -442,11 +446,10 @@
 
     // hover 시 드롭다운 유지
     if(config.trigger === 'hover'){
-      var delayTimer = null;
       that.dropdown.on('mouseenter', function(){
-        clearTimeout(delayTimer);
+        clearTimeout(that.delayTimer);
       }).on('mouseleave', function(){
-        delayTimer = setTimeout(function(){
+        that.delayTimer = setTimeout(function(){
           that.remove();
         }, config.delay);
       });

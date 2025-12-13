@@ -2,6 +2,18 @@
  * Catui - Reset & Base Styles
  */
 
+/* 스크롤바 */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background-color: #f1f1f1; }
+::-webkit-scrollbar-thumb { background-color: rgb(0,0,0,.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background-color: rgb(0,0,0,.3); }
+
+/* 플레이스홀더 */
+::-webkit-input-placeholder { color: #cccccc; }
+::-moz-placeholder { color: #cccccc; }
+:-ms-input-placeholder { color: #cccccc; }
+::placeholder { color: #cccccc; }
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -46,31 +58,39 @@ table {
   border-spacing: 0;
 }
 
+html {
+  font-family: var(--cui-font-family);
+  font-size: 12px;
+  color: #666666;
+  background-color: #f2f2f2;
+}
+
 body {
   margin: 0;
   font-family: var(--cui-font-family);
-  font-size: var(--cui-font-size);
+  font-size: 12px;
   font-weight: var(--cui-font-weight-normal);
   line-height: var(--cui-line-height);
-  color: var(--cui-text-primary);
+  color: #666666;
   background-color: var(--cui-bg-base);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
 }
 
 /* 제목 */
 h1, h2, h3, h4, h5, h6 {
   font-weight: var(--cui-font-weight-bold);
-  line-height: 1.3;
+  line-height: 1.4;
+  color: #333333;
 }
 
-h1 { font-size: 2em; }
-h2 { font-size: 1.5em; }
-h3 { font-size: 1.25em; }
-h4 { font-size: 1.125em; }
-h5 { font-size: 1em; }
-h6 { font-size: 0.875em; }
+h1 { font-size: 20px; }
+h2 { font-size: 18px; }
+h3 { font-size: 16px; }
+h4 { font-size: 14px; }
+h5 { font-size: 13px; }
+h6 { font-size: 12px; }
 
 /* 단락 */
 p {

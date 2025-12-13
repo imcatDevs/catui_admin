@@ -1,0 +1,184 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">트리 (Tree)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>트리</span>
+    </div>
+  </div>
+  <!-- 기본 트리 -->
+  <div class="cui-row">
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>기본 트리</span>
+          <code class="cui-text-secondary">tree.render()</code>
+        </div>
+        <div class="cui-card-body">
+          <div id="tree1"></div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>체크박스 트리</span>
+          <code class="cui-text-secondary">showCheckbox: true</code>
+        </div>
+        <div class="cui-card-body">
+          <div id="tree2"></div>
+          <div class="cui-mt-15">
+            <button class="cui-btn cui-btn-primary cui-btn-sm" onclick="getChecked()">체크된 항목</button>
+            <span id="tree2Result" class="cui-ml-10 cui-text-secondary"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 아코디언 및 연결선 -->
+  <div class="cui-row">
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>아코디언 트리</span>
+          <code class="cui-text-secondary">accordion: true</code>
+        </div>
+        <div class="cui-card-body">
+          <div id="tree3"></div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>연결선 트리</span>
+          <code class="cui-text-secondary">showLine: true</code>
+        </div>
+        <div class="cui-card-body">
+          <div id="tree4"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API 테이블 -->
+  <div class="cui-card">
+    <div class="cui-card-header">tree API</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-border">
+        <thead>
+          <tr><th>메서드/옵션</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>tree.render(options)</code></td><td>트리 렌더링</td></tr>
+          <tr><td><code>tree.getChecked(id)</code></td><td>체크된 노드 가져오기</td></tr>
+          <tr><td><code>tree.setChecked(id, nodeId)</code></td><td>노드 체크 설정</td></tr>
+          <tr><td><code>tree.reload(id, options)</code></td><td>트리 리로드</td></tr>
+          <tr><td><code>tree.destroy(id)</code></td><td>인스턴스 제거</td></tr>
+          <tr><td><code>data</code></td><td>트리 데이터 [{title, id, children, spread, checked}]</td></tr>
+          <tr><td><code>showCheckbox</code></td><td>체크박스 표시</td></tr>
+          <tr><td><code>accordion</code></td><td>아코디언 모드</td></tr>
+          <tr><td><code>showLine</code></td><td>연결선 표시</td></tr>
+          <tr><td><code>click</code></td><td>노드 클릭 콜백</td></tr>
+          <tr><td><code>oncheck</code></td><td>체크 변경 콜백</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['tree'], function(tree){
+  // 샘플 데이터
+  var treeData = [
+    {
+      title: '프론트엔드',
+      id: 1,
+      spread: true,
+      children: [
+        { title: 'HTML', id: 11 },
+        { title: 'CSS', id: 12 },
+        { 
+          title: 'JavaScript', 
+          id: 13,
+          children: [
+            { title: 'Vue.js', id: 131 },
+            { title: 'React', id: 132 },
+            { title: 'Angular', id: 133 }
+          ]
+        }
+      ]
+    },
+    {
+      title: '백엔드',
+      id: 2,
+      children: [
+        { title: 'Node.js', id: 21 },
+        { title: 'Python', id: 22 },
+        { title: 'Java', id: 23 }
+      ]
+    },
+    {
+      title: '데이터베이스',
+      id: 3,
+      children: [
+        { title: 'MySQL', id: 31 },
+        { title: 'MongoDB', id: 32 },
+        { title: 'Redis', id: 33 }
+      ]
+    }
+  ];
+
+  // 기본 트리
+  tree.render({
+    elem: '#tree1',
+    id: 'tree1',
+    data: treeData,
+    click: function(obj){
+      console.log('클릭:', obj.data);
+    }
+  });
+
+  // 체크박스 트리
+  tree.render({
+    elem: '#tree2',
+    id: 'tree2',
+    data: treeData,
+    showCheckbox: true,
+    oncheck: function(obj){
+      console.log('체크:', obj.data);
+    }
+  });
+
+  // 아코디언 트리
+  tree.render({
+    elem: '#tree3',
+    id: 'tree3',
+    data: treeData,
+    accordion: true
+  });
+
+  // 연결선 트리
+  tree.render({
+    elem: '#tree4',
+    id: 'tree4',
+    data: treeData,
+    showLine: true
+  });
+});
+
+function getChecked(){
+  Catui.use(['tree'], function(tree){
+    var checked = tree.getChecked('tree2');
+    var titles = checked.map(function(d){ return d.title; });
+    document.getElementById('tree2Result').textContent = '체크: ' + (titles.length ? titles.join(', ') : '없음');
+  });
+}
+</script>
+</div>

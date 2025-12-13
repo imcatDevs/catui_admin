@@ -1,0 +1,145 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">사용자 지정 페이지네이션</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>커스텀 페이지</span>
+    </div>
+  </div>
+
+  <!-- 하단 버튼 추가 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>하단 버튼 추가</span>
+      <code class="cui-text-secondary">pageBtns: [...]</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">페이지네이션 옆에 커스텀 버튼을 추가합니다.</p>
+      <table id="tablePageBtns"></table>
+    </div>
+  </div>
+
+  <!-- 버튼만 (페이지네이션 없이) -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>버튼만 표시 (페이지네이션 없이)</span>
+      <code class="cui-text-secondary">page: false, pageBtns: [...]</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">페이지네이션 없이 하단 버튼만 표시합니다.</p>
+      <table id="tableOnlyBtns"></table>
+    </div>
+  </div>
+
+  <!-- done 콜백 활용 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>done 콜백 활용</span>
+      <code class="cui-text-secondary">done: function(res, curr, count)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">데이터 로드 완료 후 콜백에서 추가 작업을 수행합니다.</p>
+      <div id="tableInfo" class="cui-mb-10 cui-text-secondary"></div>
+      <table id="tableDone"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  var generateData = function(count){
+    var data = [];
+    var names = ['홍길동', '김철수', '이영희', '박지민', '최수진'];
+    for(var i = 1; i <= count; i++){
+      data.push({
+        id: i,
+        name: names[i % names.length],
+        email: 'user' + i + '@example.com',
+        status: i % 3 === 0 ? '비활성' : '활성'
+      });
+    }
+    return data;
+  };
+
+  var cols = [[
+    { type: 'checkbox' },
+    { field: 'id', title: 'ID', width: 80 },
+    { field: 'name', title: '이름', width: 120 },
+    { field: 'email', title: '이메일' },
+    { field: 'status', title: '상태', width: 100, templet: function(d){
+      return d.status === '활성' 
+        ? '<span class="cui-badge cui-bg-success">활성</span>'
+        : '<span class="cui-badge cui-bg-gray">비활성</span>';
+    }}
+  ]];
+
+  // 하단 버튼 추가
+  table.render({
+    elem: '#tablePageBtns',
+    id: 'pageBtnsTable',
+    data: generateData(25),
+    page: true,
+    limit: 5,
+    cols: cols,
+    pageBtns: [
+      { text: '선택 삭제', callback: function(inst){
+        var checked = table.checkStatus('pageBtnsTable');
+        if(checked.data.length === 0){
+          popup.msg('선택된 항목이 없습니다', { icon: 'warning' });
+        } else {
+          popup.confirm(checked.data.length + '건을 삭제하시겠습니까?', function(){
+            popup.msg('삭제 완료');
+          });
+        }
+      }},
+      { text: '전체 내보내기', callback: function(){
+        table.exportFile('pageBtnsTable');
+        popup.msg('CSV 내보내기 완료');
+      }}
+    ]
+  });
+
+  // 버튼만 표시
+  table.render({
+    elem: '#tableOnlyBtns',
+    id: 'onlyBtnsTable',
+    data: generateData(5),
+    cols: cols,
+    pageBtns: [
+      { text: '새로고침', class: '', callback: function(){
+        table.reload('onlyBtnsTable');
+        popup.msg('새로고침 완료');
+      }},
+      { text: '저장', callback: function(){
+        popup.msg('저장되었습니다');
+      }}
+    ]
+  });
+
+  // done 콜백
+  table.render({
+    elem: '#tableDone',
+    data: generateData(20),
+    page: true,
+    limit: 5,
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 100 }
+    ]],
+    done: function(res, curr, count){
+      document.getElementById('tableInfo').innerHTML = 
+        '<i class="cui-icon" style="vertical-align:middle">info</i> ' +
+        '총 <strong>' + count + '</strong>건 중 현재 페이지: <strong>' + curr + '</strong>, ' +
+        '표시 중: <strong>' + res.data.length + '</strong>건';
+    }
+  });
+});
+</script>
+</div>

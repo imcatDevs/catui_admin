@@ -1,0 +1,166 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">복잡한 헤더</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>복잡한 헤더</span>
+    </div>
+  </div>
+
+  <!-- 다중 행 헤더 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>다중 행 헤더 (colspan)</span>
+      <code class="cui-text-secondary">cols: [[ ], [ ]]</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>cols</code>에 여러 행을 정의하고 <code>colspan</code>으로 셀 병합.</p>
+      <table id="tableColspan"></table>
+    </div>
+  </div>
+
+  <!-- rowspan -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>행 병합 (rowspan)</span>
+      <code class="cui-text-secondary">rowspan: 2</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>rowspan</code>으로 세로 방향 셀 병합.</p>
+      <table id="tableRowspan"></table>
+    </div>
+  </div>
+
+  <!-- 열 숨김 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>열 숨김</span>
+      <code class="cui-text-secondary">hide: true</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>hide: true</code>로 열을 숨깁니다. 툴바의 열 필터로 표시/숨김 전환 가능.</p>
+      <table id="tableHide"></table>
+    </div>
+  </div>
+
+  <!-- 셀 정렬 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>셀 정렬</span>
+      <code class="cui-text-secondary">align: 'center' | 'right'</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>align</code>으로 셀 내용 정렬.</p>
+      <table id="tableAlign"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table'], function(){
+  var sampleData = [
+    { id: 1, name: '홍길동', q1: 150, q2: 180, q3: 200, q4: 220, total: 750, bonus: 75 },
+    { id: 2, name: '김철수', q1: 120, q2: 140, q3: 160, q4: 180, total: 600, bonus: 60 },
+    { id: 3, name: '이영희', q1: 200, q2: 220, q3: 240, q4: 260, total: 920, bonus: 92 },
+    { id: 4, name: '박지민', q1: 90, q2: 110, q3: 130, q4: 150, total: 480, bonus: 48 }
+  ];
+
+  // 다중 행 헤더 (colspan)
+  table.render({
+    elem: '#tableColspan',
+    data: sampleData,
+    cols: [
+      // 첫 번째 헤더 행
+      [
+        { field: 'id', title: 'ID', width: 60, rowspan: 2 },
+        { field: 'name', title: '이름', width: 100, rowspan: 2 },
+        { title: '분기별 실적', colspan: 4, align: 'center' },
+        { field: 'total', title: '합계', width: 100, rowspan: 2, align: 'right' }
+      ],
+      // 두 번째 헤더 행
+      [
+        { field: 'q1', title: '1분기', width: 80, align: 'right' },
+        { field: 'q2', title: '2분기', width: 80, align: 'right' },
+        { field: 'q3', title: '3분기', width: 80, align: 'right' },
+        { field: 'q4', title: '4분기', width: 80, align: 'right' }
+      ]
+    ]
+  });
+
+  // rowspan
+  table.render({
+    elem: '#tableRowspan',
+    data: sampleData,
+    cols: [
+      [
+        { field: 'id', title: 'ID', width: 60, rowspan: 2 },
+        { field: 'name', title: '이름', width: 100, rowspan: 2 },
+        { title: '실적', colspan: 2, align: 'center' },
+        { title: '보상', colspan: 2, align: 'center' }
+      ],
+      [
+        { field: 'q1', title: '상반기', width: 100, align: 'right', templet: function(d){
+          return (d.q1 + d.q2).toLocaleString();
+        }},
+        { field: 'q3', title: '하반기', width: 100, align: 'right', templet: function(d){
+          return (d.q3 + d.q4).toLocaleString();
+        }},
+        { field: 'total', title: '총 실적', width: 100, align: 'right', templet: function(d){
+          return d.total.toLocaleString();
+        }},
+        { field: 'bonus', title: '보너스', width: 100, align: 'right', templet: function(d){
+          return d.bonus.toLocaleString() + '만원';
+        }}
+      ]
+    ]
+  });
+
+  // 열 숨김
+  table.render({
+    elem: '#tableHide',
+    data: sampleData,
+    toolbar: true,
+    defaultToolbar: ['filter'],
+    cols: [[
+      { field: 'id', title: 'ID', width: 60 },
+      { field: 'name', title: '이름', width: 100 },
+      { field: 'q1', title: '1분기', width: 80 },
+      { field: 'q2', title: '2분기', width: 80 },
+      { field: 'q3', title: '3분기', width: 80, hide: true },
+      { field: 'q4', title: '4분기', width: 80, hide: true },
+      { field: 'total', title: '합계', width: 100 },
+      { field: 'bonus', title: '보너스', width: 100, hide: true }
+    ]]
+  });
+
+  // 셀 정렬
+  table.render({
+    elem: '#tableAlign',
+    data: [
+      { id: 1, name: '상품 A', price: 15000, stock: 100, status: '판매중' },
+      { id: 2, name: '상품 B', price: 25000, stock: 50, status: '품절' },
+      { id: 3, name: '상품 C', price: 8000, stock: 200, status: '판매중' },
+      { id: 4, name: '상품 D', price: 35000, stock: 30, status: '판매중' }
+    ],
+    cols: [[
+      { field: 'id', title: 'ID', width: 60, align: 'center' },
+      { field: 'name', title: '상품명', width: 150 },
+      { field: 'price', title: '가격', width: 120, align: 'right', templet: function(d){
+        return d.price.toLocaleString() + '원';
+      }},
+      { field: 'stock', title: '재고', width: 100, align: 'right' },
+      { field: 'status', title: '상태', width: 100, align: 'center', templet: function(d){
+        return d.status === '판매중' 
+          ? '<span class="cui-badge cui-bg-success">판매중</span>'
+          : '<span class="cui-badge cui-bg-danger">품절</span>';
+      }}
+    ]]
+  });
+});
+</script>
+</div>

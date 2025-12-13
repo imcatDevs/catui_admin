@@ -1,0 +1,141 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">체크박스 활성화</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>체크박스</span>
+    </div>
+  </div>
+
+  <!-- 기본 체크박스 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 체크박스</span>
+      <code class="cui-text-secondary">type: 'checkbox'</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">열 타입을 <code>'checkbox'</code>로 설정하면 체크박스가 표시됩니다.</p>
+      <div class="cui-mb-10">
+        <button id="btnGetChecked" class="cui-btn cui-btn-sm cui-btn-primary">선택된 항목 가져오기</button>
+        <button id="btnClearAll" class="cui-btn cui-btn-sm">선택 해제</button>
+      </div>
+      <table id="tableCheckbox"></table>
+      <pre id="checkedOutput" class="cui-mt-10" style="background:#f5f5f5;padding:10px;border-radius:4px;max-height:150px;overflow:auto;"></pre>
+    </div>
+  </div>
+
+  <!-- 체크박스 이벤트 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>체크박스 이벤트</span>
+      <code class="cui-text-secondary">table.on('checkbox(id)')</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">체크박스 선택 시 이벤트가 발생합니다.</p>
+      <div id="checkboxLog" class="cui-mb-10 cui-text-secondary" style="height:60px;overflow:auto;background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;"></div>
+      <table id="tableCheckboxEvent"></table>
+    </div>
+  </div>
+
+  <!-- 행 번호 + 체크박스 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>행 번호 + 체크박스</span>
+      <code class="cui-text-secondary">type: 'numbers' | 'checkbox'</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">행 번호와 체크박스를 함께 사용합니다.</p>
+      <table id="tableNumbersCheckbox"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  var sampleData = [
+    { id: 1, name: '홍길동', email: 'hong@test.com', status: '활성' },
+    { id: 2, name: '김철수', email: 'kim@test.com', status: '활성' },
+    { id: 3, name: '이영희', email: 'lee@test.com', status: '비활성' },
+    { id: 4, name: '박지민', email: 'park@test.com', status: '활성' },
+    { id: 5, name: '최수진', email: 'choi@test.com', status: '비활성' }
+  ];
+
+  // 기본 체크박스
+  table.render({
+    elem: '#tableCheckbox',
+    id: 'checkboxTable',
+    data: sampleData,
+    cols: [[
+      { type: 'checkbox' },
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 100, templet: function(d){
+        return d.status === '활성' 
+          ? '<span class="cui-badge cui-bg-success">활성</span>'
+          : '<span class="cui-badge cui-bg-gray">비활성</span>';
+      }}
+    ]]
+  });
+
+  document.getElementById('btnGetChecked').addEventListener('click', function(){
+    var status = table.checkStatus('checkboxTable');
+    document.getElementById('checkedOutput').textContent = 
+      '선택된 항목 수: ' + status.data.length + '\n' +
+      '전체 선택 여부: ' + status.isAll + '\n' +
+      '데이터:\n' + JSON.stringify(status.data, null, 2);
+  });
+
+  document.getElementById('btnClearAll').addEventListener('click', function(){
+    var allData = table.getData('checkboxTable');
+    allData.forEach(function(item, idx){
+      table.setRowChecked('checkboxTable', idx, false);
+    });
+    popup.msg('선택 해제 완료');
+  });
+
+  // 체크박스 이벤트
+  var logEl = document.getElementById('checkboxLog');
+  table.render({
+    elem: '#tableCheckboxEvent',
+    id: 'checkboxEventTable',
+    data: sampleData,
+    cols: [[
+      { type: 'checkbox' },
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 100 }
+    ]]
+  });
+
+  table.on('checkbox(checkboxEventTable)', function(obj){
+    var log = '[' + new Date().toLocaleTimeString() + '] ';
+    if(obj.type === 'all'){
+      log += '전체 선택: ' + obj.checked;
+    } else {
+      log += '행 선택: ' + obj.data.name + ' - ' + (obj.checked ? '선택' : '해제');
+    }
+    logEl.innerHTML = log + '<br>' + logEl.innerHTML;
+  });
+
+  // 행 번호 + 체크박스
+  table.render({
+    elem: '#tableNumbersCheckbox',
+    data: sampleData,
+    cols: [[
+      { type: 'checkbox' },
+      { type: 'numbers', title: '#', width: 60 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 100 }
+    ]]
+  });
+});
+</script>
+</div>

@@ -1,0 +1,101 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">자동 열 너비 할당</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>자동 열 너비</span>
+    </div>
+  </div>
+
+  <!-- 자동 열 너비 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>자동 열 너비 분배</span>
+      <code class="cui-text-secondary">width 미지정 시 자동 분배</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">열에 <code>width</code>를 지정하지 않으면 남은 공간을 균등 분배합니다.</p>
+      <table id="tableAutoWidth"></table>
+    </div>
+  </div>
+
+  <!-- 고정 + 자동 혼합 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>고정 너비 + 자동 너비 혼합</span>
+      <code class="cui-text-secondary">width: 80 | 자동</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">일부 열만 고정 너비를 지정하면 나머지는 자동 분배됩니다.</p>
+      <table id="tableMixedWidth"></table>
+    </div>
+  </div>
+
+  <!-- 최소 너비 설정 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>최소 너비 설정</span>
+      <code class="cui-text-secondary">cellMinWidth: 100</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>cellMinWidth</code> 옵션으로 자동 분배 시 최소 너비를 지정합니다.</p>
+      <table id="tableMinWidth"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table'], function(){
+  var sampleData = [
+    { id: 1, name: '홍길동', email: 'hong@example.com', department: '개발팀', position: '선임' },
+    { id: 2, name: '김철수', email: 'kim@example.com', department: '디자인팀', position: '주임' },
+    { id: 3, name: '이영희', email: 'lee@example.com', department: '마케팅팀', position: '과장' }
+  ];
+
+  // 모든 열 자동 너비
+  table.render({
+    elem: '#tableAutoWidth',
+    data: sampleData,
+    cols: [[
+      { field: 'id', title: 'ID' },
+      { field: 'name', title: '이름' },
+      { field: 'email', title: '이메일' },
+      { field: 'department', title: '부서' },
+      { field: 'position', title: '직급' }
+    ]]
+  });
+
+  // 고정 + 자동 혼합
+  table.render({
+    elem: '#tableMixedWidth',
+    data: sampleData,
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'department', title: '부서' },
+      { field: 'position', title: '직급', width: 100 }
+    ]]
+  });
+
+  // 최소 너비 설정
+  table.render({
+    elem: '#tableMinWidth',
+    data: sampleData,
+    cellMinWidth: 100,
+    cols: [[
+      { field: 'id', title: 'ID' },
+      { field: 'name', title: '이름' },
+      { field: 'email', title: '이메일' },
+      { field: 'department', title: '부서' },
+      { field: 'position', title: '직급' }
+    ]]
+  });
+});
+</script>
+</div>

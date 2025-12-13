@@ -1,10 +1,11 @@
 # Dependencies
 node_modules/
 package-lock.json
+dist/
 layuiAdmin/
+docs/
 
 # Build output
-dist/
 release/
 
 # IDE
@@ -29,7 +30,7 @@ npm-debug.log*
 .cache/
 
 # Test
-tests/
+
 test-results/
 playwright-report/
 coverage/

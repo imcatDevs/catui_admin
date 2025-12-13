@@ -1,0 +1,537 @@
+<!-- 폼 그룹 -->
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">폼 그룹</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>폼 그룹</span>
+    </div>
+  </div>
+  
+  <!-- 기본 폼 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 폼 레이아웃</span>
+      <code class="cui-text-secondary">.cui-form + .cui-form-item</code>
+    </div>
+    <div class="cui-card-body">
+      <form class="cui-form" cui-filter="basicForm">
+        <div class="cui-form-item">
+          <label class="cui-form-label">제목</label>
+          <div class="cui-form-input">
+            <input type="text" name="title" class="cui-input" placeholder="제목을 입력하세요" cui-verify="required">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">필수 항목</label>
+          <div class="cui-form-input">
+            <input type="text" name="required_field" class="cui-input" placeholder="필수 입력" cui-verify="required">
+            <div class="cui-form-tip">필수 입력 항목입니다.</div>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">비밀번호</label>
+          <div class="cui-form-input">
+            <input type="password" name="password" class="cui-input" placeholder="6~12자 비밀번호" cui-verify="required|pass">
+            <div class="cui-form-tip cui-text-secondary">6~12자의 영문, 숫자를 입력하세요.</div>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">선택</label>
+          <div class="cui-form-input">
+            <select name="select" class="cui-select">
+              <option value="">선택하세요</option>
+              <option value="1">옵션 1</option>
+              <option value="2">옵션 2</option>
+              <option value="3">옵션 3</option>
+            </select>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label"></label>
+          <div class="cui-form-input">
+            <button type="submit" class="cui-btn cui-btn-primary" cui-submit cui-filter="basicForm">저장</button>
+            <button type="button" class="cui-btn cui-btn-default">취소</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- 인라인 폼 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>인라인 폼</span>
+      <code class="cui-text-secondary">.cui-form-inline</code>
+    </div>
+    <div class="cui-card-body">
+      <form class="cui-form cui-form-inline">
+        <div class="cui-form-item">
+          <label class="cui-form-label">전화번호</label>
+          <div class="cui-form-input">
+            <input type="tel" class="cui-input" placeholder="전화번호" cui-verify="phone">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">이메일</label>
+          <div class="cui-form-input">
+            <input type="email" class="cui-input" placeholder="이메일" cui-verify="email">
+          </div>
+        </div>
+      </form>
+      <hr class="cui-hr cui-my-15">
+      <form class="cui-form cui-form-inline">
+        <div class="cui-form-item">
+          <label class="cui-form-label">검증 규칙</label>
+          <div class="cui-form-input">
+            <input type="text" class="cui-input" placeholder="숫자만" cui-verify="number">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">날짜</label>
+          <div class="cui-form-input">
+            <input type="date" class="cui-input" cui-verify="date">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">URL</label>
+          <div class="cui-form-input">
+            <input type="url" class="cui-input" placeholder="https://" cui-verify="url">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- 범위 입력 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>범위 입력</span>
+      <code class="cui-text-secondary">.cui-form-range</code>
+    </div>
+    <div class="cui-card-body">
+      <form class="cui-form">
+        <div class="cui-form-item">
+          <label class="cui-form-label">가격 범위</label>
+          <div class="cui-form-input">
+            <div class="cui-flex cui-flex-middle cui-gap-10">
+              <input type="number" class="cui-input" placeholder="₩ 최소" style="width:120px">
+              <span class="cui-text-secondary">~</span>
+              <input type="number" class="cui-input" placeholder="₩ 최대" style="width:120px">
+            </div>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">날짜 범위</label>
+          <div class="cui-form-input">
+            <div class="cui-flex cui-flex-middle cui-gap-10">
+              <input type="date" class="cui-input" style="width:150px">
+              <span class="cui-text-secondary">~</span>
+              <input type="date" class="cui-input" style="width:150px">
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- 체크박스/라디오 그룹 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">체크박스/라디오 그룹</div>
+    <div class="cui-card-body">
+      <form class="cui-form">
+        <div class="cui-form-item">
+          <label class="cui-form-label">관심사</label>
+          <div class="cui-form-input">
+            <label class="cui-checkbox cui-mr-10"><input type="checkbox" cui-ignore checked><span>글쓰기</span></label>
+            <label class="cui-checkbox cui-mr-10"><input type="checkbox" cui-ignore><span>독서</span></label>
+            <label class="cui-checkbox cui-mr-10"><input type="checkbox" cui-ignore><span>게임</span></label>
+            <label class="cui-checkbox cui-mr-10"><input type="checkbox" cui-ignore><span>음악</span></label>
+            <label class="cui-checkbox"><input type="checkbox" cui-ignore><span>여행</span></label>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">성별</label>
+          <div class="cui-form-input">
+            <label class="cui-radio cui-mr-10"><input type="radio" name="sex" value="m" cui-ignore><span>남성</span></label>
+            <label class="cui-radio cui-mr-10"><input type="radio" name="sex" value="f" cui-ignore checked><span>여성</span></label>
+            <label class="cui-radio"><input type="radio" name="sex" value="o" cui-ignore><span>기타</span></label>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">알림 설정</label>
+          <div class="cui-form-input">
+            <label class="cui-switch">
+              <input type="checkbox" cui-ignore checked>
+              <span class="cui-switch-slider"></span>
+            </label>
+            <span class="cui-ml-10 cui-text-secondary">이메일 알림 받기</span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- 체크박스/라디오 그룹 (폼 모듈 렌더링) -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>체크박스/라디오 그룹 (폼 모듈)</span>
+      <code class="cui-text-secondary">form.render()</code>
+    </div>
+    <div class="cui-card-body">
+      <form class="cui-form">
+        <div class="cui-form-item">
+          <label class="cui-form-label">체크박스</label>
+          <div class="cui-form-input">
+            <input type="checkbox" title="글쓰기" checked>
+            <input type="checkbox" title="독서">
+            <input type="checkbox" title="게임" disabled>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">Primary</label>
+          <div class="cui-form-input">
+            <input type="checkbox" cui-skin="primary" title="옵션1" checked>
+            <input type="checkbox" cui-skin="primary" title="옵션2">
+            <input type="checkbox" cui-skin="primary" title="비활성" disabled>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">라디오</label>
+          <div class="cui-form-input">
+            <input type="radio" name="gender" value="m" title="남성" checked>
+            <input type="radio" name="gender" value="f" title="여성">
+            <input type="radio" name="gender" value="o" title="기타" disabled>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">스위치</label>
+          <div class="cui-form-input">
+            <input type="checkbox" cui-skin="switch" cui-text="ON|OFF">
+            <input type="checkbox" cui-skin="switch" cui-text="열기|닫기" checked>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- 회원가입 폼 예제 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">회원가입 폼 예제</div>
+    <div class="cui-card-body">
+      <form class="cui-form" cui-filter="signupForm" style="max-width: 500px;">
+        <div class="cui-form-item">
+          <label class="cui-form-label"><span class="cui-text-danger">*</span> 이메일</label>
+          <div class="cui-form-input">
+            <input type="email" name="email" class="cui-input" placeholder="이메일 주소" cui-verify="required|email">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label"><span class="cui-text-danger">*</span> 비밀번호</label>
+          <div class="cui-form-input">
+            <input type="password" name="password" class="cui-input" placeholder="비밀번호" cui-verify="required|pass">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label"><span class="cui-text-danger">*</span> 비밀번호 확인</label>
+          <div class="cui-form-input">
+            <input type="password" name="password2" class="cui-input" placeholder="비밀번호 확인" cui-verify="required">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label"><span class="cui-text-danger">*</span> 이름</label>
+          <div class="cui-form-input">
+            <input type="text" name="name" class="cui-input" placeholder="이름" cui-verify="required">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">휴대폰</label>
+          <div class="cui-form-input">
+            <input type="tel" name="phone" class="cui-input" placeholder="010-0000-0000" cui-verify="phone">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label"></label>
+          <div class="cui-form-input">
+            <input type="checkbox" name="agree" title="이용약관에 동의합니다." cui-verify="required">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label"></label>
+          <div class="cui-form-input">
+            <button type="submit" class="cui-btn cui-btn-primary cui-btn-lg" cui-submit cui-filter="signupForm">가입하기</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- 폼 연동 예제 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>폼 연동 예제</span>
+      <code class="cui-text-secondary">form.val() / form.on()</code>
+    </div>
+    <div class="cui-card-body">
+      <form class="cui-form" cui-filter="demoForm" style="max-width: 500px;">
+        <div class="cui-form-item">
+          <label class="cui-form-label">이름</label>
+          <div class="cui-form-input">
+            <input type="text" name="username" class="cui-input" placeholder="이름 입력">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">등급</label>
+          <div class="cui-form-input">
+            <select name="grade" class="cui-select">
+              <option value="">선택하세요</option>
+              <option value="vip">VIP</option>
+              <option value="gold">Gold</option>
+              <option value="silver">Silver</option>
+              <option value="bronze">Bronze</option>
+            </select>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">알림</label>
+          <div class="cui-form-input">
+            <input type="checkbox" name="notify_email" title="이메일">
+            <input type="checkbox" name="notify_sms" title="SMS">
+            <input type="checkbox" name="notify_push" title="푸시">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">활성화</label>
+          <div class="cui-form-input">
+            <input type="checkbox" name="active" cui-skin="switch" cui-text="ON|OFF">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label"></label>
+          <div class="cui-form-input">
+            <button type="button" class="cui-btn cui-btn-primary" id="btnSetValue">값 설정</button>
+            <button type="button" class="cui-btn cui-btn-success" id="btnGetValue">값 가져오기</button>
+            <button type="button" class="cui-btn cui-btn-warning" id="btnReset">초기화</button>
+          </div>
+        </div>
+      </form>
+      <div class="cui-mt-15">
+        <pre id="formResult" class="cui-p-15" style="background:var(--cui-bg-gray);border-radius:4px;min-height:60px;"></pre>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 이벤트 연동 예제 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>이벤트 연동 예제</span>
+      <code class="cui-text-secondary">form.on('select') / form.on('checkbox')</code>
+    </div>
+    <div class="cui-card-body">
+      <form class="cui-form" cui-filter="eventForm" style="max-width: 500px;">
+        <div class="cui-form-item">
+          <label class="cui-form-label">도시 선택</label>
+          <div class="cui-form-input">
+            <select name="city" cui-filter="city" class="cui-select">
+              <option value="">도시를 선택하세요</option>
+              <option value="seoul">서울</option>
+              <option value="busan">부산</option>
+              <option value="daegu">대구</option>
+              <option value="incheon">인천</option>
+            </select>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">구/군</label>
+          <div class="cui-form-input">
+            <select name="district" cui-filter="district" class="cui-select">
+              <option value="">먼저 도시를 선택하세요</option>
+            </select>
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">옵션</label>
+          <div class="cui-form-input">
+            <input type="checkbox" name="option1" cui-filter="option" title="옵션1">
+            <input type="checkbox" name="option2" cui-filter="option" title="옵션2">
+            <input type="checkbox" name="option3" cui-filter="option" title="옵션3">
+          </div>
+        </div>
+        <div class="cui-form-item">
+          <label class="cui-form-label">다크모드</label>
+          <div class="cui-form-input">
+            <input type="checkbox" name="darkmode" cui-filter="darkmode" cui-skin="switch" cui-text="ON|OFF">
+          </div>
+        </div>
+      </form>
+      <div class="cui-mt-15">
+        <pre id="eventResult" class="cui-p-15" style="background:var(--cui-bg-gray);border-radius:4px;min-height:60px;"></pre>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 클래스 요약 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">폼 그룹 클래스 요약</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th style="width:180px">클래스</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.cui-form</code></td><td>폼 컨테이너</td></tr>
+          <tr><td><code>.cui-form-item</code></td><td>폼 항목 (라벨 + 입력)</td></tr>
+          <tr><td><code>.cui-form-label</code></td><td>폼 라벨</td></tr>
+          <tr><td><code>.cui-form-input</code></td><td>폼 입력 영역</td></tr>
+          <tr><td><code>.cui-form-tip</code></td><td>폼 도움말</td></tr>
+          <tr><td><code>.cui-form-inline</code></td><td>인라인 폼</td></tr>
+          <tr><td><code>.cui-form-danger</code></td><td>검증 실패 상태</td></tr>
+          <tr><td><code>.cui-form-success</code></td><td>검증 성공 상태</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- 속성 요약 -->
+  <div class="cui-card">
+    <div class="cui-card-header">폼 속성 요약</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th style="width:180px">속성</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>cui-filter</code></td><td>폼 식별자 (form.on 이벤트에서 사용)</td></tr>
+          <tr><td><code>cui-verify</code></td><td>검증 규칙 (required, email, phone, pass, url, number, date)</td></tr>
+          <tr><td><code>cui-submit</code></td><td>폼 제출 버튼 지정</td></tr>
+          <tr><td><code>cui-ignore</code></td><td>폼 모듈 렌더링 제외 (네이티브 스타일 사용 시)</td></tr>
+          <tr><td><code>cui-skin</code></td><td>체크박스/라디오 스킨 (primary, switch)</td></tr>
+          <tr><td><code>cui-text</code></td><td>스위치 ON/OFF 텍스트 (예: "열기|닫기")</td></tr>
+          <tr><td><code>title</code></td><td>체크박스/라디오 라벨 텍스트</td></tr>
+        </tbody>
+      </table>
+      
+      <h4 class="cui-mt-15 cui-mb-10">검증 규칙 (cui-verify)</h4>
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th style="width:180px">규칙</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>required</code></td><td>필수 입력</td></tr>
+          <tr><td><code>email</code></td><td>이메일 형식</td></tr>
+          <tr><td><code>phone</code></td><td>휴대폰 번호 (01012345678)</td></tr>
+          <tr><td><code>pass</code></td><td>비밀번호 (6~12자)</td></tr>
+          <tr><td><code>url</code></td><td>URL 형식</td></tr>
+          <tr><td><code>number</code></td><td>숫자만</td></tr>
+          <tr><td><code>date</code></td><td>날짜 형식 (YYYY-MM-DD)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  // 이 페이지에서 필요한 모듈 로드
+  Catui.use(['form', 'popup'], function(){
+    var $c = Catui.$c;
+    
+    // 폼 렌더링
+    form.render();
+    
+    // 실시간 검증 바인딩 (SPA에서 별도 호출 필요)
+    $c('[cui-verify]').each(function(i, item){
+      if(item.getAttribute('cui-verify-bound')) return;
+      item.setAttribute('cui-verify-bound', 'true');
+      
+      $c(item).on('blur change input', function(){
+        form.verifyItem(item);
+      });
+    });
+    
+    // 기본 폼 제출
+    form.on('submit(basicForm)', function(data){
+      popup.msg('저장되었습니다!', {icon: 1});
+      return false;
+    });
+    
+    // 회원가입 폼 제출
+    form.on('submit(signupForm)', function(data){
+      popup.msg('가입이 완료되었습니다!', {icon: 1});
+      return false;
+    });
+    
+    // === 폼 연동 예제 ===
+    // 값 설정 버튼
+    $c('#btnSetValue').on('click', function(){
+      form.val('demoForm', {
+        username: '홍길동',
+        grade: 'gold',
+        notify_email: true,
+        notify_sms: false,
+        notify_push: true,
+        active: true
+      });
+      $c('#formResult').text('값이 설정되었습니다.');
+    });
+    
+    // 값 가져오기 버튼
+    $c('#btnGetValue').on('click', function(){
+      var data = form.val('demoForm');
+      $c('#formResult').text(JSON.stringify(data, null, 2));
+    });
+    
+    // 초기화 버튼
+    $c('#btnReset').on('click', function(){
+      form.reset('demoForm');
+      $c('#formResult').text('폼이 초기화되었습니다.');
+    });
+    
+    // === 이벤트 연동 예제 ===
+    // 도시 데이터
+    var districts = {
+      seoul: ['강남구', '강북구', '강서구', '강동구', '서초구', '송파구'],
+      busan: ['해운대구', '부산진구', '동래구', '남구', '북구'],
+      daegu: ['중구', '동구', '서구', '남구', '북구', '수성구'],
+      incheon: ['중구', '동구', '남구', '연수구', '부평구', '계양구']
+    };
+    
+    // 도시 선택 이벤트
+    form.on('select(city)', function(data){
+      var cityDistricts = districts[data.value] || [];
+      var html = '<option value="">구/군을 선택하세요</option>';
+      cityDistricts.forEach(function(d){
+        html += '<option value="' + d + '">' + d + '</option>';
+      });
+      $c('select[name="district"]').html(html);
+      $c('#eventResult').text('선택된 도시: ' + (data.text || '없음'));
+    });
+    
+    // 구/군 선택 이벤트
+    form.on('select(district)', function(data){
+      $c('#eventResult').text('선택된 구/군: ' + (data.text || '없음'));
+    });
+    
+    // 체크박스 이벤트
+    form.on('checkbox(option)', function(data){
+      $c('#eventResult').text('체크박스 변경: ' + data.elem.name + ' = ' + data.checked);
+    });
+    
+    // 스위치 이벤트
+    form.on('switch(darkmode)', function(data){
+      $c('#eventResult').text('다크모드: ' + (data.checked ? 'ON' : 'OFF'));
+    });
+  });
+</script>

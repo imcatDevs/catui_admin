@@ -27,7 +27,7 @@
 }
 
 .cui-table-checked {
-  background-color: rgba(var(--cui-primary-rgb), 0.05);
+  background-color: rgb(var(--cui-primary-rgb), 0.05);
 }
 
 .cui-table th,
@@ -47,10 +47,10 @@
 .cui-table th,
 .cui-table td {
   position: relative;
-  padding: 9px 15px;
-  min-height: 20px;
-  line-height: 20px;
-  font-size: 14px;
+  padding: 6px 10px;
+  min-height: 18px;
+  line-height: 18px;
+  font-size: 12px;
 }
 
 .cui-table[cui-skin="line"] th,
@@ -77,24 +77,24 @@
 /* 큰 테이블 */
 .cui-table-lg th,
 .cui-table-lg td {
-  padding: 15px 30px;
+  padding: 10px 15px;
 }
 
 .cui-table-view.cui-table-lg .cui-table-cell {
-  height: 40px;
-  line-height: 40px;
+  height: 32px;
+  line-height: 32px;
 }
 
 /* 작은 테이블 */
 .cui-table-sm th,
 .cui-table-sm td {
-  padding: 5px 10px;
-  font-size: 12px;
+  padding: 4px 8px;
+  font-size: 11px;
 }
 
 .cui-table-view.cui-table-sm .cui-table-cell {
-  height: 20px;
-  line-height: 20px;
+  height: 18px;
+  line-height: 18px;
 }
 
 /* 데이터 테이블 뷰 */
@@ -115,7 +115,7 @@
 
 .cui-table-view .cui-table th,
 .cui-table-view .cui-table td {
-  padding: 5px 0;
+  padding: 4px 0;
   border-top: none;
   border-left: none;
 }
@@ -165,14 +165,15 @@
 
 /* 셀 */
 .cui-table-cell {
-  height: 28px;
-  line-height: 28px;
-  padding: 0 15px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0 10px;
   position: relative;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   box-sizing: border-box;
+  font-size: 12px;
 }
 
 /* 더보기 버튼 (셀 오버플로우) */
@@ -210,13 +211,13 @@
 .cui-table-tips {
   background: none;
   padding: 0;
-  box-shadow: 0 2px 6px rgba(0,0,0,.12);
+  box-shadow: 0 2px 6px rgb(0,0,0,.12);
 }
 
 .cui-table-tips-main {
   max-height: 200px;
   padding: 10px 15px;
-  font-size: 14px;
+  font-size: 12px;
   overflow-y: auto;
   background-color: var(--cui-bg-base);
   color: var(--cui-text-secondary);
@@ -234,7 +235,7 @@
   height: 22px;
   line-height: 22px;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--cui-bg-base);
   background-color: var(--cui-text-secondary);
   border-radius: 50%;
@@ -305,7 +306,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255, 0.8);
   z-index: 110;
 }
 
@@ -382,7 +383,7 @@
   padding: 5px 0;
   border: 1px solid var(--cui-border-color-dark);
   background: var(--cui-bg-base);
-  box-shadow: 0 2px 4px rgba(0,0,0,.12);
+  box-shadow: 0 2px 4px rgb(0,0,0,.12);
   z-index: 999;
   overflow-y: auto;
 }
@@ -414,7 +415,7 @@
 }
 
 .cui-table-tool-panel li span {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--cui-text-primary);
 }
 
@@ -469,12 +470,12 @@
   min-width: 26px;
   height: 26px;
   padding: 0 8px;
-  border: 1px solid #eee;
+  border: 1px solid var(--cui-border-color-light);
   border-radius: 2px;
   cursor: pointer;
   transition: all .2s;
   text-decoration: none;
-  color: #333;
+  color: var(--cui-text-primary);
   background: var(--cui-bg-base);
 }
 
@@ -487,7 +488,7 @@
 .cui-table-page-num.cui-this {
   background-color: var(--cui-primary);
   border-color: var(--cui-primary);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-table-page-btn.cui-disabled {

@@ -1,0 +1,141 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">최대 높이 / 스크롤</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>높이/스크롤</span>
+    </div>
+  </div>
+
+  <!-- 고정 높이 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>고정 높이 (스크롤)</span>
+      <code class="cui-text-secondary">height: 200</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>height</code> 옵션으로 테이블 높이를 제한하고 스크롤을 활성화합니다.</p>
+      <table id="tableHeight200"></table>
+    </div>
+  </div>
+
+  <!-- 다양한 높이 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>다양한 높이 설정</span>
+      <code class="cui-text-secondary">height: 150 | 300</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-6">
+          <h4 class="cui-mb-10">높이 150px</h4>
+          <table id="tableHeight150"></table>
+        </div>
+        <div class="cui-col-6">
+          <h4 class="cui-mb-10">높이 300px</h4>
+          <table id="tableHeight300"></table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 동적 높이 조절 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>동적 높이 조절</span>
+      <code class="cui-text-secondary">table.reload()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-10">
+        <button id="btnH100" class="cui-btn cui-btn-sm">100px</button>
+        <button id="btnH200" class="cui-btn cui-btn-sm">200px</button>
+        <button id="btnH300" class="cui-btn cui-btn-sm">300px</button>
+        <button id="btnHAuto" class="cui-btn cui-btn-sm cui-btn-primary">자동 (제한 없음)</button>
+      </div>
+      <table id="tableDynamicHeight"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  var generateData = function(count){
+    var data = [];
+    var names = ['홍길동', '김철수', '이영희', '박지민', '최수진', '정민수', '강하나'];
+    var depts = ['개발팀', '디자인팀', '마케팅팀', '영업팀', '인사팀'];
+    for(var i = 1; i <= count; i++){
+      data.push({
+        id: i,
+        name: names[i % names.length],
+        email: 'user' + i + '@example.com',
+        department: depts[i % depts.length]
+      });
+    }
+    return data;
+  };
+
+  var cols = [[
+    { field: 'id', title: 'ID', width: 80 },
+    { field: 'name', title: '이름', width: 120 },
+    { field: 'email', title: '이메일' },
+    { field: 'department', title: '부서', width: 120 }
+  ]];
+
+  // 고정 높이 200px
+  table.render({
+    elem: '#tableHeight200',
+    data: generateData(20),
+    height: 200,
+    cols: cols
+  });
+
+  // 높이 150px
+  table.render({
+    elem: '#tableHeight150',
+    data: generateData(15),
+    height: 150,
+    cols: cols
+  });
+
+  // 높이 300px
+  table.render({
+    elem: '#tableHeight300',
+    data: generateData(15),
+    height: 300,
+    cols: cols
+  });
+
+  // 동적 높이 조절
+  var dynamicData = generateData(15);
+  table.render({
+    elem: '#tableDynamicHeight',
+    id: 'dynamicHeightTable',
+    data: dynamicData,
+    height: 200,
+    cols: cols
+  });
+
+  document.getElementById('btnH100').addEventListener('click', function(){
+    table.reload('dynamicHeightTable', { height: 100 });
+    popup.msg('높이: 100px');
+  });
+  document.getElementById('btnH200').addEventListener('click', function(){
+    table.reload('dynamicHeightTable', { height: 200 });
+    popup.msg('높이: 200px');
+  });
+  document.getElementById('btnH300').addEventListener('click', function(){
+    table.reload('dynamicHeightTable', { height: 300 });
+    popup.msg('높이: 300px');
+  });
+  document.getElementById('btnHAuto').addEventListener('click', function(){
+    table.reload('dynamicHeightTable', { height: null });
+    popup.msg('높이: 자동');
+  });
+});
+</script>
+</div>

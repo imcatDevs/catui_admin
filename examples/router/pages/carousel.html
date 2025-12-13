@@ -1,0 +1,339 @@
+<style>
+[carousel-item] > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 300;
+}
+</style>
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">캐러셀 (Carousel)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>Carousel</span>
+    </div>
+  </div>
+
+  <!-- 기본 캐러셀 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 캐러셀</span>
+      <code class="cui-text-secondary">carousel.render()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-carousel" id="carousel1">
+        <div carousel-item>
+          <div style="background: #5FB878;">조목 1</div>
+          <div style="background: #009688;">조목 2</div>
+          <div style="background: #5FB878;">조목 3</div>
+          <div style="background: #009688;">조목 4</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 애니메이션 -->
+  <div class="cui-row">
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>페이드 애니메이션</span>
+          <code class="cui-text-secondary">anim: 'fade'</code>
+        </div>
+        <div class="cui-card-body">
+          <div class="cui-carousel" id="carousel-fade">
+            <div carousel-item>
+              <div style="background: #1677ff;">Fade 1</div>
+              <div style="background: #ff5722;">Fade 2</div>
+              <div style="background: #9c27b0;">Fade 3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>상하 애니메이션</span>
+          <code class="cui-text-secondary">anim: 'updown'</code>
+        </div>
+        <div class="cui-card-body">
+          <div class="cui-carousel" id="carousel-updown">
+            <div carousel-item>
+              <div style="background: #e91e63;">Up 1</div>
+              <div style="background: #4caf50;">Up 2</div>
+              <div style="background: #ff9800;">Up 3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 화살표/인디케이터 옵션 -->
+  <div class="cui-row">
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>화살표 항상 표시</span>
+          <code class="cui-text-secondary">arrow: 'always'</code>
+        </div>
+        <div class="cui-card-body">
+          <div class="cui-carousel" id="carousel2">
+            <div carousel-item>
+              <div style="background: #1677ff;">1</div>
+              <div style="background: #5fb878;">2</div>
+              <div style="background: #ff5722;">3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>인디케이터 외부</span>
+          <code class="cui-text-secondary">indicator: 'outside'</code>
+        </div>
+        <div class="cui-card-body">
+          <div class="cui-carousel" id="carousel3">
+            <div carousel-item>
+              <div style="background: #ffb800;">1</div>
+              <div style="background: #9c27b0;">2</div>
+              <div style="background: #009688;">3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 컨텐츠 슬라이드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>컨텐츠 슬라이드</span>
+      <code class="cui-text-secondary">cui-carousel-content</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-carousel" id="carousel-content">
+        <div carousel-item>
+          <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="cui-carousel-content">
+              <h2 class="cui-carousel-title">Catui Framework</h2>
+              <p class="cui-carousel-desc">현대적인 웹 UI 프레임워크로 빠르고 쉽게 웹 애플리케이션을 구축하세요.</p>
+              <div class="cui-carousel-btns">
+                <a href="#" class="cui-carousel-btn cui-carousel-btn-primary">시작하기</a>
+                <a href="#" class="cui-carousel-btn cui-carousel-btn-outline">문서 보기</a>
+              </div>
+            </div>
+          </div>
+          <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+            <div class="cui-carousel-content">
+              <h2 class="cui-carousel-title">다양한 컴포넌트</h2>
+              <p class="cui-carousel-desc">테이블, 폼, 트리, 팝업 등 다양한 UI 컴포넌트를 제공합니다.</p>
+              <div class="cui-carousel-btns">
+                <a href="#" class="cui-carousel-btn cui-carousel-btn-primary">컴포넌트 목록</a>
+              </div>
+            </div>
+          </div>
+          <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+            <div class="cui-carousel-content">
+              <h2 class="cui-carousel-title">쉬운 커스터마이징</h2>
+              <p class="cui-carousel-desc">CSS 변수와 모듈화된 구조로 손쉽게 테마를 변경할 수 있습니다.</p>
+              <div class="cui-carousel-btns">
+                <a href="#" class="cui-carousel-btn cui-carousel-btn-outline">테마 설정</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 썸네일 캐러셀 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>썸네일 캐러셀</span>
+      <code class="cui-text-secondary">cui-carousel-thumbs</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-carousel" id="carousel-thumb">
+        <div carousel-item>
+          <div><img src="https://picsum.photos/800/400?random=10" alt="" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div><img src="https://picsum.photos/800/400?random=11" alt="" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div><img src="https://picsum.photos/800/400?random=12" alt="" style="width:100%;height:100%;object-fit:cover;"></div>
+          <div><img src="https://picsum.photos/800/400?random=13" alt="" style="width:100%;height:100%;object-fit:cover;"></div>
+        </div>
+      </div>
+      <div class="cui-carousel-thumbs" id="thumbs1">
+        <div class="cui-carousel-thumb cui-this" data-index="0"><img src="https://picsum.photos/80/50?random=10" alt=""></div>
+        <div class="cui-carousel-thumb" data-index="1"><img src="https://picsum.photos/80/50?random=11" alt=""></div>
+        <div class="cui-carousel-thumb" data-index="2"><img src="https://picsum.photos/80/50?random=12" alt=""></div>
+        <div class="cui-carousel-thumb" data-index="3"><img src="https://picsum.photos/80/50?random=13" alt=""></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API 컨트롤 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">API 컨트롤</div>
+    <div class="cui-card-body">
+      <div class="cui-carousel" id="carousel-api">
+        <div carousel-item>
+          <div style="background: linear-gradient(to right, #ff416c, #ff4b2b);">첫 번째</div>
+          <div style="background: linear-gradient(to right, #654ea3, #eaafc8);">두 번째</div>
+          <div style="background: linear-gradient(to right, #11998e, #38ef7d);">세 번째</div>
+        </div>
+      </div>
+      <div class="cui-flex cui-gap-10 cui-mt-15">
+        <button class="cui-btn cui-btn-sm" onclick="carouselInst && carouselInst.prev()">이전</button>
+        <button class="cui-btn cui-btn-sm" onclick="carouselInst && carouselInst.next()">다음</button>
+        <button class="cui-btn cui-btn-sm cui-btn-primary" onclick="carouselInst && carouselInst.goto(0)">1번으로</button>
+        <button class="cui-btn cui-btn-sm cui-btn-primary" onclick="carouselInst && carouselInst.goto(2)">3번으로</button>
+        <button class="cui-btn cui-btn-sm cui-btn-warm" onclick="carouselInst && carouselInst.pause()">일시정지</button>
+        <button class="cui-btn cui-btn-sm cui-btn-normal" onclick="carouselInst && carouselInst.play()">재생</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- API 테이블 -->
+  <div class="cui-card">
+    <div class="cui-card-header">carousel API</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-border">
+        <thead>
+          <tr><th>옵션</th><th>설명</th><th>기본값</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>elem</code></td><td>대상 요소</td><td>-</td></tr>
+          <tr><td><code>width / height</code></td><td>너비/높이</td><td>auto / 280px</td></tr>
+          <tr><td><code>autoplay</code></td><td>자동 재생</td><td>true</td></tr>
+          <tr><td><code>interval</code></td><td>전환 간격 (ms)</td><td>3000</td></tr>
+          <tr><td><code>anim</code></td><td>애니메이션 (default, updown, fade)</td><td>default</td></tr>
+          <tr><td><code>arrow</code></td><td>화살표 (hover, always, none)</td><td>hover</td></tr>
+          <tr><td><code>indicator</code></td><td>인디케이터 (inside, outside, none)</td><td>inside</td></tr>
+        </tbody>
+      </table>
+      <table class="cui-table cui-table-border cui-mt-15">
+        <thead>
+          <tr><th>메서드</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>inst.goto(index)</code></td><td>특정 슬라이드로 이동</td></tr>
+          <tr><td><code>inst.prev() / next()</code></td><td>이전/다음 슬라이드</td></tr>
+          <tr><td><code>inst.pause() / play()</code></td><td>일시정지/재생</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+var carouselInst;
+var carouselInstances = [];
+
+Catui.use(['carousel'], function(carousel){
+  // 기본
+  carouselInstances.push(carousel.render({
+    elem: '#carousel1',
+    id: 'carousel1',
+    width: '100%',
+    height: '280px'
+  }));
+
+  // 페이드
+  carouselInstances.push(carousel.render({
+    elem: '#carousel-fade',
+    id: 'carousel-fade',
+    height: '200px',
+    anim: 'fade'
+  }));
+
+  // 상하
+  carouselInstances.push(carousel.render({
+    elem: '#carousel-updown',
+    id: 'carousel-updown',
+    height: '200px',
+    anim: 'updown'
+  }));
+
+  // 화살표 항상
+  carouselInstances.push(carousel.render({
+    elem: '#carousel2',
+    id: 'carousel2',
+    height: '180px',
+    arrow: 'always'
+  }));
+
+  // 인디케이터 외부
+  carouselInstances.push(carousel.render({
+    elem: '#carousel3',
+    id: 'carousel3',
+    height: '180px',
+    indicator: 'outside'
+  }));
+
+  // 컨텐츠 슬라이드
+  carouselInstances.push(carousel.render({
+    elem: '#carousel-content',
+    id: 'carousel-content',
+    width: '100%',
+    height: '320px',
+    anim: 'fade',
+    interval: 5000
+  }));
+
+  // 썸네일 캐러셀
+  var thumbCarousel = carousel.render({
+    elem: '#carousel-thumb',
+    id: 'carousel-thumb',
+    width: '100%',
+    height: '300px',
+    indicator: 'none',
+    autoplay: false
+  });
+  carouselInstances.push(thumbCarousel);
+
+  // 썸네일 클릭 이벤트
+  var $c = Catui.$c;
+  $c('#thumbs1 .cui-carousel-thumb').on('click', function(){
+    var idx = parseInt(this.getAttribute('data-index'));
+    thumbCarousel.goto(idx);
+  });
+
+  // 캐러셀 변경 시 썸네일 동기화
+  carousel.on('change(carousel-thumb)', function(obj){
+    $c('#thumbs1 .cui-carousel-thumb').removeClass('cui-this');
+    $c('#thumbs1 .cui-carousel-thumb[data-index="' + obj.index + '"]').addClass('cui-this');
+  });
+
+  // API 컨트롤용
+  carouselInst = carousel.render({
+    elem: '#carousel-api',
+    id: 'carousel-api',
+    height: '200px',
+    arrow: 'always'
+  });
+  carouselInstances.push(carouselInst);
+
+  // 페이지 이동 시 캐러셀 인스턴스 정리 (메모리 누수 방지)
+  if(window.router && router.addCleanup){
+    router.addCleanup(function(){
+      carouselInstances.forEach(function(inst){
+        if(inst && inst.destroy) inst.destroy();
+      });
+      carouselInstances = [];
+      console.log('[Carousel] 인스턴스 정리 완료');
+    });
+  }
+});
+</script>
+</div>

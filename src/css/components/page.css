@@ -76,7 +76,7 @@
 
 .cui-page .cui-page-curr em {
   position: relative;
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-page .cui-page-curr .cui-page-em {
@@ -115,7 +115,7 @@
 
 .cui-page-prev em,
 .cui-page-next em {
-  font-family: Sim sun;
+  font-family: "Sim sun";
   font-size: 12px;
   line-height: 1;
 }
@@ -233,10 +233,10 @@
 ======================================== */
 .cui-page.cui-page-lg a,
 .cui-page.cui-page-lg span {
-  height: 36px;
-  line-height: 36px;
-  padding: 0 20px;
-  font-size: 14px;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 15px;
+  font-size: 12px;
 }
 
 .cui-page.cui-page-lg input,

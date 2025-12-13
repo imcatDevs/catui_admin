@@ -1,0 +1,387 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">고급 팝업 (Advanced Popup)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">팝업예제</a>
+      <span>고급팝업</span>
+    </div>
+  </div>
+  
+  <!-- 커스텀 팝업 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>커스텀 팝업</span>
+      <code class="cui-text-secondary">popup.open()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">다양한 옵션으로 커스터마이징된 팝업을 생성합니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn cui-btn-primary" onclick="showBasicPopup()">기본 팝업</button>
+        <button class="cui-btn cui-btn-success" onclick="showLargePopup()">큰 팝업</button>
+        <button class="cui-btn cui-btn-warning" onclick="showNoTitlePopup()">제목 없음</button>
+        <button class="cui-btn cui-btn-danger" onclick="showMaxPopup()">최대화</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Drawer -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>Drawer (슬라이드 패널)</span>
+      <code class="cui-text-secondary">popup.drawer()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">화면 가장자리에서 슬라이드되어 나타나는 패널입니다.</p>
+      <div class="cui-flex cui-gap-10 cui-mb-15" style="flex-wrap:wrap;">
+        <button class="cui-btn" onclick="showDrawer('r')">오른쪽</button>
+        <button class="cui-btn" onclick="showDrawer('l')">왼쪽</button>
+        <button class="cui-btn" onclick="showDrawer('t')">위쪽</button>
+        <button class="cui-btn" onclick="showDrawer('b')">아래쪽</button>
+      </div>
+      <p class="cui-text-secondary cui-mb-10">타이틀 없는 Drawer</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn cui-btn-default" onclick="showDrawerNoTitle('r')">오른쪽 (타이틀 없음)</button>
+        <button class="cui-btn cui-btn-default" onclick="showDrawerNoTitle('l')">왼쪽 (타이틀 없음)</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 페이지 로드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>iframe 페이지 로드</span>
+      <code class="cui-text-secondary">type: 2</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">팝업 내에 다른 페이지를 iframe으로 로드합니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn cui-btn-primary" onclick="showPagePopup()">페이지 로드</button>
+        <button class="cui-btn cui-btn-info" onclick="showFullPagePopup()">전체화면 로드</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 스킨 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>팝업 스킨</span>
+      <code class="cui-text-secondary">skin 옵션</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">다양한 색상 스킨을 적용할 수 있습니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn cui-btn-primary" onclick="showSkinPopup('primary')">Primary</button>
+        <button class="cui-btn cui-btn-success" onclick="showSkinPopup('success')">Success</button>
+        <button class="cui-btn cui-btn-warning" onclick="showSkinPopup('warning')">Warning</button>
+        <button class="cui-btn cui-btn-danger" onclick="showSkinPopup('danger')">Danger</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 폼 팝업 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>폼 팝업</span>
+      <code class="cui-text-secondary">폼 콘텐츠 포함</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">팝업 안에 폼을 포함하여 데이터를 입력받습니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn cui-btn-primary" onclick="showFormPopup()">로그인 폼</button>
+        <button class="cui-btn cui-btn-success" onclick="showContactForm()">문의 폼</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 위치 옵션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>위치 옵션</span>
+      <code class="cui-text-secondary">offset 옵션</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">팝업의 표시 위치를 지정할 수 있습니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn" onclick="showOffsetPopup('auto')">중앙 (기본)</button>
+        <button class="cui-btn" onclick="showOffsetPopup('t')">상단</button>
+        <button class="cui-btn" onclick="showOffsetPopup('b')">하단</button>
+        <button class="cui-btn" onclick="showOffsetPopup('lt')">좌상단</button>
+        <button class="cui-btn" onclick="showOffsetPopup('rb')">우하단</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 사진 뷰어 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>사진 뷰어</span>
+      <code class="cui-text-secondary">popup.photos()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">이미지를 확대하여 볼 수 있는 사진 뷰어입니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn cui-btn-info" onclick="showPhotos()">사진 보기</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 클래스 요약 -->
+  <div class="cui-card">
+    <div class="cui-card-header">popup.open() 주요 옵션</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th style="width:150px">옵션</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>type</code></td><td>0: 기본, 1: 페이지, 2: iframe</td></tr>
+          <tr><td><code>title</code></td><td>팝업 제목 (false로 숨김)</td></tr>
+          <tr><td><code>content</code></td><td>팝업 내용 (HTML 또는 URL)</td></tr>
+          <tr><td><code>area</code></td><td>크기 ['너비', '높이']</td></tr>
+          <tr><td><code>offset</code></td><td>위치 ['top', 'left'] 또는 'auto'</td></tr>
+          <tr><td><code>btn</code></td><td>버튼 배열 ['확인', '취소']</td></tr>
+          <tr><td><code>skin</code></td><td>스킨 클래스명</td></tr>
+          <tr><td><code>shade</code></td><td>배경 투명도 (0~1)</td></tr>
+          <tr><td><code>maxmin</code></td><td>최대/최소화 버튼</td></tr>
+          <tr><td><code>yes</code></td><td>확인 콜백</td></tr>
+          <tr><td><code>cancel</code></td><td>취소 콜백</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+  Catui.use(['popup'], function(){
+    
+    // 기본 커스텀 팝업
+    window.showBasicPopup = function(){
+      popup.open({
+        title: '기본 팝업',
+        content: '<div style="padding:20px;"><h4>팝업 제목</h4><p>팝업 내용입니다. 다양한 HTML 콘텐츠를 넣을 수 있습니다.</p></div>',
+        area: ['400px', '250px'],
+        btn: ['확인', '취소'],
+        yes: function(idx){
+          popup.close(idx);
+          popup.msg('확인됨', { icon: 0 });
+        }
+      });
+    };
+    
+    // 큰 팝업
+    window.showLargePopup = function(){
+      popup.open({
+        title: '큰 팝업',
+        content: '<div style="padding:30px;"><h3>큰 팝업</h3><p>더 많은 콘텐츠를 담을 수 있는 큰 팝업입니다.</p><p>스크롤이 필요한 경우 자동으로 스크롤바가 생깁니다.</p></div>',
+        area: ['600px', '400px'],
+        btn: ['확인'],
+        yes: function(idx){ popup.close(idx); }
+      });
+    };
+    
+    // 제목 없는 팝업
+    window.showNoTitlePopup = function(){
+      popup.open({
+        title: false,
+        content: '<div style="padding:30px;text-align:center;"><h3>제목 없는 팝업</h3><p>깔끔한 스타일의 팝업입니다.</p><button class="cui-btn cui-btn-primary" onclick="popup.closeAll()">닫기</button></div>',
+        area: ['350px', '200px']
+      });
+    };
+    
+    // 최대화 팝업
+    window.showMaxPopup = function(){
+      popup.open({
+        title: '최대화 가능',
+        content: '<div style="padding:20px;"><p>최대화/최소화 버튼이 있는 팝업입니다.</p></div>',
+        area: ['500px', '300px'],
+        maxmin: true,
+        btn: ['확인'],
+        yes: function(idx){ popup.close(idx); }
+      });
+    };
+    
+    // Drawer
+    window.showDrawer = function(direction){
+      var labels = { r: '오른쪽', l: '왼쪽', t: '위쪽', b: '아래쪽' };
+      var isVertical = direction === 't' || direction === 'b';
+      popup.drawer({
+        title: labels[direction] + ' Drawer',
+        content: '<div style="padding:20px;"><p>' + labels[direction] + '에서 슬라이드되어 나타나는 패널입니다.</p><p>메뉴, 설정, 상세 정보 등에 활용할 수 있습니다.</p></div>',
+        direction: direction,
+        size: isVertical ? '250px' : '350px'
+      });
+    };
+    
+    // Drawer (타이틀 없음)
+    window.showDrawerNoTitle = function(direction){
+      var labels = { r: '오른쪽', l: '왼쪽' };
+      popup.drawer({
+        title: false,
+        content: '<div style="padding:20px;">' +
+          '<h4 style="margin-bottom:15px;">타이틀 없는 Drawer</h4>' +
+          '<p>' + labels[direction] + ' 방향 패널입니다.</p>' +
+          '<p class="cui-text-secondary">title: false 옵션으로 타이틀을 숨길 수 있습니다.</p>' +
+          '<button class="cui-btn cui-btn-primary cui-mt-15" onclick="popup.closeAll()">닫기</button>' +
+        '</div>',
+        direction: direction,
+        size: '320px'
+      });
+    };
+    
+    // 페이지 로드
+    window.showPagePopup = function(){
+      popup.open({
+        type: 2,
+        title: '페이지 로드',
+        area: ['70%', '70%'],
+        content: '/examples/router/pages/home.html'
+      });
+    };
+    
+    // 전체화면 페이지 로드
+    window.showFullPagePopup = function(){
+      popup.open({
+        type: 2,
+        title: '전체화면',
+        area: ['100%', '100%'],
+        content: '/examples/router/pages/home.html',
+        maxmin: true
+      });
+    };
+    
+    // 스킨 팝업
+    window.showSkinPopup = function(skin){
+      popup.open({
+        title: skin.charAt(0).toUpperCase() + skin.slice(1) + ' 스킨',
+        content: '<div style="padding:20px;"><p>' + skin + ' 색상이 적용된 팝업입니다.</p></div>',
+        area: ['350px', '200px'],
+        skin: 'cui-popup-skin-' + skin,
+        btn: ['확인'],
+        yes: function(idx){ popup.close(idx); }
+      });
+    };
+    
+    // 로그인 폼 팝업
+    window.showFormPopup = function(){
+      var formHtml = '<div style="padding:25px 30px;">' +
+        '<div style="text-align:center;margin-bottom:20px;">' +
+          '<i class="cui-icon" style="font-size:48px;color:var(--cui-primary);">account_circle</i>' +
+        '</div>' +
+        '<div class="cui-form-group cui-mb-15">' +
+          '<div class="cui-input-wrap">' +
+            '<span class="cui-input-prefix"><i class="cui-icon">person</i></span>' +
+            '<input type="text" class="cui-input" id="popupUserId" placeholder="아이디">' +
+          '</div>' +
+        '</div>' +
+        '<div class="cui-form-group cui-mb-15">' +
+          '<div class="cui-input-wrap">' +
+            '<span class="cui-input-prefix"><i class="cui-icon">lock</i></span>' +
+            '<input type="password" class="cui-input" id="popupUserPw" placeholder="비밀번호">' +
+          '</div>' +
+        '</div>' +
+        '<div class="cui-form-group cui-flex cui-flex-between cui-flex-middle">' +
+          '<label class="cui-checkbox"><input type="checkbox"> 로그인 유지</label>' +
+          '<a href="javascript:;" style="font-size:12px;color:var(--cui-primary);">비밀번호 찾기</a>' +
+        '</div>' +
+      '</div>';
+      
+      popup.open({
+        title: '로그인',
+        content: formHtml,
+        area: ['360px', 'auto'],
+        btn: ['로그인', '취소'],
+        yes: function(idx){
+          var id = document.getElementById('popupUserId').value;
+          var pw = document.getElementById('popupUserPw').value;
+          if(!id || !pw){
+            popup.msg('아이디와 비밀번호를 입력하세요', { icon: 2 });
+            return;
+          }
+          popup.close(idx);
+          popup.msg('로그인 성공: ' + id, { icon: 0 });
+        }
+      });
+    };
+    
+    // 문의 폼 팝업
+    window.showContactForm = function(){
+      var formHtml = '<div style="padding:20px 25px;">' +
+        '<div class="cui-row">' +
+          '<div class="cui-col-6 cui-mb-15">' +
+            '<div class="cui-input-wrap">' +
+              '<span class="cui-input-prefix"><i class="cui-icon">person</i></span>' +
+              '<input type="text" class="cui-input" placeholder="이름">' +
+            '</div>' +
+          '</div>' +
+          '<div class="cui-col-6 cui-mb-15">' +
+            '<div class="cui-input-wrap">' +
+              '<span class="cui-input-prefix"><i class="cui-icon">phone</i></span>' +
+              '<input type="tel" class="cui-input" placeholder="연락처">' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="cui-form-group cui-mb-15">' +
+          '<div class="cui-input-wrap">' +
+            '<span class="cui-input-prefix"><i class="cui-icon">email</i></span>' +
+            '<input type="email" class="cui-input" placeholder="이메일">' +
+          '</div>' +
+        '</div>' +
+        '<div class="cui-form-group cui-mb-15">' +
+          '<div class="cui-input-wrap">' +
+            '<span class="cui-input-prefix"><i class="cui-icon">subject</i></span>' +
+            '<input type="text" class="cui-input" placeholder="제목">' +
+          '</div>' +
+        '</div>' +
+        '<div class="cui-form-group">' +
+          '<textarea class="cui-textarea" rows="4" placeholder="문의 내용을 입력하세요" style="resize:none;"></textarea>' +
+        '</div>' +
+      '</div>';
+      
+      popup.open({
+        title: '문의하기',
+        content: formHtml,
+        area: ['480px', 'auto'],
+        btn: ['보내기', '취소'],
+        yes: function(idx){
+          popup.close(idx);
+          popup.msg('문의가 접수되었습니다', { icon: 0 });
+        }
+      });
+    };
+    
+    // 위치 옵션 팝업
+    window.showOffsetPopup = function(position){
+      var labels = { auto: '중앙', t: '상단', b: '하단', lt: '좌상단', rb: '우하단' };
+      popup.open({
+        title: labels[position] + ' 위치',
+        content: '<div style="padding:20px;"><p>offset: "' + position + '"</p></div>',
+        area: ['300px', '150px'],
+        offset: position,
+        btn: ['확인'],
+        yes: function(idx){ popup.close(idx); }
+      });
+    };
+    
+    // 사진 뷰어
+    window.showPhotos = function(){
+      popup.photos({
+        photos: {
+          data: [
+            { src: 'https://picsum.photos/800/600?random=1', alt: '샘플 이미지 1' },
+            { src: 'https://picsum.photos/800/600?random=2', alt: '샘플 이미지 2' },
+            { src: 'https://picsum.photos/800/600?random=3', alt: '샘플 이미지 3' }
+          ],
+          start: 0
+        }
+      });
+    };
+  });
+</script>

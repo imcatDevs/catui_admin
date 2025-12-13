@@ -1,0 +1,213 @@
+<!-- 대시보드2 - 분석 중심 -->
+<div class="cui-p-15">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">대시보드2</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <span>대시보드2</span>
+    </div>
+  </div>
+  
+  
+  <!-- 주요 지표 -->
+  <div class="cui-row cui-row-space10">
+    <div class="cui-col-md8 cui-mb-10">
+      <div class="cui-card">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>주요 성과 지표</span>
+          <i class="cui-icon cui-text-secondary">more_vert</i>
+        </div>
+        <div class="cui-card-body">
+          <!-- 지표 요약 -->
+          <div class="cui-p-15 cui-mb-20" style="border:1px solid var(--cui-border-color);border-radius:4px;">
+            <div class="cui-row cui-text-center">
+              <div class="cui-col-xs3">
+                <div class="cui-text-xl cui-text-bold">89.2%</div>
+                <div class="cui-text-secondary cui-text-xs">전환율</div>
+                <div class="cui-text-success cui-text-xs">▲ 2.4%</div>
+              </div>
+              <div class="cui-col-xs3">
+                <div class="cui-text-xl cui-text-bold">₩45,200</div>
+                <div class="cui-text-secondary cui-text-xs">평균 주문액</div>
+                <div class="cui-text-success cui-text-xs">▲ 8.1%</div>
+              </div>
+              <div class="cui-col-xs3">
+                <div class="cui-text-xl cui-text-bold">3.2분</div>
+                <div class="cui-text-secondary cui-text-xs">평균 체류시간</div>
+                <div class="cui-text-danger cui-text-xs">▼ 0.5분</div>
+              </div>
+              <div class="cui-col-xs3">
+                <div class="cui-text-xl cui-text-bold">24.5%</div>
+                <div class="cui-text-secondary cui-text-xs">이탈률</div>
+                <div class="cui-text-danger cui-text-xs">▲ 1.2%</div>
+              </div>
+            </div>
+          </div>
+          <!-- 테이블 -->
+          <table class="cui-table cui-table-hover">
+            <thead>
+              <tr>
+                <th>페이지</th>
+                <th>방문수</th>
+                <th>전환수</th>
+                <th>전환율</th>
+                <th>상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>메인 페이지</td>
+                <td>12,450</td>
+                <td>1,245</td>
+                <td>10.0%</td>
+                <td><span class="cui-badge cui-badge-success">우수</span></td>
+              </tr>
+              <tr>
+                <td>상품 목록</td>
+                <td>8,320</td>
+                <td>582</td>
+                <td>7.0%</td>
+                <td><span class="cui-badge cui-badge-primary">양호</span></td>
+              </tr>
+              <tr>
+                <td>상품 상세</td>
+                <td>5,680</td>
+                <td>340</td>
+                <td>6.0%</td>
+                <td><span class="cui-badge cui-badge-warning">주의</span></td>
+              </tr>
+              <tr>
+                <td>장바구니</td>
+                <td>2,150</td>
+                <td>86</td>
+                <td>4.0%</td>
+                <td><span class="cui-badge cui-badge-danger">개선필요</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-md4 cui-mb-10">
+      <div class="cui-card">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>트래픽 소스</span>
+          <i class="cui-icon cui-text-secondary">more_vert</i>
+        </div>
+        <div class="cui-card-body cui-text-center">
+          <div class="cui-mb-20" style="width:120px;height:120px;border-radius:50%;background:conic-gradient(#339af0 0% 35%,#40c057 35% 60%,#fd7e14 60% 80%,#e9ecef 80% 100%);margin:0 auto;display:flex;align-items:center;justify-content:center">
+            <div style="width:80px;height:80px;background:var(--cui-bg-card);border-radius:50%"></div>
+          </div>
+          <div class="cui-list cui-text-left cui-text-sm">
+            <div class="cui-list-item cui-flex cui-flex-middle cui-gap-8">
+              <span class="cui-badge-dot cui-bg-primary"></span>
+              <span>직접 방문</span>
+              <span class="cui-ml-auto">35%</span>
+            </div>
+            <div class="cui-list-item cui-flex cui-flex-middle cui-gap-8">
+              <span class="cui-badge-dot cui-bg-success"></span>
+              <span>검색 엔진</span>
+              <span class="cui-ml-auto">25%</span>
+            </div>
+            <div class="cui-list-item cui-flex cui-flex-middle cui-gap-8">
+              <span class="cui-badge-dot cui-bg-warning"></span>
+              <span>소셜 미디어</span>
+              <span class="cui-ml-auto">20%</span>
+            </div>
+            <div class="cui-list-item cui-flex cui-flex-middle cui-gap-8">
+              <span class="cui-badge-dot cui-bg-gray"></span>
+              <span>기타</span>
+              <span class="cui-ml-auto">20%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 시스템 정보 & 할 일 -->
+  <div class="cui-row cui-row-space10">
+    <div class="cui-col-md4 cui-mb-10">
+      <div class="cui-card">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>시스템 정보</span>
+          <i class="cui-icon cui-text-secondary">refresh</i>
+        </div>
+        <div class="cui-card-body">
+          <div class="cui-list cui-text-sm">
+            <div class="cui-list-item cui-flex cui-flex-between">
+              <span class="cui-text-secondary">프레임워크</span>
+              <span>CatUI v1.0.0</span>
+            </div>
+            <div class="cui-list-item cui-flex cui-flex-between">
+              <span class="cui-text-secondary">서버 상태</span>
+              <span class="cui-badge cui-badge-success">정상</span>
+            </div>
+            <div class="cui-list-item cui-flex cui-flex-between">
+              <span class="cui-text-secondary">마지막 배포</span>
+              <span>2024-01-15</span>
+            </div>
+            <div class="cui-list-item cui-flex cui-flex-between">
+              <span class="cui-text-secondary">DB 연결</span>
+              <span class="cui-badge cui-badge-success">연결됨</span>
+            </div>
+            <div class="cui-list-item cui-flex cui-flex-between">
+              <span class="cui-text-secondary">캐시 상태</span>
+              <span class="cui-badge cui-badge-primary">활성</span>
+            </div>
+            <div class="cui-list-item cui-flex cui-flex-between">
+              <span class="cui-text-secondary">SSL 인증서</span>
+              <span class="cui-badge cui-badge-success">유효</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-md8 cui-mb-10">
+      <div class="cui-card">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>오늘의 할 일</span>
+          <i class="cui-icon cui-text-secondary">add</i>
+        </div>
+        <div class="cui-card-body">
+          <div class="cui-bg-gray cui-radius cui-p-10 cui-mb-10 cui-flex cui-flex-middle cui-gap-12">
+            <span class="cui-checkbox cui-checkbox-checked"><i class="cui-icon cui-text-white cui-text-sm">check</i></span>
+            <div class="cui-flex-item">
+              <div>주간 보고서 작성</div>
+              <div class="cui-text-secondary cui-text-xs">마감: 오후 2:00</div>
+            </div>
+            <span class="cui-badge cui-badge-danger">높음</span>
+          </div>
+          <div class="cui-bg-gray cui-radius cui-p-10 cui-mb-10 cui-flex cui-flex-middle cui-gap-12">
+            <span class="cui-checkbox"></span>
+            <div class="cui-flex-item">
+              <div>신규 기능 테스트</div>
+              <div class="cui-text-secondary cui-text-xs">마감: 오후 5:00</div>
+            </div>
+            <span class="cui-badge cui-badge-warning">중간</span>
+          </div>
+          <div class="cui-bg-gray cui-radius cui-p-10 cui-mb-10 cui-flex cui-flex-middle cui-gap-12">
+            <span class="cui-checkbox"></span>
+            <div class="cui-flex-item">
+              <div>고객 문의 응대</div>
+              <div class="cui-text-secondary cui-text-xs">마감: 오후 6:00</div>
+            </div>
+            <span class="cui-badge cui-badge-success">낮음</span>
+          </div>
+          <div class="cui-bg-gray cui-radius cui-p-10 cui-flex cui-flex-middle cui-gap-12">
+            <span class="cui-checkbox"></span>
+            <div class="cui-flex-item">
+              <div>데이터베이스 백업</div>
+              <div class="cui-text-secondary cui-text-xs">마감: 오후 11:00</div>
+            </div>
+            <span class="cui-badge cui-badge-warning">중간</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,154 @@
+[
+  {
+    "title": "홈",
+    "icon": "home",
+    "open": true,
+    "children": [
+      { "title": "대시보드", "icon": "dashboard", "href": "/examples/router/pages/home.html" },
+      { "title": "통계 대시보드", "icon": "bar_chart", "href": "/examples/router/pages/dashboard1.html" },
+      { "title": "분석 대시보드", "icon": "analytics", "href": "/examples/router/pages/dashboard2.html" }
+    ]
+  },
+  {
+    "title": "컴포넌트",
+    "icon": "widgets",
+    "children": [
+      { "title": "그리드", "icon": "grid_view", "href": "/examples/router/pages/grid.html" },
+      { "title": "버튼", "icon": "smart_button", "href": "/examples/router/pages/button.html" },
+      {
+        "title": "폼",
+        "icon": "edit_note",
+        "children": [
+          { "title": "폼 요소", "icon": "input", "href": "/examples/router/pages/form-element.html" },
+          { "title": "폼 그룹", "icon": "view_agenda", "href": "/examples/router/pages/form-group.html" }
+        ]
+      },
+      { "title": "네비게이션", "icon": "menu", "href": "/examples/router/pages/navigation.html" },
+      { "title": "드롭다운", "icon": "arrow_drop_down_circle", "href": "/examples/router/pages/dropdown.html" },
+      {
+        "title": "업로드",
+        "icon": "cloud_upload",
+        "children": [
+          { "title": "일반 예제", "icon": "upload_file", "href": "/examples/router/pages/upload-basic.html" },
+          { "title": "고급 예제", "icon": "drive_folder_upload", "href": "/examples/router/pages/upload-advanced.html" }
+        ]
+      },
+      { "title": "탭", "icon": "tab", "href": "/examples/router/pages/tabs.html" },
+      { "title": "프로그레스", "icon": "donut_large", "href": "/examples/router/pages/progress.html" },
+      {
+        "title": "페이지네이션",
+        "icon": "more_horiz",
+        "children": [
+          { "title": "일반 예제", "icon": "apps", "href": "/examples/router/pages/page-basic.html" },
+          { "title": "고급 예제", "icon": "settings", "href": "/examples/router/pages/page-advanced.html" }
+        ]
+      },
+      { "title": "카드", "icon": "crop_portrait", "href": "/examples/router/pages/card.html" },
+      { "title": "뱃지", "icon": "new_releases", "href": "/examples/router/pages/badge.html" },
+      { "title": "타임라인", "icon": "timeline", "href": "/examples/router/pages/timeline.html" },
+      { "title": "애니메이션", "icon": "animation", "href": "/examples/router/pages/animation.html" },
+      {
+        "title": "팝업예제",
+        "icon": "edit_note",
+        "children": [
+          { "title": "기본팝업", "icon": "input", "href": "/examples/router/pages/popup.html" },
+          { "title": "고급팝업", "icon": "view_agenda", "href": "/examples/router/pages/popup2.html" }
+        ]
+      },
+      { "title": "날짜시간", "icon": "event", "href": "/examples/router/pages/datepicker.html" },
+      { "title": "Transfer", "icon": "swap_horiz", "href": "/examples/router/pages/transfer.html" },
+      { "title": "트리", "icon": "account_tree", "href": "/examples/router/pages/tree.html" },
+      { "title": "Colorpicker", "icon": "palette", "href": "/examples/router/pages/colorpicker.html" },
+      { "title": "Slider", "icon": "linear_scale", "href": "/examples/router/pages/slider.html" },
+      { "title": "Rate", "icon": "star", "href": "/examples/router/pages/rate.html" },
+      { "title": "Carousel", "icon": "view_carousel", "href": "/examples/router/pages/carousel.html" },
+      {
+        "title": "테이블예제",
+        "icon": "table_chart",
+        "children": [
+          { "title": "기본 테이블", "icon": "table_rows", "href": "/examples/router/pages/table.html" },
+          { "title": "자동 열 너비", "icon": "view_week", "href": "/examples/router/pages/table-auto-width.html" },
+          { "title": "데이터 할당", "icon": "dataset", "href": "/examples/router/pages/table-local-data.html" },
+          { "title": "스타일 변형", "icon": "style", "href": "/examples/router/pages/table-static.html" },
+          { "title": "페이지네이션", "icon": "last_page", "href": "/examples/router/pages/table-page.html" },
+          { "title": "커스텀 페이지", "icon": "tune", "href": "/examples/router/pages/table-page-custom.html" },
+          { "title": "헤더 툴바", "icon": "build", "href": "/examples/router/pages/table-toolbar.html" },
+          { "title": "합계행", "icon": "functions", "href": "/examples/router/pages/table-totalrow.html" },
+          { "title": "높이/스크롤", "icon": "height", "href": "/examples/router/pages/table-height.html" },
+          { "title": "체크박스", "icon": "check_box", "href": "/examples/router/pages/table-checkbox.html" },
+          { "title": "셀 편집", "icon": "edit", "href": "/examples/router/pages/table-edit.html" },
+          { "title": "정렬", "icon": "sort", "href": "/examples/router/pages/table-sort.html" },
+          { "title": "템플릿", "icon": "code", "href": "/examples/router/pages/table-templet.html" },
+          { "title": "이벤트", "icon": "touch_app", "href": "/examples/router/pages/table-events.html" },
+          { "title": "원격 데이터", "icon": "cloud_download", "href": "/examples/router/pages/table-url.html" },
+          { "title": "복잡한 헤더", "icon": "view_column", "href": "/examples/router/pages/table-header.html" },
+          { "title": "API 메서드", "icon": "api", "href": "/examples/router/pages/table-api.html" },
+          { "title": "JSON 데이터", "icon": "data_object", "href": "/examples/router/pages/table-json.html" }
+        ]
+      },
+      { "title": "타이머", "icon": "timer", "href": "/examples/router/pages/timer.html" },
+      { "title": "코드", "icon": "code", "href": "/examples/router/pages/code.html" },
+      { "title": "Flow 무한스크롤", "icon": "all_inclusive", "href": "/examples/router/pages/flow.html" },
+      {
+        "title": "유틸리티",
+        "icon": "handyman",
+        "children": [
+          { "title": "일반 예제", "icon": "build", "href": "/examples/router/pages/util-basic.html" },
+          { "title": "고급 예제", "icon": "engineering", "href": "/examples/router/pages/util-advanced.html" }
+        ]
+      },
+      { "title": "기타 컴포넌트", "icon": "extension", "href": "/examples/router/pages/components.html" }
+    ]
+  },
+  {
+    "title": "페이지",
+    "icon": "article",
+    "children": [
+      { "title": "개인 페이지", "icon": "person", "href": "/examples/router/pages/profile.html" },
+      { "title": "연락처", "icon": "contacts", "href": "/examples/router/pages/contacts.html" },
+      { "title": "검색", "icon": "search", "href": "/examples/router/pages/search.html" },
+      { "title": "설정", "icon": "settings", "href": "/examples/router/pages/settings.html" },
+      { "title": "FAQ", "icon": "help", "href": "/examples/router/pages/faq.html" },
+      { "title": "가격표", "icon": "attach_money", "href": "/examples/router/pages/pricing.html" },
+      { "title": "인보이스", "icon": "receipt", "href": "/examples/router/pages/invoice.html" },
+      { "title": "로그인", "icon": "login", "href": "/examples/router/pages/login.html" },
+      { "title": "갤러리", "icon": "photo_library", "href": "/examples/router/pages/gallery.html" },
+      { "title": "메일함", "icon": "mail", "href": "/examples/router/pages/mailbox.html" },
+      { "title": "타임라인", "icon": "timeline", "href": "/examples/router/pages/timeline.html" },
+      { "title": "404 에러", "icon": "error", "href": "/examples/router/pages/error404.html" }
+    ]
+  },
+  {
+    "title": "애플리케이션",
+    "icon": "apps",
+    "children": [
+      { "title": "콘텐츠 관리", "icon": "description", "href": "/examples/router/pages/content.html" },
+      { "title": "커뮤니티", "icon": "forum", "href": "/examples/router/pages/forum.html" },
+      { "title": "알림 센터", "icon": "notifications", "href": "/examples/router/pages/notification.html" }
+    ]
+  },
+  {
+    "title": "사용자",
+    "icon": "people",
+    "children": [
+      { "title": "회원 관리", "icon": "person", "href": "/examples/router/pages/users.html" },
+      { "title": "관리자", "icon": "admin_panel_settings", "href": "/examples/router/pages/admins.html" },
+      { "title": "권한 관리", "icon": "security", "href": "/examples/router/pages/roles.html" }
+    ]
+  },
+  {
+    "title": "설정",
+    "icon": "settings",
+    "children": [
+      { "title": "사이트 설정", "icon": "language", "href": "/examples/router/pages/site-settings.html" },
+      { "title": "이메일 설정", "icon": "email", "href": "/examples/router/pages/email-settings.html" },
+      { "title": "내 정보", "icon": "account_circle", "href": "/examples/router/pages/my-info.html" },
+      { "title": "비밀번호 변경", "icon": "lock", "href": "/examples/router/pages/password.html" }
+    ]
+  },
+  {
+    "title": "정보",
+    "icon": "info",
+    "href": "/examples/router/pages/about.html"
+  }
+]

@@ -1,0 +1,159 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">헤더 툴바</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>툴바</span>
+    </div>
+  </div>
+
+  <!-- 기본 툴바 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 툴바</span>
+      <code class="cui-text-secondary">toolbar: true</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">기본 툴바(열 필터, 내보내기, 인쇄)를 표시합니다.</p>
+      <table id="tableToolbar"></table>
+    </div>
+  </div>
+
+  <!-- 커스텀 툴바 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>커스텀 툴바</span>
+      <code class="cui-text-secondary">toolbar: '#myToolbar'</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">템플릿을 지정하여 커스텀 툴바를 만듭니다.</p>
+      <table id="tableCustomToolbar"></table>
+    </div>
+  </div>
+
+  <!-- 선택적 기본 툴바 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>선택적 기본 툴바</span>
+      <code class="cui-text-secondary">defaultToolbar: ['filter']</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">기본 툴바 중 일부만 선택적으로 표시합니다.</p>
+      <table id="tableSelectToolbar"></table>
+    </div>
+  </div>
+</div>
+
+<!-- 커스텀 툴바 템플릿 -->
+<script type="text/html" id="myToolbar">
+  <div class="cui-flex cui-gap-10">
+    <button class="cui-btn cui-btn-sm cui-btn-primary" cui-event="add"><i class="cui-icon">add</i> 추가</button>
+    <button class="cui-btn cui-btn-sm cui-btn-danger" cui-event="deleteSelected"><i class="cui-icon">delete</i> 선택 삭제</button>
+    <button class="cui-btn cui-btn-sm" cui-event="refresh"><i class="cui-icon">refresh</i> 새로고침</button>
+  </div>
+</script>
+
+<!-- 행 도구 템플릿 -->
+<script type="text/html" id="rowTools">
+  <button class="cui-btn cui-btn-xs" cui-event="view">상세</button>
+  <button class="cui-btn cui-btn-xs cui-btn-primary" cui-event="edit">수정</button>
+  <button class="cui-btn cui-btn-xs cui-btn-danger" cui-event="del">삭제</button>
+</script>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  var sampleData = [
+    { id: 1, name: '홍길동', email: 'hong@test.com', role: '관리자' },
+    { id: 2, name: '김철수', email: 'kim@test.com', role: '편집자' },
+    { id: 3, name: '이영희', email: 'lee@test.com', role: '뷰어' },
+    { id: 4, name: '박지민', email: 'park@test.com', role: '편집자' },
+    { id: 5, name: '최수진', email: 'choi@test.com', role: '뷰어' }
+  ];
+
+  // 기본 툴바
+  table.render({
+    elem: '#tableToolbar',
+    data: sampleData,
+    toolbar: true,
+    cols: [[
+      { type: 'checkbox' },
+      { field: 'id', title: 'ID', width: 80, sort: true },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'role', title: '역할', width: 100 }
+    ]]
+  });
+
+  // 커스텀 툴바
+  table.render({
+    elem: '#tableCustomToolbar',
+    id: 'customToolbarTable',
+    data: sampleData,
+    toolbar: '#myToolbar',
+    cols: [[
+      { type: 'checkbox' },
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'role', title: '역할', width: 100 },
+      { title: '작업', width: 180, toolbar: '#rowTools' }
+    ]]
+  });
+
+  // 툴바 이벤트
+  table.on('toolbar(customToolbarTable)', function(obj){
+    if(obj.event === 'add'){
+      popup.prompt('이름을 입력하세요', function(name){
+        popup.msg('추가: ' + name);
+      });
+    } else if(obj.event === 'deleteSelected'){
+      var checked = table.checkStatus('customToolbarTable');
+      if(checked.data.length === 0){
+        popup.msg('선택된 항목이 없습니다', { icon: 'warning' });
+      } else {
+        popup.confirm(checked.data.length + '건을 삭제하시겠습니까?');
+      }
+    } else if(obj.event === 'refresh'){
+      table.reload('customToolbarTable');
+      popup.msg('새로고침 완료');
+    }
+  });
+
+  // 행 도구 이벤트
+  table.on('tool(customToolbarTable)', function(obj){
+    if(obj.event === 'view'){
+      popup.alert('상세 정보:\n' + JSON.stringify(obj.data, null, 2));
+    } else if(obj.event === 'edit'){
+      popup.prompt('이름 수정', { value: obj.data.name }, function(name){
+        obj.update({ name: name });
+        popup.msg('수정 완료');
+      });
+    } else if(obj.event === 'del'){
+      popup.confirm('삭제하시겠습니까?', function(){
+        obj.del();
+        popup.msg('삭제 완료');
+      });
+    }
+  });
+
+  // 선택적 기본 툴바
+  table.render({
+    elem: '#tableSelectToolbar',
+    data: sampleData,
+    toolbar: true,
+    defaultToolbar: ['filter', 'exports'],
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'role', title: '역할', width: 100 }
+    ]]
+  });
+});
+</script>
+</div>

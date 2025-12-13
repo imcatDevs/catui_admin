@@ -189,13 +189,18 @@
           + '<i class="cui-icon cui-popup-max" title="최대화">crop_square</i>'
           + '</span>';
       }
+      
+      // 닫기 버튼
+      if(config.closeBtn){
+        html += '<i class="cui-icon cui-popup-close" data-close="true">close</i>';
+      }
+      
       html += '</div>';
-    }
-    
-    // 닫기 버튼
-    if(config.closeBtn){
-      var closeBtnStyle = config.title === false ? ' style="top:5px;right:5px;"' : '';
-      html += '<span class="cui-popup-close"' + closeBtnStyle + '><i class="cui-icon">close</i></span>';
+    } else {
+      // 제목 없을 때 닫기 버튼
+      if(config.closeBtn){
+        html += '<i class="cui-icon cui-popup-close" data-close="true" style="position:absolute;top:10px;right:10px;">close</i>';
+      }
     }
     
     // 내용
@@ -1289,9 +1294,20 @@
         ,closeBtn: false
         ,move: '.cui-popup-photos-main'
         ,moveOut: true
+        ,offset: 'auto'
         ,success: function(layero, index){
           var $layero = $c(layero);
           var img = $layero.find('.cui-popup-photos-img')[0];
+          
+          // 이미지 로드 후 위치 재계산
+          img.onload = function(){
+            var winW = window.innerWidth;
+            var winH = window.innerHeight;
+            var popW = layero.offsetWidth;
+            var popH = layero.offsetHeight;
+            layero.style.top = Math.max(0, (winH - popH) / 2) + 'px';
+            layero.style.left = Math.max(0, (winW - popW) / 2) + 'px';
+          };
           
           // 이전/다음
           if(data.length > 1){

@@ -1,0 +1,285 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">탭 (Tab)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>탭</span>
+    </div>
+  </div>
+  
+  <!-- 기본 탭 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 탭</span>
+      <code class="cui-text-secondary">.cui-tab</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-tab" cui-filter="demoTab1">
+        <ul class="cui-tab-title">
+          <li class="cui-this">탭 1</li>
+          <li>탭 2</li>
+          <li>탭 3</li>
+        </ul>
+        <div class="cui-tab-content">
+          <div class="cui-tab-item cui-show">첫 번째 탭 내용입니다.</div>
+          <div class="cui-tab-item">두 번째 탭 내용입니다.</div>
+          <div class="cui-tab-item">세 번째 탭 내용입니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 탭 위치 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">탭 위치</div>
+    <div class="cui-card-body">
+      <h4 class="cui-mb-10">상단 (기본)</h4>
+      <div class="cui-tab cui-mb-15" cui-filter="demoTab2">
+        <ul class="cui-tab-title">
+          <li class="cui-this">메뉴 A</li>
+          <li>메뉴 B</li>
+          <li>메뉴 C</li>
+        </ul>
+        <div class="cui-tab-content">
+          <div class="cui-tab-item cui-show">상단 탭 내용 A</div>
+          <div class="cui-tab-item">상단 탭 내용 B</div>
+          <div class="cui-tab-item">상단 탭 내용 C</div>
+        </div>
+      </div>
+      
+      <h4 class="cui-mb-10">하단 (cui-tab-bottom)</h4>
+      <div class="cui-tab cui-tab-bottom" cui-filter="demoTab3">
+        <div class="cui-tab-content">
+          <div class="cui-tab-item cui-show">하단 탭 내용 A</div>
+          <div class="cui-tab-item">하단 탭 내용 B</div>
+          <div class="cui-tab-item">하단 탭 내용 C</div>
+        </div>
+        <ul class="cui-tab-title">
+          <li class="cui-this">메뉴 A</li>
+          <li>메뉴 B</li>
+          <li>메뉴 C</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 탭 스타일 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">탭 스타일</div>
+    <div class="cui-card-body">
+      <h4 class="cui-mb-10">카드 스타일 (cui-tab-card)</h4>
+      <div class="cui-tab cui-tab-card cui-mb-15" cui-filter="demoTab4">
+        <ul class="cui-tab-title">
+          <li class="cui-this">카드 탭 1</li>
+          <li>카드 탭 2</li>
+          <li>카드 탭 3</li>
+        </ul>
+        <div class="cui-tab-content">
+          <div class="cui-tab-item cui-show">카드 스타일 탭 내용 1</div>
+          <div class="cui-tab-item">카드 스타일 탭 내용 2</div>
+          <div class="cui-tab-item">카드 스타일 탭 내용 3</div>
+        </div>
+      </div>
+      
+      <h4 class="cui-mb-10">버튼 스타일 (cui-tab-button)</h4>
+      <div class="cui-tab cui-tab-button cui-mb-15" cui-filter="demoTab5">
+        <ul class="cui-tab-title">
+          <li class="cui-this">버튼 1</li>
+          <li>버튼 2</li>
+          <li>버튼 3</li>
+        </ul>
+        <div class="cui-tab-content">
+          <div class="cui-tab-item cui-show">버튼 스타일 탭 내용 1</div>
+          <div class="cui-tab-item">버튼 스타일 탭 내용 2</div>
+          <div class="cui-tab-item">버튼 스타일 탭 내용 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 탭 색상 스킨 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">탭 색상 스킨</div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-md-6 cui-mb-15">
+          <h4 class="cui-mb-10">Primary (cui-tab-primary)</h4>
+          <div class="cui-tab cui-tab-primary" cui-filter="demoTabPrimary">
+            <ul class="cui-tab-title">
+              <li class="cui-this">Primary 1</li>
+              <li>Primary 2</li>
+              <li>Primary 3</li>
+            </ul>
+            <div class="cui-tab-content">
+              <div class="cui-tab-item cui-show">Primary 스킨 탭 내용</div>
+              <div class="cui-tab-item">두 번째 내용</div>
+              <div class="cui-tab-item">세 번째 내용</div>
+            </div>
+          </div>
+        </div>
+        <div class="cui-col-md-6 cui-mb-15">
+          <h4 class="cui-mb-10">Success (cui-tab-success)</h4>
+          <div class="cui-tab cui-tab-success" cui-filter="demoTabSuccess">
+            <ul class="cui-tab-title">
+              <li class="cui-this">Success 1</li>
+              <li>Success 2</li>
+              <li>Success 3</li>
+            </ul>
+            <div class="cui-tab-content">
+              <div class="cui-tab-item cui-show">Success 스킨 탭 내용</div>
+              <div class="cui-tab-item">두 번째 내용</div>
+              <div class="cui-tab-item">세 번째 내용</div>
+            </div>
+          </div>
+        </div>
+        <div class="cui-col-md-6 cui-mb-15">
+          <h4 class="cui-mb-10">Warning (cui-tab-warning)</h4>
+          <div class="cui-tab cui-tab-warning" cui-filter="demoTabWarning">
+            <ul class="cui-tab-title">
+              <li class="cui-this">Warning 1</li>
+              <li>Warning 2</li>
+              <li>Warning 3</li>
+            </ul>
+            <div class="cui-tab-content">
+              <div class="cui-tab-item cui-show">Warning 스킨 탭 내용</div>
+              <div class="cui-tab-item">두 번째 내용</div>
+              <div class="cui-tab-item">세 번째 내용</div>
+            </div>
+          </div>
+        </div>
+        <div class="cui-col-md-6 cui-mb-15">
+          <h4 class="cui-mb-10">Danger (cui-tab-danger)</h4>
+          <div class="cui-tab cui-tab-danger" cui-filter="demoTabDanger">
+            <ul class="cui-tab-title">
+              <li class="cui-this">Danger 1</li>
+              <li>Danger 2</li>
+              <li>Danger 3</li>
+            </ul>
+            <div class="cui-tab-content">
+              <div class="cui-tab-item cui-show">Danger 스킨 탭 내용</div>
+              <div class="cui-tab-item">두 번째 내용</div>
+              <div class="cui-tab-item">세 번째 내용</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 다크 & 심플 스킨 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">다크 & 심플 스킨</div>
+    <div class="cui-card-body">
+      <h4 class="cui-mb-10">다크 스킨 (cui-tab-dark)</h4>
+      <div class="cui-tab cui-tab-dark cui-mb-15" cui-filter="demoTabDark">
+        <ul class="cui-tab-title">
+          <li class="cui-this">다크 1</li>
+          <li>다크 2</li>
+          <li>다크 3</li>
+        </ul>
+        <div class="cui-tab-content">
+          <div class="cui-tab-item cui-show">다크 스킨 탭 내용입니다.</div>
+          <div class="cui-tab-item">두 번째 내용</div>
+          <div class="cui-tab-item">세 번째 내용</div>
+        </div>
+      </div>
+      
+      <h4 class="cui-mb-10">심플 스킨 (cui-tab-simple)</h4>
+      <div class="cui-tab cui-tab-simple cui-mb-15" cui-filter="demoTabSimple">
+        <ul class="cui-tab-title">
+          <li class="cui-this">심플 1</li>
+          <li>심플 2</li>
+          <li>심플 3</li>
+        </ul>
+        <div class="cui-tab-content">
+          <div class="cui-tab-item cui-show">심플 스킨 - 테두리 없이 깔끔한 스타일</div>
+          <div class="cui-tab-item">두 번째 내용</div>
+          <div class="cui-tab-item">세 번째 내용</div>
+        </div>
+      </div>
+      
+      <h4 class="cui-mb-10">균등 분배 (cui-tab-fill)</h4>
+      <div class="cui-tab cui-tab-fill" cui-filter="demoTabFill">
+        <ul class="cui-tab-title">
+          <li class="cui-this">균등 1</li>
+          <li>균등 2</li>
+          <li>균등 3</li>
+          <li>균등 4</li>
+        </ul>
+        <div class="cui-tab-content">
+          <div class="cui-tab-item cui-show">균등 분배 - 탭이 전체 너비를 균등하게 차지합니다.</div>
+          <div class="cui-tab-item">두 번째 내용</div>
+          <div class="cui-tab-item">세 번째 내용</div>
+          <div class="cui-tab-item">네 번째 내용</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 탭 닫기 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>탭 닫기 버튼</span>
+      <code class="cui-text-secondary">cui-allowClose</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-tab" cui-filter="demoTab6" cui-allowClose>
+        <ul class="cui-tab-title">
+          <li class="cui-this">닫을 수 있는 탭 1</li>
+          <li>닫을 수 있는 탭 2</li>
+          <li>닫을 수 있는 탭 3</li>
+          <li>닫을 수 있는 탭 4</li>
+        </ul>
+        <div class="cui-tab-content">
+          <div class="cui-tab-item cui-show">탭 1 내용 - 닫기 버튼을 클릭하면 탭이 제거됩니다.</div>
+          <div class="cui-tab-item">탭 2 내용</div>
+          <div class="cui-tab-item">탭 3 내용</div>
+          <div class="cui-tab-item">탭 4 내용</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 클래스 요약 -->
+  <div class="cui-card">
+    <div class="cui-card-header">탭 클래스 요약</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th style="width:200px">클래스/속성</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.cui-tab</code></td><td>탭 컨테이너</td></tr>
+          <tr><td><code>.cui-tab-title</code></td><td>탭 제목 목록</td></tr>
+          <tr><td><code>.cui-tab-content</code></td><td>탭 내용 컨테이너</td></tr>
+          <tr><td><code>.cui-tab-item</code></td><td>각 탭 내용</td></tr>
+          <tr><td><code>.cui-tab-card</code></td><td>카드 스타일 탭</td></tr>
+          <tr><td><code>.cui-tab-button</code></td><td>버튼 스타일 탭</td></tr>
+          <tr><td><code>.cui-tab-primary</code></td><td>Primary 색상 스킨</td></tr>
+          <tr><td><code>.cui-tab-success</code></td><td>Success 색상 스킨</td></tr>
+          <tr><td><code>.cui-tab-warning</code></td><td>Warning 색상 스킨</td></tr>
+          <tr><td><code>.cui-tab-danger</code></td><td>Danger 색상 스킨</td></tr>
+          <tr><td><code>.cui-tab-dark</code></td><td>다크 스킨</td></tr>
+          <tr><td><code>.cui-tab-simple</code></td><td>심플 스킨 (테두리 없음)</td></tr>
+          <tr><td><code>.cui-tab-fill</code></td><td>균등 분배</td></tr>
+          <tr><td><code>.cui-tab-bottom</code></td><td>하단 탭</td></tr>
+          <tr><td><code>cui-filter</code></td><td>탭 식별자 (필수)</td></tr>
+          <tr><td><code>cui-allowClose</code></td><td>탭 닫기 버튼 활성화</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  Catui.use(['element'], function(){
+    element.render();
+  });
+</script>

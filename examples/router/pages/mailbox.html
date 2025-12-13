@@ -1,0 +1,319 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">메일함</h2>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">페이지</a>
+      <span>메일함</span>
+    </div>
+  </div>
+
+  <div class="mail-container">
+    <!-- 사이드바 -->
+    <div class="mail-sidebar">
+      <button class="cui-btn cui-btn-primary cui-btn-block cui-mb-15" id="btnCompose">
+        <i class="cui-icon">edit</i> 새 메일
+      </button>
+      <div class="mail-folders">
+        <a href="javascript:;" class="active" data-folder="inbox">
+          <i class="cui-icon">inbox</i> 받은편지함
+          <span class="mail-badge">12</span>
+        </a>
+        <a href="javascript:;" data-folder="starred">
+          <i class="cui-icon">star</i> 중요
+        </a>
+        <a href="javascript:;" data-folder="sent">
+          <i class="cui-icon">send</i> 보낸편지함
+        </a>
+        <a href="javascript:;" data-folder="draft">
+          <i class="cui-icon">drafts</i> 임시보관함
+          <span class="mail-badge">3</span>
+        </a>
+        <a href="javascript:;" data-folder="spam">
+          <i class="cui-icon">report</i> 스팸
+        </a>
+        <a href="javascript:;" data-folder="trash">
+          <i class="cui-icon">delete</i> 휴지통
+        </a>
+      </div>
+      <div class="mail-labels">
+        <h4>라벨</h4>
+        <a href="javascript:;"><span class="label-dot" style="background:#ff4d4f;"></span> 업무</a>
+        <a href="javascript:;"><span class="label-dot" style="background:#52c41a;"></span> 개인</a>
+        <a href="javascript:;"><span class="label-dot" style="background:#1677ff;"></span> 프로젝트</a>
+        <a href="javascript:;"><span class="label-dot" style="background:#faad14;"></span> 공지</a>
+      </div>
+    </div>
+
+    <!-- 메일 목록 -->
+    <div class="mail-list">
+      <div class="mail-toolbar">
+        <div class="cui-flex cui-gap-10">
+          <label class="mail-checkbox"><input type="checkbox" id="selectAll"></label>
+          <button class="cui-btn cui-btn-sm" title="새로고침"><i class="cui-icon">refresh</i></button>
+          <button class="cui-btn cui-btn-sm" title="보관"><i class="cui-icon">archive</i></button>
+          <button class="cui-btn cui-btn-sm" title="삭제"><i class="cui-icon">delete</i></button>
+        </div>
+        <div class="mail-search">
+          <i class="cui-icon">search</i>
+          <input type="text" placeholder="메일 검색...">
+        </div>
+      </div>
+      <div class="mail-items" id="mailItems"></div>
+    </div>
+
+    <!-- 메일 상세 -->
+    <div class="mail-detail" id="mailDetail" style="display:none;">
+      <div class="mail-detail-header">
+        <button class="cui-btn cui-btn-sm" id="btnBack"><i class="cui-icon">arrow_back</i></button>
+        <div class="mail-detail-actions">
+          <button class="cui-btn cui-btn-sm" title="답장"><i class="cui-icon">reply</i></button>
+          <button class="cui-btn cui-btn-sm" title="전달"><i class="cui-icon">forward</i></button>
+          <button class="cui-btn cui-btn-sm" title="삭제"><i class="cui-icon">delete</i></button>
+        </div>
+      </div>
+      <div class="mail-detail-content">
+        <h2 id="detailSubject"></h2>
+        <div class="mail-detail-meta">
+          <div class="mail-avatar" id="detailAvatar"></div>
+          <div class="mail-sender-info">
+            <div class="mail-sender" id="detailSender"></div>
+            <div class="mail-receiver">받는 사람: <span id="detailReceiver"></span></div>
+          </div>
+          <div class="mail-date" id="detailDate"></div>
+        </div>
+        <div class="mail-body" id="detailBody"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.mail-container {
+  display: flex;
+  gap: 15px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  min-height: calc(100vh - 180px);
+}
+
+.mail-sidebar {
+  width: 220px;
+  padding: 15px;
+  border-right: 1px solid var(--cui-border);
+  flex-shrink: 0;
+}
+
+.mail-folders a, .mail-labels a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  color: var(--cui-text);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.mail-folders a:hover, .mail-labels a:hover { background: var(--cui-fill); }
+.mail-folders a.active { background: var(--cui-primary-bg, rgba(22,119,255,0.1)); color: var(--cui-primary); }
+.mail-folders .cui-icon { font-size: 20px; }
+
+.mail-badge {
+  margin-left: auto;
+  background: var(--cui-primary);
+  color: #fff;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.mail-labels { margin-top: 20px; }
+.mail-labels h4 { font-size: 12px; color: var(--cui-text-secondary); margin: 0 0 10px; padding: 0 12px; }
+.label-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+
+.mail-list { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+
+.mail-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--cui-border);
+}
+
+.mail-checkbox input { width: 16px; height: 16px; }
+
+.mail-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cui-fill);
+  padding: 6px 12px;
+  border-radius: 6px;
+}
+.mail-search .cui-icon { color: var(--cui-text-secondary); font-size: 18px; }
+.mail-search input { border: none; outline: none; background: none; width: 200px; }
+
+.mail-items { flex: 1; overflow-y: auto; }
+
+.mail-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--cui-border);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.mail-item:hover { background: var(--cui-fill); }
+.mail-item.unread { background: rgba(22,119,255,0.05); }
+.mail-item.unread .mail-subject { font-weight: 600; }
+
+.mail-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.mail-content { flex: 1; min-width: 0; }
+.mail-header { display: flex; justify-content: space-between; margin-bottom: 4px; }
+.mail-sender { font-weight: 500; }
+.mail-time { font-size: 12px; color: var(--cui-text-secondary); }
+.mail-subject { margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mail-preview { font-size: 13px; color: var(--cui-text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.mail-star {
+  color: var(--cui-text-muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.mail-star:hover, .mail-star.active { color: #faad14; }
+
+/* 메일 상세 */
+.mail-detail { flex: 1; display: flex; flex-direction: column; }
+
+.mail-detail-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 1px solid var(--cui-border);
+}
+
+.mail-detail-content { padding: 20px; flex: 1; overflow-y: auto; }
+.mail-detail-content h2 { margin: 0 0 20px; font-size: 22px; }
+
+.mail-detail-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--cui-border);
+}
+
+.mail-sender-info { flex: 1; }
+.mail-sender-info .mail-sender { font-weight: 600; margin-bottom: 4px; }
+.mail-receiver { font-size: 13px; color: var(--cui-text-secondary); }
+.mail-date { font-size: 13px; color: var(--cui-text-secondary); }
+
+.mail-body { line-height: 1.8; color: var(--cui-text-secondary); }
+</style>
+
+<script>
+Catui.use(['popup'], function(){
+  var bindEvent = window.router ? router.bindEvent.bind(router) : function(el, type, fn){
+    document.querySelector(el).addEventListener(type, fn);
+  };
+
+  var mails = [
+    { id: 1, sender: '김팀장', email: 'kim@example.com', subject: '[긴급] 프로젝트 일정 변경 안내', preview: '안녕하세요, 프로젝트 일정이 다음과 같이 변경되었습니다...', time: '10:30', unread: true, starred: true, color: '#1677ff' },
+    { id: 2, sender: '이개발', email: 'lee@example.com', subject: 'Re: 코드 리뷰 요청', preview: '리뷰 완료했습니다. 몇 가지 수정 사항이 있어서...', time: '09:15', unread: true, starred: false, color: '#52c41a' },
+    { id: 3, sender: 'GitHub', email: 'noreply@github.com', subject: '[catui] Pull Request #42 merged', preview: 'Merged pull request #42 from feature/new-component...', time: '어제', unread: false, starred: false, color: '#24292e' },
+    { id: 4, sender: '박디자인', email: 'park@example.com', subject: '디자인 시안 전달드립니다', preview: '안녕하세요, 요청하신 디자인 시안 첨부합니다...', time: '어제', unread: false, starred: true, color: '#eb2f96' },
+    { id: 5, sender: 'Google', email: 'no-reply@google.com', subject: '보안 알림: 새 기기에서 로그인', preview: '새 Windows 기기에서 Google 계정에 로그인했습니다...', time: '12/10', unread: false, starred: false, color: '#4285f4' },
+    { id: 6, sender: '최기획', email: 'choi@example.com', subject: '회의록 공유', preview: '오늘 회의 내용 정리해서 공유드립니다...', time: '12/09', unread: false, starred: false, color: '#faad14' }
+  ];
+
+  function renderMails(){
+    var html = mails.map(function(mail){
+      return '<div class="mail-item' + (mail.unread ? ' unread' : '') + '" data-id="' + mail.id + '">' +
+        '<label class="mail-checkbox"><input type="checkbox"></label>' +
+        '<div class="mail-avatar" style="background:' + mail.color + ';">' + mail.sender.charAt(0) + '</div>' +
+        '<div class="mail-content">' +
+          '<div class="mail-header">' +
+            '<span class="mail-sender">' + mail.sender + '</span>' +
+            '<span class="mail-time">' + mail.time + '</span>' +
+          '</div>' +
+          '<div class="mail-subject">' + mail.subject + '</div>' +
+          '<div class="mail-preview">' + mail.preview + '</div>' +
+        '</div>' +
+        '<i class="cui-icon mail-star' + (mail.starred ? ' active' : '') + '">star</i>' +
+      '</div>';
+    }).join('');
+    
+    document.getElementById('mailItems').innerHTML = html;
+  }
+
+  renderMails();
+
+  // 메일 클릭
+  document.getElementById('mailItems').addEventListener('click', function(e){
+    if(e.target.closest('.mail-checkbox')) return;
+    if(e.target.closest('.mail-star')){
+      e.target.classList.toggle('active');
+      return;
+    }
+    
+    var item = e.target.closest('.mail-item');
+    if(!item) return;
+    
+    var id = parseInt(item.getAttribute('data-id'));
+    var mail = mails.find(function(m){ return m.id === id; });
+    
+    item.classList.remove('unread');
+    
+    document.getElementById('detailSubject').textContent = mail.subject;
+    document.getElementById('detailSender').textContent = mail.sender + ' <' + mail.email + '>';
+    document.getElementById('detailReceiver').textContent = 'me@example.com';
+    document.getElementById('detailDate').textContent = mail.time;
+    document.getElementById('detailAvatar').style.background = mail.color;
+    document.getElementById('detailAvatar').textContent = mail.sender.charAt(0);
+    document.getElementById('detailBody').innerHTML = '<p>' + mail.preview + '</p><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p><p>감사합니다.<br>' + mail.sender + ' 드림</p>';
+    
+    document.querySelector('.mail-list').style.display = 'none';
+    document.getElementById('mailDetail').style.display = 'flex';
+  });
+
+  // 뒤로가기
+  bindEvent('#btnBack', 'click', function(){
+    document.getElementById('mailDetail').style.display = 'none';
+    document.querySelector('.mail-list').style.display = 'flex';
+  });
+
+  // 폴더 전환
+  document.querySelectorAll('.mail-folders a').forEach(function(a){
+    a.addEventListener('click', function(){
+      document.querySelectorAll('.mail-folders a').forEach(function(el){ el.classList.remove('active'); });
+      this.classList.add('active');
+      popup.msg(this.textContent.trim() + ' 폴더');
+    });
+  });
+
+  // 새 메일
+  bindEvent('#btnCompose', 'click', function(){
+    popup.msg('메일 작성 기능은 준비 중입니다');
+  });
+});
+</script>

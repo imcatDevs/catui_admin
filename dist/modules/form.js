@@ -43,6 +43,10 @@
         ,number: function(value){
           if(!value || isNaN(value)) return '숫자만 입력할 수 있습니다.';
         }
+        ,pass: [
+          /^[\S]{6,12}$/
+          ,'비밀번호는 6~12자로 입력하세요.'
+        ]
         ,date: [
           /^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/
           ,'날짜 형식이 올바르지 않습니다.'
@@ -236,22 +240,15 @@
             textNode.textContent = '';
           }
 
-          // 대체 요소 생성
+          // 대체 요소 생성 (기본 스타일 = Primary 스타일)
           var reElem = document.createElement('div');
-          reElem.className = 'cui-unselect cui-form-checkbox' 
+          reElem.className = 'cui-unselect cui-form-checkbox cui-form-checkbox-primary' 
             + (item.checked ? ' cui-form-checked' : '')
-            + disabled
-            + (skin === 'primary' ? ' cui-form-checkbox-primary' : '');
+            + disabled;
           
-          if(skin === 'primary'){
-            // Primary 스타일
-            reElem.innerHTML = '<i class="cui-icon">' + (item.checked ? 'check' : '') + '</i>'
-              + (labelText ? '<span>' + labelText + '</span>' : '');
-          } else {
-            // 기본 스타일 (Material Icons)
-            reElem.innerHTML = '<i class="cui-icon">' + (item.checked ? 'check_box' : 'check_box_outline_blank') + '</i>'
-              + (labelText ? '<span>' + labelText + '</span>' : '');
-          }
+          // Primary 스타일 (기본)
+          reElem.innerHTML = '<i class="cui-icon">' + (item.checked ? 'check' : '') + '</i>'
+            + (labelText ? '<span>' + labelText + '</span>' : '');
 
           // input 뒤에 삽입
           item.after(reElem);
@@ -264,11 +261,7 @@
             reElem.classList.toggle('cui-form-checked', item.checked);
             
             var icon = reElem.querySelector('.cui-icon');
-            if(skin === 'primary'){
-              icon.textContent = item.checked ? 'check' : '';
-            } else {
-              icon.textContent = item.checked ? 'check_box' : 'check_box_outline_blank';
-            }
+            icon.textContent = item.checked ? 'check' : '';
 
             triggerEvent('checkbox', item.name || item.getAttribute('cui-filter'), {
               elem: item
@@ -479,15 +472,10 @@
       var input = wrap.previousElementSibling;
       if(!input || input.type !== 'checkbox') return;
       
-      var skin = input.getAttribute('cui-skin') || '';
       wrap.classList.toggle('cui-form-checked', input.checked);
       
       var icon = wrap.querySelector('.cui-icon');
-      if(skin === 'primary'){
-        icon.textContent = input.checked ? 'check' : '';
-      } else {
-        icon.textContent = input.checked ? 'check_box' : 'check_box_outline_blank';
-      }
+      icon.textContent = input.checked ? 'check' : '';
     });
 
     // 라디오 UI 업데이트 (input은 이전 형제 요소)
@@ -515,7 +503,11 @@
 
     // 검증 상태 초기화
     formElem.find('.cui-form-danger, .cui-form-success').removeClass('cui-form-danger cui-form-success');
-    formElem.find('.cui-form-tip').remove();
+    formElem.find('.cui-form-tip-error').remove();
+    
+    // 실시간 검증 바인딩
+    console.log('[form.render] calling autoVerify, elemForm:', elemForm.length);
+    that.autoVerify(elemForm);
 
     return that;
   };
@@ -527,7 +519,45 @@
     ,formElem = $c(ELEM + (filter ? '[cui-filter="' + filter + '"]' : ''));
 
     formElem.find('[cui-verify]').each(function(i, item){
+      // blur 이벤트
       item.addEventListener('blur', function(){
+        that.verifyItem(item);
+      });
+      // change 이벤트 (select, checkbox, radio 등)
+      item.addEventListener('change', function(){
+        that.verifyItem(item);
+      });
+    });
+
+    return that;
+  };
+  
+  // 자동 실시간 검증 바인딩 (render 시 호출)
+  Form.prototype.autoVerify = function(container){
+    var that = this
+    ,$c = get$c();
+    
+    // container가 jQuery 객체인 경우 직접 사용
+    var formElem = container && container.length ? container : $c(ELEM);
+    
+    console.log('[form.autoVerify] formElem count:', formElem.length);
+
+    formElem.find('[cui-verify]').each(function(i, item){
+      console.log('[form.autoVerify] binding:', item);
+      // 이미 바인딩된 경우 스킵
+      if(item.getAttribute('cui-verify-bound')) return;
+      item.setAttribute('cui-verify-bound', 'true');
+      
+      // blur 이벤트
+      item.addEventListener('blur', function(){
+        that.verifyItem(item);
+      });
+      // change 이벤트
+      item.addEventListener('change', function(){
+        that.verifyItem(item);
+      });
+      // input 이벤트 (실시간 검증)
+      item.addEventListener('input', function(){
         that.verifyItem(item);
       });
     });
@@ -689,26 +719,63 @@
     if(eventsBound) return;
     eventsBound = true;
     
+    // 검증 수행 함수
+    function doVerify(formElem, $c){
+      var isValid = true;
+      $c(formElem).find('[cui-verify]').each(function(i, item){
+        var verify = item.getAttribute('cui-verify');
+        if(!verify) return;
+        
+        var rules = verify.split('|');
+        var value = item.value;
+        
+        for(var j = 0; j < rules.length; j++){
+          var rule = form.config.verify[rules[j]];
+          if(!rule) continue;
+          
+          var errMsg = '';
+          if(typeof rule === 'function'){
+            errMsg = rule(value, item);
+          } else if(rule[0] && !rule[0].test(value)){
+            errMsg = rule[1];
+          }
+          
+          if(errMsg){
+            isValid = false;
+            if(window.popup){
+              popup.msg(errMsg, {icon: 2});
+            } else {
+              alert(errMsg);
+            }
+            item.focus();
+            return false;
+          }
+        }
+      });
+      return isValid;
+    }
+    
     // 폼 submit 이벤트
     $c(document).on('submit', ELEM, function(e){
+      e.preventDefault();
+      
       var filter = this.getAttribute('cui-filter') || '';
+      
+      // 검증 수행
+      if(!doVerify(this, $c)) return;
 
       if(window.Catui && Catui.event){
-        var result = Catui.event(MOD_NAME, 'submit(' + filter + ')', {
+        Catui.event(MOD_NAME, 'submit(' + filter + ')', {
           elem: this
           ,field: form.getValue(filter, $c(this))
         });
-        if(result === false){
-          // 기본 동작 방지됨
-        }
       }
-
-      // 폼 기본 제출 방지
-      e.preventDefault();
     });
     
     // cui-submit 버튼 클릭 이벤트
     $c(document).on('click', '[cui-submit]', function(e){
+      e.preventDefault();
+      
       var filter = this.getAttribute('cui-filter') || '';
       var formElem = null;
       
@@ -726,14 +793,15 @@
       
       if(!formElem) return;
       
+      // 검증 수행
+      if(!doVerify(formElem, $c)) return;
+      
       if(window.Catui && Catui.event){
         Catui.event(MOD_NAME, 'submit(' + filter + ')', {
           elem: formElem
           ,field: form.getValue(filter, $c(formElem))
         });
       }
-      
-      e.preventDefault();
     });
   }
 

@@ -1,0 +1,180 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">이벤트 처리</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>이벤트</span>
+    </div>
+  </div>
+
+  <!-- 행 클릭 이벤트 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>행 클릭 이벤트</span>
+      <code class="cui-text-secondary">table.on('row(id)') / table.on('rowDouble(id)')</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">행을 클릭하거나 더블클릭하면 이벤트가 발생합니다.</p>
+      <div id="rowClickLog" class="cui-mb-10" style="height:60px;overflow:auto;background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;"></div>
+      <table id="tableRowClick"></table>
+    </div>
+  </div>
+
+  <!-- 도구 버튼 이벤트 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>도구 버튼 이벤트</span>
+      <code class="cui-text-secondary">table.on('tool(id)')</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">행의 도구 버튼 클릭 시 이벤트가 발생합니다. <code>obj.data</code>, <code>obj.del()</code>, <code>obj.update()</code> 사용 가능.</p>
+      <table id="tableToolEvent"></table>
+    </div>
+  </div>
+
+  <!-- 모든 이벤트 종합 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>이벤트 종합 예제</span>
+      <code class="cui-text-secondary">checkbox, edit, sort, tool</code>
+    </div>
+    <div class="cui-card-body">
+      <div id="allEventsLog" class="cui-mb-10" style="height:100px;overflow:auto;background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;"></div>
+      <table id="tableAllEvents"></table>
+    </div>
+  </div>
+</div>
+
+<!-- 도구 버튼 템플릿 -->
+<script type="text/html" id="toolbarTpl">
+  <button class="cui-btn cui-btn-xs" cui-event="view">상세</button>
+  <button class="cui-btn cui-btn-xs cui-btn-primary" cui-event="edit">수정</button>
+  <button class="cui-btn cui-btn-xs cui-btn-danger" cui-event="del">삭제</button>
+</script>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  var sampleData = [
+    { id: 1, name: '홍길동', email: 'hong@test.com', status: '활성' },
+    { id: 2, name: '김철수', email: 'kim@test.com', status: '활성' },
+    { id: 3, name: '이영희', email: 'lee@test.com', status: '비활성' },
+    { id: 4, name: '박지민', email: 'park@test.com', status: '활성' },
+    { id: 5, name: '최수진', email: 'choi@test.com', status: '대기' }
+  ];
+
+  var cloneData = function(){ return JSON.parse(JSON.stringify(sampleData)); };
+
+  // 행 클릭 이벤트
+  var rowLogEl = document.getElementById('rowClickLog');
+  table.render({
+    elem: '#tableRowClick',
+    id: 'rowClickTable',
+    data: cloneData(),
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 100 }
+    ]]
+  });
+
+  table.on('row(rowClickTable)', function(obj){
+    rowLogEl.innerHTML = '<div style="color:#1677ff">[클릭] ' + obj.data.name + ' (ID: ' + obj.data.id + ')</div>' + rowLogEl.innerHTML;
+  });
+
+  table.on('rowDouble(rowClickTable)', function(obj){
+    rowLogEl.innerHTML = '<div style="color:#ff4d4f">[더블클릭] ' + obj.data.name + ' 상세 페이지로 이동</div>' + rowLogEl.innerHTML;
+    popup.msg('더블클릭: ' + obj.data.name);
+  });
+
+  // 도구 버튼 이벤트
+  table.render({
+    elem: '#tableToolEvent',
+    id: 'toolEventTable',
+    data: cloneData(),
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 100 },
+      { title: '작업', width: 180, toolbar: '#toolbarTpl' }
+    ]]
+  });
+
+  table.on('tool(toolEventTable)', function(obj){
+    var data = obj.data;
+    if(obj.event === 'view'){
+      popup.open({
+        title: '상세 정보',
+        content: '<div class="cui-p-15">' +
+          '<p><strong>ID:</strong> ' + data.id + '</p>' +
+          '<p><strong>이름:</strong> ' + data.name + '</p>' +
+          '<p><strong>이메일:</strong> ' + data.email + '</p>' +
+          '<p><strong>상태:</strong> ' + data.status + '</p>' +
+        '</div>',
+        area: ['400px', '250px']
+      });
+    } else if(obj.event === 'edit'){
+      popup.prompt('이름 수정', { value: data.name }, function(newName){
+        obj.update({ name: newName });
+        popup.msg('수정 완료: ' + newName);
+      });
+    } else if(obj.event === 'del'){
+      popup.confirm(data.name + '을(를) 삭제하시겠습니까?', function(){
+        obj.del();
+        popup.msg('삭제 완료');
+      });
+    }
+  });
+
+  // 모든 이벤트 종합
+  var allLogEl = document.getElementById('allEventsLog');
+  var addLog = function(type, msg){
+    var colors = { checkbox: '#52c41a', edit: '#1677ff', sort: '#722ed1', tool: '#ff4d4f', row: '#faad14' };
+    allLogEl.innerHTML = '<div>[<span style="color:' + (colors[type] || '#333') + '">' + type + '</span>] ' + msg + '</div>' + allLogEl.innerHTML;
+  };
+
+  table.render({
+    elem: '#tableAllEvents',
+    id: 'allEventsTable',
+    data: cloneData(),
+    cols: [[
+      { type: 'checkbox' },
+      { field: 'id', title: 'ID', width: 60, sort: true },
+      { field: 'name', title: '이름', width: 100, edit: 'text', sort: true },
+      { field: 'email', title: '이메일', edit: 'text' },
+      { field: 'status', title: '상태', width: 80 },
+      { title: '작업', width: 120, toolbar: '#toolbarTpl' }
+    ]]
+  });
+
+  table.on('checkbox(allEventsTable)', function(obj){
+    addLog('checkbox', obj.type === 'all' ? '전체 ' + (obj.checked ? '선택' : '해제') : obj.data.name + ' ' + (obj.checked ? '선택' : '해제'));
+  });
+
+  table.on('edit(allEventsTable)', function(obj){
+    addLog('edit', obj.field + ': ' + obj.oldValue + ' → ' + obj.value);
+  });
+
+  table.on('sort(allEventsTable)', function(obj){
+    addLog('sort', obj.field + ' ' + obj.type);
+  });
+
+  table.on('tool(allEventsTable)', function(obj){
+    addLog('tool', obj.event + ' - ' + obj.data.name);
+    if(obj.event === 'del'){
+      popup.confirm('삭제하시겠습니까?', function(){ obj.del(); });
+    }
+  });
+
+  table.on('row(allEventsTable)', function(obj){
+    addLog('row', '클릭: ' + obj.data.name);
+  });
+});
+</script>
+</div>

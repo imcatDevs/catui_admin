@@ -1,75 +1,231 @@
-<div class="cui-card">
-  <div class="cui-card-header">
-    <h3>🏠 홈</h3>
+<!-- 통계 카드 -->
+<div class="cui-p-15">
+<div class="cui-row cui-row-space10">
+  <div class="cui-col-sm6 cui-col-md3 cui-mb-10">
+    <div class="cui-card cui-stat-card">
+      <div class="cui-stat-icon cui-bg-primary"><i class="cui-icon">person</i></div>
+      <div class="cui-stat-content">
+        <div class="cui-stat-value">1,024</div>
+        <div class="cui-stat-label">총 사용자</div>
+      </div>
+    </div>
   </div>
-  <div class="cui-card-body">
-    <p>Router 모듈 테스트 페이지입니다.</p>
-    
-    <h4 class="cui-mt-20">특징</h4>
-    <ul>
-      <li><strong>cui-href</strong> - 링크 클릭 시 페이지 로드</li>
-      <li><strong>cui-target-content</strong> - 페이지 렌더링 영역</li>
-      <li><strong>페이지별 모듈 로드</strong> - Catui.use로 필요한 모듈만 로드</li>
-      <li><strong>인스턴스 관리</strong> - 페이지 이동 시 자동 정리 (메모리 누수 방지)</li>
-    </ul>
-    
-    <h4 class="cui-mt-20">빠른 이동</h4>
-    <div class="cui-btn-container">
-      <a cui-href="/examples/router/pages/form.html" class="cui-btn cui-btn-primary">폼 예제</a>
-      <a cui-href="/examples/router/pages/table.html" class="cui-btn cui-btn-success">테이블 예제</a>
-      <a cui-href="/examples/router/pages/popup.html" class="cui-btn cui-btn-warning">팝업 예제</a>
-      <a cui-href="/examples/router/pages/components.html" class="cui-btn cui-btn-info">컴포넌트</a>
-      <a cui-href="/examples/router/pages/timer.html" class="cui-btn cui-btn-danger">타이머 (인스턴스 관리)</a>
+  <div class="cui-col-sm6 cui-col-md3 cui-mb-10">
+    <div class="cui-card cui-stat-card">
+      <div class="cui-stat-icon cui-bg-success"><i class="cui-icon">visibility</i></div>
+      <div class="cui-stat-content">
+        <div class="cui-stat-value">8,846</div>
+        <div class="cui-stat-label">오늘 방문</div>
+      </div>
+    </div>
+  </div>
+  <div class="cui-col-sm6 cui-col-md3 cui-mb-10">
+    <div class="cui-card cui-stat-card">
+      <div class="cui-stat-icon cui-bg-warning"><i class="cui-icon">shopping_cart</i></div>
+      <div class="cui-stat-content">
+        <div class="cui-stat-value">356</div>
+        <div class="cui-stat-label">신규 주문</div>
+      </div>
+    </div>
+  </div>
+  <div class="cui-col-sm6 cui-col-md3 cui-mb-10">
+    <div class="cui-card cui-stat-card">
+      <div class="cui-stat-icon cui-bg-danger"><i class="cui-icon">attach_money</i></div>
+      <div class="cui-stat-content">
+        <div class="cui-stat-value">12.5M</div>
+        <div class="cui-stat-label">총 매출</div>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="cui-card cui-mt-20">
-  <div class="cui-card-header">
-    <h3>기본 API</h3>
+<div class="cui-row cui-row-space10">
+  <!-- 왼쪽 영역 (8칸) -->
+  <div class="cui-col-md8 cui-mb-10">
+    <!-- 빠른 바로가기 -->
+    <div class="cui-card">
+      <div class="cui-card-header"><h3>빠른 바로가기</h3></div>
+      <div class="cui-card-body">
+        <div class="cui-row cui-row-space10">
+          <div class="cui-col-xs3">
+            <a cui-href="/examples/router/pages/form.html" class="cui-shortcut-item">
+              <i class="cui-icon cui-text-primary">edit_note</i>
+              <span>폼 예제</span>
+            </a>
+          </div>
+          <div class="cui-col-xs3">
+            <a cui-href="/examples/router/pages/table.html" class="cui-shortcut-item">
+              <i class="cui-icon cui-text-success">table_chart</i>
+              <span>테이블</span>
+            </a>
+          </div>
+          <div class="cui-col-xs3">
+            <a cui-href="/examples/router/pages/popup.html" class="cui-shortcut-item">
+              <i class="cui-icon cui-text-warning">chat_bubble</i>
+              <span>팝업</span>
+            </a>
+          </div>
+          <div class="cui-col-xs3">
+            <a cui-href="/examples/router/pages/components.html" class="cui-shortcut-item">
+              <i class="cui-icon cui-text-info">widgets</i>
+              <span>컴포넌트</span>
+            </a>
+          </div>
+          <div class="cui-col-xs3">
+            <a cui-href="/examples/router/pages/timer.html" class="cui-shortcut-item">
+              <i class="cui-icon cui-text-danger">timer</i>
+              <span>타이머</span>
+            </a>
+          </div>
+          <div class="cui-col-xs3">
+            <a href="javascript:;" class="cui-shortcut-item" onclick="popup.msg('준비 중', {icon: 3})">
+              <i class="cui-icon">settings</i>
+              <span>설정</span>
+            </a>
+          </div>
+          <div class="cui-col-xs3">
+            <a href="javascript:;" class="cui-shortcut-item" onclick="popup.msg('준비 중', {icon: 3})">
+              <i class="cui-icon">person</i>
+              <span>사용자</span>
+            </a>
+          </div>
+          <div class="cui-col-xs3">
+            <a href="javascript:;" class="cui-shortcut-item" onclick="popup.msg('준비 중', {icon: 3})">
+              <i class="cui-icon">help</i>
+              <span>도움말</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 기본 API -->
+    <div class="cui-card cui-mt-15">
+      <div class="cui-card-header"><h3>Router API</h3></div>
+      <div class="cui-card-body">
+        <table class="cui-table">
+          <thead>
+            <tr>
+              <th>메서드</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>router.go(path)</code></td><td>페이지 이동</td></tr>
+            <tr><td><code>router.back()</code></td><td>뒤로 가기</td></tr>
+            <tr><td><code>router.forward()</code></td><td>앞으로 가기</td></tr>
+            <tr><td><code>router.reload()</code></td><td>새로고침</td></tr>
+            <tr><td><code>router.current()</code></td><td>현재 라우트 정보</td></tr>
+            <tr><td><code>router.clearCache()</code></td><td>캐시 클리어</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- 인스턴스 관리 API -->
+    <div class="cui-card cui-mt-15">
+      <div class="cui-card-header"><h3>인스턴스 관리 API (메모리 누수 방지)</h3></div>
+      <div class="cui-card-body">
+        <table class="cui-table">
+          <thead>
+            <tr>
+              <th>메서드</th>
+              <th>설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><code>router.addInterval(fn, delay)</code></td><td>setInterval 등록 (자동 정리)</td></tr>
+            <tr><td><code>router.addTimeout(fn, delay)</code></td><td>setTimeout 등록 (자동 정리)</td></tr>
+            <tr><td><code>router.bindEvent(elem, type, fn)</code></td><td>이벤트 리스너 등록 (자동 정리)</td></tr>
+            <tr><td><code>router.addCleanup(fn)</code></td><td>커스텀 정리 함수 등록</td></tr>
+          </tbody>
+        </table>
+        <p class="cui-text-secondary cui-mt-10">
+          <strong>타이머 예제</strong> 페이지에서 인스턴스 관리 동작을 확인할 수 있습니다.
+        </p>
+      </div>
+    </div>
   </div>
-  <div class="cui-card-body">
-    <table class="cui-table">
-      <thead>
-        <tr>
-          <th>메서드</th>
-          <th>설명</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td><code>router.go(path)</code></td><td>페이지 이동</td></tr>
-        <tr><td><code>router.back()</code></td><td>뒤로 가기</td></tr>
-        <tr><td><code>router.forward()</code></td><td>앞으로 가기</td></tr>
-        <tr><td><code>router.reload()</code></td><td>새로고침</td></tr>
-        <tr><td><code>router.current()</code></td><td>현재 라우트 정보</td></tr>
-        <tr><td><code>router.clearCache()</code></td><td>캐시 클리어</td></tr>
-      </tbody>
-    </table>
+  
+  <!-- 오른쪽 영역 (4칸) -->
+  <div class="cui-col-md4 cui-mb-10">
+    <!-- 버전 정보 -->
+    <div class="cui-card">
+      <div class="cui-card-header"><h3>버전 정보</h3></div>
+      <div class="cui-card-body">
+        <table class="cui-table cui-table-line">
+          <tbody>
+            <tr><td>프레임워크</td><td><strong>CatUI</strong></td></tr>
+            <tr><td>버전</td><td>v1.0.0</td></tr>
+            <tr><td>주요 특징</td><td>SPA / 모듈러 / 반응형</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- 시스템 상태 -->
+    <div class="cui-card cui-mt-15">
+      <div class="cui-card-header"><h3>시스템 상태</h3></div>
+      <div class="cui-card-body">
+        <div class="cui-progress-item">
+          <div class="cui-progress-label">
+            <span>CPU 사용률</span>
+            <span>58%</span>
+          </div>
+          <div class="cui-progress">
+            <div class="cui-progress-bar cui-bg-primary" style="width: 58%"></div>
+          </div>
+        </div>
+        <div class="cui-progress-item cui-mt-15">
+          <div class="cui-progress-label">
+            <span>메모리 사용률</span>
+            <span>72%</span>
+          </div>
+          <div class="cui-progress">
+            <div class="cui-progress-bar cui-bg-warning" style="width: 72%"></div>
+          </div>
+        </div>
+        <div class="cui-progress-item cui-mt-15">
+          <div class="cui-progress-label">
+            <span>디스크 사용률</span>
+            <span>45%</span>
+          </div>
+          <div class="cui-progress">
+            <div class="cui-progress-bar cui-bg-success" style="width: 45%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 최근 알림 -->
+    <div class="cui-card cui-mt-15">
+      <div class="cui-card-header"><h3>최근 알림</h3></div>
+      <div class="cui-card-body">
+        <ul class="cui-timeline">
+          <li class="cui-timeline-item">
+            <div class="cui-timeline-dot cui-bg-primary"></div>
+            <div class="cui-timeline-content">
+              <p>새 사용자 가입</p>
+              <span class="cui-text-secondary">5분 전</span>
+            </div>
+          </li>
+          <li class="cui-timeline-item">
+            <div class="cui-timeline-dot cui-bg-success"></div>
+            <div class="cui-timeline-content">
+              <p>주문 완료 처리</p>
+              <span class="cui-text-secondary">30분 전</span>
+            </div>
+          </li>
+          <li class="cui-timeline-item">
+            <div class="cui-timeline-dot cui-bg-warning"></div>
+            <div class="cui-timeline-content">
+              <p>시스템 업데이트</p>
+              <span class="cui-text-secondary">2시간 전</span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </div>
-
-<div class="cui-card cui-mt-20">
-  <div class="cui-card-header">
-    <h3>인스턴스 관리 API (메모리 누수 방지)</h3>
-  </div>
-  <div class="cui-card-body">
-    <table class="cui-table">
-      <thead>
-        <tr>
-          <th>메서드</th>
-          <th>설명</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td><code>router.addInterval(fn, delay)</code></td><td>setInterval 등록 (자동 정리)</td></tr>
-        <tr><td><code>router.addTimeout(fn, delay)</code></td><td>setTimeout 등록 (자동 정리)</td></tr>
-        <tr><td><code>router.bindEvent(elem, type, fn)</code></td><td>이벤트 리스너 등록 (자동 정리)</td></tr>
-        <tr><td><code>router.addCleanup(fn)</code></td><td>커스텀 정리 함수 등록</td></tr>
-      </tbody>
-    </table>
-    <p class="cui-text-secondary cui-mt-10">
-      <strong>타이머 예제</strong> 페이지에서 인스턴스 관리 동작을 확인할 수 있습니다.
-    </p>
-  </div>
 </div>
-

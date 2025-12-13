@@ -1,0 +1,328 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">페이지네이션 - 고급</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>페이지네이션 고급</span>
+    </div>
+  </div>
+
+  <!-- jump 콜백 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>jump 콜백</span>
+      <code class="cui-text-secondary">jump: function(obj, first){ }</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">페이지 변경 시 콜백이 실행됩니다. <code>first</code>가 true면 초기 로드입니다.</p>
+      <div id="pageJump"></div>
+      <div id="jumpLog" class="cui-mt-10" style="height:100px;overflow:auto;background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;"></div>
+    </div>
+  </div>
+
+  <!-- API 메서드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>API 메서드</span>
+      <code class="cui-text-secondary">page.reload() / page.go() / page.curr()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">프로그래밍 방식으로 페이지네이션을 제어합니다.</p>
+      <div class="cui-mb-10">
+        <button id="btnGoFirst" class="cui-btn cui-btn-sm">첫 페이지</button>
+        <button id="btnGoPrev" class="cui-btn cui-btn-sm">이전</button>
+        <button id="btnGoNext" class="cui-btn cui-btn-sm">다음</button>
+        <button id="btnGoLast" class="cui-btn cui-btn-sm">마지막 페이지</button>
+        <button id="btnGo10" class="cui-btn cui-btn-sm cui-btn-primary">10페이지로</button>
+        <button id="btnGetCurr" class="cui-btn cui-btn-sm">현재 페이지 확인</button>
+      </div>
+      <div id="pageApi"></div>
+      <div id="apiInfo" class="cui-mt-10 cui-text-secondary"></div>
+    </div>
+  </div>
+
+  <!-- 동적 데이터 변경 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>동적 데이터 변경</span>
+      <code class="cui-text-secondary">page.reload(id, { count })</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">데이터 개수가 변경되면 <code>reload</code>로 페이지네이션을 업데이트합니다.</p>
+      <div class="cui-mb-10">
+        <button id="btnCount50" class="cui-btn cui-btn-sm">50건</button>
+        <button id="btnCount100" class="cui-btn cui-btn-sm">100건</button>
+        <button id="btnCount500" class="cui-btn cui-btn-sm">500건</button>
+        <button id="btnCount1000" class="cui-btn cui-btn-sm">1000건</button>
+      </div>
+      <div id="pageDynamic"></div>
+    </div>
+  </div>
+
+  <!-- 테이블 연동 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>테이블 연동</span>
+      <code class="cui-text-secondary">테이블 + 페이지네이션</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">테이블과 별도의 페이지네이션을 연동합니다.</p>
+      <table class="cui-table" id="demoTable">
+        <thead>
+          <tr>
+            <th style="width:60px">ID</th>
+            <th>이름</th>
+            <th>이메일</th>
+            <th style="width:100px">상태</th>
+          </tr>
+        </thead>
+        <tbody id="demoTableBody"></tbody>
+      </table>
+      <div id="pageTable" class="cui-mt-10"></div>
+    </div>
+  </div>
+
+  <!-- 해시 모드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>URL 해시 모드</span>
+      <code class="cui-text-secondary">hash: 'page'</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>hash</code> 옵션을 사용하면 URL에 페이지 정보가 저장됩니다. (예: #!page=3)</p>
+      <div class="cui-mb-10 cui-text-secondary">
+        <i class="cui-icon" style="vertical-align:middle;font-size:16px;">info</i>
+        해시 모드는 SPA 라우터와 충돌할 수 있으므로 주의해서 사용하세요.
+      </div>
+      <div id="pageHash"></div>
+    </div>
+  </div>
+
+  <!-- 커스텀 텍스트 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>커스텀 텍스트</span>
+      <code class="cui-text-secondary">prev / next / icon</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">아이콘 모드 (기본)</div>
+        <div id="pageIcon"></div>
+      </div>
+      
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">텍스트 모드</div>
+        <div id="pageText"></div>
+      </div>
+      
+      <div>
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">커스텀 텍스트</div>
+        <div id="pageCustom"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 다중 인스턴스 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>다중 인스턴스</span>
+      <code class="cui-text-secondary">id로 구분</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">여러 페이지네이션을 각각 <code>id</code>로 구분하여 제어합니다.</p>
+      
+      <div class="cui-row">
+        <div class="cui-col-6">
+          <div class="cui-text-xs cui-text-secondary cui-mb-5">목록 A</div>
+          <div id="pageMulti1"></div>
+          <div id="multiInfo1" class="cui-mt-5 cui-text-secondary cui-text-xs"></div>
+        </div>
+        <div class="cui-col-6">
+          <div class="cui-text-xs cui-text-secondary cui-mb-5">목록 B</div>
+          <div id="pageMulti2"></div>
+          <div id="multiInfo2" class="cui-mt-5 cui-text-secondary cui-text-xs"></div>
+        </div>
+      </div>
+      
+      <div class="cui-mt-15">
+        <button id="btnSyncPages" class="cui-btn cui-btn-sm cui-btn-primary">두 목록 페이지 동기화</button>
+        <span id="syncInfo" class="cui-ml-10 cui-text-secondary"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['page', 'popup'], function(){
+  
+  // jump 콜백
+  var jumpLogEl = document.getElementById('jumpLog');
+  page.render({
+    elem: 'pageJump',
+    count: 200,
+    layout: ['count', 'prev', 'page', 'next', 'limit'],
+    jump: function(obj, first){
+      var msg = first ? '[초기 로드]' : '[페이지 변경]';
+      msg += ' curr: ' + obj.curr + ', limit: ' + obj.limit + ', pages: ' + obj.pages;
+      jumpLogEl.innerHTML = '<div>' + new Date().toLocaleTimeString() + ' ' + msg + '</div>' + jumpLogEl.innerHTML;
+    }
+  });
+
+  // API 메서드
+  var apiInfoEl = document.getElementById('apiInfo');
+  page.render({
+    elem: 'pageApi',
+    id: 'apiDemo',
+    count: 500,
+    curr: 5,
+    layout: ['first', 'prev', 'page', 'next', 'last'],
+    jump: function(obj){
+      apiInfoEl.innerHTML = '현재 페이지: ' + obj.curr + ' / ' + obj.pages;
+    }
+  });
+
+  document.getElementById('btnGoFirst').addEventListener('click', function(){
+    page.go('apiDemo', 1);
+  });
+  document.getElementById('btnGoPrev').addEventListener('click', function(){
+    var curr = page.curr('apiDemo');
+    page.go('apiDemo', curr - 1);
+  });
+  document.getElementById('btnGoNext').addEventListener('click', function(){
+    var curr = page.curr('apiDemo');
+    page.go('apiDemo', curr + 1);
+  });
+  document.getElementById('btnGoLast').addEventListener('click', function(){
+    var inst = page.getInst('apiDemo');
+    page.go('apiDemo', inst.config.pages);
+  });
+  document.getElementById('btnGo10').addEventListener('click', function(){
+    page.go('apiDemo', 10);
+  });
+  document.getElementById('btnGetCurr').addEventListener('click', function(){
+    popup.msg('현재 페이지: ' + page.curr('apiDemo'));
+  });
+
+  // 동적 데이터 변경
+  page.render({
+    elem: 'pageDynamic',
+    id: 'dynamicDemo',
+    count: 100,
+    layout: ['count', 'prev', 'page', 'next', 'pages']
+  });
+
+  [50, 100, 500, 1000].forEach(function(num){
+    document.getElementById('btnCount' + num).addEventListener('click', function(){
+      page.reload('dynamicDemo', { count: num, curr: 1 });
+      popup.msg('총 ' + num + '건으로 변경');
+    });
+  });
+
+  // 테이블 연동
+  var allData = [];
+  var names = ['홍길동', '김철수', '이영희', '박지민', '최수진', '정민수', '강하나', '윤서영'];
+  for(var i = 1; i <= 100; i++){
+    allData.push({
+      id: i,
+      name: names[i % names.length],
+      email: 'user' + i + '@example.com',
+      status: i % 3 === 0 ? '비활성' : '활성'
+    });
+  }
+
+  var renderTable = function(curr, limit){
+    var start = (curr - 1) * limit;
+    var end = Math.min(start + limit, allData.length);
+    var pageData = allData.slice(start, end);
+    
+    var html = pageData.map(function(d){
+      var statusClass = d.status === '활성' ? 'cui-bg-success' : 'cui-bg-gray';
+      return '<tr>' +
+        '<td>' + d.id + '</td>' +
+        '<td>' + d.name + '</td>' +
+        '<td>' + d.email + '</td>' +
+        '<td><span class="cui-badge ' + statusClass + '">' + d.status + '</span></td>' +
+      '</tr>';
+    }).join('');
+    
+    document.getElementById('demoTableBody').innerHTML = html;
+  };
+
+  page.render({
+    elem: 'pageTable',
+    id: 'tableDemo',
+    count: allData.length,
+    limit: 10,
+    layout: ['count', 'prev', 'page', 'next', 'limit', 'info'],
+    jump: function(obj, first){
+      renderTable(obj.curr, obj.limit);
+    }
+  });
+
+  // 해시 모드 (주석 처리 - SPA 라우터와 충돌 방지)
+  page.render({
+    elem: 'pageHash',
+    count: 100,
+    // hash: 'demoPage',  // 실제 사용 시 주석 해제
+    layout: ['prev', 'page', 'next']
+  });
+
+  // 커스텀 텍스트
+  page.render({
+    elem: 'pageIcon',
+    count: 100,
+    icon: true,
+    layout: ['first', 'prev', 'page', 'next', 'last']
+  });
+
+  page.render({
+    elem: 'pageText',
+    count: 100,
+    icon: false,
+    layout: ['first', 'prev', 'page', 'next', 'last']
+  });
+
+  page.render({
+    elem: 'pageCustom',
+    count: 100,
+    prev: '← 이전',
+    next: '다음 →',
+    layout: ['prev', 'page', 'next']
+  });
+
+  // 다중 인스턴스
+  page.render({
+    elem: 'pageMulti1',
+    id: 'multi1',
+    count: 200,
+    theme: '#1677ff',
+    layout: ['prev', 'page', 'next'],
+    jump: function(obj){
+      document.getElementById('multiInfo1').innerHTML = '목록 A: ' + obj.curr + '페이지';
+    }
+  });
+
+  page.render({
+    elem: 'pageMulti2',
+    id: 'multi2',
+    count: 300,
+    theme: '#52c41a',
+    layout: ['prev', 'page', 'next'],
+    jump: function(obj){
+      document.getElementById('multiInfo2').innerHTML = '목록 B: ' + obj.curr + '페이지';
+    }
+  });
+
+  document.getElementById('btnSyncPages').addEventListener('click', function(){
+    var curr1 = page.curr('multi1');
+    page.go('multi2', curr1);
+    document.getElementById('syncInfo').innerHTML = '목록 B를 ' + curr1 + '페이지로 동기화했습니다.';
+  });
+});
+</script>
+</div>

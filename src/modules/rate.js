@@ -109,7 +109,7 @@
     var container = document.createElement('div');
     container.className = ELEM + (config.readonly ? ' cui-rate-readonly' : '');
     if(config.theme){
-      container.style.color = config.theme;
+      container.style.setProperty('--cui-rate-color', config.theme);
     }
 
     // 아이콘 (별, 하트 등)

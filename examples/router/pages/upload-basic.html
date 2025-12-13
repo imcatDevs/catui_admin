@@ -1,0 +1,284 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">파일 업로드 - 일반</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>업로드 일반</span>
+    </div>
+  </div>
+
+  <!-- 기본 업로드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 업로드</span>
+      <code class="cui-text-secondary">upload.render({ elem, url })</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">버튼 클릭 시 파일 선택 창이 열립니다.</p>
+      <button id="uploadBtn1" class="cui-btn cui-btn-primary"><i class="cui-icon">upload</i> 파일 업로드</button>
+      <div id="uploadResult1" class="cui-mt-10"></div>
+    </div>
+  </div>
+
+  <!-- 파일 타입 제한 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>파일 타입 제한</span>
+      <code class="cui-text-secondary">accept / acceptMime / exts</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">특정 파일 타입만 허용합니다.</p>
+      <div class="cui-flex cui-gap-10 cui-flex-wrap">
+        <button id="uploadImages" class="cui-btn"><i class="cui-icon">image</i> 이미지만</button>
+        <button id="uploadVideo" class="cui-btn"><i class="cui-icon">videocam</i> 동영상만</button>
+        <button id="uploadPdf" class="cui-btn"><i class="cui-icon">picture_as_pdf</i> PDF만</button>
+        <button id="uploadExcel" class="cui-btn"><i class="cui-icon">table_chart</i> 엑셀만</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 다중 파일 선택 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>다중 파일 선택</span>
+      <code class="cui-text-secondary">multiple: true</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">여러 파일을 동시에 선택할 수 있습니다.</p>
+      <button id="uploadMultiple" class="cui-btn cui-btn-primary"><i class="cui-icon">file_copy</i> 여러 파일 선택</button>
+      <div id="multipleResult" class="cui-mt-10"></div>
+    </div>
+  </div>
+
+  <!-- 파일 크기 제한 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>파일 크기 제한</span>
+      <code class="cui-text-secondary">size / minSize</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>size: '2MB'</code> - 최대 2MB, <code>minSize: '1KB'</code> - 최소 1KB</p>
+      <button id="uploadSize" class="cui-btn cui-btn-warm"><i class="cui-icon">upload</i> 최대 2MB 제한</button>
+      <div id="sizeResult" class="cui-mt-10 cui-text-secondary"></div>
+    </div>
+  </div>
+
+  <!-- 드래그 업로드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>드래그 업로드</span>
+      <code class="cui-text-secondary">drag: true</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">파일을 드래그하여 업로드할 수 있습니다.</p>
+      <div id="dragArea" class="cui-upload-drag-area">
+        <i class="cui-icon" style="font-size:48px;color:var(--cui-primary);">cloud_upload</i>
+        <p>파일을 여기에 드래그하거나 클릭하세요</p>
+        <p class="cui-text-secondary cui-text-xs">이미지 파일만 허용 (최대 5MB)</p>
+      </div>
+      <div id="dragResult" class="cui-mt-10"></div>
+    </div>
+  </div>
+
+  <!-- 수동 업로드 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>수동 업로드</span>
+      <code class="cui-text-secondary">auto: false, bindAction</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">파일 선택 후 별도 버튼으로 업로드를 시작합니다.</p>
+      <div class="cui-flex cui-gap-10">
+        <button id="selectFile" class="cui-btn"><i class="cui-icon">attach_file</i> 파일 선택</button>
+        <button id="startUpload" class="cui-btn cui-btn-primary"><i class="cui-icon">upload</i> 업로드 시작</button>
+      </div>
+      <div id="manualResult" class="cui-mt-10 cui-text-secondary"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+.cui-upload-drag-area {
+  border: 2px dashed #d9d9d9;
+  border-radius: 8px;
+  padding: 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.cui-upload-drag-area:hover,
+.cui-upload-drag-area.cui-upload-drag-over {
+  border-color: var(--cui-primary);
+  background: rgba(22, 119, 255, 0.05);
+}
+</style>
+
+<script>
+Catui.use(['upload', 'popup'], function(){
+  
+  // 기본 업로드 (데모: 실제 서버 없이 시뮬레이션)
+  upload.render({
+    elem: '#uploadBtn1',
+    url: '/api/upload',  // 데모용 URL
+    accept: 'file',
+    choose: function(obj){
+      var files = obj.getFiles();
+      var html = '<div class="cui-text-secondary">선택된 파일:</div>';
+      for(var key in files){
+        html += '<div>' + files[key].name + ' (' + formatSize(files[key].size) + ')</div>';
+      }
+      document.getElementById('uploadResult1').innerHTML = html;
+      popup.msg('파일 선택 완료 (데모: 실제 업로드는 서버 필요)');
+    },
+    done: function(res){
+      popup.msg('업로드 완료');
+    },
+    error: function(){
+      // 데모에서는 서버가 없으므로 에러 발생
+    }
+  });
+
+  // 이미지만
+  upload.render({
+    elem: '#uploadImages',
+    url: '/api/upload',
+    accept: 'images',
+    choose: function(obj){
+      popup.msg('이미지 파일 선택됨: ' + obj.getFiles()[0].name);
+    }
+  });
+
+  // 동영상만
+  upload.render({
+    elem: '#uploadVideo',
+    url: '/api/upload',
+    accept: 'video',
+    choose: function(obj){
+      popup.msg('동영상 파일 선택됨: ' + obj.getFiles()[0].name);
+    }
+  });
+
+  // PDF만
+  upload.render({
+    elem: '#uploadPdf',
+    url: '/api/upload',
+    acceptMime: 'application/pdf',
+    exts: 'pdf',
+    choose: function(obj){
+      popup.msg('PDF 파일 선택됨: ' + obj.getFiles()[0].name);
+    },
+    validateError: function(err){
+      popup.msg(err.msg + ' (PDF 파일만 허용)', { icon: 'warning' });
+    }
+  });
+
+  // 엑셀만
+  upload.render({
+    elem: '#uploadExcel',
+    url: '/api/upload',
+    exts: 'xls|xlsx',
+    acceptMime: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    choose: function(obj){
+      popup.msg('엑셀 파일 선택됨: ' + obj.getFiles()[0].name);
+    },
+    validateError: function(err){
+      popup.msg(err.msg + ' (엑셀 파일만 허용)', { icon: 'warning' });
+    }
+  });
+
+  // 다중 파일
+  upload.render({
+    elem: '#uploadMultiple',
+    url: '/api/upload',
+    multiple: true,
+    number: 5,
+    choose: function(obj){
+      var files = obj.getFiles();
+      var count = Object.keys(files).length;
+      var html = '<ul style="margin:0;padding-left:20px;">';
+      for(var key in files){
+        html += '<li>' + files[key].name + ' (' + formatSize(files[key].size) + ')</li>';
+      }
+      html += '</ul>';
+      document.getElementById('multipleResult').innerHTML = count + '개 파일 선택됨:' + html;
+    },
+    validateError: function(err){
+      popup.msg(err.msg, { icon: 'warning' });
+    }
+  });
+
+  // 크기 제한
+  upload.render({
+    elem: '#uploadSize',
+    url: '/api/upload',
+    size: '2MB',
+    minSize: '1KB',
+    choose: function(obj){
+      var file = obj.getFiles()[0];
+      document.getElementById('sizeResult').innerHTML = '파일: ' + file.name + ' (' + formatSize(file.size) + ')';
+    },
+    validateError: function(err){
+      document.getElementById('sizeResult').innerHTML = '<span class="cui-text-danger">' + err.msg + '</span><br>' + err.detail;
+    }
+  });
+
+  // 드래그 업로드
+  upload.render({
+    elem: '#dragArea',
+    url: '/api/upload',
+    accept: 'images',
+    drag: true,
+    size: '5MB',
+    choose: function(obj){
+      var file = obj.getFiles()[0];
+      // 이미지 미리보기
+      obj.preview(function(idx, f, result){
+        var html = '<div class="cui-flex cui-gap-10 cui-flex-middle">' +
+          '<img src="' + result + '" style="max-width:100px;max-height:100px;border-radius:4px;">' +
+          '<div>' + f.name + '<br><span class="cui-text-secondary">' + formatSize(f.size) + '</span></div>' +
+        '</div>';
+        document.getElementById('dragResult').innerHTML = html;
+      });
+    },
+    validateError: function(err){
+      popup.msg(err.msg, { icon: 'warning' });
+    }
+  });
+
+  // 수동 업로드
+  var selectedFiles = null;
+  upload.render({
+    elem: '#selectFile',
+    url: '/api/upload',
+    auto: false,
+    bindAction: '#startUpload',
+    choose: function(obj){
+      selectedFiles = obj.getFiles();
+      var file = selectedFiles[0];
+      document.getElementById('manualResult').innerHTML = '선택됨: ' + file.name + ' (' + formatSize(file.size) + ')';
+    },
+    before: function(file){
+      popup.msg(file.name + ' 업로드 시작...');
+      return true;
+    },
+    done: function(res){
+      popup.msg('업로드 완료');
+    }
+  });
+
+  // 파일 크기 포맷
+  function formatSize(bytes){
+    if(bytes === 0) return '0 Bytes';
+    var k = 1024;
+    var sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+});
+</script>
+</div>

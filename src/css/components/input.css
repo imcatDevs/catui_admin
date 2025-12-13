@@ -31,7 +31,7 @@
 .cui-textarea:focus {
   outline: none;
   border-color: var(--cui-primary) !important;
-  box-shadow: 0 0 0 3px rgba(var(--cui-primary-rgb), 0.08);
+  box-shadow: 0 0 0 3px rgb(var(--cui-primary-rgb), 0.08);
 }
 
 .cui-input.cui-disabled,

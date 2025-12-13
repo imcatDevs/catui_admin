@@ -1,0 +1,39 @@
+<!-- 이메일 설정 -->
+<div class="cui-p-15">
+  <h2 class="cui-mb-15">이메일 설정</h2>
+  <div class="cui-card">
+    <div class="cui-card-header">SMTP 설정</div>
+    <div class="cui-card-body">
+      <div class="cui-mb-15">
+        <label class="cui-form-label">SMTP 서버</label>
+        <input type="text" class="cui-input" placeholder="smtp.example.com">
+      </div>
+      <div class="cui-row cui-row-space15 cui-mb-15">
+        <div class="cui-col-md6">
+          <label class="cui-form-label">포트</label>
+          <input type="text" class="cui-input" value="587">
+        </div>
+        <div class="cui-col-md6">
+          <label class="cui-form-label">보안</label>
+          <select class="cui-select">
+            <option value="tls" selected>TLS</option>
+            <option value="ssl">SSL</option>
+            <option value="none">없음</option>
+          </select>
+        </div>
+      </div>
+      <div class="cui-mb-15">
+        <label class="cui-form-label">사용자명</label>
+        <input type="text" class="cui-input" placeholder="user@example.com">
+      </div>
+      <div class="cui-mb-15">
+        <label class="cui-form-label">비밀번호</label>
+        <input type="password" class="cui-input">
+      </div>
+      <div class="cui-flex cui-gap-10">
+        <button class="cui-btn cui-btn-primary">저장</button>
+        <button class="cui-btn cui-btn-default">테스트 발송</button>
+      </div>
+    </div>
+  </div>
+</div>

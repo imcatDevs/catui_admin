@@ -1,0 +1,265 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">페이지네이션 - 일반</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>페이지네이션 일반</span>
+    </div>
+  </div>
+
+  <!-- 기본 페이지네이션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 페이지네이션</span>
+      <code class="cui-text-secondary">page.render({ elem, count })</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">기본적인 페이지네이션입니다. <code>prev</code>, <code>page</code>, <code>next</code> 레이아웃.</p>
+      <div id="pageBasic"></div>
+    </div>
+  </div>
+
+  <!-- 레이아웃 옵션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>레이아웃 옵션</span>
+      <code class="cui-text-secondary">layout: ['first', 'prev', ...]</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">다양한 레이아웃 조합으로 페이지네이션을 구성합니다.</p>
+      
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">첫/끝 페이지 버튼 포함</div>
+        <div id="pageLayout1"></div>
+      </div>
+      
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">총 건수 + 페이지 정보</div>
+        <div id="pageLayout2"></div>
+      </div>
+      
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">페이지 이동 입력 포함</div>
+        <div id="pageLayout3"></div>
+      </div>
+      
+      <div>
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">전체 레이아웃</div>
+        <div id="pageLayout4"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 사이즈 옵션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>사이즈</span>
+      <code class="cui-text-secondary">size: 'sm' | 'md' | 'lg'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">Small (sm)</div>
+        <div id="pageSizeSm"></div>
+      </div>
+      
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">Medium (md) - 기본</div>
+        <div id="pageSizeMd"></div>
+      </div>
+      
+      <div>
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">Large (lg)</div>
+        <div id="pageSizeLg"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 테마 색상 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>테마 색상</span>
+      <code class="cui-text-secondary">theme: '#1677ff'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">기본 테마</div>
+        <div id="pageTheme1"></div>
+      </div>
+      
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">파란색 (#1677ff)</div>
+        <div id="pageTheme2"></div>
+      </div>
+      
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">녹색 (#52c41a)</div>
+        <div id="pageTheme3"></div>
+      </div>
+      
+      <div>
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">주황색 (#fa8c16)</div>
+        <div id="pageTheme4"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 페이지당 건수 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>페이지당 건수</span>
+      <code class="cui-text-secondary">limit / limits</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>limit</code>으로 기본값, <code>limits</code>로 선택 옵션을 설정합니다.</p>
+      <div id="pageLimit"></div>
+      <div id="pageLimitInfo" class="cui-mt-10 cui-text-secondary"></div>
+    </div>
+  </div>
+
+  <!-- 연속 페이지 수 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>연속 페이지 수</span>
+      <code class="cui-text-secondary">groups: 5</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>groups</code>로 연속으로 표시할 페이지 번호 개수를 설정합니다.</p>
+      
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">groups: 3</div>
+        <div id="pageGroups3"></div>
+      </div>
+      
+      <div class="cui-mb-15">
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">groups: 5 (기본)</div>
+        <div id="pageGroups5"></div>
+      </div>
+      
+      <div>
+        <div class="cui-text-xs cui-text-secondary cui-mb-5">groups: 10</div>
+        <div id="pageGroups10"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['page'], function(){
+  
+  // 기본 페이지네이션
+  page.render({
+    elem: 'pageBasic',
+    count: 100
+  });
+
+  // 레이아웃 옵션
+  page.render({
+    elem: 'pageLayout1',
+    count: 500,
+    layout: ['first', 'prev', 'page', 'next', 'last']
+  });
+
+  page.render({
+    elem: 'pageLayout2',
+    count: 500,
+    layout: ['count', 'prev', 'page', 'next', 'pages']
+  });
+
+  page.render({
+    elem: 'pageLayout3',
+    count: 500,
+    layout: ['prev', 'page', 'next', 'skip']
+  });
+
+  page.render({
+    elem: 'pageLayout4',
+    count: 500,
+    layout: ['count', 'first', 'prev', 'page', 'next', 'last', 'limit', 'skip', 'refresh']
+  });
+
+  // 사이즈
+  page.render({
+    elem: 'pageSizeSm',
+    count: 100,
+    size: 'sm'
+  });
+
+  page.render({
+    elem: 'pageSizeMd',
+    count: 100,
+    size: 'md'
+  });
+
+  page.render({
+    elem: 'pageSizeLg',
+    count: 100,
+    size: 'lg'
+  });
+
+  // 테마 색상
+  page.render({
+    elem: 'pageTheme1',
+    count: 100
+  });
+
+  page.render({
+    elem: 'pageTheme2',
+    count: 100,
+    theme: '#1677ff'
+  });
+
+  page.render({
+    elem: 'pageTheme3',
+    count: 100,
+    theme: '#52c41a'
+  });
+
+  page.render({
+    elem: 'pageTheme4',
+    count: 100,
+    theme: '#fa8c16'
+  });
+
+  // 페이지당 건수
+  page.render({
+    elem: 'pageLimit',
+    id: 'limitDemo',
+    count: 500,
+    limit: 20,
+    limits: [10, 20, 50, 100],
+    layout: ['count', 'prev', 'page', 'next', 'limit', 'info'],
+    jump: function(obj, first){
+      document.getElementById('pageLimitInfo').innerHTML = 
+        '현재 페이지: ' + obj.curr + ', 페이지당 건수: ' + obj.limit + ', 총 페이지: ' + obj.pages;
+    }
+  });
+
+  // 연속 페이지 수
+  page.render({
+    elem: 'pageGroups3',
+    count: 500,
+    curr: 25,
+    groups: 3
+  });
+
+  page.render({
+    elem: 'pageGroups5',
+    count: 500,
+    curr: 25,
+    groups: 5
+  });
+
+  page.render({
+    elem: 'pageGroups10',
+    count: 500,
+    curr: 25,
+    groups: 10
+  });
+});
+</script>
+</div>

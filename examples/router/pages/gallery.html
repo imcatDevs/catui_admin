@@ -1,0 +1,356 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">갤러리</h2>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">페이지</a>
+      <span>갤러리</span>
+    </div>
+  </div>
+
+  <!-- 필터/검색 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-10 cui-flex-wrap cui-flex-between">
+        <div class="cui-flex cui-gap-10">
+          <div class="gallery-filter">
+            <button class="active" data-filter="all">전체</button>
+            <button data-filter="photo">사진</button>
+            <button data-filter="illustration">일러스트</button>
+            <button data-filter="3d">3D</button>
+          </div>
+        </div>
+        <div class="cui-flex cui-gap-10">
+          <div class="search-box">
+            <i class="cui-icon">search</i>
+            <input type="text" id="gallerySearch" placeholder="검색...">
+          </div>
+          <button class="cui-btn cui-btn-primary" id="btnUpload"><i class="cui-icon">cloud_upload</i> 업로드</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 갤러리 그리드 -->
+  <div class="gallery-grid" id="galleryGrid"></div>
+
+  <!-- 더보기 -->
+  <div class="cui-text-center cui-mt-20">
+    <button class="cui-btn cui-btn-lg" id="btnLoadMore"><i class="cui-icon">refresh</i> 더 불러오기</button>
+  </div>
+</div>
+
+<!-- 이미지 뷰어 모달 -->
+<div class="gallery-viewer" id="galleryViewer">
+  <div class="viewer-backdrop"></div>
+  <div class="viewer-content">
+    <button class="viewer-close"><i class="cui-icon">close</i></button>
+    <button class="viewer-prev"><i class="cui-icon">chevron_left</i></button>
+    <button class="viewer-next"><i class="cui-icon">chevron_right</i></button>
+    <div class="viewer-image">
+      <img id="viewerImg" src="" alt="">
+    </div>
+    <div class="viewer-info">
+      <h3 id="viewerTitle"></h3>
+      <p id="viewerDesc"></p>
+      <div class="viewer-meta">
+        <span><i class="cui-icon">person</i> <span id="viewerAuthor"></span></span>
+        <span><i class="cui-icon">favorite</i> <span id="viewerLikes"></span></span>
+        <span><i class="cui-icon">visibility</i> <span id="viewerViews"></span></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.gallery-filter { display: flex; gap: 5px; }
+.gallery-filter button {
+  padding: 8px 16px;
+  border: 1px solid var(--cui-border);
+  background: #fff;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.gallery-filter button:hover { border-color: var(--cui-primary); color: var(--cui-primary); }
+.gallery-filter button.active { background: var(--cui-primary); color: #fff; border-color: var(--cui-primary); }
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--cui-border);
+  border-radius: 6px;
+  padding: 0 12px;
+  height: 36px;
+}
+.search-box .cui-icon { color: var(--cui-text-secondary); }
+.search-box input { border: none; outline: none; width: 150px; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--cui-fill);
+  aspect-ratio: 4/3;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover img { transform: scale(1.05); }
+
+.gallery-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(transparent 50%, rgba(0,0,0,0.7));
+  opacity: 0;
+  transition: opacity 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 15px;
+  color: #fff;
+}
+
+.gallery-item:hover .gallery-overlay { opacity: 1; }
+
+.gallery-title { font-weight: 600; margin-bottom: 5px; }
+.gallery-meta { font-size: 12px; opacity: 0.8; display: flex; gap: 15px; }
+.gallery-meta .cui-icon { font-size: 14px; vertical-align: middle; }
+
+.gallery-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gallery-item:hover .gallery-actions { opacity: 1; }
+
+.gallery-actions button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.gallery-actions button:hover { background: #fff; }
+.gallery-actions .cui-icon { font-size: 18px; }
+
+/* 뷰어 */
+.gallery-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: none;
+}
+
+.gallery-viewer.active { display: flex; }
+
+.viewer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+}
+
+.viewer-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.viewer-close, .viewer-prev, .viewer-next {
+  position: absolute;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 10;
+}
+
+.viewer-close:hover, .viewer-prev:hover, .viewer-next:hover { background: rgba(255,255,255,0.2); }
+
+.viewer-close { top: 20px; right: 20px; }
+.viewer-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+.viewer-next { right: 20px; top: 50%; transform: translateY(-50%); }
+
+.viewer-image {
+  max-width: 80%;
+  max-height: 70vh;
+}
+
+.viewer-image img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+}
+
+.viewer-info {
+  text-align: center;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.viewer-info h3 { margin: 0 0 10px; }
+.viewer-info p { margin: 0 0 10px; opacity: 0.7; }
+.viewer-meta { display: flex; justify-content: center; gap: 20px; font-size: 14px; opacity: 0.7; }
+.viewer-meta .cui-icon { font-size: 16px; vertical-align: middle; margin-right: 5px; }
+</style>
+
+<script>
+Catui.use(['popup'], function(){
+  var bindEvent = window.router ? router.bindEvent.bind(router) : function(el, type, fn){
+    document.querySelector(el).addEventListener(type, fn);
+  };
+
+  var images = [
+    { id: 1, title: '산속의 호수', category: 'photo', author: '김사진', likes: 128, views: 1520, color: '#3498db' },
+    { id: 2, title: '도시의 밤', category: 'photo', author: '이야경', likes: 256, views: 2340, color: '#2c3e50' },
+    { id: 3, title: '캐릭터 디자인', category: 'illustration', author: '박그림', likes: 89, views: 890, color: '#e74c3c' },
+    { id: 4, title: '추상 패턴', category: 'illustration', author: '최아트', likes: 167, views: 1230, color: '#9b59b6' },
+    { id: 5, title: '제품 렌더링', category: '3d', author: '정모델', likes: 312, views: 3450, color: '#1abc9c' },
+    { id: 6, title: '건축 시각화', category: '3d', author: '한건축', likes: 198, views: 2100, color: '#34495e' },
+    { id: 7, title: '일몰 풍경', category: 'photo', author: '김사진', likes: 445, views: 4500, color: '#e67e22' },
+    { id: 8, title: '판타지 일러스트', category: 'illustration', author: '박그림', likes: 234, views: 2340, color: '#8e44ad' },
+    { id: 9, title: '인테리어 3D', category: '3d', author: '정모델', likes: 156, views: 1560, color: '#27ae60' }
+  ];
+
+  var currentFilter = 'all';
+  var currentIndex = 0;
+
+  function renderGallery(){
+    var filtered = currentFilter === 'all' ? images : images.filter(function(img){ return img.category === currentFilter; });
+    
+    var html = filtered.map(function(img, idx){
+      return '<div class="gallery-item" data-id="' + img.id + '" data-idx="' + idx + '">' +
+        '<div style="width:100%;height:100%;background:linear-gradient(135deg,' + img.color + ',#2c3e50);display:flex;align-items:center;justify-content:center;">' +
+          '<i class="cui-icon" style="font-size:48px;color:rgba(255,255,255,0.3);">image</i>' +
+        '</div>' +
+        '<div class="gallery-overlay">' +
+          '<div class="gallery-title">' + img.title + '</div>' +
+          '<div class="gallery-meta">' +
+            '<span><i class="cui-icon">person</i> ' + img.author + '</span>' +
+            '<span><i class="cui-icon">favorite</i> ' + img.likes + '</span>' +
+          '</div>' +
+        '</div>' +
+        '<div class="gallery-actions">' +
+          '<button class="btn-like" title="좋아요"><i class="cui-icon">favorite_border</i></button>' +
+          '<button class="btn-download" title="다운로드"><i class="cui-icon">download</i></button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+    
+    document.getElementById('galleryGrid').innerHTML = html;
+  }
+
+  renderGallery();
+
+  // 필터
+  document.querySelectorAll('.gallery-filter button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      currentFilter = this.getAttribute('data-filter');
+      document.querySelectorAll('.gallery-filter button').forEach(function(b){ b.classList.remove('active'); });
+      this.classList.add('active');
+      renderGallery();
+    });
+  });
+
+  // 이미지 클릭 - 뷰어 열기
+  document.getElementById('galleryGrid').addEventListener('click', function(e){
+    var item = e.target.closest('.gallery-item');
+    if(!item) return;
+    
+    if(e.target.closest('.btn-like')){
+      popup.msg('좋아요!');
+      return;
+    }
+    if(e.target.closest('.btn-download')){
+      popup.msg('다운로드 시작');
+      return;
+    }
+    
+    var id = parseInt(item.getAttribute('data-id'));
+    var img = images.find(function(i){ return i.id === id; });
+    currentIndex = images.indexOf(img);
+    
+    document.getElementById('viewerTitle').textContent = img.title;
+    document.getElementById('viewerDesc').textContent = img.category;
+    document.getElementById('viewerAuthor').textContent = img.author;
+    document.getElementById('viewerLikes').textContent = img.likes;
+    document.getElementById('viewerViews').textContent = img.views;
+    document.getElementById('galleryViewer').classList.add('active');
+  });
+
+  // 뷰어 닫기
+  document.querySelector('.viewer-close').addEventListener('click', function(){
+    document.getElementById('galleryViewer').classList.remove('active');
+  });
+
+  document.querySelector('.viewer-backdrop').addEventListener('click', function(){
+    document.getElementById('galleryViewer').classList.remove('active');
+  });
+
+  // 이전/다음
+  document.querySelector('.viewer-prev').addEventListener('click', function(){
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    var img = images[currentIndex];
+    document.getElementById('viewerTitle').textContent = img.title;
+    document.getElementById('viewerAuthor').textContent = img.author;
+    document.getElementById('viewerLikes').textContent = img.likes;
+    document.getElementById('viewerViews').textContent = img.views;
+  });
+
+  document.querySelector('.viewer-next').addEventListener('click', function(){
+    currentIndex = (currentIndex + 1) % images.length;
+    var img = images[currentIndex];
+    document.getElementById('viewerTitle').textContent = img.title;
+    document.getElementById('viewerAuthor').textContent = img.author;
+    document.getElementById('viewerLikes').textContent = img.likes;
+    document.getElementById('viewerViews').textContent = img.views;
+  });
+
+  bindEvent('#btnUpload', 'click', function(){
+    popup.msg('업로드 기능은 준비 중입니다');
+  });
+
+  bindEvent('#btnLoadMore', 'click', function(){
+    popup.msg('더 이상 이미지가 없습니다');
+  });
+});
+</script>

@@ -1,0 +1,313 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">별점 (Rate)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>Rate</span>
+    </div>
+  </div>
+  <!-- 기본 별점 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 별점</span>
+      <code class="cui-text-secondary">rate.render()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-15">
+        <label class="cui-form-label">기본</label>
+        <div id="rate1"></div>
+      </div>
+      <div class="cui-mb-15">
+        <label class="cui-form-label">초기값 3</label>
+        <div id="rate2"></div>
+      </div>
+      <div>
+        <label class="cui-form-label">읽기전용</label>
+        <div id="rate3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 텍스트 및 반별 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>텍스트 및 반별</span>
+      <code class="cui-text-secondary">text | half</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-15">
+        <label class="cui-form-label">텍스트 표시 (text: true)</label>
+        <div id="rateText"></div>
+      </div>
+      <div class="cui-mb-15">
+        <label class="cui-form-label">반별 허용 (half: true)</label>
+        <div id="rateHalf"></div>
+      </div>
+      <div>
+        <label class="cui-form-label">커스텀 텍스트</label>
+        <div id="rateCustomText"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 개수 변경 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>별 개수 변경</span>
+      <code class="cui-text-secondary">length: 10 | 3</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-6 cui-mb-15">
+          <label class="cui-form-label">10점 만점</label>
+          <div id="rateLength"></div>
+        </div>
+        <div class="cui-col-6 cui-mb-15">
+          <label class="cui-form-label">3점 만점</label>
+          <div id="rateLength3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 아이콘 변경 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>아이콘 변경</span>
+      <code class="cui-text-secondary">icon: 'favorite' | 'thumb_up' | 'sentiment_satisfied'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-6 cui-mb-15">
+          <label class="cui-form-label">하트 (favorite)</label>
+          <div id="rateHeart"></div>
+        </div>
+        <div class="cui-col-6 cui-mb-15">
+          <label class="cui-form-label">하트 반개 허용</label>
+          <div id="rateHeartHalf"></div>
+        </div>
+        <div class="cui-col-6 cui-mb-15">
+          <label class="cui-form-label">좋아요 (thumb_up)</label>
+          <div id="rateLike"></div>
+        </div>
+        <div class="cui-col-6 cui-mb-15">
+          <label class="cui-form-label">이모지 (sentiment_satisfied)</label>
+          <div id="rateEmoji"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 테마 색상 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>테마 색상</span>
+      <code class="cui-text-secondary">theme: '#color'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-30" style="flex-wrap: wrap;">
+        <div>
+          <div id="rateTheme1"></div>
+          <span class="cui-text-secondary cui-text-xs">기본</span>
+        </div>
+        <div>
+          <div id="rateTheme2"></div>
+          <span class="cui-text-secondary cui-text-xs">녹색</span>
+        </div>
+        <div>
+          <div id="rateTheme3"></div>
+          <span class="cui-text-secondary cui-text-xs">빨강</span>
+        </div>
+        <div>
+          <div id="rateTheme4"></div>
+          <span class="cui-text-secondary cui-text-xs">보라</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 인스턴스 제어 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>인스턴스 제어</span>
+      <code class="cui-text-secondary">inst.setValue() / inst.getValue()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">컨트롤 대상</label>
+          <div id="rateApi"></div>
+        </div>
+        <div class="cui-col-8 cui-mb-15">
+          <label class="cui-form-label">컨트롤</label>
+          <div class="cui-flex cui-gap-10 cui-flex-middle cui-mb-10">
+            <button id="btnSet1" type="button" class="cui-btn cui-btn-sm">1점 설정</button>
+            <button id="btnSet3" type="button" class="cui-btn cui-btn-sm">3점 설정</button>
+            <button id="btnSet5" type="button" class="cui-btn cui-btn-sm">5점 설정</button>
+            <button id="btnGet" type="button" class="cui-btn cui-btn-sm cui-btn-primary">값 가져오기</button>
+          </div>
+          <code id="rateApiValue" class="cui-block">(없음)</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API 테이블 -->
+  <div class="cui-card">
+    <div class="cui-card-header">rate API</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-border">
+        <thead>
+          <tr><th>메서드/옵션</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>rate.render(options)</code></td><td>별점 렌더링</td></tr>
+          <tr><td><code>inst.setValue(value)</code></td><td>값 설정</td></tr>
+          <tr><td><code>inst.getValue()</code></td><td>현재 값 가져오기</td></tr>
+          <tr><td><code>length</code></td><td>별 개수 (기본: 5)</td></tr>
+          <tr><td><code>value</code></td><td>초기값</td></tr>
+          <tr><td><code>half</code></td><td>반별 허용</td></tr>
+          <tr><td><code>text</code></td><td>텍스트 표시</td></tr>
+          <tr><td><code>readonly</code></td><td>읽기전용</td></tr>
+          <tr><td><code>icon</code></td><td>아이콘 (star, favorite, thumb_up 등)</td></tr>
+          <tr><td><code>theme</code></td><td>테마 색상</td></tr>
+          <tr><td><code>setText</code></td><td>텍스트 포맷 함수</td></tr>
+          <tr><td><code>choose</code></td><td>선택 콜백</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['rate', 'popup'], function(rate, popup){
+  // 기본 (choose 콜백으로 popup 표시)
+  rate.render({
+    elem: '#rate1',
+    choose: function(value){ popup.msg('선택: ' + value + '점'); }
+  });
+
+  // 초기값
+  rate.render({
+    elem: '#rate2',
+    value: 3,
+    choose: function(value){ popup.msg('선택: ' + value + '점'); }
+  });
+
+  // 읽기전용
+  rate.render({
+    elem: '#rate3',
+    value: 4,
+    readonly: true
+  });
+
+  // 텍스트
+  rate.render({
+    elem: '#rateText',
+    value: 3,
+    text: true
+  });
+
+  // 반별
+  rate.render({
+    elem: '#rateHalf',
+    value: 3.5,
+    half: true,
+    text: true,
+    choose: function(value){ popup.msg('선택: ' + value + '점'); }
+  });
+
+  // 커스텀 텍스트
+  var texts = ['매우 나쁨', '나쁨', '보통', '좋음', '매우 좋음'];
+  rate.render({
+    elem: '#rateCustomText',
+    value: 3,
+    text: true,
+    setText: function(value){
+      return texts[Math.ceil(value) - 1] || '';
+    }
+  });
+
+  // 별 개수 10점
+  rate.render({
+    elem: '#rateLength',
+    length: 10,
+    value: 7
+  });
+
+  // 별 개수 3점
+  rate.render({
+    elem: '#rateLength3',
+    length: 3,
+    value: 2
+  });
+
+  // 하트
+  rate.render({
+    elem: '#rateHeart',
+    value: 4,
+    icon: 'favorite',
+    theme: '#ff4d4f',
+    choose: function(value){ popup.msg('하트: ' + value + '개'); }
+  });
+
+  // 하트 반개 허용
+  rate.render({
+    elem: '#rateHeartHalf',
+    value: 3.5,
+    icon: 'favorite',
+    theme: '#ff4d4f',
+    half: true,
+    choose: function(value){ popup.msg('하트: ' + value + '개'); }
+  });
+
+  // 좋아요
+  rate.render({
+    elem: '#rateLike',
+    value: 3,
+    icon: 'thumb_up',
+    theme: '#1677ff',
+    choose: function(value){ popup.msg('좋아요: ' + value + '개'); }
+  });
+
+  // 이모지
+  rate.render({
+    elem: '#rateEmoji',
+    value: 4,
+    icon: 'sentiment_satisfied',
+    theme: '#52c41a',
+    choose: function(value){ popup.msg('만족도: ' + value + '점'); }
+  });
+
+  // 테마
+  rate.render({ elem: '#rateTheme1', value: 4 });
+  rate.render({ elem: '#rateTheme2', value: 4, theme: '#5fb878' });
+  rate.render({ elem: '#rateTheme3', value: 4, theme: '#ff5722' });
+  rate.render({ elem: '#rateTheme4', value: 4, theme: '#9c27b0' });
+
+  // 인스턴스 제어
+  var apiInst = rate.render({
+    elem: '#rateApi',
+    value: 3,
+    text: true
+  });
+  document.getElementById('btnSet1').addEventListener('click', function(){
+    apiInst.setValue(1);
+  });
+  document.getElementById('btnSet3').addEventListener('click', function(){
+    apiInst.setValue(3);
+  });
+  document.getElementById('btnSet5').addEventListener('click', function(){
+    apiInst.setValue(5);
+  });
+  document.getElementById('btnGet').addEventListener('click', function(){
+    document.getElementById('rateApiValue').textContent = apiInst.getValue() + '점';
+  });
+});
+</script>
+</div>

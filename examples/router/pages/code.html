@@ -1,0 +1,224 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">코드 하이라이팅</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>코드</span>
+    </div>
+  </div>
+
+  <!-- JavaScript 하이라이팅 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>JavaScript</span>
+      <code class="cui-text-secondary">language-javascript</code>
+    </div>
+    <div class="cui-card-body">
+      <pre><code class="language-javascript">// 함수 선언
+function greet(name) {
+  const message = 'Hello, ' + name + '!';
+  return message;
+}
+
+// 클래스 정의
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  
+  sayHello() {
+    console.log(`Hi, I'm ${this.name}`);
+  }
+}
+
+// 배열 메서드
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map(n => n * 2);
+const sum = numbers.reduce((a, b) => a + b, 0);
+
+// async/await
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- HTML 하이라이팅 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>HTML</span>
+      <code class="cui-text-secondary">language-html</code>
+    </div>
+    <div class="cui-card-body">
+      <pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;페이지 제목&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header class="header"&gt;
+    &lt;nav class="navigation"&gt;
+      &lt;a href="#home"&gt;홈&lt;/a&gt;
+      &lt;a href="#about"&gt;소개&lt;/a&gt;
+    &lt;/nav&gt;
+  &lt;/header&gt;
+  
+  &lt;main id="content"&gt;
+    &lt;section class="hero"&gt;
+      &lt;h1&gt;환영합니다&lt;/h1&gt;
+      &lt;p&gt;설명 텍스트입니다.&lt;/p&gt;
+      &lt;button type="button" onclick="handleClick()"&gt;클릭&lt;/button&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+  
+  &lt;!-- 주석입니다 --&gt;
+  &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+    </div>
+  </div>
+
+  <!-- CSS 하이라이팅 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>CSS</span>
+      <code class="cui-text-secondary">language-css</code>
+    </div>
+    <div class="cui-card-body">
+      <pre><code class="language-css">/* 전역 스타일 */
+:root {
+  --primary-color: #1677ff;
+  --border-radius: 8px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* 카드 컴포넌트 */
+.card {
+  background: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* 반응형 */
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- JSON 하이라이팅 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>JSON</span>
+      <code class="cui-text-secondary">language-json</code>
+    </div>
+    <div class="cui-card-body">
+      <pre><code class="language-json">{
+  "name": "catui",
+  "version": "1.0.0",
+  "description": "모던 UI 프레임워크",
+  "main": "dist/catui.js",
+  "scripts": {
+    "dev": "gulp serve",
+    "build": "gulp build"
+  },
+  "keywords": ["ui", "framework", "javascript"],
+  "author": "Catui Team",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "browser-sync": "^2.27.0"
+  }
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- 줄번호 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>줄번호 표시</span>
+      <code class="cui-text-secondary">cui-code-line</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>cui-code-line</code> 클래스를 추가하면 줄번호가 표시됩니다.</p>
+      <pre class="cui-code-line"><code class="language-javascript">const app = {
+  name: 'MyApp',
+  version: '1.0.0',
+  
+  init: function() {
+    console.log('App initialized');
+    this.bindEvents();
+  },
+  
+  bindEvents: function() {
+    document.addEventListener('click', this.handleClick);
+  },
+  
+  handleClick: function(e) {
+    console.log('Clicked:', e.target);
+  }
+};
+
+app.init();</code></pre>
+    </div>
+  </div>
+
+  <!-- 복사 버튼 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>복사 버튼</span>
+      <code class="cui-text-secondary">code.addCopyButton()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">코드 블록에 복사 버튼을 추가합니다.</p>
+      <pre id="copyDemo"><code class="language-javascript">npm install catui --save
+
+// 또는
+yarn add catui</code></pre>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['code'], function(){
+  // 자동 하이라이팅
+  code.render();
+  
+  // 복사 버튼 추가
+  var copyDemo = document.querySelector('#copyDemo code');
+  if(copyDemo){
+    code.addCopyButton(copyDemo);
+  }
+});
+</script>
+</div>

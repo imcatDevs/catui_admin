@@ -1,0 +1,305 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">인보이스</h2>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">페이지</a>
+      <span>인보이스</span>
+    </div>
+  </div>
+
+  <!-- 인보이스 카드 -->
+  <div class="cui-card invoice-card">
+    <div class="cui-card-body">
+      <!-- 인보이스 헤더 -->
+      <div class="invoice-header">
+        <div class="invoice-logo">
+          <i class="cui-icon" style="font-size:48px;color:var(--cui-primary);">widgets</i>
+          <div>
+            <h2>CatUI Inc.</h2>
+            <p>서울시 강남구 테헤란로 123<br>catui@example.com</p>
+          </div>
+        </div>
+        <div class="invoice-info">
+          <h1>인보이스</h1>
+          <table>
+            <tr><td>인보이스 번호:</td><td><strong>#INV-2024-001</strong></td></tr>
+            <tr><td>발행일:</td><td>2024-01-15</td></tr>
+            <tr><td>만료일:</td><td>2024-02-15</td></tr>
+            <tr><td>상태:</td><td><span class="cui-badge cui-badge-warning">미결제</span></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- 청구/수신 정보 -->
+      <div class="invoice-parties">
+        <div class="invoice-party">
+          <h4>청구처</h4>
+          <p><strong>CatUI Inc.</strong><br>
+          서울시 강남구 테헤란로 123<br>
+          사업자등록번호: 123-45-67890<br>
+          Tel: 02-1234-5678</p>
+        </div>
+        <div class="invoice-party">
+          <h4>수신처</h4>
+          <p><strong>홍길동</strong><br>
+          서울시 서초구 서초대로 456<br>
+          hong@example.com<br>
+          Tel: 010-1234-5678</p>
+        </div>
+      </div>
+
+      <!-- 품목 테이블 -->
+      <table class="cui-table invoice-table">
+        <thead>
+          <tr>
+            <th>품목</th>
+            <th>설명</th>
+            <th class="cui-text-center">수량</th>
+            <th class="cui-text-right">단가</th>
+            <th class="cui-text-right">금액</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Pro 플랜</strong></td>
+            <td>CatUI Pro 월간 구독</td>
+            <td class="cui-text-center">1</td>
+            <td class="cui-text-right">₩29,000</td>
+            <td class="cui-text-right">₩29,000</td>
+          </tr>
+          <tr>
+            <td><strong>프리미엄 템플릿</strong></td>
+            <td>어드민 대시보드 템플릿</td>
+            <td class="cui-text-center">2</td>
+            <td class="cui-text-right">₩15,000</td>
+            <td class="cui-text-right">₩30,000</td>
+          </tr>
+          <tr>
+            <td><strong>기술 지원</strong></td>
+            <td>우선 기술 지원 (1개월)</td>
+            <td class="cui-text-center">1</td>
+            <td class="cui-text-right">₩50,000</td>
+            <td class="cui-text-right">₩50,000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- 합계 -->
+      <div class="invoice-summary">
+        <div class="summary-row">
+          <span>소계</span>
+          <span>₩109,000</span>
+        </div>
+        <div class="summary-row">
+          <span>부가세 (10%)</span>
+          <span>₩10,900</span>
+        </div>
+        <div class="summary-row total">
+          <span>총 합계</span>
+          <span>₩119,900</span>
+        </div>
+      </div>
+
+      <!-- 결제 정보 -->
+      <div class="invoice-payment">
+        <h4>결제 정보</h4>
+        <table>
+          <tr><td>은행:</td><td>신한은행</td></tr>
+          <tr><td>계좌번호:</td><td>110-123-456789</td></tr>
+          <tr><td>예금주:</td><td>CatUI Inc.</td></tr>
+        </table>
+      </div>
+
+      <!-- 메모 -->
+      <div class="invoice-notes">
+        <h4>메모</h4>
+        <p>본 인보이스는 발행일로부터 30일 이내에 결제해 주시기 바랍니다. 결제 후 이메일로 영수증이 발송됩니다. 문의사항이 있으시면 support@catui.com으로 연락 주세요.</p>
+      </div>
+
+      <!-- 액션 버튼 -->
+      <div class="invoice-actions">
+        <button class="cui-btn" id="btnDownload"><i class="cui-icon">download</i> PDF 다운로드</button>
+        <button class="cui-btn" id="btnPrint"><i class="cui-icon">print</i> 인쇄</button>
+        <button class="cui-btn" id="btnSend"><i class="cui-icon">send</i> 이메일 전송</button>
+        <button class="cui-btn cui-btn-primary" id="btnPay"><i class="cui-icon">credit_card</i> 결제하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 인보이스 목록 -->
+  <div class="cui-card cui-mt-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>최근 인보이스</span>
+      <a href="javascript:;" class="cui-text-primary cui-text-sm">전체 보기</a>
+    </div>
+    <div class="cui-card-body cui-p-0">
+      <table class="cui-table">
+        <thead>
+          <tr>
+            <th>인보이스</th>
+            <th>날짜</th>
+            <th>금액</th>
+            <th>상태</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>#INV-2024-001</strong></td>
+            <td>2024-01-15</td>
+            <td>₩119,900</td>
+            <td><span class="cui-badge cui-badge-warning">미결제</span></td>
+            <td><a href="javascript:;" class="cui-text-primary">보기</a></td>
+          </tr>
+          <tr>
+            <td><strong>#INV-2023-012</strong></td>
+            <td>2023-12-15</td>
+            <td>₩29,000</td>
+            <td><span class="cui-badge cui-badge-success">결제완료</span></td>
+            <td><a href="javascript:;" class="cui-text-primary">보기</a></td>
+          </tr>
+          <tr>
+            <td><strong>#INV-2023-011</strong></td>
+            <td>2023-11-15</td>
+            <td>₩29,000</td>
+            <td><span class="cui-badge cui-badge-success">결제완료</span></td>
+            <td><a href="javascript:;" class="cui-text-primary">보기</a></td>
+          </tr>
+          <tr>
+            <td><strong>#INV-2023-010</strong></td>
+            <td>2023-10-15</td>
+            <td>₩29,000</td>
+            <td><span class="cui-badge cui-badge-success">결제완료</span></td>
+            <td><a href="javascript:;" class="cui-text-primary">보기</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<style>
+.invoice-card { max-width: 900px; }
+
+.invoice-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--cui-border);
+}
+
+.invoice-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.invoice-logo h2 { margin: 0 0 5px; }
+.invoice-logo p { margin: 0; font-size: 13px; color: var(--cui-text-secondary); }
+
+.invoice-info { text-align: right; }
+.invoice-info h1 { margin: 0 0 15px; font-size: 28px; color: var(--cui-primary); }
+.invoice-info table { margin-left: auto; }
+.invoice-info td { padding: 3px 0; font-size: 13px; }
+.invoice-info td:first-child { padding-right: 15px; color: var(--cui-text-secondary); }
+
+.invoice-parties {
+  display: flex;
+  gap: 50px;
+  margin-bottom: 30px;
+}
+
+.invoice-party { flex: 1; }
+.invoice-party h4 { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; color: var(--cui-text-secondary); letter-spacing: 1px; }
+.invoice-party p { margin: 0; line-height: 1.7; font-size: 14px; }
+
+.invoice-table { margin-bottom: 30px; }
+.invoice-table th { background: var(--cui-fill); }
+
+.invoice-summary {
+  margin-left: auto;
+  width: 280px;
+  margin-bottom: 30px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--cui-border);
+  font-size: 14px;
+}
+
+.summary-row.total {
+  font-size: 18px;
+  font-weight: 700;
+  border-bottom: none;
+  padding-top: 15px;
+  color: var(--cui-primary);
+}
+
+.invoice-payment {
+  background: var(--cui-fill);
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.invoice-payment h4 { margin: 0 0 10px; font-size: 14px; }
+.invoice-payment table { font-size: 13px; }
+.invoice-payment td { padding: 3px 0; }
+.invoice-payment td:first-child { padding-right: 15px; color: var(--cui-text-secondary); }
+
+.invoice-notes {
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #fffbe6;
+  border-radius: 8px;
+  border-left: 4px solid #faad14;
+}
+
+.invoice-notes h4 { margin: 0 0 10px; font-size: 14px; }
+.invoice-notes p { margin: 0; font-size: 13px; color: var(--cui-text-secondary); line-height: 1.7; }
+
+.invoice-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding-top: 20px;
+  border-top: 1px solid var(--cui-border);
+}
+
+@media print {
+  .cui-page-header, .invoice-actions, .cui-card:last-child { display: none !important; }
+  .invoice-card { box-shadow: none; max-width: 100%; }
+}
+</style>
+
+<script>
+Catui.use(['popup'], function(){
+  var bindEvent = window.router ? router.bindEvent.bind(router) : function(el, type, fn){
+    document.querySelector(el).addEventListener(type, fn);
+  };
+
+  bindEvent('#btnDownload', 'click', function(){
+    popup.msg('PDF 다운로드 중...', { icon: 0 });
+  });
+
+  bindEvent('#btnPrint', 'click', function(){
+    window.print();
+  });
+
+  bindEvent('#btnSend', 'click', function(){
+    popup.msg('이메일로 전송되었습니다', { icon: 1 });
+  });
+
+  bindEvent('#btnPay', 'click', function(){
+    popup.msg('결제 페이지로 이동합니다');
+  });
+});
+</script>

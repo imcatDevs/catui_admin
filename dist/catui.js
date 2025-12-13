@@ -45,6 +45,7 @@
     ,'code': 'modules/code'     // 코드 하이라이트
     ,'theme': 'modules/theme'   // 테마
     ,'router': 'modules/router' // 라우터
+    ,'pagetabs': 'modules/pagetabs' // 페이지 탭
   }
 
   // 로그 출력 (debug 모드일 때만)

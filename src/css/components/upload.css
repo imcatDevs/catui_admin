@@ -32,13 +32,13 @@
 
 .cui-upload-drag:hover {
   border-color: var(--cui-primary);
-  background: rgba(var(--cui-primary-rgb), 0.02);
+  background: rgb(var(--cui-primary-rgb), 0.02);
 }
 
 /* 드래그 오버 상태 */
 .cui-upload-drag-over {
   border-color: var(--cui-primary);
-  background: rgba(var(--cui-primary-rgb), 0.06);
+  background: rgb(var(--cui-primary-rgb), 0.06);
   border-style: solid;
 }
 
@@ -52,8 +52,8 @@
 }
 
 @keyframes cui-upload-pulse {
-  0%, 100% { box-shadow: inset 0 0 0 2px rgba(22, 119, 255, 0); }
-  50% { box-shadow: inset 0 0 0 2px rgba(22, 119, 255, 0.1); }
+  0%, 100% { box-shadow: inset 0 0 0 2px rgb(22, 119, 255, 0); }
+  50% { box-shadow: inset 0 0 0 2px rgb(22, 119, 255, 0.1); }
 }
 
 /* 드래그 영역 아이콘 */
@@ -73,7 +73,7 @@
 .cui-upload-drag p {
   margin: 0;
   color: var(--cui-text-secondary);
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .cui-upload-drag p .cui-link {
@@ -123,7 +123,7 @@
 }
 
 .cui-upload-list-item .cui-upload-file-name {
-  font-size: 14px;
+  font-size: 12px;
   color: var(--cui-text-primary);
   white-space: nowrap;
   overflow: hidden;
@@ -170,7 +170,7 @@
 
 .cui-upload-list-item.is-error {
   border-color: var(--cui-danger);
-  background: rgba(255, 77, 79, 0.02);
+  background: rgb(255, 77, 79, 0.02);
 }
 
 .cui-upload-list-item.is-error .cui-icon {
@@ -222,7 +222,7 @@
   height: 100px;
   border-radius: var(--cui-radius-sm, 4px);
   overflow: hidden;
-  border: 1px solid var(--cui-border, #eee);
+  border: 1px solid var(--cui-border, #eeeeee);
 }
 
 .cui-upload-preview-item img {
@@ -235,7 +235,7 @@
 .cui-upload-preview-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgb(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -249,7 +249,7 @@
 
 .cui-upload-preview-overlay .cui-icon {
   font-size: 24px;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   margin: 0 6px;
 }

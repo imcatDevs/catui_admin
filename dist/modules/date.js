@@ -397,15 +397,18 @@
     // HTML 생성
     var html = '';
 
-    if(isRange){
-      // 범위 선택: 두 개의 패널
-      html += '<div class="cui-date-main">';
-      html += that.buildPanel(0);
-      html += that.buildPanel(1);
-      html += '</div>';
-    } else {
-      // 단일 선택
-      html += that.buildPanel(0);
+    // 시간만 선택하는 경우 패널 생성 안함
+    if(config.type !== 'time'){
+      if(isRange){
+        // 범위 선택: 두 개의 패널
+        html += '<div class="cui-date-main">';
+        html += that.buildPanel(0);
+        html += that.buildPanel(1);
+        html += '</div>';
+      } else {
+        // 단일 선택
+        html += that.buildPanel(0);
+      }
     }
 
     // 시간 선택 (time, datetime)
@@ -491,6 +494,14 @@
     ,lang = that.lang()
     ,isRange = config.range;
 
+    // 시간만 선택하는 경우 시간 필드만 초기화
+    if(config.type === 'time'){
+      $c(that.elem).find('.cui-date-hour').val(('0' + that.startDate.hours).slice(-2));
+      $c(that.elem).find('.cui-date-minute').val(('0' + that.startDate.minutes).slice(-2));
+      $c(that.elem).find('.cui-date-second').val(('0' + that.startDate.seconds).slice(-2));
+      return;
+    }
+
     // 범위 선택: 두 패널 모두 업데이트
     if(isRange && panelIndex === undefined){
       that.calendar(0);
@@ -507,12 +518,20 @@
       ? $c(that.elem).find('.cui-date-panel[data-index="' + panelIndex + '"]')
       : $c(that.elem).find('.cui-date-panel');
 
+    // 리스트 모드 해제 및 테이블 다시 표시
+    $c(that.elem).removeClass('cui-date-list-mode');
+    panel.find('.cui-date-content').html(
+      '<table class="cui-date-table"><thead><tr>' +
+      lang.weeks.map(function(w){ return '<th>' + w + '</th>'; }).join('') +
+      '</tr></thead><tbody></tbody></table>'
+    );
+
     // 헤더 업데이트
     panel.find('.cui-date-y').html(year + '년');
     panel.find('.cui-date-m').html(lang.month[month]);
 
-    // 시간 업데이트 (단일 선택 시)
-    if(!isRange && (config.type === 'time' || config.type === 'datetime')){
+    // 시간 업데이트 (datetime)
+    if(!isRange && config.type === 'datetime'){
       $c(that.elem).find('.cui-date-hour').val(('0' + that.startDate.hours).slice(-2));
       $c(that.elem).find('.cui-date-minute').val(('0' + that.startDate.minutes).slice(-2));
       $c(that.elem).find('.cui-date-second').val(('0' + that.startDate.seconds).slice(-2));
@@ -526,11 +545,6 @@
       }
       if(config.type === 'month'){
         that.renderMonthList();
-        return;
-      }
-      if(config.type === 'time'){
-        $c(that.elem).find('.cui-date-content').css('display', 'none');
-        $c(that.elem).find('.cui-date-time').addClass('cui-date-time-only');
         return;
       }
     }
@@ -614,9 +628,10 @@
           cls += ' ' + DISABLED;
         }
 
-        // 마크
-        var markKey = '0-' + (cellMonth + 1) + '-' + num;
-        var mark = config.mark[markKey];
+        // 마크 (0-월-일: 매년 적용, 년-월-일: 특정 년도)
+        var markKey1 = '0-' + (cellMonth + 1) + '-' + num;
+        var markKey2 = cellYear + '-' + (cellMonth + 1) + '-' + num;
+        var mark = config.mark[markKey1] || config.mark[markKey2];
 
         html += '<td class="' + cls.trim() + '" data-date="' + dateStr + '">'
           + num
@@ -629,6 +644,87 @@
     }
 
     tbody.html(html);
+    
+    // 날짜 셀 클릭 이벤트 직접 바인딩 (layDate 방식)
+    that.bindDateCells(panel, panelIndex);
+  };
+
+  // 날짜 셀 클릭 이벤트 바인딩 (layDate 방식)
+  Class.prototype.bindDateCells = function(panel, panelIndex){
+    var that = this
+    ,$c = get$c()
+    ,config = that.config
+    ,isRange = config.range;
+
+    var tds = panel.find('.cui-date-table td');
+    
+    tds.each(function(i, td){
+      // 기존 이벤트 제거 후 새로 바인딩
+      td.onclick = null;
+      td.onclick = function(e){
+        e.stopPropagation();
+        
+        var $td = $c(this);
+        if($td.hasClass(DISABLED)) return;
+
+        var dateStr = this.getAttribute('data-date');
+        if(!dateStr) return;
+        
+        var parts = dateStr.split('-');
+        var clickedYear = parseInt(parts[0]);
+        var clickedMonth = parseInt(parts[1]);
+        var clickedDay = parseInt(parts[2]);
+        var clickedDate = new Date(clickedYear, clickedMonth, clickedDay);
+
+        // 범위 선택
+        if(isRange){
+          // 시작일/종료일 선택 상태에 따라 처리
+          if(that.rangeState === 0){
+            // 시작일 선택
+            that.rangeDate = [clickedDate, null];
+            that.rangeState = 1;
+          } else {
+            // 종료일 선택
+            if(clickedDate.getTime() < that.rangeDate[0].getTime()){
+              // 종료일이 시작일보다 앞이면 스왑
+              that.rangeDate = [clickedDate, that.rangeDate[0]];
+            } else {
+              that.rangeDate[1] = clickedDate;
+            }
+            that.rangeState = 0;
+          }
+          
+          // 두 패널 모두 다시 그리기
+          that.calendar();
+          
+          // change 콜백
+          if(typeof config.change === 'function' && that.rangeDate[0] && that.rangeDate[1]){
+            var value = that.formatDate(that.rangeDate[0]) + that.rangeStr + that.formatDate(that.rangeDate[1]);
+            config.change(value, that.rangeDate);
+          }
+          return;
+        }
+
+        // 단일 선택
+        that.startDate.year = clickedYear;
+        that.startDate.month = clickedMonth;
+        that.startDate.date = clickedDay;
+        
+        that.dateTime = new Date(that.startDate.year, that.startDate.month, that.startDate.date,
+          that.startDate.hours, that.startDate.minutes, that.startDate.seconds);
+
+        if(typeof config.change === 'function'){
+          config.change(that.formatDate(that.dateTime), that.dateTime);
+        }
+
+        // datetime은 확인 버튼으로만 닫힘
+        if(config.type !== 'datetime'){
+          that.confirm();
+        } else {
+          that.calendar();
+        }
+      };
+    });
   };
 
   // 범위 텍스트 업데이트
@@ -685,6 +781,33 @@
 
     $c(that.elem).find('.cui-date-content').html(html);
     $c(that.elem).addClass('cui-date-list-mode');
+    
+    // 년도 클릭 이벤트 직접 바인딩 (layDate 방식)
+    that.bindYearList();
+  };
+
+  // 년도 리스트 클릭 이벤트 바인딩
+  Class.prototype.bindYearList = function(){
+    var that = this
+    ,$c = get$c()
+    ,config = that.config
+    ,elem = $c(that.elem);
+
+    elem.find('.cui-date-list li[data-year]').each(function(i, li){
+      li.onclick = function(e){
+        e.stopPropagation();
+        var year = parseInt(this.getAttribute('data-year'));
+        that.startDate.year = year;
+        
+        if(config.type === 'year'){
+          that.dateTime = new Date(year, 0, 1);
+          that.confirm();
+        } else {
+          elem.removeClass('cui-date-list-mode');
+          that.calendar();
+        }
+      };
+    });
   };
 
   // 월 리스트
@@ -706,6 +829,33 @@
 
     $c(that.elem).find('.cui-date-content').html(html);
     $c(that.elem).addClass('cui-date-list-mode');
+    
+    // 월 클릭 이벤트 직접 바인딩 (layDate 방식)
+    that.bindMonthList();
+  };
+
+  // 월 리스트 클릭 이벤트 바인딩
+  Class.prototype.bindMonthList = function(){
+    var that = this
+    ,$c = get$c()
+    ,config = that.config
+    ,elem = $c(that.elem);
+
+    elem.find('.cui-date-list li[data-month]').each(function(i, li){
+      li.onclick = function(e){
+        e.stopPropagation();
+        var month = parseInt(this.getAttribute('data-month'));
+        that.startDate.month = month;
+        
+        if(config.type === 'month'){
+          that.dateTime = new Date(that.startDate.year, month, 1);
+          that.confirm();
+        } else {
+          elem.removeClass('cui-date-list-mode');
+          that.calendar();
+        }
+      };
+    });
   };
 
   // 캘린더 이벤트
@@ -818,91 +968,6 @@
         that.calendar();
       });
     }
-
-    // 날짜 선택
-    elem.on('click', '.cui-date-table td', function(){
-      var td = $c(this);
-      if(td.hasClass(DISABLED)) return;
-
-      var dateStr = td.attr('data-date');
-      var parts = dateStr.split('-');
-      var clickedDate = new Date(parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2]));
-
-      // 범위 선택
-      if(isRange){
-        if(that.rangeState === 0){
-          // 시작일 선택
-          that.rangeDate = [clickedDate, null];
-          that.rangeState = 1;
-        } else {
-          // 종료일 선택
-          if(clickedDate < that.rangeDate[0]){
-            // 종료일이 시작일보다 앞이면 스왑
-            that.rangeDate = [clickedDate, that.rangeDate[0]];
-          } else {
-            that.rangeDate[1] = clickedDate;
-          }
-          that.rangeState = 0;
-        }
-        
-        that.calendar();
-        
-        // change 콜백
-        if(typeof config.change === 'function' && that.rangeDate[0] && that.rangeDate[1]){
-          var value = that.formatDate(that.rangeDate[0]) + that.rangeStr + that.formatDate(that.rangeDate[1]);
-          config.change(value, that.rangeDate);
-        }
-        return;
-      }
-
-      // 단일 선택
-      that.startDate.year = parseInt(parts[0]);
-      that.startDate.month = parseInt(parts[1]);
-      that.startDate.date = parseInt(parts[2]);
-      
-      that.dateTime = new Date(that.startDate.year, that.startDate.month, that.startDate.date,
-        that.startDate.hours, that.startDate.minutes, that.startDate.seconds);
-
-      // change 콜백
-      if(typeof config.change === 'function'){
-        config.change(that.formatDate(that.dateTime), that.dateTime);
-      }
-
-      // 즉시 확인 (datetime 제외)
-      if(config.type !== 'datetime'){
-        that.confirm();
-      } else {
-        that.calendar();
-      }
-    });
-
-    // 년 선택
-    elem.on('click', '.cui-date-list li[data-year]', function(){
-      var year = parseInt($c(this).attr('data-year'));
-      that.startDate.year = year;
-      
-      if(config.type === 'year'){
-        that.dateTime = new Date(year, 0, 1);
-        that.confirm();
-      } else {
-        elem.removeClass('cui-date-list-mode');
-        that.calendar();
-      }
-    });
-
-    // 월 선택
-    elem.on('click', '.cui-date-list li[data-month]', function(){
-      var month = parseInt($c(this).attr('data-month'));
-      that.startDate.month = month;
-      
-      if(config.type === 'month'){
-        that.dateTime = new Date(that.startDate.year, month, 1);
-        that.confirm();
-      } else {
-        elem.removeClass('cui-date-list-mode');
-        that.calendar();
-      }
-    });
 
     // 년/월 클릭 시 리스트 모드 (단일 선택만)
     if(!isRange){

@@ -1,0 +1,137 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">합계행 (Total Row)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>합계행</span>
+    </div>
+  </div>
+
+  <!-- 기본 합계행 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 합계행</span>
+      <code class="cui-text-secondary">totalRow: true</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">열에 <code>totalRow: true</code>를 설정하면 해당 열의 합계를 표시합니다.</p>
+      <table id="tableBasicTotal"></table>
+    </div>
+  </div>
+
+  <!-- 커스텀 합계 텍스트 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>커스텀 합계 텍스트</span>
+      <code class="cui-text-secondary">totalRow: '텍스트' | function</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">문자열 또는 함수로 커스텀 합계 텍스트를 지정합니다.</p>
+      <table id="tableCustomTotal"></table>
+    </div>
+  </div>
+
+  <!-- 복잡한 합계 계산 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>복잡한 합계 계산</span>
+      <code class="cui-text-secondary">totalRow: function(data, col)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">함수를 사용하여 평균, 최대값 등 다양한 계산을 수행합니다.</p>
+      <table id="tableComplexTotal"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table'], function(){
+  var salesData = [
+    { id: 1, product: '노트북', quantity: 15, price: 1500000, total: 22500000 },
+    { id: 2, product: '모니터', quantity: 30, price: 350000, total: 10500000 },
+    { id: 3, product: '키보드', quantity: 100, price: 89000, total: 8900000 },
+    { id: 4, product: '마우스', quantity: 150, price: 45000, total: 6750000 },
+    { id: 5, product: '헤드셋', quantity: 25, price: 120000, total: 3000000 }
+  ];
+
+  var formatNumber = function(num){
+    return num.toLocaleString();
+  };
+
+  // 기본 합계행
+  table.render({
+    elem: '#tableBasicTotal',
+    data: salesData,
+    totalRow: true,
+    cols: [[
+      { field: 'id', title: 'ID', width: 60 },
+      { field: 'product', title: '상품명', width: 120 },
+      { field: 'quantity', title: '수량', width: 100, totalRow: true },
+      { field: 'price', title: '단가', width: 120, templet: function(d){
+        return formatNumber(d.price) + '원';
+      }},
+      { field: 'total', title: '금액', totalRow: true, templet: function(d){
+        return formatNumber(d.total) + '원';
+      }}
+    ]]
+  });
+
+  // 커스텀 합계 텍스트
+  table.render({
+    elem: '#tableCustomTotal',
+    data: salesData,
+    totalRow: true,
+    cols: [[
+      { field: 'id', title: 'ID', width: 60, totalRow: '합계' },
+      { field: 'product', title: '상품명', width: 120, totalRow: '5개 상품' },
+      { field: 'quantity', title: '수량', width: 100, totalRow: true },
+      { field: 'price', title: '단가', width: 120, totalRow: '-', templet: function(d){
+        return formatNumber(d.price) + '원';
+      }},
+      { field: 'total', title: '금액', totalRow: function(data){
+        var sum = 0;
+        data.forEach(function(d){ sum += d.total; });
+        return formatNumber(sum) + '원';
+      }, templet: function(d){
+        return formatNumber(d.total) + '원';
+      }}
+    ]]
+  });
+
+  // 복잡한 합계 계산
+  table.render({
+    elem: '#tableComplexTotal',
+    data: salesData,
+    totalRow: true,
+    cols: [[
+      { field: 'id', title: 'ID', width: 60, totalRow: '통계' },
+      { field: 'product', title: '상품명', width: 120 },
+      { field: 'quantity', title: '수량 (합계)', width: 120, totalRow: function(data){
+        var sum = 0;
+        data.forEach(function(d){ sum += d.quantity; });
+        return '합계: ' + sum;
+      }},
+      { field: 'price', title: '단가 (평균)', width: 140, totalRow: function(data){
+        var sum = 0;
+        data.forEach(function(d){ sum += d.price; });
+        return '평균: ' + formatNumber(Math.round(sum / data.length)) + '원';
+      }, templet: function(d){
+        return formatNumber(d.price) + '원';
+      }},
+      { field: 'total', title: '금액 (최대)', totalRow: function(data){
+        var max = 0;
+        data.forEach(function(d){ if(d.total > max) max = d.total; });
+        return '최대: ' + formatNumber(max) + '원';
+      }, templet: function(d){
+        return formatNumber(d.total) + '원';
+      }}
+    ]]
+  });
+});
+</script>
+</div>

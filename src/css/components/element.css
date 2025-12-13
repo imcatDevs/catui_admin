@@ -113,6 +113,7 @@
 }
 
 /* 주메뉴 너비 옵션 */
+
 /* 균등 분배 (flex: 1) */
 .cui-nav.cui-nav-fill { display: flex; width: 100%; }
 .cui-nav.cui-nav-fill .cui-nav-item { flex: 1; text-align: center; }
@@ -124,6 +125,7 @@
 .cui-nav.cui-nav-justified .cui-nav-item > a { justify-content: center; }
 
 /* 서브메뉴 너비 옵션 */
+
 /* 부모 메뉴 너비에 맞춤 */
 .cui-nav-item.cui-nav-match > .cui-nav-child,
 .cui-nav.cui-nav-match .cui-nav-child { min-width: 100%; width: 100%; }
@@ -154,7 +156,7 @@
 
 .cui-progress-text {
   font-size: 12px;
-  color: #fff;
+  color: #ffffff;
   padding: 0 5px;
 }
 
@@ -173,7 +175,7 @@
 
 /* 스트라이프 애니메이션 */
 .cui-progress-striped .cui-progress-bar {
-  background-image: linear-gradient(45deg, rgba(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgba(255,255,255,.15) 50%, rgba(255,255,255,.15) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(45deg, rgb(255,255,255,.15) 25%, transparent 25%, transparent 50%, rgb(255,255,255,.15) 50%, rgb(255,255,255,.15) 75%, transparent 75%, transparent);
   background-size: 20px 20px;
 }
 
@@ -236,6 +238,7 @@
 }
 
 /* 콜랩스 스킨 */
+
 /* 심플 (테두리 없음) */
 .cui-collapse-simple { border: none; background: none; }
 .cui-collapse-simple .cui-collapse-item { border-bottom: 1px solid var(--cui-border-color); }
@@ -252,14 +255,14 @@
 
 /* Primary 스킨 */
 .cui-collapse-primary { border-color: var(--cui-primary); }
-.cui-collapse-primary .cui-collapse-title { background: var(--cui-primary); color: #fff; }
-.cui-collapse-primary .cui-collapse-title::after { color: #fff; }
+.cui-collapse-primary .cui-collapse-title { background: var(--cui-primary); color: #ffffff; }
+.cui-collapse-primary .cui-collapse-title::after { color: #ffffff; }
 .cui-collapse-primary .cui-collapse-item { border-color: var(--cui-primary); }
 
 /* Success 스킨 */
 .cui-collapse-success { border-color: var(--cui-success); }
-.cui-collapse-success .cui-collapse-title { background: var(--cui-success); color: #fff; }
-.cui-collapse-success .cui-collapse-title::after { color: #fff; }
+.cui-collapse-success .cui-collapse-title { background: var(--cui-success); color: #ffffff; }
+.cui-collapse-success .cui-collapse-title::after { color: #ffffff; }
 .cui-collapse-success .cui-collapse-item { border-color: var(--cui-success); }
 
 /* Warning 스킨 */
@@ -270,14 +273,14 @@
 
 /* Danger 스킨 */
 .cui-collapse-danger { border-color: var(--cui-danger); }
-.cui-collapse-danger .cui-collapse-title { background: var(--cui-danger); color: #fff; }
-.cui-collapse-danger .cui-collapse-title::after { color: #fff; }
+.cui-collapse-danger .cui-collapse-title { background: var(--cui-danger); color: #ffffff; }
+.cui-collapse-danger .cui-collapse-title::after { color: #ffffff; }
 .cui-collapse-danger .cui-collapse-item { border-color: var(--cui-danger); }
 
 /* 다크 스킨 */
 .cui-collapse-dark { border-color: #2c3e50; }
-.cui-collapse-dark .cui-collapse-title { background: #2c3e50; color: #fff; }
-.cui-collapse-dark .cui-collapse-title::after { color: #fff; }
+.cui-collapse-dark .cui-collapse-title { background: #2c3e50; color: #ffffff; }
+.cui-collapse-dark .cui-collapse-title::after { color: #ffffff; }
 .cui-collapse-dark .cui-collapse-item { border-color: #2c3e50; }
 
 /* 라이트 스킨 (밝은 헤더) */
@@ -289,8 +292,134 @@
 .cui-collapse-flush .cui-collapse-item:first-child { border-top: 1px solid var(--cui-border-color); }
 
 /* 그림자 효과 */
-.cui-collapse-shadow { border: none; box-shadow: 0 2px 8px rgba(0,0,0,.1); }
+.cui-collapse-shadow { border: none; box-shadow: 0 2px 8px rgb(0,0,0,.1); }
 .cui-collapse-shadow .cui-collapse-item { border-bottom-color: var(--cui-border-color-secondary); }
+
+/* ========================================
+   탭 스킨
+======================================== */
+
+/* 카드 스타일 */
+.cui-tab-card .cui-tab-title {
+  border-bottom: none;
+  gap: 5px;
+}
+
+.cui-tab-card .cui-tab-title li {
+  border: 1px solid var(--cui-border-color);
+  border-bottom: none;
+  border-radius: 4px 4px 0 0;
+  background: var(--cui-bg-gray);
+  margin-bottom: -1px;
+}
+
+.cui-tab-card .cui-tab-title li.cui-this {
+  background: var(--cui-bg-base);
+  border-bottom-color: var(--cui-bg-base);
+}
+
+.cui-tab-card .cui-tab-content {
+  border: 1px solid var(--cui-border-color);
+  border-radius: 0 4px 4px 4px;
+}
+
+.cui-tab-card .cui-tab-content .cui-tab-item {
+  padding: 15px;
+}
+
+/* 버튼 스타일 */
+.cui-tab-button .cui-tab-title {
+  border-bottom: none;
+  gap: 5px;
+}
+
+.cui-tab-button .cui-tab-title li {
+  border: 1px solid var(--cui-border-color);
+  border-radius: 4px;
+  background: var(--cui-bg-base);
+}
+
+.cui-tab-button .cui-tab-title li.cui-this {
+  background: var(--cui-primary);
+  border-color: var(--cui-primary);
+  color: #ffffff;
+}
+
+/* Primary 스킨 */
+.cui-tab-primary .cui-tab-title li.cui-this {
+  color: #ffffff;
+  background: var(--cui-primary);
+  border-bottom-color: var(--cui-primary);
+}
+
+/* Success 스킨 */
+.cui-tab-success .cui-tab-title li:hover { color: var(--cui-success); }
+.cui-tab-success .cui-tab-title li.cui-this {
+  color: var(--cui-success);
+  border-bottom-color: var(--cui-success);
+  background: rgba(22, 183, 119, 0.1);
+}
+
+/* Warning 스킨 */
+.cui-tab-warning .cui-tab-title li:hover { color: var(--cui-warning); }
+.cui-tab-warning .cui-tab-title li.cui-this {
+  color: var(--cui-warning);
+  border-bottom-color: var(--cui-warning);
+  background: rgba(255, 184, 0, 0.1);
+}
+
+/* Danger 스킨 */
+.cui-tab-danger .cui-tab-title li:hover { color: var(--cui-danger); }
+.cui-tab-danger .cui-tab-title li.cui-this {
+  color: var(--cui-danger);
+  border-bottom-color: var(--cui-danger);
+  background: rgba(255, 87, 34, 0.1);
+}
+
+/* 다크 스킨 */
+.cui-tab-dark .cui-tab-title {
+  background: #2c3e50;
+  border-bottom-color: #34495e;
+}
+
+.cui-tab-dark .cui-tab-title li {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.cui-tab-dark .cui-tab-title li:hover {
+  color: #ffffff;
+}
+
+.cui-tab-dark .cui-tab-title li.cui-this {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+  border-bottom-color: var(--cui-primary);
+}
+
+/* 심플 스킨 (테두리 없음) */
+.cui-tab-simple .cui-tab-title {
+  border-bottom: none;
+}
+
+.cui-tab-simple .cui-tab-title li {
+  border-bottom: none;
+}
+
+.cui-tab-simple .cui-tab-title li.cui-this {
+  background: none;
+  font-weight: 600;
+}
+
+/* 필 스킨 (균등 분배) */
+.cui-tab-fill .cui-tab-title {
+  width: 100%;
+}
+
+.cui-tab-fill .cui-tab-title li {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
 
 /* ========================================
    탭 닫기 버튼
@@ -301,7 +430,7 @@
 
 .cui-tab-close {
   margin-left: 8px;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--cui-text-secondary);
   cursor: pointer;
   transition: var(--cui-transition);
@@ -379,39 +508,46 @@
 /* ========================================
    네비게이션 스킨 (가로 네비게이션용)
 ======================================== */
+
 /* 다크 스킨 */
 .cui-nav.cui-nav-dark { background: #2c3e50; border-color: #2c3e50; }
-.cui-nav.cui-nav-dark .cui-nav-item > a { color: rgba(255,255,255,.7); }
+.cui-nav.cui-nav-dark .cui-nav-item > a { color: rgb(255,255,255,.7); }
+
 .cui-nav.cui-nav-dark .cui-nav-item > a:hover,
-.cui-nav.cui-nav-dark .cui-nav-item.cui-this > a { color: #fff; background: rgba(255,255,255,.1); }
+.cui-nav.cui-nav-dark .cui-nav-item.cui-this > a { color: #ffffff; background: rgb(255,255,255,.1); }
 
 /* Primary 스킨 */
 .cui-nav.cui-nav-primary { background: var(--cui-primary); border-color: var(--cui-primary); }
-.cui-nav.cui-nav-primary .cui-nav-item > a { color: rgba(255,255,255,.8); }
+.cui-nav.cui-nav-primary .cui-nav-item > a { color: rgb(255,255,255,.8); }
+
 .cui-nav.cui-nav-primary .cui-nav-item > a:hover,
-.cui-nav.cui-nav-primary .cui-nav-item.cui-this > a { color: #fff; background: rgba(255,255,255,.15); }
+.cui-nav.cui-nav-primary .cui-nav-item.cui-this > a { color: #ffffff; background: rgb(255,255,255,.15); }
 
 /* Success 스킨 */
 .cui-nav.cui-nav-success { background: var(--cui-success); border-color: var(--cui-success); }
-.cui-nav.cui-nav-success .cui-nav-item > a { color: rgba(255,255,255,.8); }
+.cui-nav.cui-nav-success .cui-nav-item > a { color: rgb(255,255,255,.8); }
+
 .cui-nav.cui-nav-success .cui-nav-item > a:hover,
-.cui-nav.cui-nav-success .cui-nav-item.cui-this > a { color: #fff; background: rgba(255,255,255,.15); }
+.cui-nav.cui-nav-success .cui-nav-item.cui-this > a { color: #ffffff; background: rgb(255,255,255,.15); }
 
 /* Danger 스킨 */
 .cui-nav.cui-nav-danger { background: var(--cui-danger); border-color: var(--cui-danger); }
-.cui-nav.cui-nav-danger .cui-nav-item > a { color: rgba(255,255,255,.8); }
+.cui-nav.cui-nav-danger .cui-nav-item > a { color: rgb(255,255,255,.8); }
+
 .cui-nav.cui-nav-danger .cui-nav-item > a:hover,
-.cui-nav.cui-nav-danger .cui-nav-item.cui-this > a { color: #fff; background: rgba(255,255,255,.15); }
+.cui-nav.cui-nav-danger .cui-nav-item.cui-this > a { color: #ffffff; background: rgb(255,255,255,.15); }
 
 /* Warning 스킨 */
 .cui-nav.cui-nav-warning { background: var(--cui-warning); border-color: var(--cui-warning); }
-.cui-nav.cui-nav-warning .cui-nav-item > a { color: rgba(0,0,0,.7); }
+.cui-nav.cui-nav-warning .cui-nav-item > a { color: rgb(0,0,0,.7); }
+
 .cui-nav.cui-nav-warning .cui-nav-item > a:hover,
-.cui-nav.cui-nav-warning .cui-nav-item.cui-this > a { color: #000; background: rgba(255,255,255,.3); }
+.cui-nav.cui-nav-warning .cui-nav-item.cui-this > a { color: #000000; background: rgb(255,255,255,.3); }
 
 /* 인버스 스킨 */
 .cui-nav.cui-nav-inverse { background: var(--cui-bg-gray); border-color: var(--cui-border-color); }
 .cui-nav.cui-nav-inverse .cui-nav-item > a { color: var(--cui-text-secondary); }
+
 .cui-nav.cui-nav-inverse .cui-nav-item > a:hover,
 .cui-nav.cui-nav-inverse .cui-nav-item.cui-this > a { color: var(--cui-primary); background: var(--cui-border-color); }
 
@@ -422,7 +558,6 @@
   display: flex;
   align-items: center;
   font-size: var(--cui-font-size);
-  visibility: hidden;
 }
 
 .cui-breadcrumb a {
@@ -440,71 +575,10 @@
 }
 
 .cui-breadcrumb [cui-separator] {
-  margin: 0 10px;
+  margin: 0 8px;
   color: var(--cui-text-secondary);
 }
 
-/* ========================================
-   타임라인 (Timeline)
-======================================== */
-.cui-timeline {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.cui-timeline-item {
-  position: relative;
-  padding-left: 25px;
-  padding-bottom: 20px;
-}
-
-.cui-timeline-item::before {
-  content: '';
-  position: absolute;
-  left: 5px;
-  top: 12px;
-  bottom: 0;
-  width: 1px;
-  background: var(--cui-border-color);
-}
-
-.cui-timeline-item:last-child::before {
-  display: none;
-}
-
-.cui-timeline-dot {
-  position: absolute;
-  left: 0;
-  top: 5px;
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid var(--cui-primary);
-}
-
-.cui-timeline-dot.cui-timeline-dot-success {
-  border-color: var(--cui-success);
-}
-
-.cui-timeline-dot.cui-timeline-dot-warning {
-  border-color: var(--cui-warning);
-}
-
-.cui-timeline-dot.cui-timeline-dot-danger {
-  border-color: var(--cui-danger);
-}
-
-.cui-timeline-title {
-  font-weight: 500;
-  margin-bottom: 5px;
-}
-
-.cui-timeline-content {
-  color: var(--cui-text-secondary);
-  font-size: var(--cui-font-size-sm);
-}
 
 /* ========================================
    스텝 (Step)
@@ -551,25 +625,25 @@
   border-radius: 50%;
   background: var(--cui-border-color);
   color: var(--cui-text-tertiary);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
 }
 
 .cui-step-item.cui-step-done .cui-step-icon {
   background: var(--cui-primary);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-step-item.cui-step-active .cui-step-icon {
   background: var(--cui-primary);
-  color: #fff;
-  box-shadow: 0 0 0 4px rgba(22, 119, 255, 0.2);
+  color: #ffffff;
+  box-shadow: 0 0 0 4px rgb(22, 119, 255, 0.2);
 }
 
 /* 타이틀/설명 */
 .cui-step-title {
   margin-top: 8px;
-  font-size: 14px;
+  font-size: 12px;
   color: var(--cui-text-tertiary);
 }
 
@@ -637,12 +711,12 @@
 .cui-step-success .cui-step-item.cui-step-done .cui-step-icon,
 .cui-step-success .cui-step-item.cui-step-active .cui-step-icon { background: var(--cui-success); }
 .cui-step-success .cui-step-item.cui-step-done::before { background: var(--cui-success); }
-.cui-step-success .cui-step-item.cui-step-active .cui-step-icon { box-shadow: 0 0 0 4px rgba(22, 183, 119, 0.2); }
+.cui-step-success .cui-step-item.cui-step-active .cui-step-icon { box-shadow: 0 0 0 4px rgb(22, 183, 119, 0.2); }
 
 .cui-step-danger .cui-step-item.cui-step-done .cui-step-icon,
 .cui-step-danger .cui-step-item.cui-step-active .cui-step-icon { background: var(--cui-danger); }
 .cui-step-danger .cui-step-item.cui-step-done::before { background: var(--cui-danger); }
-.cui-step-danger .cui-step-item.cui-step-active .cui-step-icon { box-shadow: 0 0 0 4px rgba(255, 87, 34, 0.2); }
+.cui-step-danger .cui-step-item.cui-step-active .cui-step-icon { box-shadow: 0 0 0 4px rgb(255, 87, 34, 0.2); }
 
 /* ========================================
    뱃지 (Badge)
@@ -655,7 +729,7 @@
   padding: 0 5px;
   font-size: 12px;
   text-align: center;
-  color: #fff;
+  color: #ffffff;
   background: var(--cui-danger);
   border-radius: 10px;
 }
@@ -680,107 +754,3 @@
   background: var(--cui-warning);
 }
 
-/* ========================================
-   카드 (Card)
-======================================== */
-.cui-card {
-  background: var(--cui-bg-container);
-  border-radius: var(--cui-border-radius);
-  box-shadow: var(--cui-shadow-sm);
-  color: var(--cui-text-primary);
-}
-
-.cui-card-header {
-  padding: 15px;
-  border-bottom: 1px solid var(--cui-border-color);
-  font-weight: 500;
-}
-
-.cui-card-body {
-  padding: 15px;
-}
-
-.cui-card-footer {
-  padding: 15px;
-  border-top: 1px solid var(--cui-border-color);
-  background: var(--cui-bg-gray);
-}
-
-/* ========================================
-   패널 (Panel)
-======================================== */
-.cui-panel {
-  background: var(--cui-bg-base);
-  border: 1px solid var(--cui-border-color);
-  border-radius: var(--cui-border-radius);
-}
-
-.cui-panel-header {
-  padding: 10px 15px;
-  background: var(--cui-bg-gray);
-  border-bottom: 1px solid var(--cui-border-color);
-  font-weight: 500;
-}
-
-.cui-panel-body {
-  padding: 15px;
-}
-
-/* ========================================
-   필드셋 (Fieldset)
-======================================== */
-.cui-fieldset {
-  padding: 15px;
-  margin: 0;
-  border: 1px solid var(--cui-primary-light);
-  border-radius: var(--cui-border-radius);
-  background: var(--cui-bg-base);
-}
-
-.cui-fieldset legend {
-  padding: 0 10px;
-  font-weight: 500;
-  color: var(--cui-text-primary);
-}
-
-/* ========================================
-   인용문 (Quote)
-======================================== */
-.cui-quote {
-  margin: 0;
-  padding: 15px 15px 15px 20px;
-  background: var(--cui-bg-gray);
-  border-left: 5px solid var(--cui-primary);
-  color: var(--cui-text-secondary);
-}
-
-/* ========================================
-   리스트 (List)
-======================================== */
-.cui-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  background: var(--cui-bg-base);
-}
-
-.cui-list li {
-  padding: 10px 15px;
-}
-
-.cui-list-bordered {
-  border: 1px solid var(--cui-border-color);
-  border-radius: var(--cui-border-radius);
-}
-
-.cui-list-bordered li {
-  border-bottom: 1px solid var(--cui-border-color);
-}
-
-.cui-list-bordered li:last-child {
-  border-bottom: none;
-}
-
-.cui-list-hover li:hover {
-  background: var(--cui-bg-gray);
-}

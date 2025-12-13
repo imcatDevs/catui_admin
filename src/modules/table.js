@@ -391,6 +391,55 @@
         if(!col.type) col.type = 'normal';
       });
     });
+
+    // 다중 헤더일 때 데이터 열 목록 생성 (colspan 제외, rowspan 포함)
+    that.dataCols = that.getDataCols();
+  };
+
+  // 다중 헤더에서 실제 데이터 열 목록 추출
+  Class.prototype.getDataCols = function(){
+    var that = this
+    ,config = that.config
+    ,cols = config.cols
+    ,dataCols = [];
+
+    if(cols.length === 1){
+      // 단일 헤더
+      return cols[0];
+    }
+
+    // 다중 헤더: rowspan이 있는 열과 마지막 행 열을 순서대로 병합
+    var colPositions = [];
+    
+    // 첫 번째 행에서 rowspan이 있거나 colspan이 없는 열 추출
+    cols[0].forEach(function(col, idx){
+      if(!col) return;
+      if(col.colspan){
+        // colspan은 그룹 헤더이므로 건너뜀, 위치만 기록
+        for(var i = 0; i < col.colspan; i++){
+          colPositions.push({ type: 'child', parentIdx: idx });
+        }
+      } else {
+        // rowspan이 있거나 일반 열
+        colPositions.push({ type: 'data', col: col });
+      }
+    });
+
+    // 마지막 행의 열로 child 위치 채우기
+    var lastRow = cols[cols.length - 1];
+    var childIdx = 0;
+    colPositions.forEach(function(pos){
+      if(pos.type === 'data'){
+        dataCols.push(pos.col);
+      } else if(pos.type === 'child'){
+        if(lastRow[childIdx]){
+          dataCols.push(lastRow[childIdx]);
+        }
+        childIdx++;
+      }
+    });
+
+    return dataCols;
   };
 
   // 툴바 렌더링
@@ -745,8 +794,8 @@
         var trClass = item[checkName] ? CHECKED : '';
         html += '<tr data-index="' + idx + '" class="' + trClass + '">';
         
-        var lastRow = config.cols[config.cols.length - 1] || [];
-        lastRow.forEach(function(col, colIdx){
+        var dataCols = that.dataCols || config.cols[config.cols.length - 1] || [];
+        dataCols.forEach(function(col, colIdx){
           if(!col) return;
           
           var field = col.field || '';
@@ -780,6 +829,13 @@
               if(tplElem){
                 html += that.parseTpl(tplElem.innerHTML, item);
               }
+            }
+          }
+          // 행 도구 버튼 (toolbar)
+          else if(col.toolbar){
+            var toolTplElem = document.querySelector(col.toolbar);
+            if(toolTplElem){
+              html += that.parseTpl(toolTplElem.innerHTML, item);
             }
           }
           // 일반 데이터
@@ -860,7 +916,7 @@
         } else if(typeof col.totalRow === 'function'){
           cell.textContent = col.totalRow(data, col);
         } else if(isNumber){
-          cell.textContent = total;
+          cell.textContent = total.toLocaleString();
         }
       } else if(colIdx === 0){
         cell.textContent = '합계';
@@ -1575,9 +1631,14 @@
         return type === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
       });
 
-      // 다시 렌더링
+      // 다시 렌더링 (페이지네이션 적용)
       var res = {};
-      res[config.response.dataName] = data;
+      var renderData = data;
+      if(config.page){
+        var startIdx = (that.page - 1) * config.limit;
+        renderData = data.slice(startIdx, startIdx + config.limit);
+      }
+      res[config.response.dataName] = renderData;
       res[config.response.countName] = that.count;
       that.renderData(res, that.page, that.count);
     }

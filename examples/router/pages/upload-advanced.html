@@ -1,0 +1,445 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">파일 업로드 - 고급</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>업로드 고급</span>
+    </div>
+  </div>
+
+  <!-- 진행률 표시 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>진행률 표시</span>
+      <code class="cui-text-secondary">progress: function(percent){ }</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">업로드 진행률을 표시합니다.</p>
+      <button id="uploadProgress" class="cui-btn cui-btn-primary"><i class="cui-icon">upload</i> 업로드 (진행률)</button>
+      <div id="progressBar" class="cui-mt-10" style="display:none;">
+        <div class="cui-progress">
+          <div class="cui-progress-bar" style="width:0%"></div>
+        </div>
+        <div class="cui-text-center cui-mt-5"><span id="progressText">0%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 이미지 미리보기 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>이미지 미리보기</span>
+      <code class="cui-text-secondary">choose → preview()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">선택한 이미지를 업로드 전에 미리 볼 수 있습니다.</p>
+      <button id="uploadPreview" class="cui-btn"><i class="cui-icon">image</i> 이미지 선택</button>
+      <div id="previewArea" class="cui-mt-10 cui-flex cui-gap-10 cui-flex-wrap"></div>
+    </div>
+  </div>
+
+  <!-- 아바타 업로드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>아바타 업로드</span>
+      <code class="cui-text-secondary">단일 이미지 교체</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-15 cui-flex-middle">
+        <div id="avatarUpload" class="avatar-upload-area">
+          <img id="avatarImg" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23e0e0e0'/%3E%3Cpath d='M50 55c11 0 20-9 20-20s-9-20-20-20-20 9-20 20 9 20 20 20zm0 10c-13 0-40 7-40 20v10h80v-10c0-13-27-20-40-20z' fill='%23bdbdbd'/%3E%3C/svg%3E" alt="avatar">
+          <div class="avatar-upload-overlay">
+            <i class="cui-icon">photo_camera</i>
+          </div>
+        </div>
+        <div>
+          <div class="cui-text-secondary cui-text-sm">클릭하여 프로필 사진 변경</div>
+          <div class="cui-text-secondary cui-text-xs">JPG, PNG (최대 2MB)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 파일 목록 관리 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>파일 목록 관리</span>
+      <code class="cui-text-secondary">선택 → 목록 → 개별 삭제/업로드</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">선택한 파일을 목록으로 관리하고 개별적으로 업로드/삭제합니다.</p>
+      <div class="cui-flex cui-gap-10 cui-mb-10">
+        <button id="addFiles" class="cui-btn"><i class="cui-icon">add</i> 파일 추가</button>
+        <button id="uploadAll" class="cui-btn cui-btn-primary"><i class="cui-icon">cloud_upload</i> 전체 업로드</button>
+        <button id="clearAll" class="cui-btn cui-btn-danger"><i class="cui-icon">delete</i> 전체 삭제</button>
+      </div>
+      <div id="fileList" class="file-list"></div>
+    </div>
+  </div>
+
+  <!-- 추가 데이터 전송 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>추가 데이터 전송</span>
+      <code class="cui-text-secondary">data: { key: value }</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">파일과 함께 추가 데이터를 전송합니다.</p>
+      <div class="cui-form-inline cui-flex-middle cui-mb-10">
+        <div class="cui-form-item">
+          <label class="cui-form-label">카테고리</label>
+          <div class="cui-form-input">
+            <select id="category" class="cui-select">
+              <option value="document">문서</option>
+              <option value="image">이미지</option>
+              <option value="other">기타</option>
+            </select>
+          </div>
+        </div>
+        <div class="cui-form-item" style="flex:1;">
+          <label class="cui-form-label">설명</label>
+          <div class="cui-form-input" style="display:flex;gap:10px;">
+            <input type="text" id="description" class="cui-input" placeholder="파일 설명" style="flex:1;">
+            <button id="uploadWithData" class="cui-btn cui-btn-primary"><i class="cui-icon">upload</i> 업로드</button>
+          </div>
+        </div>
+      </div>
+      <div id="dataResult" class="cui-text-secondary cui-text-sm"></div>
+    </div>
+  </div>
+
+  <!-- 콜백 종합 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>콜백 종합</span>
+      <code class="cui-text-secondary">before / done / error / allDone</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">업로드 과정의 모든 콜백을 확인합니다.</p>
+      <button id="uploadCallback" class="cui-btn cui-btn-primary"><i class="cui-icon">upload</i> 여러 파일 업로드</button>
+      <div id="callbackLog" class="cui-mt-10" style="height:150px;overflow:auto;background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;font-family:monospace;"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+.avatar-upload-area {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border: 2px solid #e0e0e0;
+}
+.avatar-upload-area img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.avatar-upload-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.avatar-upload-overlay .cui-icon {
+  color: #fff;
+  font-size: 24px;
+}
+.avatar-upload-area:hover .avatar-upload-overlay {
+  opacity: 1;
+}
+.file-list {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  min-height: 100px;
+}
+.file-list-empty {
+  padding: 30px;
+  text-align: center;
+  color: #999;
+}
+.file-list-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.file-list-item:last-child {
+  border-bottom: none;
+}
+.file-list-item .file-icon {
+  width: 40px;
+  height: 40px;
+  background: #f5f5f5;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+.file-list-item .file-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.file-list-item .file-info {
+  flex: 1;
+}
+.file-list-item .file-name {
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.file-list-item .file-size {
+  font-size: 12px;
+  color: #999;
+}
+.file-list-item .file-actions {
+  display: flex;
+  gap: 5px;
+}
+</style>
+
+<script>
+Catui.use(['upload', 'popup'], function(){
+  
+  // 파일 크기 포맷
+  function formatSize(bytes){
+    if(bytes === 0) return '0 Bytes';
+    var k = 1024;
+    var sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  }
+
+  // 로그 함수
+  function log(msg, target){
+    var el = document.getElementById(target || 'callbackLog');
+    var time = new Date().toLocaleTimeString();
+    el.innerHTML = '<div>[' + time + '] ' + msg + '</div>' + el.innerHTML;
+  }
+
+  // 진행률 표시
+  upload.render({
+    elem: '#uploadProgress',
+    url: '/api/upload',
+    accept: 'file',
+    choose: function(obj){
+      document.getElementById('progressBar').style.display = 'block';
+      document.querySelector('#progressBar .cui-progress-bar').style.width = '0%';
+      document.getElementById('progressText').textContent = '0%';
+      
+      // 데모: 가상 진행률 시뮬레이션
+      var percent = 0;
+      var interval = setInterval(function(){
+        percent += Math.random() * 20;
+        if(percent >= 100){
+          percent = 100;
+          clearInterval(interval);
+          popup.msg('업로드 완료 (시뮬레이션)');
+        }
+        document.querySelector('#progressBar .cui-progress-bar').style.width = percent + '%';
+        document.getElementById('progressText').textContent = Math.round(percent) + '%';
+      }, 200);
+    },
+    progress: function(percent, idx, file){
+      document.querySelector('#progressBar .cui-progress-bar').style.width = percent + '%';
+      document.getElementById('progressText').textContent = percent + '%';
+    }
+  });
+
+  // 이미지 미리보기
+  upload.render({
+    elem: '#uploadPreview',
+    url: '/api/upload',
+    accept: 'images',
+    multiple: true,
+    auto: false,
+    choose: function(obj){
+      var previewArea = document.getElementById('previewArea');
+      previewArea.innerHTML = '';
+      
+      obj.preview(function(idx, file, result){
+        var div = document.createElement('div');
+        div.style.cssText = 'position:relative;';
+        div.innerHTML = '<img src="' + result + '" style="width:100px;height:100px;object-fit:cover;border-radius:8px;border:1px solid #e0e0e0;">' +
+          '<div style="font-size:11px;text-align:center;margin-top:4px;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">' + file.name + '</div>' +
+          '<div style="font-size:10px;text-align:center;color:#999;">' + formatSize(file.size) + '</div>';
+        previewArea.appendChild(div);
+      });
+    }
+  });
+
+  // 아바타 업로드
+  upload.render({
+    elem: '#avatarUpload',
+    url: '/api/upload',
+    accept: 'images',
+    acceptMime: 'image/jpeg,image/png',
+    exts: 'jpg|jpeg|png',
+    size: '2MB',
+    choose: function(obj){
+      obj.preview(function(idx, file, result){
+        document.getElementById('avatarImg').src = result;
+        popup.msg('프로필 사진이 변경되었습니다');
+      });
+    },
+    validateError: function(err){
+      popup.msg(err.msg, { icon: 'warning' });
+    }
+  });
+
+  // 파일 목록 관리
+  var fileManager = {
+    files: {},
+    counter: 0,
+    render: function(){
+      var listEl = document.getElementById('fileList');
+      var keys = Object.keys(this.files);
+      
+      if(keys.length === 0){
+        listEl.innerHTML = '<div class="file-list-empty"><i class="cui-icon">folder_open</i><br>파일을 추가하세요</div>';
+        return;
+      }
+      
+      var html = '';
+      var that = this;
+      keys.forEach(function(key){
+        var file = that.files[key];
+        var isImage = file.type.startsWith('image/');
+        var iconHtml = isImage ? '<img src="' + (file.preview || '') + '">' : '<i class="cui-icon">description</i>';
+        
+        html += '<div class="file-list-item" data-key="' + key + '">' +
+          '<div class="file-icon">' + iconHtml + '</div>' +
+          '<div class="file-info">' +
+            '<div class="file-name">' + file.name + '</div>' +
+            '<div class="file-size">' + formatSize(file.size) + '</div>' +
+          '</div>' +
+          '<div class="file-actions">' +
+            '<button class="cui-btn cui-btn-xs cui-btn-primary btn-upload-single" data-key="' + key + '"><i class="cui-icon">upload</i></button>' +
+            '<button class="cui-btn cui-btn-xs cui-btn-danger btn-remove-single" data-key="' + key + '"><i class="cui-icon">close</i></button>' +
+          '</div>' +
+        '</div>';
+      });
+      listEl.innerHTML = html;
+      
+      // 이벤트 바인딩
+      listEl.querySelectorAll('.btn-remove-single').forEach(function(btn){
+        btn.onclick = function(){
+          delete that.files[this.getAttribute('data-key')];
+          that.render();
+        };
+      });
+      listEl.querySelectorAll('.btn-upload-single').forEach(function(btn){
+        btn.onclick = function(){
+          var key = this.getAttribute('data-key');
+          popup.msg(that.files[key].name + ' 업로드 시작 (데모)');
+        };
+      });
+    },
+    add: function(file, preview){
+      var key = 'file_' + (++this.counter);
+      this.files[key] = file;
+      this.files[key].preview = preview;
+      this.render();
+    },
+    clear: function(){
+      this.files = {};
+      this.render();
+    }
+  };
+  fileManager.render();
+
+  upload.render({
+    elem: '#addFiles',
+    url: '/api/upload',
+    multiple: true,
+    auto: false,
+    choose: function(obj){
+      obj.preview(function(idx, file, result){
+        fileManager.add(file, result);
+      });
+    }
+  });
+
+  document.getElementById('uploadAll').onclick = function(){
+    var count = Object.keys(fileManager.files).length;
+    if(count === 0){
+      popup.msg('업로드할 파일이 없습니다', { icon: 'warning' });
+      return;
+    }
+    popup.msg(count + '개 파일 업로드 시작 (데모)');
+  };
+
+  document.getElementById('clearAll').onclick = function(){
+    fileManager.clear();
+  };
+
+  // 추가 데이터 전송
+  upload.render({
+    elem: '#uploadWithData',
+    url: '/api/upload',
+    data: {
+      category: function(){ return document.getElementById('category').value; },
+      description: function(){ return document.getElementById('description').value; },
+      timestamp: function(){ return Date.now(); }
+    },
+    choose: function(obj){
+      var file = obj.getFiles()[0];
+      var cat = document.getElementById('category').value;
+      var desc = document.getElementById('description').value;
+      
+      document.getElementById('dataResult').innerHTML = 
+        '<strong>전송 데이터:</strong><br>' +
+        '- 파일: ' + file.name + '<br>' +
+        '- 카테고리: ' + cat + '<br>' +
+        '- 설명: ' + (desc || '(없음)') + '<br>' +
+        '- 타임스탬프: ' + Date.now();
+    }
+  });
+
+  // 콜백 종합
+  upload.render({
+    elem: '#uploadCallback',
+    url: '/api/upload',
+    multiple: true,
+    number: 5,
+    size: '10MB',
+    before: function(file){
+      log('📤 before: ' + file.name + ' 업로드 준비');
+      return true;  // false 반환 시 취소
+    },
+    choose: function(obj){
+      var count = Object.keys(obj.getFiles()).length;
+      log('📁 choose: ' + count + '개 파일 선택됨');
+    },
+    progress: function(percent, idx, file){
+      log('📊 progress: ' + file.name + ' - ' + percent + '%');
+    },
+    done: function(res, idx, upload){
+      log('✅ done: 파일 업로드 완료');
+    },
+    error: function(idx, upload){
+      log('❌ error: 업로드 실패 (서버 없음 - 데모)');
+    },
+    allDone: function(obj){
+      log('🎉 allDone: 전체 ' + obj.total + '개 중 성공 ' + obj.successful + ', 실패 ' + obj.aborted);
+    },
+    validateError: function(err){
+      log('⚠️ validateError: ' + err.msg + ' (' + err.file.name + ')');
+    }
+  });
+});
+</script>
+</div>

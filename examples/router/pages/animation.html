@@ -1,0 +1,189 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">애니메이션 (Animation)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>애니메이션</span>
+    </div>
+  </div>
+  
+  <!-- 페이드 애니메이션 (마우스 오버) -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>페이드 애니메이션</span>
+      <code class="cui-text-secondary">마우스를 올려보세요</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">마우스를 올리면 애니메이션이 실행됩니다.</p>
+      <div class="cui-flex cui-gap-15" style="flex-wrap:wrap;">
+        <div class="anim-demo" data-anim="cui-anim-fadeIn" style="padding:20px;background:var(--cui-primary-light);border-radius:4px;cursor:pointer;">
+          fadeIn
+        </div>
+        <div class="anim-demo" data-anim="cui-anim-fadeInUp" style="padding:20px;background:var(--cui-primary-light);border-radius:4px;cursor:pointer;">
+          fadeInUp
+        </div>
+        <div class="anim-demo" data-anim="cui-anim-fadeInDown" style="padding:20px;background:var(--cui-primary-light);border-radius:4px;cursor:pointer;">
+          fadeInDown
+        </div>
+        <div class="anim-demo" data-anim="cui-anim-fadeInLeft" style="padding:20px;background:var(--cui-primary-light);border-radius:4px;cursor:pointer;">
+          fadeInLeft
+        </div>
+        <div class="anim-demo" data-anim="cui-anim-fadeInRight" style="padding:20px;background:var(--cui-primary-light);border-radius:4px;cursor:pointer;">
+          fadeInRight
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 슬라이드 애니메이션 (마우스 오버) -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>슬라이드 애니메이션</span>
+      <code class="cui-text-secondary">마우스를 올려보세요</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-15" style="flex-wrap:wrap;">
+        <div class="anim-demo" data-anim="cui-anim-slideUp" style="padding:20px;background:var(--cui-success);color:#fff;border-radius:4px;cursor:pointer;">
+          slideUp
+        </div>
+        <div class="anim-demo" data-anim="cui-anim-slideDown" style="padding:20px;background:var(--cui-success);color:#fff;border-radius:4px;cursor:pointer;">
+          slideDown
+        </div>
+        <div class="anim-demo" data-anim="cui-anim-slideLeft" style="padding:20px;background:var(--cui-success);color:#fff;border-radius:4px;cursor:pointer;">
+          slideLeft
+        </div>
+        <div class="anim-demo" data-anim="cui-anim-slideRight" style="padding:20px;background:var(--cui-success);color:#fff;border-radius:4px;cursor:pointer;">
+          slideRight
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 스케일 애니메이션 (마우스 오버) -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>스케일 애니메이션</span>
+      <code class="cui-text-secondary">마우스를 올려보세요</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-15" style="flex-wrap:wrap;">
+        <div class="anim-demo" data-anim="cui-anim-scaleIn" style="padding:20px;background:var(--cui-warning);border-radius:4px;cursor:pointer;">
+          scaleIn
+        </div>
+        <div class="anim-demo" data-anim="cui-anim-scaleUp" style="padding:20px;background:var(--cui-warning);border-radius:4px;cursor:pointer;">
+          scaleUp
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 반복 애니메이션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>반복 애니메이션</span>
+      <code class="cui-text-secondary">.cui-anim-loop-*</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-20 cui-flex-middle" style="flex-wrap:wrap;">
+        <div style="text-align:center;">
+          <i class="cui-icon cui-anim-loop-rotate" style="font-size:32px;color:var(--cui-primary);">sync</i>
+          <div class="cui-mt-5">loop-rotate</div>
+        </div>
+        <div style="text-align:center;">
+          <i class="cui-icon cui-anim-loop-pulse" style="font-size:32px;color:var(--cui-danger);">favorite</i>
+          <div class="cui-mt-5">loop-pulse</div>
+        </div>
+        <div style="text-align:center;">
+          <i class="cui-icon cui-anim-loop-bounce" style="font-size:32px;color:var(--cui-success);">arrow_downward</i>
+          <div class="cui-mt-5">loop-bounce</div>
+        </div>
+        <div style="text-align:center;">
+          <i class="cui-icon cui-anim-loop-shake" style="font-size:32px;color:var(--cui-warning);">notifications</i>
+          <div class="cui-mt-5">loop-shake</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 트랜지션 유틸리티 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>트랜지션 (Transition)</span>
+      <code class="cui-text-secondary">마우스를 올려보세요</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">트랜지션은 CSS 속성 변화 시 부드러운 전환 효과를 제공합니다.</p>
+      <div class="cui-flex cui-gap-15" style="flex-wrap:wrap;">
+        <div class="trans-demo trans-demo-transform" style="padding:20px 30px;background:var(--cui-primary);color:#fff;border-radius:4px;cursor:pointer;transition:transform 0.3s ease;">
+          Transform (크기/이동)
+        </div>
+        <div class="trans-demo trans-demo-bg" style="padding:20px 30px;background:var(--cui-success);color:#fff;border-radius:4px;cursor:pointer;transition:background 0.3s ease;">
+          Background (배경색)
+        </div>
+        <div class="trans-demo trans-demo-shadow" style="padding:20px 30px;background:var(--cui-warning);border-radius:4px;cursor:pointer;transition:box-shadow 0.3s ease;">
+          Box-Shadow (그림자)
+        </div>
+        <div class="trans-demo trans-demo-opacity" style="padding:20px 30px;background:var(--cui-danger);color:#fff;border-radius:4px;cursor:pointer;transition:opacity 0.3s ease;">
+          Opacity (투명도)
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 클래스 요약 -->
+  <div class="cui-card">
+    <div class="cui-card-header">애니메이션 클래스 요약</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th style="width:250px">클래스</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.cui-anim-fadeIn</code></td><td>페이드 인</td></tr>
+          <tr><td><code>.cui-anim-fadeInUp</code></td><td>아래에서 위로 페이드 인</td></tr>
+          <tr><td><code>.cui-anim-fadeInDown</code></td><td>위에서 아래로 페이드 인</td></tr>
+          <tr><td><code>.cui-anim-slideUp</code></td><td>위로 슬라이드</td></tr>
+          <tr><td><code>.cui-anim-slideDown</code></td><td>아래로 슬라이드</td></tr>
+          <tr><td><code>.cui-anim-scaleIn</code></td><td>스케일 인</td></tr>
+          <tr><td><code>.cui-anim-loop-rotate</code></td><td>반복 회전</td></tr>
+          <tr><td><code>.cui-anim-loop-pulse</code></td><td>반복 펄스</td></tr>
+          <tr><td><code>.cui-anim-loop-bounce</code></td><td>반복 바운스</td></tr>
+          <tr><td><code>.cui-anim-loop-shake</code></td><td>반복 흔들림</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<style>
+  .trans-demo-transform:hover { transform: scale(1.1) translateY(-5px); }
+  .trans-demo-bg:hover { background: var(--cui-primary) !important; }
+  .trans-demo-shadow:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+  .trans-demo-opacity:hover { opacity: 0.6; }
+</style>
+<script>
+  Catui.use(['element'], function(){
+    element.render();
+    
+    // 애니메이션 데모 - 마우스 오버 시 실행
+    document.querySelectorAll('.anim-demo').forEach(function(el){
+      el.addEventListener('mouseenter', function(){
+        var animClass = this.getAttribute('data-anim');
+        this.classList.remove(animClass);
+        void this.offsetWidth; // reflow 트리거
+        this.classList.add(animClass);
+      });
+      el.addEventListener('mouseleave', function(){
+        var animClass = this.getAttribute('data-anim');
+        this.classList.remove(animClass);
+      });
+    });
+  });
+</script>

@@ -8,13 +8,13 @@
   justify-content: center;
   gap: 4px;
   vertical-align: middle;
-  height: 38px;
-  padding: 0 18px;
+  height: 28px;
+  padding: 0 12px;
   border: 1px solid transparent;
   border-radius: 2px;
   background-color: var(--cui-primary);
-  color: #fff;
-  font-size: 14px;
+  color: #ffffff;
+  font-size: 12px;
   font-family: inherit;
   text-align: center;
   text-decoration: none;
@@ -31,7 +31,7 @@
 }
 
 .cui-btn .cui-icon {
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1;
 }
 
@@ -59,31 +59,31 @@
 .cui-btn-primary {
   background-color: var(--cui-primary);
   border-color: var(--cui-primary);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-btn-success {
   background-color: var(--cui-success);
   border-color: var(--cui-success);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-btn-warning {
   background-color: var(--cui-warning);
   border-color: var(--cui-warning);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-btn-danger {
   background-color: var(--cui-danger);
   border-color: var(--cui-danger);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-btn-info {
   background-color: var(--cui-info);
   border-color: var(--cui-info);
-  color: #fff;
+  color: #ffffff;
 }
 
 /* 버튼 + 버튼 */
@@ -116,16 +116,16 @@
 .cui-btn-normal {
   background-color: var(--cui-info);
   border-color: var(--cui-info);
-  color: #fff;
+  color: #ffffff;
 }
 
 /* 버튼 크기 */
-.cui-btn-lg { height: 44px; padding: 0 25px; font-size: 16px; }
-.cui-btn-lg .cui-icon { font-size: 22px; }
-.cui-btn-sm { height: 30px; padding: 0 10px; font-size: 12px; }
-.cui-btn-sm .cui-icon { font-size: 16px; }
-.cui-btn-xs { height: 22px; padding: 0 5px; font-size: 12px; }
-.cui-btn-xs .cui-icon { font-size: 14px; }
+.cui-btn-lg { height: 38px; padding: 0 18px; font-size: 14px; }
+.cui-btn-lg .cui-icon { font-size: 18px; }
+.cui-btn-sm { height: 24px; padding: 0 8px; font-size: 12px; }
+.cui-btn-sm .cui-icon { font-size: 14px; }
+.cui-btn-xs { height: 20px; padding: 0 5px; font-size: 11px; }
+.cui-btn-xs .cui-icon { font-size: 12px; }
 
 /* 버튼 그룹 */
 .cui-btn-group {
@@ -137,7 +137,7 @@
 .cui-btn-group .cui-btn {
   margin-left: 0 !important;
   margin-right: 0 !important;
-  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgb(255, 255, 255, 0.5);
   border-radius: 0;
 }
 
@@ -146,7 +146,7 @@
 }
 
 .cui-btn-group .cui-btn-default:hover {
-  border-color: #d2d2d2;
+  border-color: var(--cui-border-color-dark);
   color: var(--cui-primary);
 }
 
@@ -156,7 +156,7 @@
 }
 
 .cui-btn-group .cui-btn-default:first-child {
-  border-left: 1px solid #d2d2d2;
+  border-left: 1px solid var(--cui-border-color-dark);
 }
 
 .cui-btn-group .cui-btn:last-child {

@@ -1,0 +1,315 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">자주 묻는 질문</h2>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">페이지</a>
+      <span>FAQ</span>
+    </div>
+  </div>
+
+  <!-- 검색 -->
+  <div class="faq-search cui-mb-20">
+    <h3>무엇을 도와드릴까요?</h3>
+    <div class="cui-search cui-search-lg">
+      <i class="cui-icon">search</i>
+      <input type="text" id="faqSearch" placeholder="질문을 검색하세요...">
+    </div>
+  </div>
+
+  <!-- 카테고리 -->
+  <div class="faq-categories cui-mb-20">
+    <div class="faq-category active" data-cat="all">
+      <i class="cui-icon">apps</i>
+      <span>전체</span>
+    </div>
+    <div class="faq-category" data-cat="general">
+      <i class="cui-icon">help</i>
+      <span>일반</span>
+    </div>
+    <div class="faq-category" data-cat="account">
+      <i class="cui-icon">person</i>
+      <span>계정</span>
+    </div>
+    <div class="faq-category" data-cat="payment">
+      <i class="cui-icon">credit_card</i>
+      <span>결제</span>
+    </div>
+    <div class="faq-category" data-cat="tech">
+      <i class="cui-icon">code</i>
+      <span>기술</span>
+    </div>
+  </div>
+
+  <!-- FAQ 목록 -->
+  <div class="cui-card">
+    <div class="cui-card-body cui-p-0">
+      <div class="faq-list" id="faqList">
+        <!-- 일반 -->
+        <div class="faq-item" data-cat="general">
+          <div class="faq-question">
+            <span>CatUI는 무엇인가요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>CatUI는 모던하고 가벼운 UI 프레임워크입니다. jQuery에 의존하지 않으며, 다양한 컴포넌트와 유틸리티를 제공하여 빠르게 웹 애플리케이션을 개발할 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="general">
+          <div class="faq-question">
+            <span>라이선스는 어떻게 되나요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>CatUI는 MIT 라이선스로 제공됩니다. 상업적 프로젝트에서도 자유롭게 사용할 수 있으며, 수정 및 재배포가 가능합니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="general">
+          <div class="faq-question">
+            <span>브라우저 지원 범위는 어떻게 되나요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>CatUI는 모든 최신 브라우저를 지원합니다. Chrome, Firefox, Safari, Edge의 최신 버전과 IE11을 제한적으로 지원합니다.</p>
+          </div>
+        </div>
+
+        <!-- 계정 -->
+        <div class="faq-item" data-cat="account">
+          <div class="faq-question">
+            <span>계정은 어떻게 만드나요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>홈페이지 우측 상단의 '회원가입' 버튼을 클릭하여 이메일 주소와 비밀번호를 입력하면 계정을 만들 수 있습니다. 소셜 로그인(Google, GitHub)도 지원합니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="account">
+          <div class="faq-question">
+            <span>비밀번호를 잊어버렸어요</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>로그인 페이지에서 '비밀번호 찾기'를 클릭하세요. 가입한 이메일로 비밀번호 재설정 링크가 전송됩니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="account">
+          <div class="faq-question">
+            <span>계정을 삭제하고 싶어요</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>설정 > 개인정보 > 계정 삭제에서 계정을 삭제할 수 있습니다. 삭제된 계정은 복구할 수 없으니 신중하게 결정해주세요.</p>
+          </div>
+        </div>
+
+        <!-- 결제 -->
+        <div class="faq-item" data-cat="payment">
+          <div class="faq-question">
+            <span>어떤 결제 수단을 지원하나요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>신용카드(Visa, Mastercard, AMEX), 체크카드, 계좌이체, 그리고 PayPal을 지원합니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="payment">
+          <div class="faq-question">
+            <span>환불 정책은 어떻게 되나요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>결제 후 7일 이내에 환불을 요청하시면 전액 환불해 드립니다. 7일 이후에는 일할 계산하여 부분 환불됩니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="payment">
+          <div class="faq-question">
+            <span>플랜을 업그레이드/다운그레이드 할 수 있나요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>네, 언제든지 플랜을 변경할 수 있습니다. 업그레이드 시 일할 계산되며, 다운그레이드는 다음 결제 주기부터 적용됩니다.</p>
+          </div>
+        </div>
+
+        <!-- 기술 -->
+        <div class="faq-item" data-cat="tech">
+          <div class="faq-question">
+            <span>npm으로 설치할 수 있나요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>네, <code>npm install catui</code> 명령으로 설치할 수 있습니다. yarn을 사용하시면 <code>yarn add catui</code>로 설치하세요.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="tech">
+          <div class="faq-question">
+            <span>React/Vue와 함께 사용할 수 있나요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>CatUI는 순수 JavaScript로 작성되어 React, Vue, Angular 등 모든 프레임워크와 함께 사용할 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="faq-item" data-cat="tech">
+          <div class="faq-question">
+            <span>커스터마이징은 어떻게 하나요?</span>
+            <i class="cui-icon">expand_more</i>
+          </div>
+          <div class="faq-answer">
+            <p>CSS 변수를 통해 쉽게 테마를 커스터마이징할 수 있습니다. <code>:root</code>에서 <code>--cui-primary</code> 등의 변수를 수정하면 됩니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 문의 -->
+  <div class="faq-contact cui-mt-20">
+    <h4>원하는 답변을 찾지 못하셨나요?</h4>
+    <p>고객센터로 문의해 주세요. 빠르게 답변해 드리겠습니다.</p>
+    <button class="cui-btn cui-btn-primary"><i class="cui-icon">mail</i> 문의하기</button>
+  </div>
+</div>
+
+<style>
+.faq-search {
+  background: linear-gradient(135deg, var(--cui-primary) 0%, #52c41a 100%);
+  padding: 40px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.faq-search h3 { color: #fff; margin: 0 0 20px; font-size: 24px; }
+.faq-search .cui-search-lg { max-width: 500px; margin: 0 auto; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+
+.faq-categories {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.faq-category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 15px 25px;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid var(--cui-border);
+}
+
+.faq-category:hover { border-color: var(--cui-primary); }
+.faq-category.active { background: var(--cui-primary); color: #fff; border-color: var(--cui-primary); }
+.faq-category .cui-icon { font-size: 24px; }
+
+.faq-item { border-bottom: 1px solid var(--cui-border); }
+.faq-item:last-child { border-bottom: none; }
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.faq-question:hover { background: var(--cui-fill); }
+.faq-question .cui-icon { transition: transform 0.2s; color: var(--cui-text-secondary); }
+.faq-item.open .faq-question .cui-icon { transform: rotate(180deg); }
+
+.faq-answer {
+  display: none;
+  padding: 0 20px 20px;
+  color: var(--cui-text-secondary);
+  line-height: 1.7;
+}
+
+.faq-item.open .faq-answer { display: block; }
+.faq-answer code { background: var(--cui-fill); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+
+.faq-contact {
+  text-align: center;
+  padding: 30px;
+  background: var(--cui-fill);
+  border-radius: 8px;
+}
+
+.faq-contact h4 { margin: 0 0 10px; }
+.faq-contact p { margin: 0 0 15px; color: var(--cui-text-secondary); }
+
+.cui-search-lg {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cui-search-lg .cui-icon { padding-left: 15px; color: var(--cui-text-secondary); font-size: 22px; }
+.cui-search-lg input { flex: 1; border: none; outline: none; padding: 15px; font-size: 16px; }
+</style>
+
+<script>
+Catui.use(['popup'], function(){
+  var bindEvent = window.router ? router.bindEvent.bind(router) : function(el, type, fn){
+    document.querySelector(el).addEventListener(type, fn);
+  };
+
+  // FAQ 토글
+  document.querySelectorAll('.faq-question').forEach(function(q){
+    q.addEventListener('click', function(){
+      var item = this.closest('.faq-item');
+      var wasOpen = item.classList.contains('open');
+      
+      // 다른 항목 닫기
+      document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
+      
+      // 토글
+      if(!wasOpen) item.classList.add('open');
+    });
+  });
+
+  // 카테고리 필터
+  document.querySelectorAll('.faq-category').forEach(function(cat){
+    cat.addEventListener('click', function(){
+      var catId = this.getAttribute('data-cat');
+      
+      document.querySelectorAll('.faq-category').forEach(function(c){ c.classList.remove('active'); });
+      this.classList.add('active');
+      
+      document.querySelectorAll('.faq-item').forEach(function(item){
+        if(catId === 'all' || item.getAttribute('data-cat') === catId){
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // 검색
+  bindEvent('#faqSearch', 'input', function(e){
+    var keyword = e.target.value.toLowerCase();
+    
+    document.querySelectorAll('.faq-item').forEach(function(item){
+      var text = item.textContent.toLowerCase();
+      item.style.display = text.includes(keyword) ? '' : 'none';
+    });
+  });
+
+  // 문의하기
+  document.querySelector('.faq-contact .cui-btn').addEventListener('click', function(){
+    popup.msg('문의하기 페이지로 이동합니다');
+  });
+});
+</script>

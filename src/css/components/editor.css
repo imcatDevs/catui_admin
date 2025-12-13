@@ -12,7 +12,7 @@
 
 .cui-editor-focus {
   border-color: var(--cui-success);
-  box-shadow: 0 0 0 2px rgba(var(--cui-primary-rgb), 0.1);
+  box-shadow: 0 0 0 2px rgb(var(--cui-primary-rgb), 0.1);
 }
 
 /* 툴바 */
@@ -66,22 +66,22 @@
   overflow-y: auto;
   outline: none;
   line-height: 1.6;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-.cui-editor-body:empty:before {
+.cui-editor-body:empty::before {
   content: attr(data-placeholder);
   color: var(--cui-text-disabled);
   pointer-events: none;
 }
 
-.cui-editor-body:focus:empty:before {
+.cui-editor-body:focus:empty::before {
   content: '';
 }
 
 /* HTML 모드 */
 .cui-editor-html .cui-editor-body {
-  font-family: 'Consolas', 'Monaco', monospace;
+  font-family: Consolas, Monaco, monospace;
   font-size: 13px;
   white-space: pre-wrap;
   word-break: break-all;
@@ -148,7 +148,7 @@
   background: var(--cui-bg-layout);
   padding: 2px 6px;
   border-radius: 3px;
-  font-family: 'Consolas', monospace;
+  font-family: Consolas, monospace;
   font-size: 13px;
 }
 
@@ -212,7 +212,7 @@
 .cui-editor-upload-area p {
   margin: 0;
   color: var(--cui-text-secondary);
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .cui-editor-upload-hint {
@@ -239,8 +239,8 @@
 
 .cui-editor-upload-nourl p {
   margin: 0;
-  color: #666;
-  font-size: 14px;
+  color: #666666;
+  font-size: 12px;
 }
 
 .cui-editor-upload-preview {
@@ -254,7 +254,7 @@
   max-width: 100%;
   max-height: 200px;
   border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgb(0,0,0,0.1);
 }
 
 .cui-editor-upload-progress {
@@ -275,14 +275,14 @@
 .cui-editor-upload-done {
   display: inline-block;
   color: var(--cui-success);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
 }
 
 .cui-editor-upload-error {
   display: inline-block;
   color: var(--cui-danger);
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
 }
 
@@ -298,7 +298,7 @@
   padding: 0 12px;
   border: 1px solid var(--cui-border-color);
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 12px;
   box-sizing: border-box;
   outline: none;
   transition: border-color 0.2s;

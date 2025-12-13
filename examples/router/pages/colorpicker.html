@@ -1,0 +1,326 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">색상 선택 (Colorpicker)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>Colorpicker</span>
+    </div>
+  </div>
+  <!-- 기본 색상 선택 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 색상 선택</span>
+      <code class="cui-text-secondary">colorpicker.render()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">기본</label>
+          <div id="color1"></div>
+        </div>
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">초기 색상</label>
+          <div id="color2"></div>
+        </div>
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">프리셋 색상</label>
+          <div id="color3"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 포맷 옵션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>포맷 옵션</span>
+      <code class="cui-text-secondary">format: 'hex' | 'rgb' | 'rgba'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">HEX</label>
+          <div id="colorHex"></div>
+          <code id="colorHexValue" class="cui-mt-5 cui-block">#1677ff</code>
+        </div>
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">RGB</label>
+          <div id="colorRgb"></div>
+          <code id="colorRgbValue" class="cui-mt-5 cui-block">rgb(22, 119, 255)</code>
+        </div>
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">RGBA (투명도)</label>
+          <div id="colorRgba"></div>
+          <code id="colorRgbaValue" class="cui-mt-5 cui-block">rgba(22, 119, 255, 1)</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 크기 옵션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>크기 옵션</span>
+      <code class="cui-text-secondary">size: 'xs' | 'sm' | 'md' | 'lg'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-20 cui-flex-middle">
+        <div>
+          <div id="colorXs"></div>
+          <span class="cui-text-secondary cui-text-xs">xs</span>
+        </div>
+        <div>
+          <div id="colorSm"></div>
+          <span class="cui-text-secondary cui-text-xs">sm</span>
+        </div>
+        <div>
+          <div id="colorMd"></div>
+          <span class="cui-text-secondary cui-text-xs">md</span>
+        </div>
+        <div>
+          <div id="colorLg"></div>
+          <span class="cui-text-secondary cui-text-xs">lg</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 실시간 미리보기 (change) -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>실시간 미리보기</span>
+      <code class="cui-text-secondary">change(color)</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">RGBA + alpha</label>
+          <div id="colorLive"></div>
+          <code id="colorLiveValue" class="cui-mt-5 cui-block">rgba(22, 119, 255, 1)</code>
+        </div>
+        <div class="cui-col-8 cui-mb-15">
+          <label class="cui-form-label">미리보기 박스</label>
+          <div id="colorLivePreview" style="height: 64px; border: 1px solid #e5e6eb; border-radius: 8px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 커스텀 팔레트 (predefine + colors) -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>커스텀 팔레트</span>
+      <code class="cui-text-secondary">predefine: true, colors: [...]</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-6 cui-mb-15">
+          <label class="cui-form-label">브랜드 팔레트</label>
+          <div id="colorPaletteBrand"></div>
+        </div>
+        <div class="cui-col-6 cui-mb-15">
+          <label class="cui-form-label">그레이 팔레트</label>
+          <div id="colorPaletteGray"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 인스턴스 API 제어 (setValue/getValue) -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>인스턴스 제어</span>
+      <code class="cui-text-secondary">inst.setValue(), inst.getValue()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">컨트롤 대상</label>
+          <div id="colorApi"></div>
+        </div>
+        <div class="cui-col-8 cui-mb-15">
+          <label class="cui-form-label">컨트롤</label>
+          <div class="cui-flex cui-gap-10 cui-flex-middle cui-mb-10">
+            <button id="btnSetRed" type="button" class="cui-btn cui-btn-sm">#ff5722 설정</button>
+            <button id="btnSetRgba" type="button" class="cui-btn cui-btn-sm">rgba(22, 119, 255, 0.5) 설정</button>
+            <button id="btnGet" type="button" class="cui-btn cui-btn-sm cui-btn-primary">값 가져오기</button>
+          </div>
+          <code id="colorApiValue" class="cui-block">(없음)</code>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 테마 적용 (CSS 변수) -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>테마 적용</span>
+      <code class="cui-text-secondary">document.documentElement.style.setProperty('--cui-primary', color)</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-4 cui-mb-15">
+          <label class="cui-form-label">Primary 색상</label>
+          <div id="colorTheme"></div>
+        </div>
+        <div class="cui-col-8 cui-mb-15">
+          <label class="cui-form-label">미리보기</label>
+          <div class="cui-flex cui-gap-10 cui-flex-middle">
+            <button type="button" class="cui-btn cui-btn-primary">Primary 버튼</button>
+            <span id="themeValue" class="cui-text-secondary">#1677ff</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API 테이블 -->
+  <div class="cui-card">
+    <div class="cui-card-header">colorpicker API</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-border">
+        <thead>
+          <tr><th>메서드/옵션</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>colorpicker.render(options)</code></td><td>색상 선택기 렌더링</td></tr>
+          <tr><td><code>inst.setValue(color)</code></td><td>색상 설정</td></tr>
+          <tr><td><code>inst.getValue()</code></td><td>현재 색상 가져오기</td></tr>
+          <tr><td><code>color</code></td><td>초기 색상값</td></tr>
+          <tr><td><code>format</code></td><td>색상 포맷 (hex, rgb, rgba)</td></tr>
+          <tr><td><code>predefine</code></td><td>프리셋 색상 표시</td></tr>
+          <tr><td><code>alpha</code></td><td>투명도 슬라이더 표시</td></tr>
+          <tr><td><code>size</code></td><td>크기 (xs, sm, md, lg)</td></tr>
+          <tr><td><code>change</code></td><td>변경 콜백</td></tr>
+          <tr><td><code>done</code></td><td>확정 콜백</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['colorpicker'], function(colorpicker){
+  // 기본
+  colorpicker.render({
+    elem: '#color1',
+    done: function(color){
+      console.log('선택:', color);
+    }
+  });
+
+  // 초기 색상
+  colorpicker.render({
+    elem: '#color2',
+    color: '#5fb878'
+  });
+
+  // 프리셋 색상
+  colorpicker.render({
+    elem: '#color3',
+    predefine: true
+  });
+
+  // HEX 포맷
+  colorpicker.render({
+    elem: '#colorHex',
+    color: '#1677ff',
+    format: 'hex',
+    done: function(color){
+      document.getElementById('colorHexValue').textContent = color;
+    }
+  });
+
+  // RGB 포맷
+  colorpicker.render({
+    elem: '#colorRgb',
+    color: 'rgb(22, 119, 255)',
+    format: 'rgb',
+    done: function(color){
+      document.getElementById('colorRgbValue').textContent = color;
+    }
+  });
+
+  // RGBA 포맷
+  colorpicker.render({
+    elem: '#colorRgba',
+    color: 'rgba(22, 119, 255, 1)',
+    format: 'rgba',
+    alpha: true,
+    done: function(color){
+      document.getElementById('colorRgbaValue').textContent = color;
+    }
+  });
+
+  // 크기
+  colorpicker.render({ elem: '#colorXs', size: 'xs', color: '#ff5722' });
+  colorpicker.render({ elem: '#colorSm', size: 'sm', color: '#ffb800' });
+  colorpicker.render({ elem: '#colorMd', size: 'md', color: '#5fb878' });
+  colorpicker.render({ elem: '#colorLg', size: 'lg', color: '#1677ff' });
+
+  // 실시간 미리보기
+  colorpicker.render({
+    elem: '#colorLive',
+    format: 'rgba',
+    alpha: true,
+    color: 'rgba(22, 119, 255, 1)',
+    change: function(color){
+      document.getElementById('colorLiveValue').textContent = color;
+      document.getElementById('colorLivePreview').style.backgroundColor = color;
+    },
+    done: function(color){
+      document.getElementById('colorLiveValue').textContent = color;
+      document.getElementById('colorLivePreview').style.backgroundColor = color;
+    }
+  });
+
+  // 커스텀 팔레트
+  colorpicker.render({
+    elem: '#colorPaletteBrand',
+    color: '#1677ff',
+    predefine: true,
+    colors: ['#1677ff', '#16b777', '#ffb800', '#ff5722', '#722ed1', '#13c2c2', '#52c41a', '#eb2f96']
+  });
+  colorpicker.render({
+    elem: '#colorPaletteGray',
+    color: '#2f363c',
+    predefine: true,
+    colors: ['#ffffff', '#f5f5f5', '#eeeeee', '#e0e0e0', '#bdbdbd', '#9e9e9e', '#616161', '#2f363c']
+  });
+
+  // 인스턴스 제어
+  var apiInst = colorpicker.render({
+    elem: '#colorApi',
+    format: 'rgba',
+    alpha: true,
+    color: '#1677ff'
+  });
+  document.getElementById('btnSetRed').addEventListener('click', function(){
+    apiInst.setValue('#ff5722');
+  });
+  document.getElementById('btnSetRgba').addEventListener('click', function(){
+    apiInst.setValue('rgba(22, 119, 255, 0.5)');
+  });
+  document.getElementById('btnGet').addEventListener('click', function(){
+    document.getElementById('colorApiValue').textContent = apiInst.getValue();
+  });
+
+  // 테마 적용
+  colorpicker.render({
+    elem: '#colorTheme',
+    color: '#1677ff',
+    predefine: true,
+    colors: ['#1677ff', '#16b777', '#ffb800', '#ff5722', '#2f363c', '#722ed1', '#13c2c2', '#52c41a'],
+    done: function(color){
+      document.documentElement.style.setProperty('--cui-primary', color);
+      document.getElementById('themeValue').textContent = color;
+    }
+  });
+});
+</script>
+</div>

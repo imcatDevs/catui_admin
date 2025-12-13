@@ -1,0 +1,224 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">API 메서드</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>API 메서드</span>
+    </div>
+  </div>
+
+  <!-- 데이터 내보내기 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>데이터 내보내기</span>
+      <code class="cui-text-secondary">table.exportFile(id)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">테이블 데이터를 CSV 파일로 내보냅니다.</p>
+      <div class="cui-mb-10">
+        <button id="btnExportAll" class="cui-btn cui-btn-sm cui-btn-primary"><i class="cui-icon">download</i> 전체 내보내기</button>
+        <button id="btnExportChecked" class="cui-btn cui-btn-sm"><i class="cui-icon">download</i> 선택 항목만</button>
+      </div>
+      <table id="tableExport"></table>
+    </div>
+  </div>
+
+  <!-- 크기 재조정 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>크기 재조정</span>
+      <code class="cui-text-secondary">table.resize(id)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">컨테이너 크기 변경 시 테이블 열 너비를 재계산합니다.</p>
+      <div class="cui-mb-10">
+        <button id="btnWidth100" class="cui-btn cui-btn-sm">100%</button>
+        <button id="btnWidth80" class="cui-btn cui-btn-sm">80%</button>
+        <button id="btnWidth60" class="cui-btn cui-btn-sm">60%</button>
+        <button id="btnResize" class="cui-btn cui-btn-sm cui-btn-primary">resize() 호출</button>
+      </div>
+      <div id="resizeContainer" style="transition:width 0.3s;">
+        <table id="tableResize"></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 프로그래밍 방식 체크 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>프로그래밍 방식 체크</span>
+      <code class="cui-text-secondary">table.setRowChecked(id, index, checked)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">코드로 특정 행의 체크 상태를 변경합니다.</p>
+      <div class="cui-mb-10">
+        <button id="btnCheckFirst" class="cui-btn cui-btn-sm">첫 번째 행 선택</button>
+        <button id="btnCheckOdd" class="cui-btn cui-btn-sm">홀수 행 선택</button>
+        <button id="btnCheckAll" class="cui-btn cui-btn-sm cui-btn-primary">전체 선택</button>
+        <button id="btnUncheckAll" class="cui-btn cui-btn-sm">전체 해제</button>
+      </div>
+      <table id="tableSetCheck"></table>
+    </div>
+  </div>
+
+  <!-- 인스턴스 정리 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>인스턴스 정리</span>
+      <code class="cui-text-secondary">table.destroy(id)</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">테이블 인스턴스를 완전히 제거합니다.</p>
+      <div class="cui-mb-10">
+        <button id="btnDestroy" class="cui-btn cui-btn-sm cui-btn-danger">테이블 삭제</button>
+        <button id="btnRecreate" class="cui-btn cui-btn-sm cui-btn-primary">테이블 재생성</button>
+      </div>
+      <div id="destroyContainer">
+        <table id="tableDestroy"></table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  var sampleData = [
+    { id: 1, name: '홍길동', email: 'hong@test.com', dept: '개발팀' },
+    { id: 2, name: '김철수', email: 'kim@test.com', dept: '디자인팀' },
+    { id: 3, name: '이영희', email: 'lee@test.com', dept: '마케팅팀' },
+    { id: 4, name: '박지민', email: 'park@test.com', dept: '영업팀' },
+    { id: 5, name: '최수진', email: 'choi@test.com', dept: '인사팀' }
+  ];
+
+  var cols = [[
+    { type: 'checkbox' },
+    { field: 'id', title: 'ID', width: 80 },
+    { field: 'name', title: '이름', width: 120 },
+    { field: 'email', title: '이메일' },
+    { field: 'dept', title: '부서', width: 100 }
+  ]];
+
+  // 데이터 내보내기
+  table.render({
+    elem: '#tableExport',
+    id: 'exportTable',
+    data: JSON.parse(JSON.stringify(sampleData)),
+    cols: cols
+  });
+
+  document.getElementById('btnExportAll').addEventListener('click', function(){
+    table.exportFile('exportTable');
+    popup.msg('CSV 파일 다운로드');
+  });
+
+  document.getElementById('btnExportChecked').addEventListener('click', function(){
+    var checked = table.checkStatus('exportTable');
+    if(checked.data.length === 0){
+      popup.msg('선택된 항목이 없습니다', { icon: 'warning' });
+      return;
+    }
+    table.exportFile('exportTable', checked.data);
+    popup.msg(checked.data.length + '건 내보내기');
+  });
+
+  // 크기 재조정
+  table.render({
+    elem: '#tableResize',
+    id: 'resizeTable',
+    data: JSON.parse(JSON.stringify(sampleData)),
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120 },
+      { field: 'email', title: '이메일' },
+      { field: 'dept', title: '부서' }
+    ]]
+  });
+
+  var container = document.getElementById('resizeContainer');
+  document.getElementById('btnWidth100').addEventListener('click', function(){
+    container.style.width = '100%';
+  });
+  document.getElementById('btnWidth80').addEventListener('click', function(){
+    container.style.width = '80%';
+  });
+  document.getElementById('btnWidth60').addEventListener('click', function(){
+    container.style.width = '60%';
+  });
+  document.getElementById('btnResize').addEventListener('click', function(){
+    table.resize('resizeTable');
+    popup.msg('resize() 완료');
+  });
+
+  // 프로그래밍 방식 체크
+  table.render({
+    elem: '#tableSetCheck',
+    id: 'setCheckTable',
+    data: JSON.parse(JSON.stringify(sampleData)),
+    cols: cols
+  });
+
+  document.getElementById('btnCheckFirst').addEventListener('click', function(){
+    table.setRowChecked('setCheckTable', 0, true);
+    popup.msg('첫 번째 행 선택됨');
+  });
+
+  document.getElementById('btnCheckOdd').addEventListener('click', function(){
+    var data = table.getData('setCheckTable');
+    data.forEach(function(item, idx){
+      table.setRowChecked('setCheckTable', idx, idx % 2 === 0);
+    });
+    popup.msg('홀수 행 선택됨');
+  });
+
+  document.getElementById('btnCheckAll').addEventListener('click', function(){
+    var data = table.getData('setCheckTable');
+    data.forEach(function(item, idx){
+      table.setRowChecked('setCheckTable', idx, true);
+    });
+    popup.msg('전체 선택됨');
+  });
+
+  document.getElementById('btnUncheckAll').addEventListener('click', function(){
+    var data = table.getData('setCheckTable');
+    data.forEach(function(item, idx){
+      table.setRowChecked('setCheckTable', idx, false);
+    });
+    popup.msg('전체 해제됨');
+  });
+
+  // 인스턴스 정리
+  var createDestroyTable = function(){
+    table.render({
+      elem: '#tableDestroy',
+      id: 'destroyTable',
+      data: JSON.parse(JSON.stringify(sampleData)),
+      cols: [[
+        { field: 'id', title: 'ID', width: 80 },
+        { field: 'name', title: '이름', width: 120 },
+        { field: 'email', title: '이메일' },
+        { field: 'dept', title: '부서', width: 100 }
+      ]]
+    });
+  };
+
+  createDestroyTable();
+
+  document.getElementById('btnDestroy').addEventListener('click', function(){
+    table.destroy('destroyTable');
+    document.getElementById('destroyContainer').innerHTML = '<div class="cui-text-secondary cui-p-20 cui-text-center">테이블이 삭제되었습니다</div>';
+    popup.msg('테이블 삭제됨');
+  });
+
+  document.getElementById('btnRecreate').addEventListener('click', function(){
+    document.getElementById('destroyContainer').innerHTML = '<table id="tableDestroy"></table>';
+    createDestroyTable();
+    popup.msg('테이블 재생성됨');
+  });
+});
+</script>
+</div>

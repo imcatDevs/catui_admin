@@ -1,0 +1,123 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">셀 편집</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>셀 편집</span>
+    </div>
+  </div>
+
+  <!-- 기본 셀 편집 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 셀 편집</span>
+      <code class="cui-text-secondary">edit: 'text'</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">열에 <code>edit: 'text'</code>를 설정하면 셀 클릭 시 편집 가능합니다. Enter로 저장, Esc로 취소.</p>
+      <table id="tableEdit"></table>
+    </div>
+  </div>
+
+  <!-- 편집 이벤트 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>편집 이벤트</span>
+      <code class="cui-text-secondary">table.on('edit(id)')</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">셀 편집 완료 시 이벤트가 발생합니다.</p>
+      <div id="editLog" class="cui-mb-10" style="height:80px;overflow:auto;background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;"></div>
+      <table id="tableEditEvent"></table>
+    </div>
+  </div>
+
+  <!-- 편집된 데이터 확인 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>편집된 데이터 확인</span>
+      <code class="cui-text-secondary">table.getData(id)</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-10">
+        <button id="btnGetEditedData" class="cui-btn cui-btn-sm cui-btn-primary">현재 데이터 가져오기</button>
+        <button id="btnResetData" class="cui-btn cui-btn-sm">데이터 초기화</button>
+      </div>
+      <pre id="editedDataOutput" style="background:#f5f5f5;padding:10px;border-radius:4px;max-height:200px;overflow:auto;"></pre>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  var originalData = [
+    { id: 1, name: '홍길동', email: 'hong@test.com', phone: '010-1234-5678' },
+    { id: 2, name: '김철수', email: 'kim@test.com', phone: '010-2345-6789' },
+    { id: 3, name: '이영희', email: 'lee@test.com', phone: '010-3456-7890' },
+    { id: 4, name: '박지민', email: 'park@test.com', phone: '010-4567-8901' },
+    { id: 5, name: '최수진', email: 'choi@test.com', phone: '010-5678-9012' }
+  ];
+
+  // 깊은 복사 함수
+  var cloneData = function(data){
+    return JSON.parse(JSON.stringify(data));
+  };
+
+  // 기본 셀 편집
+  table.render({
+    elem: '#tableEdit',
+    data: cloneData(originalData),
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120, edit: 'text' },
+      { field: 'email', title: '이메일', edit: 'text' },
+      { field: 'phone', title: '전화번호', width: 150, edit: 'text' }
+    ]]
+  });
+
+  // 편집 이벤트
+  var logEl = document.getElementById('editLog');
+  table.render({
+    elem: '#tableEditEvent',
+    id: 'editEventTable',
+    data: cloneData(originalData),
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 120, edit: 'text' },
+      { field: 'email', title: '이메일', edit: 'text' },
+      { field: 'phone', title: '전화번호', width: 150, edit: 'text' }
+    ]]
+  });
+
+  table.on('edit(editEventTable)', function(obj){
+    var log = '<div>[' + new Date().toLocaleTimeString() + '] ' +
+      '<strong>' + obj.field + '</strong> 편집: ' +
+      '<span style="color:#999">' + obj.oldValue + '</span> → ' +
+      '<span style="color:#1677ff">' + obj.value + '</span></div>';
+    logEl.innerHTML = log + logEl.innerHTML;
+  });
+
+  // 편집된 데이터 확인
+  document.getElementById('btnGetEditedData').addEventListener('click', function(){
+    var data = table.getData('editEventTable');
+    // 내부 키 제거
+    var cleanData = data.map(function(item){
+      return table.clearCacheKey(item);
+    });
+    document.getElementById('editedDataOutput').textContent = JSON.stringify(cleanData, null, 2);
+  });
+
+  document.getElementById('btnResetData').addEventListener('click', function(){
+    table.reload('editEventTable', { data: cloneData(originalData) });
+    logEl.innerHTML = '';
+    document.getElementById('editedDataOutput').textContent = '';
+    popup.msg('데이터 초기화 완료');
+  });
+});
+</script>
+</div>

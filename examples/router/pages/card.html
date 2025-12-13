@@ -1,0 +1,314 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">카드 (Card)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.reload()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>카드</span>
+    </div>
+  </div>
+  
+  <!-- 기본 카드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 카드</span>
+      <code class="cui-text-secondary">.cui-card</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-md-4">
+          <div class="cui-card">
+            <div class="cui-card-header">카드 제목</div>
+            <div class="cui-card-body">
+              카드 본문 내용입니다. 다양한 콘텐츠를 담을 수 있습니다.
+            </div>
+          </div>
+        </div>
+        <div class="cui-col-md-4">
+          <div class="cui-card">
+            <div class="cui-card-header">헤더만 있는 카드</div>
+            <div class="cui-card-body">
+              본문 내용
+            </div>
+            <div class="cui-card-footer">카드 푸터</div>
+          </div>
+        </div>
+        <div class="cui-col-md-4">
+          <div class="cui-card">
+            <div class="cui-card-body">
+              헤더 없이 본문만 있는 카드입니다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 카드 색상 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">카드 색상</div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-md-3">
+          <div class="cui-card cui-card-primary">
+            <div class="cui-card-header">Primary</div>
+            <div class="cui-card-body">Primary 색상 카드</div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-card cui-card-success">
+            <div class="cui-card-header">Success</div>
+            <div class="cui-card-body">Success 색상 카드</div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-card cui-card-warning">
+            <div class="cui-card-header">Warning</div>
+            <div class="cui-card-body">Warning 색상 카드</div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-card cui-card-danger">
+            <div class="cui-card-header">Danger</div>
+            <div class="cui-card-body">Danger 색상 카드</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 호버 효과 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>호버 효과</span>
+      <code class="cui-text-secondary">.cui-card-hover</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-md-4">
+          <div class="cui-card cui-card-hover">
+            <div class="cui-card-header">호버 카드 1</div>
+            <div class="cui-card-body">마우스를 올리면 그림자가 생깁니다.</div>
+          </div>
+        </div>
+        <div class="cui-col-md-4">
+          <div class="cui-card cui-card-hover cui-card-primary">
+            <div class="cui-card-header">호버 카드 2</div>
+            <div class="cui-card-body">Primary + 호버 효과</div>
+          </div>
+        </div>
+        <div class="cui-col-md-4">
+          <div class="cui-card cui-card-hover cui-card-success">
+            <div class="cui-card-header">호버 카드 3</div>
+            <div class="cui-card-body">Success + 호버 효과</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 통계 카드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>통계 카드</span>
+      <code class="cui-text-secondary">.cui-stat-card</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-md-3">
+          <div class="cui-card">
+            <div class="cui-stat-card">
+              <div class="cui-stat-icon" style="background:var(--cui-primary)">
+                <i class="cui-icon">people</i>
+              </div>
+              <div>
+                <div class="cui-stat-value">1,234</div>
+                <div class="cui-stat-label">총 사용자</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-card">
+            <div class="cui-stat-card">
+              <div class="cui-stat-icon" style="background:var(--cui-success)">
+                <i class="cui-icon">shopping_cart</i>
+              </div>
+              <div>
+                <div class="cui-stat-value">567</div>
+                <div class="cui-stat-label">주문 수</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-card">
+            <div class="cui-stat-card">
+              <div class="cui-stat-icon" style="background:var(--cui-warning)">
+                <i class="cui-icon">attach_money</i>
+              </div>
+              <div>
+                <div class="cui-stat-value">₩12.5M</div>
+                <div class="cui-stat-label">매출</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-card">
+            <div class="cui-stat-card">
+              <div class="cui-stat-icon" style="background:var(--cui-danger)">
+                <i class="cui-icon">trending_up</i>
+              </div>
+              <div>
+                <div class="cui-stat-value">+23%</div>
+                <div class="cui-stat-label">성장률</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 카드 크기 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">카드 크기</div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-md-4">
+          <div class="cui-card cui-card-sm">
+            <div class="cui-card-header">Small 카드</div>
+            <div class="cui-card-body">작은 크기의 카드입니다.</div>
+          </div>
+        </div>
+        <div class="cui-col-md-4">
+          <div class="cui-card">
+            <div class="cui-card-header">기본 카드</div>
+            <div class="cui-card-body">기본 크기의 카드입니다.</div>
+          </div>
+        </div>
+        <div class="cui-col-md-4">
+          <div class="cui-card cui-card-lg">
+            <div class="cui-card-header">Large 카드</div>
+            <div class="cui-card-body">큰 크기의 카드입니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 카드 그림자 & 테두리 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">카드 그림자 & 테두리</div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-md-3">
+          <div class="cui-card cui-card-shadow">
+            <div class="cui-card-header">그림자</div>
+            <div class="cui-card-body">cui-card-shadow</div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-card cui-card-shadow-lg">
+            <div class="cui-card-header">큰 그림자</div>
+            <div class="cui-card-body">cui-card-shadow-lg</div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-card cui-card-borderless cui-card-shadow">
+            <div class="cui-card-header">테두리 없음</div>
+            <div class="cui-card-body">cui-card-borderless</div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-card cui-card-border-primary">
+            <div class="cui-card-header">Primary 테두리</div>
+            <div class="cui-card-body">cui-card-border-primary</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 패널 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>패널</span>
+      <code class="cui-text-secondary">.cui-panel</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row">
+        <div class="cui-col-md-3">
+          <div class="cui-panel cui-panel-primary">
+            <div class="cui-panel-header">Primary 패널</div>
+            <div class="cui-panel-body">패널 내용입니다.</div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-panel cui-panel-success">
+            <div class="cui-panel-header">Success 패널</div>
+            <div class="cui-panel-body">패널 내용입니다.</div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-panel cui-panel-warning">
+            <div class="cui-panel-header">Warning 패널</div>
+            <div class="cui-panel-body">패널 내용입니다.</div>
+          </div>
+        </div>
+        <div class="cui-col-md-3">
+          <div class="cui-panel cui-panel-danger">
+            <div class="cui-panel-header">Danger 패널</div>
+            <div class="cui-panel-body">패널 내용입니다.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 클래스 요약 -->
+  <div class="cui-card">
+    <div class="cui-card-header">카드 클래스 요약</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th style="width:220px">클래스</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.cui-card</code></td><td>카드 컨테이너</td></tr>
+          <tr><td><code>.cui-card-header</code></td><td>카드 헤더</td></tr>
+          <tr><td><code>.cui-card-body</code></td><td>카드 본문</td></tr>
+          <tr><td><code>.cui-card-footer</code></td><td>카드 푸터</td></tr>
+          <tr><td><code>.cui-card-hover</code></td><td>호버 시 그림자 효과</td></tr>
+          <tr><td><code>.cui-card-primary</code></td><td>Primary 색상 헤더</td></tr>
+          <tr><td><code>.cui-card-success</code></td><td>Success 색상 헤더</td></tr>
+          <tr><td><code>.cui-card-warning</code></td><td>Warning 색상 헤더</td></tr>
+          <tr><td><code>.cui-card-danger</code></td><td>Danger 색상 헤더</td></tr>
+          <tr><td><code>.cui-card-info</code></td><td>Info 색상 헤더</td></tr>
+          <tr><td><code>.cui-card-sm</code></td><td>작은 크기</td></tr>
+          <tr><td><code>.cui-card-lg</code></td><td>큰 크기</td></tr>
+          <tr><td><code>.cui-card-shadow</code></td><td>그림자 효과</td></tr>
+          <tr><td><code>.cui-card-shadow-lg</code></td><td>큰 그림자 효과</td></tr>
+          <tr><td><code>.cui-card-no-shadow</code></td><td>그림자 제거</td></tr>
+          <tr><td><code>.cui-card-borderless</code></td><td>테두리 없음</td></tr>
+          <tr><td><code>.cui-card-border-*</code></td><td>테두리 색상 (primary, success, warning, danger)</td></tr>
+          <tr><td><code>.cui-stat-card</code></td><td>통계 카드</td></tr>
+          <tr><td><code>.cui-panel</code></td><td>패널 (왼쪽 테두리 강조)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  Catui.use(['element'], function(){
+    element.render();
+  });
+</script>

@@ -13,13 +13,70 @@ input[type="radio"] {
 }
 
 .cui-form-item {
+  display: flex;
+  align-items: flex-start;
   margin-bottom: 15px;
 }
 
+.cui-form-item:last-child {
+  margin-bottom: 0;
+}
+
 .cui-form-label {
-  display: block;
-  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  width: 100px;
+  min-width: 100px;
+  padding-right: 10px;
   font-weight: 500;
+  text-align: right;
+  justify-content: flex-end;
+  height: 38px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.cui-form-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.cui-form-input .cui-input,
+.cui-form-input .cui-select,
+.cui-form-input .cui-textarea {
+  width: 100%;
+}
+
+/* 체크박스/라디오/스위치가 있는 경우 높이 맞춤 */
+.cui-form-input .cui-checkbox,
+.cui-form-input .cui-radio {
+  display: inline-flex;
+  height: 38px;
+  align-items: center;
+}
+
+.cui-form-input .cui-switch {
+  margin-top: 8px;
+}
+
+/* 인라인 폼 */
+.cui-form-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.cui-form-inline .cui-form-item {
+  margin-bottom: 0;
+}
+
+.cui-form-inline .cui-form-label {
+  width: auto;
+  min-width: auto;
+}
+
+.cui-form-inline .cui-form-input {
+  flex: none;
 }
 
 /* 선택 불가 텍스트 */
@@ -27,16 +84,25 @@ input[type="radio"] {
   user-select: none;
 }
 
-/* 원본 input 숨기기 (렌더링된 경우) */
-.cui-form input[type="checkbox"] + .cui-form-checkbox,
-.cui-form input[type="checkbox"] + .cui-form-switch,
-.cui-form input[type="radio"] + .cui-form-radio {
-  margin-left: -1px;
+/* 원본 input 숨기기 (폼 모듈 렌더링 시) */
+input[cui-rendered="checkbox"],
+input[cui-rendered="radio"],
+input[cui-rendered="switch"] {
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
 }
 
-.cui-form input[type="checkbox"]:not([cui-ignore]),
-.cui-form input[type="radio"]:not([cui-ignore]) {
-  display: none;
+/* 커스텀 요소 내부 input 숨기기 */
+.cui-form-checkbox input[type="checkbox"],
+.cui-form-switch input[type="checkbox"],
+.cui-form-radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 /* ========================================
@@ -58,13 +124,13 @@ input[type="radio"] {
 
 .cui-form-checkbox .cui-icon {
   font-size: 20px;
-  color: #c2c2c2;
+  color: var(--cui-text-disabled);
 }
 
 .cui-form-checkbox span {
   padding-left: 6px;
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.85);
+  font-size: 12px;
+  color: rgb(0, 0, 0, 0.85);
 }
 
 .cui-form-checkbox:hover .cui-icon {
@@ -80,7 +146,7 @@ input[type="radio"] {
 }
 
 .cui-checkbox-disabled .cui-icon {
-  color: #eee !important;
+  color: #eeeeee !important;
 }
 
 .cui-checkbox-disabled span {
@@ -103,17 +169,17 @@ input[type="radio"] {
   padding-left: 6px;
   padding-right: 15px;
   line-height: 18px;
-  color: rgba(0, 0, 0, 0.85);
+  color: rgb(0, 0, 0, 0.85);
 }
 
 .cui-form-checkbox-primary .cui-icon {
   width: 16px;
   height: 16px;
   line-height: 16px;
-  border: 1px solid #d2d2d2;
+  border: 1px solid var(--cui-border-color-dark);
   font-size: 12px;
   border-radius: 2px;
-  background-color: #fff;
+  background-color: #ffffff;
   text-align: center;
 }
 
@@ -124,7 +190,7 @@ input[type="radio"] {
 .cui-form-checked.cui-form-checkbox-primary .cui-icon {
   border-color: var(--cui-success);
   background-color: var(--cui-success);
-  color: #fff;
+  color: #ffffff;
 }
 
 /* ========================================
@@ -144,13 +210,13 @@ input[type="radio"] {
 .cui-form-radio * {
   display: inline-block;
   vertical-align: middle;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .cui-form-radio > .cui-icon {
   margin-right: 6px;
   font-size: 22px;
-  color: #c2c2c2;
+  color: var(--cui-text-disabled);
   transition: var(--cui-transition);
 }
 
@@ -161,7 +227,7 @@ input[type="radio"] {
 }
 
 .cui-radio-disabled > .cui-icon {
-  color: #eee !important;
+  color: #eeeeee !important;
 }
 
 .cui-radio-disabled * {
@@ -201,7 +267,7 @@ input[type="radio"] {
   border: 1px solid var(--cui-border-color);
   border-radius: 24px;
   cursor: pointer;
-  background-color: #fff;
+  background-color: #ffffff;
   transition: var(--cui-transition);
   user-select: none;
 }
@@ -221,7 +287,7 @@ input[type="radio"] {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background-color: #d2d2d2;
+  background-color: var(--cui-border-color-dark);
   transition: var(--cui-transition);
   font-style: normal;
 }
@@ -233,7 +299,7 @@ input[type="radio"] {
   margin-left: 22px;
   padding: 0;
   text-align: center;
-  color: #999;
+  color: #999999;
   font-style: normal;
   font-size: 12px;
 }
@@ -246,13 +312,13 @@ input[type="radio"] {
 
 .cui-form-switch.cui-form-checked i {
   left: calc(100% - 21px);
-  background-color: #fff;
+  background-color: #ffffff;
 }
 
 .cui-form-switch.cui-form-checked em {
   margin-left: 5px;
   margin-right: 22px;
-  color: #fff;
+  color: #ffffff;
 }
 
 /* 스위치 비활성 */
@@ -429,7 +495,7 @@ input[type="radio"] {
 }
 
 .cui-form-tip-error .cui-icon {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .cui-form-tip-success {
@@ -502,4 +568,186 @@ input[type="radio"] {
   margin-top: 5px;
   font-size: 12px;
   color: var(--cui-text-secondary);
+}
+
+/* ========================================
+   체크박스 (.cui-checkbox)
+======================================== */
+.cui-checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  color: var(--cui-text-primary);
+}
+
+.cui-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.cui-checkbox span {
+  line-height: 1.5;
+}
+
+.cui-checkbox-primary input[type="checkbox"] { accent-color: var(--cui-primary); }
+.cui-checkbox-success input[type="checkbox"] { accent-color: var(--cui-success); }
+.cui-checkbox-warning input[type="checkbox"] { accent-color: var(--cui-warning); }
+.cui-checkbox-danger input[type="checkbox"] { accent-color: var(--cui-danger); }
+
+/* ========================================
+   라디오 (.cui-radio)
+======================================== */
+.cui-radio {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 12px;
+  color: var(--cui-text-primary);
+}
+
+.cui-radio input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  margin-right: 6px;
+  cursor: pointer;
+}
+
+.cui-radio span {
+  line-height: 1.5;
+}
+
+/* ========================================
+   스위치 (.cui-switch)
+======================================== */
+.cui-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 22px;
+}
+
+.cui-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.cui-switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #cccccc;
+  transition: .3s;
+  border-radius: 22px;
+}
+
+.cui-switch-slider::before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #ffffff;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+.cui-switch input:checked + .cui-switch-slider {
+  background-color: var(--cui-primary);
+}
+
+.cui-switch input:checked + .cui-switch-slider::before {
+  transform: translateX(22px);
+}
+
+.cui-switch input:disabled + .cui-switch-slider {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+/* ========================================
+   입력 그룹 (.cui-input-group)
+======================================== */
+.cui-input-group {
+  display: flex;
+  align-items: stretch;
+}
+
+.cui-input-group .cui-input {
+  flex: 1;
+  border-radius: 0;
+}
+
+.cui-input-group .cui-input:first-child {
+  border-radius: var(--cui-border-radius) 0 0 var(--cui-border-radius);
+}
+
+.cui-input-group .cui-input:last-child {
+  border-radius: 0 var(--cui-border-radius) var(--cui-border-radius) 0;
+}
+
+.cui-input-group .cui-input:not(:first-child) {
+  margin-left: -1px;
+}
+
+.cui-input-addon {
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: var(--cui-bg-gray);
+  border: 1px solid var(--cui-border-color);
+  color: var(--cui-text-secondary);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.cui-input-addon:first-child {
+  border-radius: var(--cui-border-radius) 0 0 var(--cui-border-radius);
+  border-right: none;
+}
+
+.cui-input-addon:last-child {
+  border-radius: 0 var(--cui-border-radius) var(--cui-border-radius) 0;
+  border-left: none;
+}
+
+.cui-input-group .cui-btn {
+  border-radius: 0 var(--cui-border-radius) var(--cui-border-radius) 0;
+}
+
+/* ========================================
+   입력 크기
+======================================== */
+.cui-input-lg {
+  height: 44px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+.cui-input-sm {
+  height: 30px;
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+/* ========================================
+   입력 상태
+======================================== */
+.cui-input-success {
+  border-color: var(--cui-success) !important;
+}
+
+.cui-input-error {
+  border-color: var(--cui-danger) !important;
 }

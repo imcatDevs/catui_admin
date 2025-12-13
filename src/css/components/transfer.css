@@ -147,7 +147,7 @@
 .cui-transfer-buttons .cui-btn:hover:not(:disabled) {
   background-color: var(--cui-primary);
   border-color: var(--cui-primary);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-transfer-buttons .cui-btn:disabled {

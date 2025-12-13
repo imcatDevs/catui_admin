@@ -1,0 +1,204 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">원격 데이터 로드</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>원격 데이터</span>
+    </div>
+  </div>
+
+  <!-- URL 데이터 로드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>URL 데이터 로드</span>
+      <code class="cui-text-secondary">url: '/api/data'</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>url</code> 옵션으로 서버에서 데이터를 가져옵니다. (데모: 로컬 JSON 파일)</p>
+      <table id="tableUrl"></table>
+    </div>
+  </div>
+
+  <!-- 요청/응답 설정 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>요청/응답 설정</span>
+      <code class="cui-text-secondary">request / response / parseData</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">서버 응답 형식에 맞게 <code>response</code>와 <code>parseData</code>를 설정합니다.</p>
+      <pre class="cui-mb-10" style="background:#f5f5f5;padding:10px;border-radius:4px;font-size:12px;">
+// 기본 응답 형식
+{
+  "code": 0,        // statusCode와 비교
+  "msg": "success",
+  "data": [...],    // 실제 데이터
+  "count": 100      // 전체 개수
+}
+
+// response 설정으로 필드명 변경 가능
+response: {
+  statusName: 'code',
+  statusCode: 0,
+  dataName: 'data',
+  countName: 'count'
+}</pre>
+      <table id="tableResponse"></table>
+    </div>
+  </div>
+
+  <!-- where 파라미터 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>검색 조건 (where)</span>
+      <code class="cui-text-secondary">where: { keyword: '검색어' }</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>where</code>로 추가 파라미터를 전송하고, <code>table.reload()</code>로 조건 변경.</p>
+      <div class="cui-flex cui-gap-10 cui-mb-10">
+        <input type="text" id="searchKeyword" class="cui-input" placeholder="검색어 입력" style="width:200px;">
+        <select id="searchStatus" class="cui-select" style="width:120px;">
+          <option value="">전체 상태</option>
+          <option value="active">활성</option>
+          <option value="inactive">비활성</option>
+        </select>
+        <button id="btnSearch" class="cui-btn cui-btn-primary">검색</button>
+        <button id="btnReset" class="cui-btn">초기화</button>
+      </div>
+      <table id="tableWhere"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  // 데모용 데이터 (실제로는 서버에서 반환)
+  var demoData = [];
+  var names = ['홍길동', '김철수', '이영희', '박지민', '최수진', '정민수', '강하나', '윤서영'];
+  var statuses = ['active', 'inactive'];
+  for(var i = 1; i <= 50; i++){
+    demoData.push({
+      id: i,
+      name: names[i % names.length],
+      email: 'user' + i + '@example.com',
+      status: statuses[i % 2],
+      created: '2024-0' + ((i % 9) + 1) + '-' + ((i % 28) + 1).toString().padStart(2, '0')
+    });
+  }
+
+  // 데모용 JSON 파일 시뮬레이션 (실제로는 서버 URL 사용)
+  // 실제 사용 시: url: '/api/users'
+  
+  // URL 데이터 로드 (데모: 로컬 데이터 사용)
+  table.render({
+    elem: '#tableUrl',
+    data: demoData.slice(0, 10),
+    page: true,
+    limit: 5,
+    loading: true,
+    cols: [[
+      { field: 'id', title: 'ID', width: 80, sort: true },
+      { field: 'name', title: '이름', width: 100 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 80, templet: function(d){
+        return d.status === 'active' 
+          ? '<span class="cui-badge cui-bg-success">활성</span>'
+          : '<span class="cui-badge cui-bg-gray">비활성</span>';
+      }},
+      { field: 'created', title: '생성일', width: 110 }
+    ]],
+    done: function(res, curr, count){
+      console.log('데이터 로드 완료:', { curr: curr, count: count });
+    }
+  });
+
+  // 요청/응답 설정
+  table.render({
+    elem: '#tableResponse',
+    data: demoData.slice(0, 8),
+    // 실제 서버 사용 시:
+    // url: '/api/users',
+    // method: 'post',
+    // headers: { 'Authorization': 'Bearer xxx' },
+    // contentType: 'application/json',
+    response: {
+      statusName: 'code',
+      statusCode: 0,
+      dataName: 'data',
+      countName: 'count'
+    },
+    // parseData: function(res){
+    //   // 서버 응답을 표준 형식으로 변환
+    //   return {
+    //     code: res.success ? 0 : 1,
+    //     data: res.items,
+    //     count: res.total
+    //   };
+    // },
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'name', title: '이름', width: 100 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 80 }
+    ]]
+  });
+
+  // where 파라미터
+  table.render({
+    elem: '#tableWhere',
+    id: 'whereTable',
+    data: demoData,
+    page: true,
+    limit: 10,
+    // 실제 서버 사용 시:
+    // url: '/api/users',
+    // where: { keyword: '', status: '' },
+    cols: [[
+      { field: 'id', title: 'ID', width: 80, sort: true },
+      { field: 'name', title: '이름', width: 100 },
+      { field: 'email', title: '이메일' },
+      { field: 'status', title: '상태', width: 80, templet: function(d){
+        return d.status === 'active' 
+          ? '<span class="cui-badge cui-bg-success">활성</span>'
+          : '<span class="cui-badge cui-bg-gray">비활성</span>';
+      }},
+      { field: 'created', title: '생성일', width: 110 }
+    ]]
+  });
+
+  // 검색 버튼
+  document.getElementById('btnSearch').addEventListener('click', function(){
+    var keyword = document.getElementById('searchKeyword').value.toLowerCase();
+    var status = document.getElementById('searchStatus').value;
+    
+    // 클라이언트 필터링 (데모)
+    var filtered = demoData.filter(function(item){
+      var matchKeyword = !keyword || item.name.toLowerCase().includes(keyword) || item.email.toLowerCase().includes(keyword);
+      var matchStatus = !status || item.status === status;
+      return matchKeyword && matchStatus;
+    });
+    
+    table.reload('whereTable', { data: filtered });
+    popup.msg('검색 완료: ' + filtered.length + '건');
+    
+    // 실제 서버 사용 시:
+    // table.reload('whereTable', {
+    //   where: { keyword: keyword, status: status }
+    // });
+  });
+
+  // 초기화 버튼
+  document.getElementById('btnReset').addEventListener('click', function(){
+    document.getElementById('searchKeyword').value = '';
+    document.getElementById('searchStatus').value = '';
+    table.reload('whereTable', { data: demoData });
+    popup.msg('초기화 완료');
+  });
+});
+</script>
+</div>

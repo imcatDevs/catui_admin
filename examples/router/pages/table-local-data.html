@@ -1,0 +1,121 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">알려진 데이터 할당</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">테이블예제</a>
+      <span>데이터 할당</span>
+    </div>
+  </div>
+
+  <!-- 배열 데이터 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>배열 데이터 직접 할당</span>
+      <code class="cui-text-secondary">data: [...]</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>data</code> 옵션에 배열을 직접 전달합니다.</p>
+      <table id="tableArrayData"></table>
+    </div>
+  </div>
+
+  <!-- 동적 데이터 변경 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>동적 데이터 변경</span>
+      <code class="cui-text-secondary">table.reload()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-10">
+        <button id="btnData1" class="cui-btn cui-btn-sm cui-btn-primary">데이터 세트 1</button>
+        <button id="btnData2" class="cui-btn cui-btn-sm">데이터 세트 2</button>
+        <button id="btnDataEmpty" class="cui-btn cui-btn-sm cui-btn-warm">빈 데이터</button>
+      </div>
+      <table id="tableDynamic"></table>
+    </div>
+  </div>
+
+  <!-- 데이터 가져오기 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>테이블 데이터 가져오기</span>
+      <code class="cui-text-secondary">table.getData(id)</code>
+    </div>
+    <div class="cui-card-body">
+      <button id="btnGetData" class="cui-btn cui-btn-sm cui-btn-primary">현재 데이터 가져오기</button>
+      <pre id="dataOutput" class="cui-mt-10" style="background:#f5f5f5;padding:10px;border-radius:4px;max-height:200px;overflow:auto;"></pre>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['table', 'popup'], function(){
+  var dataSet1 = [
+    { id: 1, product: '노트북', price: 1500000, stock: 25 },
+    { id: 2, product: '모니터', price: 350000, stock: 42 },
+    { id: 3, product: '키보드', price: 89000, stock: 100 }
+  ];
+
+  var dataSet2 = [
+    { id: 101, product: '마우스', price: 45000, stock: 200 },
+    { id: 102, product: '헤드셋', price: 120000, stock: 35 },
+    { id: 103, product: '웹캠', price: 89000, stock: 18 },
+    { id: 104, product: 'USB 허브', price: 25000, stock: 150 }
+  ];
+
+  // 배열 데이터
+  table.render({
+    elem: '#tableArrayData',
+    data: dataSet1,
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'product', title: '상품명' },
+      { field: 'price', title: '가격', width: 120, templet: function(d){
+        return d.price.toLocaleString() + '원';
+      }},
+      { field: 'stock', title: '재고', width: 100 }
+    ]]
+  });
+
+  // 동적 데이터 변경
+  table.render({
+    elem: '#tableDynamic',
+    id: 'dynamicTable',
+    data: dataSet1,
+    cols: [[
+      { field: 'id', title: 'ID', width: 80 },
+      { field: 'product', title: '상품명' },
+      { field: 'price', title: '가격', width: 120, templet: function(d){
+        return d.price.toLocaleString() + '원';
+      }},
+      { field: 'stock', title: '재고', width: 100 }
+    ]]
+  });
+
+  document.getElementById('btnData1').addEventListener('click', function(){
+    table.reload('dynamicTable', { data: dataSet1 });
+    popup.msg('데이터 세트 1 로드');
+  });
+
+  document.getElementById('btnData2').addEventListener('click', function(){
+    table.reload('dynamicTable', { data: dataSet2 });
+    popup.msg('데이터 세트 2 로드');
+  });
+
+  document.getElementById('btnDataEmpty').addEventListener('click', function(){
+    table.reload('dynamicTable', { data: [] });
+    popup.msg('빈 데이터 로드');
+  });
+
+  document.getElementById('btnGetData').addEventListener('click', function(){
+    var data = table.getData('dynamicTable');
+    document.getElementById('dataOutput').textContent = JSON.stringify(data, null, 2);
+  });
+});
+</script>
+</div>

@@ -1,21 +1,22 @@
 /* ========================================
-   Date 날짜 선택기
+   Date 날짜 선택기 - 심플 & 컴팩트
 ======================================== */
 
 .cui-date {
   position: absolute;
   background: var(--cui-bg-base);
-  border-radius: 8px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  font-size: 14px;
+  border: 1px solid var(--cui-border-color);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgb(0, 0, 0, 0.1);
+  font-size: 13px;
   user-select: none;
   z-index: 2000;
-  min-width: 280px;
+  min-width: 260px;
 }
 
 .cui-date-static {
   position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 
 /* 헤더 */
@@ -23,45 +24,47 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 10px;
-  background: var(--cui-primary);
-  color: #fff;
-  border-radius: 8px 8px 0 0;
+  padding: 8px 8px;
+  background: var(--cui-bg-gray);
+  border-bottom: 1px solid var(--cui-border-color);
 }
 
 .cui-date-header .cui-icon {
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
-  padding: 5px;
-  border-radius: 50%;
-  transition: background 0.2s;
+  padding: 4px;
+  border-radius: 4px;
+  color: var(--cui-text-secondary);
+  transition: all 0.15s;
 }
 
 .cui-date-header .cui-icon:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--cui-border-color);
+  color: var(--cui-text-base);
 }
 
 .cui-date-ym {
   display: flex;
-  gap: 5px;
-  font-size: 16px;
+  gap: 4px;
+  font-size: 14px;
   font-weight: 500;
+  color: var(--cui-text-base);
 }
 
 .cui-date-ym span {
   cursor: pointer;
-  padding: 3px 8px;
+  padding: 2px 6px;
   border-radius: 4px;
-  transition: background 0.2s;
+  transition: all 0.15s;
 }
 
 .cui-date-ym span:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--cui-border-color);
 }
 
 /* 콘텐츠 */
 .cui-date-content {
-  padding: 10px;
+  padding: 8px;
 }
 
 /* 테이블 */
@@ -72,19 +75,19 @@
 }
 
 .cui-date-table th {
-  padding: 8px 0;
+  padding: 6px 0;
   font-weight: 500;
   color: var(--cui-text-secondary);
   font-size: 12px;
 }
 
 .cui-date-table td {
-  padding: 8px 0;
+  padding: 5px 0;
   cursor: pointer;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  transition: all 0.2s;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  transition: all 0.15s;
   position: relative;
 }
 
@@ -107,7 +110,7 @@
 /* 선택됨 */
 .cui-date-table td.cui-this {
   background: var(--cui-primary);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-date-table td.cui-this:hover {
@@ -140,18 +143,19 @@
 .cui-date-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding: 10px 0;
+  gap: 6px;
+  padding: 8px 0;
   list-style: none;
   margin: 0;
 }
 
 .cui-date-list li {
-  padding: 12px 8px;
+  padding: 8px 6px;
   text-align: center;
   cursor: pointer;
-  border-radius: 6px;
-  transition: all 0.2s;
+  border-radius: 4px;
+  transition: all 0.15s;
+  font-size: 13px;
 }
 
 .cui-date-list li:hover {
@@ -160,7 +164,7 @@
 
 .cui-date-list li.cui-this {
   background: var(--cui-primary);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-date-list li.cui-date-other {
@@ -169,7 +173,7 @@
 
 /* 시간 선택 */
 .cui-date-time {
-  padding: 10px 15px;
+  padding: 8px 10px;
   border-top: 1px solid var(--cui-border-color);
 }
 
@@ -180,26 +184,26 @@
 .cui-date-time-header {
   font-size: 12px;
   color: var(--cui-text-secondary);
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .cui-date-time-content {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  font-size: 16px;
+  gap: 4px;
+  font-size: 14px;
 }
 
 .cui-date-time-input {
-  width: 40px;
-  height: 32px;
+  width: 36px;
+  height: 28px;
   border: 1px solid var(--cui-border-color);
   border-radius: 4px;
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.15s;
 }
 
 .cui-date-time-input:focus {
@@ -209,41 +213,43 @@
 /* 하단 버튼 */
 .cui-date-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 10px 15px;
+  padding: 8px 10px;
   border-top: 1px solid var(--cui-border-color);
+  gap: 8px;
 }
 
 .cui-date-btns {
   display: flex;
-  gap: 10px;
-  margin-left: auto;
+  gap: 6px;
 }
 
 .cui-date-btn {
-  padding: 6px 12px;
-  font-size: 13px;
+  padding: 4px 10px;
+  font-size: 12px;
   cursor: pointer;
   border-radius: 4px;
-  transition: all 0.2s;
-  color: #666;
+  transition: all 0.15s;
+  color: var(--cui-text-secondary);
+  border: 1px solid var(--cui-border-color);
+  background: var(--cui-bg-base);
 }
 
 .cui-date-btn:hover {
-  background: var(--cui-bg-gray);
+  border-color: var(--cui-primary);
   color: var(--cui-primary);
 }
 
 .cui-date-btn-confirm {
   background: var(--cui-primary);
-  color: #fff;
+  color: #ffffff;
+  border-color: var(--cui-primary);
 }
 
 .cui-date-btn-confirm:hover {
-  background: var(--cui-primary);
-  opacity: 0.9;
-  color: #fff;
+  opacity: 0.85;
+  color: #ffffff;
 }
 
 .cui-date-btn-time {
@@ -277,7 +283,7 @@
 
 /* 범위 선택 */
 .cui-date-range {
-  min-width: 560px;
+  min-width: 520px;
 }
 
 .cui-date-main {
@@ -292,31 +298,23 @@
   border-right: 1px solid var(--cui-border-color);
 }
 
-.cui-date-range .cui-date-panel:first-child .cui-date-header {
-  border-radius: 8px 0 0 0;
-}
-
-.cui-date-range .cui-date-panel:last-child .cui-date-header {
-  border-radius: 0 8px 0 0;
-}
-
 /* 범위 하이라이트 */
 .cui-date-table td.cui-date-range-start,
 .cui-date-table td.cui-date-range-end {
   background: var(--cui-primary);
-  color: #fff;
+  color: #ffffff;
 }
 
 .cui-date-table td.cui-date-range-start {
-  border-radius: 50% 0 0 50%;
+  border-radius: 4px 0 0 4px;
 }
 
 .cui-date-table td.cui-date-range-end {
-  border-radius: 0 50% 50% 0;
+  border-radius: 0 4px 4px 0;
 }
 
 .cui-date-table td.cui-date-range-in {
-  background: rgba(22, 119, 255, 0.1);
+  background: rgb(22, 119, 255, 0.08);
   border-radius: 0;
 }
 
@@ -327,7 +325,6 @@
 
 /* 범위 텍스트 */
 .cui-date-range-text {
-  font-size: 13px;
-  color: #666;
-  flex: 1;
+  font-size: 12px;
+  color: var(--cui-text-secondary);
 }

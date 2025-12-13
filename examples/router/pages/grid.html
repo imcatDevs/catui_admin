@@ -1,0 +1,183 @@
+<!-- 그리드 -->
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">그리드</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>그리드</span>
+    </div>
+  </div>
+  
+  
+  <!-- 기본 12컬럼 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>12컬럼 그리드</span>
+      <code class="cui-text-secondary">.cui-row + .cui-col-md{1-12}</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row cui-row-space10 cui-mb-10">
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+        <div class="cui-col-md1"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">1</div></div>
+      </div>
+      <div class="cui-row cui-row-space10 cui-mb-10">
+        <div class="cui-col-md4"><div class="cui-bg-success cui-p-10 cui-text-center cui-text-white cui-radius">col-md4</div></div>
+        <div class="cui-col-md4"><div class="cui-bg-success cui-p-10 cui-text-center cui-text-white cui-radius">col-md4</div></div>
+        <div class="cui-col-md4"><div class="cui-bg-success cui-p-10 cui-text-center cui-text-white cui-radius">col-md4</div></div>
+      </div>
+      <div class="cui-row cui-row-space10 cui-mb-10">
+        <div class="cui-col-md6"><div class="cui-bg-warning cui-p-10 cui-text-center cui-radius">col-md6</div></div>
+        <div class="cui-col-md6"><div class="cui-bg-warning cui-p-10 cui-text-center cui-radius">col-md6</div></div>
+      </div>
+      <div class="cui-row cui-row-space10 cui-mb-10">
+        <div class="cui-col-md3"><div class="cui-bg-info cui-p-10 cui-text-center cui-text-white cui-radius">col-md3</div></div>
+        <div class="cui-col-md9"><div class="cui-bg-info cui-p-10 cui-text-center cui-text-white cui-radius">col-md9</div></div>
+      </div>
+      <div class="cui-row cui-row-space10">
+        <div class="cui-col-md12"><div class="cui-bg-danger cui-p-10 cui-text-center cui-text-white cui-radius">col-md12</div></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 반응형 그리드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>반응형 그리드</span>
+      <code class="cui-text-secondary">.cui-col-xs / sm / md / lg</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">
+        <b>xs</b>: 기본 | <b>sm</b>: ≥768px | <b>md</b>: ≥992px | <b>lg</b>: ≥1200px
+      </p>
+      <div class="cui-row cui-row-space10">
+        <div class="cui-col-xs12 cui-col-sm6 cui-col-md4 cui-col-lg3 cui-mb-10">
+          <div class="cui-bg-primary cui-p-15 cui-text-center cui-text-white cui-radius">xs12 sm6 md4 lg3</div>
+        </div>
+        <div class="cui-col-xs12 cui-col-sm6 cui-col-md4 cui-col-lg3 cui-mb-10">
+          <div class="cui-bg-primary cui-p-15 cui-text-center cui-text-white cui-radius">xs12 sm6 md4 lg3</div>
+        </div>
+        <div class="cui-col-xs12 cui-col-sm6 cui-col-md4 cui-col-lg3 cui-mb-10">
+          <div class="cui-bg-primary cui-p-15 cui-text-center cui-text-white cui-radius">xs12 sm6 md4 lg3</div>
+        </div>
+        <div class="cui-col-xs12 cui-col-sm6 cui-col-md4 cui-col-lg3 cui-mb-10">
+          <div class="cui-bg-primary cui-p-15 cui-text-center cui-text-white cui-radius">xs12 sm6 md4 lg3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 그리드 간격 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>그리드 간격 (Gutter)</span>
+      <code class="cui-text-secondary">.cui-row-space{5/10/15/20}</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">space5 (5px)</p>
+      <div class="cui-row cui-row-space5 cui-mb-15">
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+      </div>
+      <p class="cui-text-secondary cui-mb-10">space10 (10px)</p>
+      <div class="cui-row cui-row-space10 cui-mb-15">
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+      </div>
+      <p class="cui-text-secondary cui-mb-10">space20 (20px)</p>
+      <div class="cui-row cui-row-space20">
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+        <div class="cui-col-md3"><div class="cui-bg-gray cui-p-10 cui-text-center cui-radius">col</div></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 오프셋 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>오프셋 (Offset)</span>
+      <code class="cui-text-secondary">.cui-col-xs-offset{1-12}</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-row cui-row-space10 cui-mb-10">
+        <div class="cui-col-md4"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">col-md4</div></div>
+        <div class="cui-col-md4 cui-col-xs-offset4"><div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius">col-md4 offset4</div></div>
+      </div>
+      <div class="cui-row cui-row-space10 cui-mb-10">
+        <div class="cui-col-md6 cui-col-xs-offset3"><div class="cui-bg-success cui-p-10 cui-text-center cui-text-white cui-radius">col-md6 offset3 (중앙 정렬)</div></div>
+      </div>
+      <div class="cui-row cui-row-space10">
+        <div class="cui-col-md3 cui-col-xs-offset1"><div class="cui-bg-warning cui-p-10 cui-text-center cui-radius">offset1</div></div>
+        <div class="cui-col-md3 cui-col-xs-offset2"><div class="cui-bg-warning cui-p-10 cui-text-center cui-radius">offset2</div></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 중첩 그리드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">중첩 그리드 (Nested)</div>
+    <div class="cui-card-body">
+      <div class="cui-row cui-row-space10">
+        <div class="cui-col-md6">
+          <div class="cui-bg-primary cui-p-10 cui-text-center cui-text-white cui-radius cui-mb-10">Level 1: col-md6</div>
+          <div class="cui-row cui-row-space5">
+            <div class="cui-col-md6"><div class="cui-bg-info cui-p-10 cui-text-center cui-text-white cui-radius">Level 2</div></div>
+            <div class="cui-col-md6"><div class="cui-bg-info cui-p-10 cui-text-center cui-text-white cui-radius">Level 2</div></div>
+          </div>
+        </div>
+        <div class="cui-col-md6">
+          <div class="cui-bg-success cui-p-10 cui-text-center cui-text-white cui-radius cui-mb-10">Level 1: col-md6</div>
+          <div class="cui-row cui-row-space5">
+            <div class="cui-col-md4"><div class="cui-bg-warning cui-p-10 cui-text-center cui-radius">L2</div></div>
+            <div class="cui-col-md4"><div class="cui-bg-warning cui-p-10 cui-text-center cui-radius">L2</div></div>
+            <div class="cui-col-md4"><div class="cui-bg-warning cui-p-10 cui-text-center cui-radius">L2</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 클래스 요약 -->
+  <div class="cui-card">
+    <div class="cui-card-header">그리드 클래스 요약</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th>클래스</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.cui-row</code></td><td>그리드 행 (flex container)</td></tr>
+          <tr><td><code>.cui-col-xs{1-12}</code></td><td>기본 컬럼 (모든 화면)</td></tr>
+          <tr><td><code>.cui-col-sm{1-12}</code></td><td>소형 화면 이상 (≥768px)</td></tr>
+          <tr><td><code>.cui-col-md{1-12}</code></td><td>중형 화면 이상 (≥992px)</td></tr>
+          <tr><td><code>.cui-col-lg{1-12}</code></td><td>대형 화면 이상 (≥1200px)</td></tr>
+          <tr><td><code>.cui-col-xs-offset{1-12}</code></td><td>컬럼 오프셋 (margin-left)</td></tr>
+          <tr><td><code>.cui-row-space{5/10/15/20}</code></td><td>컬럼 간격</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

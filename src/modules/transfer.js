@@ -426,9 +426,7 @@
   // 데이터 가져오기
   Class.prototype.getData = function(){
     var that = this;
-    return that.rightData.map(function(item){
-      return item.value;
-    });
+    return that.rightData.slice();
   };
 
   // 전역 노출

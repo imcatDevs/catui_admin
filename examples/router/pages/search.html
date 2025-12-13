@@ -1,0 +1,419 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">검색 스타일</h2>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">페이지</a>
+      <span>검색</span>
+    </div>
+  </div>
+
+  <!-- 검색 스타일 1: 기본 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">기본 검색</div>
+    <div class="cui-card-body">
+      <div class="cui-search cui-search-default">
+        <input type="text" placeholder="검색어를 입력하세요...">
+        <button type="button"><i class="cui-icon">search</i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 검색 스타일 2: 라운드 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">라운드 검색</div>
+    <div class="cui-card-body">
+      <div class="cui-search cui-search-round">
+        <i class="cui-icon">search</i>
+        <input type="text" placeholder="검색어를 입력하세요...">
+        <button type="button">검색</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 검색 스타일 3: 플랫 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">플랫 검색 (밑줄)</div>
+    <div class="cui-card-body">
+      <div class="cui-search cui-search-flat">
+        <i class="cui-icon">search</i>
+        <input type="text" placeholder="검색어를 입력하세요...">
+      </div>
+    </div>
+  </div>
+
+  <!-- 검색 스타일 4: 대형 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">대형 검색 (Hero)</div>
+    <div class="cui-card-body cui-p-0">
+      <div class="cui-search-hero">
+        <h3>무엇을 찾고 계신가요?</h3>
+        <div class="cui-search cui-search-lg">
+          <i class="cui-icon">search</i>
+          <input type="text" placeholder="검색어를 입력하세요...">
+          <button type="button">검색</button>
+        </div>
+        <div class="cui-search-tags">
+          <span>인기 검색어:</span>
+          <a href="javascript:;">컴포넌트</a>
+          <a href="javascript:;">테이블</a>
+          <a href="javascript:;">폼</a>
+          <a href="javascript:;">차트</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 검색 스타일 5: 필터 포함 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">필터 포함 검색</div>
+    <div class="cui-card-body">
+      <div class="cui-search cui-search-filter">
+        <select>
+          <option>전체</option>
+          <option>문서</option>
+          <option>이미지</option>
+          <option>동영상</option>
+        </select>
+        <div class="cui-search-divider"></div>
+        <i class="cui-icon">search</i>
+        <input type="text" placeholder="검색어를 입력하세요...">
+        <button type="button">검색</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 검색 결과 예시 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>검색 결과</span>
+      <span class="cui-text-secondary cui-text-sm">"CatUI" 검색 결과 <strong class="cui-text-primary">128</strong>건</span>
+    </div>
+    <div class="cui-card-body cui-p-0">
+      <!-- 결과 탭 -->
+      <div class="cui-search-result-tabs">
+        <a href="javascript:;" class="active">전체</a>
+        <a href="javascript:;">문서 <span>45</span></a>
+        <a href="javascript:;">이미지 <span>32</span></a>
+        <a href="javascript:;">동영상 <span>28</span></a>
+        <a href="javascript:;">파일 <span>23</span></a>
+      </div>
+
+      <!-- 결과 리스트 -->
+      <div class="cui-search-results">
+        <div class="cui-search-result-item">
+          <div class="cui-search-result-icon cui-bg-primary">
+            <i class="cui-icon">article</i>
+          </div>
+          <div class="cui-search-result-content">
+            <h4><a href="javascript:;"><mark>CatUI</mark> 프레임워크 소개</a></h4>
+            <p><mark>CatUI</mark>는 가볍고 빠른 UI 프레임워크입니다. 모던한 디자인과 다양한 컴포넌트를 제공합니다...</p>
+            <div class="cui-search-result-meta">
+              <span><i class="cui-icon">link</i> example.com/catui</span>
+              <span><i class="cui-icon">schedule</i> 2024-01-15</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cui-search-result-item">
+          <div class="cui-search-result-icon cui-bg-success">
+            <i class="cui-icon">code</i>
+          </div>
+          <div class="cui-search-result-content">
+            <h4><a href="javascript:;"><mark>CatUI</mark> 컴포넌트 가이드</a></h4>
+            <p>다양한 컴포넌트 사용법을 안내합니다. 버튼, 폼, 테이블, 모달 등 <mark>CatUI</mark>의 모든 컴포넌트를...</p>
+            <div class="cui-search-result-meta">
+              <span><i class="cui-icon">link</i> example.com/catui/components</span>
+              <span><i class="cui-icon">schedule</i> 2024-01-10</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cui-search-result-item">
+          <div class="cui-search-result-icon cui-bg-warning">
+            <i class="cui-icon">play_circle</i>
+          </div>
+          <div class="cui-search-result-content">
+            <h4><a href="javascript:;"><mark>CatUI</mark> 시작하기 튜토리얼</a></h4>
+            <p><mark>CatUI</mark>를 시작하는 방법을 단계별로 안내하는 튜토리얼 영상입니다...</p>
+            <div class="cui-search-result-meta">
+              <span><i class="cui-icon">videocam</i> 동영상</span>
+              <span><i class="cui-icon">visibility</i> 1.2K 조회</span>
+            </div>
+          </div>
+          <div class="cui-search-result-thumb">
+            <div style="width:120px;height:68px;background:linear-gradient(135deg,var(--cui-primary),#52c41a);border-radius:4px;display:flex;align-items:center;justify-content:center;">
+              <i class="cui-icon" style="font-size:32px;color:#fff;">play_circle</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="cui-search-result-item">
+          <div class="cui-search-result-icon cui-bg-info">
+            <i class="cui-icon">folder</i>
+          </div>
+          <div class="cui-search-result-content">
+            <h4><a href="javascript:;"><mark>CatUI</mark> 템플릿 모음</a></h4>
+            <p><mark>CatUI</mark>로 제작된 다양한 어드민 템플릿과 랜딩 페이지 템플릿을 다운로드하세요...</p>
+            <div class="cui-search-result-meta">
+              <span><i class="cui-icon">folder</i> 파일</span>
+              <span><i class="cui-icon">download</i> 856 다운로드</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 페이지네이션 -->
+      <div class="cui-search-pagination">
+        <a href="javascript:;" class="disabled"><i class="cui-icon">chevron_left</i></a>
+        <a href="javascript:;" class="active">1</a>
+        <a href="javascript:;">2</a>
+        <a href="javascript:;">3</a>
+        <span>...</span>
+        <a href="javascript:;">13</a>
+        <a href="javascript:;"><i class="cui-icon">chevron_right</i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* 검색 기본 스타일 */
+.cui-search {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--cui-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.cui-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.cui-search button {
+  border: none;
+  background: var(--cui-primary);
+  color: #fff;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cui-search button:hover { background: var(--cui-primary-dark, #0958d9); }
+
+.cui-search .cui-icon {
+  color: var(--cui-text-secondary);
+  font-size: 20px;
+  padding-left: 12px;
+}
+
+/* 기본 검색 */
+.cui-search-default { max-width: 400px; }
+.cui-search-default button { display: flex; align-items: center; justify-content: center; width: 44px; padding: 10px; }
+.cui-search-default button .cui-icon { color: #fff; padding: 0; }
+
+/* 라운드 검색 */
+.cui-search-round { border-radius: 50px; max-width: 500px; }
+.cui-search-round button { border-radius: 0 50px 50px 0; padding: 10px 24px; }
+
+/* 플랫 검색 */
+.cui-search-flat {
+  border: none;
+  border-bottom: 2px solid var(--cui-border);
+  border-radius: 0;
+  background: transparent;
+  max-width: 400px;
+  transition: border-color 0.2s;
+}
+
+.cui-search-flat:focus-within { border-bottom-color: var(--cui-primary); }
+.cui-search-flat .cui-icon { padding-left: 0; }
+
+/* 대형 검색 */
+.cui-search-hero {
+  background: linear-gradient(135deg, var(--cui-primary) 0%, #52c41a 100%);
+  padding: 40px;
+  text-align: center;
+}
+
+.cui-search-hero h3 { color: #fff; margin: 0 0 20px; font-size: 24px; }
+
+.cui-search-lg {
+  max-width: 600px;
+  margin: 0 auto;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.cui-search-lg input { padding: 15px; font-size: 16px; }
+.cui-search-lg button { padding: 15px 30px; font-size: 16px; }
+.cui-search-lg .cui-icon { font-size: 24px; }
+
+.cui-search-tags {
+  margin-top: 15px;
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+}
+
+.cui-search-tags a {
+  color: #fff;
+  margin-left: 10px;
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.cui-search-tags a:hover { background: rgba(255,255,255,0.3); }
+
+/* 필터 포함 검색 */
+.cui-search-filter { max-width: 600px; }
+.cui-search-filter select {
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  font-size: 14px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.cui-search-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--cui-border);
+}
+
+/* 검색 결과 탭 */
+.cui-search-result-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--cui-border);
+  padding: 0 15px;
+}
+
+.cui-search-result-tabs a {
+  padding: 12px 16px;
+  color: var(--cui-text-secondary);
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: all 0.2s;
+}
+
+.cui-search-result-tabs a:hover { color: var(--cui-primary); }
+.cui-search-result-tabs a.active { color: var(--cui-primary); border-bottom-color: var(--cui-primary); }
+.cui-search-result-tabs a span { font-size: 12px; color: var(--cui-text-muted); margin-left: 4px; }
+
+/* 검색 결과 리스트 */
+.cui-search-results { padding: 0 15px; }
+
+.cui-search-result-item {
+  display: flex;
+  gap: 15px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--cui-border);
+}
+
+.cui-search-result-item:last-child { border-bottom: none; }
+
+.cui-search-result-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cui-search-result-icon .cui-icon { color: #fff; font-size: 22px; }
+
+.cui-search-result-content { flex: 1; min-width: 0; }
+.cui-search-result-content h4 { margin: 0 0 8px; font-size: 16px; }
+.cui-search-result-content h4 a { color: var(--cui-text); text-decoration: none; }
+.cui-search-result-content h4 a:hover { color: var(--cui-primary); }
+.cui-search-result-content p { margin: 0 0 10px; color: var(--cui-text-secondary); font-size: 13px; line-height: 1.6; }
+.cui-search-result-content mark { background: #fff3cd; padding: 1px 4px; border-radius: 2px; }
+
+.cui-search-result-meta {
+  display: flex;
+  gap: 15px;
+  font-size: 12px;
+  color: var(--cui-text-muted);
+}
+
+.cui-search-result-meta .cui-icon { font-size: 14px; vertical-align: middle; margin-right: 3px; }
+
+.cui-search-result-thumb { flex-shrink: 0; }
+
+/* 검색 페이지네이션 */
+.cui-search-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 20px;
+}
+
+.cui-search-pagination a, .cui-search-pagination span {
+  min-width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  color: var(--cui-text-secondary);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.cui-search-pagination a:hover { background: var(--cui-fill); }
+.cui-search-pagination a.active { background: var(--cui-primary); color: #fff; }
+.cui-search-pagination a.disabled { opacity: 0.5; pointer-events: none; }
+</style>
+
+<script>
+Catui.use(['popup'], function(){
+  var bindEvent = window.router ? router.bindEvent.bind(router) : function(el, type, fn){
+    document.querySelector(el).addEventListener(type, fn);
+  };
+
+  // 검색 버튼 이벤트
+  document.querySelectorAll('.cui-search button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var input = this.closest('.cui-search').querySelector('input');
+      if(input && input.value){
+        popup.msg('"' + input.value + '" 검색');
+      } else {
+        popup.msg('검색어를 입력하세요');
+      }
+    });
+  });
+
+  // 인기 검색어 클릭
+  document.querySelectorAll('.cui-search-tags a').forEach(function(a){
+    a.addEventListener('click', function(){
+      var keyword = this.textContent;
+      var input = document.querySelector('.cui-search-lg input');
+      if(input) input.value = keyword;
+      popup.msg('"' + keyword + '" 검색');
+    });
+  });
+
+  // 결과 탭 클릭
+  document.querySelectorAll('.cui-search-result-tabs a').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.cui-search-result-tabs a').forEach(function(t){ t.classList.remove('active'); });
+      this.classList.add('active');
+    });
+  });
+});
+</script>

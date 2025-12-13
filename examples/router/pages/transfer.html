@@ -1,0 +1,250 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">Transfer 이전 선택</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>Transfer</span>
+    </div>
+  </div>
+  <!-- 기본 Transfer -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 Transfer</span>
+      <code class="cui-text-secondary">transfer.render()</code>
+    </div>
+    <div class="cui-card-body">
+      <div id="transfer1"></div>
+      <div class="cui-mt-15">
+        <button class="cui-btn cui-btn-primary cui-btn-sm" onclick="getTransfer1Data()">선택 데이터 확인</button>
+        <span id="transfer1Result" class="cui-ml-10 cui-text-secondary"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 검색 기능 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>검색 기능</span>
+      <code class="cui-text-secondary">showSearch: true</code>
+    </div>
+    <div class="cui-card-body">
+      <div id="transfer2"></div>
+    </div>
+  </div>
+
+  <!-- 초기 선택값 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>초기 선택값</span>
+      <code class="cui-text-secondary">value: [...]</code>
+    </div>
+    <div class="cui-card-body">
+      <div id="transfer3"></div>
+    </div>
+  </div>
+
+  <!-- 비활성화 항목 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>비활성화 항목</span>
+      <code class="cui-text-secondary">disabled: true</code>
+    </div>
+    <div class="cui-card-body">
+      <div id="transfer4"></div>
+    </div>
+  </div>
+
+  <!-- API 컨트롤 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">API 컨트롤</div>
+    <div class="cui-card-body">
+      <div id="transfer5"></div>
+      <div class="cui-flex cui-gap-10 cui-mt-15">
+        <button class="cui-btn cui-btn-sm" onclick="transfer5Inst && transfer5Inst.reload({data: reloadData1})">데이터 1 로드</button>
+        <button class="cui-btn cui-btn-sm" onclick="transfer5Inst && transfer5Inst.reload({data: reloadData2})">데이터 2 로드</button>
+        <button class="cui-btn cui-btn-sm cui-btn-primary" onclick="showTransfer5Data()">선택 확인</button>
+      </div>
+      <div id="transfer5Result" class="cui-mt-10 cui-text-secondary"></div>
+    </div>
+  </div>
+
+  <!-- 변경 콜백 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>변경 콜백</span>
+      <code class="cui-text-secondary">onchange</code>
+    </div>
+    <div class="cui-card-body">
+      <div id="transfer6"></div>
+      <div id="transfer6Log" class="cui-mt-10" style="padding: 10px; background: #f5f5f5; border-radius: 4px; font-family: monospace; font-size: 12px; min-height: 60px;">변경 시 로그가 표시됩니다.</div>
+    </div>
+  </div>
+
+  <!-- API 테이블 -->
+  <div class="cui-card">
+    <div class="cui-card-header">transfer API</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-border">
+        <thead>
+          <tr><th>메서드/옵션</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>transfer.render(options)</code></td><td>Transfer 렌더링</td></tr>
+          <tr><td><code>inst.getData()</code></td><td>선택된 데이터 가져오기</td></tr>
+          <tr><td><code>inst.reload(options)</code></td><td>데이터 리로드</td></tr>
+          <tr><td><code>data</code></td><td>데이터 배열 [{value, title, disabled, checked}]</td></tr>
+          <tr><td><code>title</code></td><td>좌우 패널 제목 ['전체목록', '선택목록']</td></tr>
+          <tr><td><code>showSearch</code></td><td>검색 표시 여부</td></tr>
+          <tr><td><code>value</code></td><td>초기 선택값 배열</td></tr>
+          <tr><td><code>onchange</code></td><td>변경 콜백 함수</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+var transferInst1;
+
+Catui.use(['transfer'], function(transfer){
+  // 샘플 데이터 생성
+  var data1 = [];
+  for(var i = 1; i <= 10; i++){
+    data1.push({
+      value: i,
+      title: '항목 ' + i,
+      disabled: i === 5
+    });
+  }
+
+  // 기본 Transfer
+  transferInst1 = transfer.render({
+    elem: '#transfer1',
+    data: data1,
+    title: ['전체 목록', '선택 목록'],
+    onchange: function(data, index){
+      console.log('변경됨:', data);
+    }
+  });
+
+  // 검색 기능
+  var data2 = [
+    { value: 'apple', title: '사과' },
+    { value: 'banana', title: '바나나' },
+    { value: 'cherry', title: '체리' },
+    { value: 'grape', title: '포도' },
+    { value: 'lemon', title: '레몬' },
+    { value: 'mango', title: '망고' },
+    { value: 'orange', title: '오렌지' },
+    { value: 'peach', title: '복숭아' },
+    { value: 'strawberry', title: '딸기' },
+    { value: 'watermelon', title: '수박' }
+  ];
+
+  transfer.render({
+    elem: '#transfer2',
+    data: data2,
+    title: ['과일 목록', '선택한 과일'],
+    showSearch: true
+  });
+
+  // 초기 선택값
+  var data3 = [
+    { value: 'html', title: 'HTML' },
+    { value: 'css', title: 'CSS' },
+    { value: 'js', title: 'JavaScript' },
+    { value: 'vue', title: 'Vue.js' },
+    { value: 'react', title: 'React' },
+    { value: 'angular', title: 'Angular' }
+  ];
+
+  transfer.render({
+    elem: '#transfer3',
+    data: data3,
+    title: ['기술 스택', '보유 기술'],
+    value: ['html', 'css', 'js']
+  });
+
+  // 비활성화 항목
+  var data4 = [
+    { value: 'admin', title: '관리자', disabled: true },
+    { value: 'user', title: '일반 사용자' },
+    { value: 'guest', title: '게스트' },
+    { value: 'vip', title: 'VIP 회원' },
+    { value: 'premium', title: '프리미엄', disabled: true },
+    { value: 'basic', title: '기본 회원' }
+  ];
+
+  transfer.render({
+    elem: '#transfer4',
+    data: data4,
+    title: ['회원 등급', '선택한 등급'],
+    showSearch: true
+  });
+
+  // API 컨트롤
+  window.reloadData1 = [
+    { value: 'seoul', title: '서울' },
+    { value: 'busan', title: '부산' },
+    { value: 'daegu', title: '대구' },
+    { value: 'incheon', title: '인천' },
+    { value: 'gwangju', title: '광주' }
+  ];
+  window.reloadData2 = [
+    { value: 'newyork', title: '뉴욕' },
+    { value: 'london', title: '런던' },
+    { value: 'tokyo', title: '도쿄' },
+    { value: 'paris', title: '파리' },
+    { value: 'beijing', title: '베이징' }
+  ];
+  window.transfer5Inst = transfer.render({
+    elem: '#transfer5',
+    data: reloadData1,
+    title: ['도시 목록', '선택한 도시'],
+    showSearch: true
+  });
+
+  // 변경 콜백
+  var data6 = [
+    { value: 'read', title: '읽기 권한' },
+    { value: 'write', title: '쓰기 권한' },
+    { value: 'delete', title: '삭제 권한' },
+    { value: 'admin', title: '관리자 권한' },
+    { value: 'export', title: '내보내기 권한' }
+  ];
+
+  transfer.render({
+    elem: '#transfer6',
+    data: data6,
+    title: ['권한 목록', '부여된 권한'],
+    onchange: function(obj){
+      var log = document.getElementById('transfer6Log');
+      var time = new Date().toLocaleTimeString();
+      var titles = obj.data.map(function(d){ return d.title; });
+      log.innerHTML = '<b>[' + time + ']</b> 선택된 권한: ' + (titles.length ? titles.join(', ') : '없음') + '<br>방향: ' + obj.direction;
+    }
+  });
+});
+
+function getTransfer1Data(){
+  if(transferInst1){
+    var data = transferInst1.getData();
+    var titles = data.map(function(d){ return d.title; });
+    document.getElementById('transfer1Result').textContent = '선택: ' + (titles.length ? titles.join(', ') : '없음');
+  }
+}
+
+function showTransfer5Data(){
+  if(window.transfer5Inst){
+    var data = transfer5Inst.getData();
+    var titles = data.map(function(d){ return d.title; });
+    document.getElementById('transfer5Result').textContent = '선택: ' + (titles.length ? titles.join(', ') : '없음');
+  }
+}
+</script>
+</div>

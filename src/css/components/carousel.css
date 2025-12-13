@@ -20,7 +20,7 @@
 }
 
 /* 로딩 아이콘 */
-.cui-carousel > *[carousel-item]:before {
+.cui-carousel > *[carousel-item]::before {
   position: absolute;
   content: 'image';
   left: 50%;
@@ -61,8 +61,8 @@
   justify-content: center;
   border: none;
   border-radius: 50%;
-  background-color: rgba(0, 0, 0, 0.2);
-  color: #fff;
+  background-color: rgb(0, 0, 0, 0.2);
+  color: #ffffff;
   transition: opacity 0.3s, left 0.3s, right 0.3s;
   cursor: pointer;
   z-index: 10;
@@ -83,6 +83,7 @@
   opacity: 1;
   left: 20px;
 }
+
 .cui-carousel[cui-arrow="always"] .cui-carousel-arrow[data-type="add"] {
   right: 20px;
 }
@@ -101,6 +102,7 @@
   opacity: 1;
   left: 20px;
 }
+
 .cui-carousel:hover .cui-carousel-arrow[data-type="add"] {
   right: 20px;
 }
@@ -121,13 +123,13 @@
   padding: 5px;
   margin: 0;
   list-style: none;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgb(0, 0, 0, 0.2);
   border-radius: 10px;
   transition-duration: 0.3s;
 }
 
 .cui-carousel-ind ul:hover {
-  background-color: rgba(0, 0, 0, 0.35);
+  background-color: rgb(0, 0, 0, 0.35);
 }
 
 .cui-carousel-ind ul li {
@@ -135,14 +137,14 @@
   width: 10px;
   height: 10px;
   margin: 0 3px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgb(255, 255, 255, 0.5);
   border-radius: 50%;
   cursor: pointer;
   transition-duration: 0.3s;
 }
 
 .cui-carousel-ind ul li:hover {
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgb(255, 255, 255, 0.7);
 }
 
 .cui-carousel-ind ul li.cui-this {
@@ -154,14 +156,17 @@
   overflow: visible;
   margin-bottom: 30px;
 }
+
 .cui-carousel[cui-indicator="outside"] > *[carousel-item] {
   overflow: hidden;
 }
+
 .cui-carousel[cui-indicator="outside"] .cui-carousel-ind {
   top: 10px;
 }
+
 .cui-carousel[cui-indicator="outside"] .cui-carousel-ind ul {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgb(0, 0, 0, 0.5);
 }
 
 /* 인디케이터 - 숨김 */
@@ -385,8 +390,8 @@
 .cui-carousel-title {
   font-size: 32px;
   font-weight: 600;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgb(0, 0, 0, 0.3);
   margin-bottom: 12px;
 }
 
@@ -394,8 +399,8 @@
 .cui-carousel-desc {
   font-size: 16px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: rgb(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgb(0, 0, 0, 0.2);
   margin-bottom: 20px;
   max-width: 600px;
   line-height: 1.6;
@@ -415,11 +420,11 @@
   align-items: center;
   gap: 6px;
   padding: 10px 24px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
-  color: #fff;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  background-color: rgb(255, 255, 255, 0.2);
+  border: 1px solid rgb(255, 255, 255, 0.4);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -427,8 +432,8 @@
 }
 
 .cui-carousel-btn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.6);
+  background-color: rgb(255, 255, 255, 0.3);
+  border-color: rgb(255, 255, 255, 0.6);
   transform: translateY(-2px);
 }
 
@@ -446,11 +451,11 @@
 /* 보조 버튼 */
 .cui-carousel-btn-outline {
   background-color: transparent;
-  border-color: #fff;
+  border-color: #ffffff;
 }
 
 .cui-carousel-btn-outline:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgb(255, 255, 255, 0.1);
 }
 
 /* 슬라이드 캡션 (하단) */
@@ -461,8 +466,8 @@
   bottom: 50px;
   padding: 15px 20px;
   text-align: center;
-  color: #fff;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+  color: #ffffff;
+  background: linear-gradient(transparent, rgb(0, 0, 0, 0.5));
 }
 
 /* 슬라이드 오버레이 */
@@ -472,7 +477,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgb(0, 0, 0, 0.3);
 }
 
 /* 슬라이드 컨텐츠 중앙 정렬 */
@@ -539,7 +544,7 @@
   transform: translateY(-50%);
   margin-top: 0;
   padding: 8px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgb(0, 0, 0, 0.3);
 }
 
 .cui-carousel-thumbs-vertical .cui-carousel-thumb {
@@ -555,7 +560,7 @@
   bottom: 0;
   margin-top: 0;
   padding: 15px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+  background: linear-gradient(transparent, rgb(0, 0, 0, 0.7));
   border-radius: 0;
 }
 
@@ -578,9 +583,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  font-size: 14px;
+  background: rgb(0, 0, 0, 0.5);
+  color: #ffffff;
+  font-size: 12px;
   font-weight: 500;
   border-radius: 50%;
 }

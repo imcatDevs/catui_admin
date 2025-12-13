@@ -1,67 +1,148 @@
-<div class="cui-card">
-  <div class="cui-card-header">
-    <h3>💬 팝업 예제</h3>
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">기본 팝업 (Popup)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">팝업예제</a>
+      <span>기본팝업</span>
+    </div>
   </div>
-  <div class="cui-card-body">
-    <p class="cui-text-secondary cui-mb-20">라우터로 로드된 페이지에서 팝업을 사용할 수 있습니다.</p>
-    
-    <h4>기본 팝업</h4>
-    <div class="cui-btn-container cui-mb-20">
-      <button class="cui-btn" onclick="showAlert()">Alert</button>
-      <button class="cui-btn" onclick="showConfirm()">Confirm</button>
-      <button class="cui-btn" onclick="showPrompt()">Prompt</button>
-      <button class="cui-btn" onclick="showMsg()">Msg</button>
-      <button class="cui-btn" onclick="showLoading()">Loading</button>
+  
+  <!-- Alert / Confirm / Prompt -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>Alert / Confirm / Prompt</span>
+      <code class="cui-text-secondary">popup.alert(), popup.confirm(), popup.prompt()</code>
     </div>
-    
-    <h4>토스트 & 팁</h4>
-    <div class="cui-btn-container cui-mb-20">
-      <button class="cui-btn cui-btn-success" onclick="showToast('success')">성공 토스트</button>
-      <button class="cui-btn cui-btn-danger" onclick="showToast('error')">에러 토스트</button>
-      <button class="cui-btn cui-btn-warning" onclick="showToast('warning')">경고 토스트</button>
-      <button class="cui-btn cui-btn-info" id="tipsBtn" onclick="showTips()">툴팁 표시</button>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">기본적인 대화상자 팝업입니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn" onclick="showAlert()">Alert</button>
+        <button class="cui-btn cui-btn-success" onclick="showConfirm()">Confirm</button>
+        <button class="cui-btn cui-btn-warning" onclick="showPrompt()">Prompt</button>
+      </div>
     </div>
-    
-    <h4>고급 팝업</h4>
-    <div class="cui-btn-container cui-mb-20">
-      <button class="cui-btn cui-btn-primary" onclick="showCustom()">커스텀 팝업</button>
-      <button class="cui-btn cui-btn-primary" onclick="showDrawer()">Drawer</button>
-      <button class="cui-btn cui-btn-primary" onclick="showPage()">페이지 로드</button>
+  </div>
+  
+  <!-- 메시지 & 로딩 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>메시지 & 로딩</span>
+      <code class="cui-text-secondary">popup.msg(), popup.load()</code>
     </div>
-    
-    <h4>페이지 이동과 팝업</h4>
-    <div class="cui-btn-container">
-      <button class="cui-btn cui-btn-default" onclick="confirmAndGo()">확인 후 이동</button>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">간단한 메시지와 로딩 인디케이터입니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn" onclick="showMsgSuccess()">성공 메시지</button>
+        <button class="cui-btn cui-btn-danger" onclick="showMsgError()">에러 메시지</button>
+        <button class="cui-btn cui-btn-info" onclick="showMsg()">일반 메시지</button>
+        <button class="cui-btn cui-btn-default" onclick="showLoading()">로딩 (2초)</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 토스트 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>토스트 (Toast)</span>
+      <code class="cui-text-secondary">popup.toast()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">화면 모서리에 표시되는 알림 메시지입니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn cui-btn-success" onclick="showToast('success')">성공</button>
+        <button class="cui-btn cui-btn-danger" onclick="showToast('error')">에러</button>
+        <button class="cui-btn cui-btn-warning" onclick="showToast('warning')">경고</button>
+        <button class="cui-btn cui-btn-info" onclick="showToast('info')">정보</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 툴팁 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>툴팁 (Tips)</span>
+      <code class="cui-text-secondary">popup.tips()</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-15">특정 요소에 붙는 말풍선 팁입니다.</p>
+      <div class="cui-flex cui-gap-10" style="flex-wrap:wrap;">
+        <button class="cui-btn" id="tipTop" onclick="showTip('t')">위쪽</button>
+        <button class="cui-btn" id="tipRight" onclick="showTip('r')">오른쪽</button>
+        <button class="cui-btn" id="tipBottom" onclick="showTip('b')">아래쪽</button>
+        <button class="cui-btn" id="tipLeft" onclick="showTip('l')">왼쪽</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 클래스 요약 -->
+  <div class="cui-card">
+    <div class="cui-card-header">팝업 메서드 요약</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th style="width:220px">메서드</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>popup.alert(content)</code></td><td>알림 팝업</td></tr>
+          <tr><td><code>popup.confirm(content, yes)</code></td><td>확인/취소 팝업</td></tr>
+          <tr><td><code>popup.prompt(options, yes)</code></td><td>입력 팝업</td></tr>
+          <tr><td><code>popup.msg(content, options)</code></td><td>메시지 표시 (자동 닫힘)</td></tr>
+          <tr><td><code>popup.load(icon)</code></td><td>로딩 인디케이터</td></tr>
+          <tr><td><code>popup.toast(options)</code></td><td>토스트 알림</td></tr>
+          <tr><td><code>popup.tips(content, elem)</code></td><td>툴팁</td></tr>
+          <tr><td><code>popup.close(index)</code></td><td>팝업 닫기</td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
 
 <script>
-  // 이 페이지에서 필요한 모듈 로드
   Catui.use(['popup'], function(){
     
+    // Alert
     window.showAlert = function(){
-      popup.alert('알림 메시지입니다.');
+      popup.alert('이것은 알림 메시지입니다.');
     };
     
+    // Confirm
     window.showConfirm = function(){
       popup.confirm('진행하시겠습니까?', function(idx){
         popup.close(idx);
-        popup.msg('확인됨', { icon: 0 });
+        popup.msg('확인되었습니다', { icon: 0 });
       });
     };
     
+    // Prompt
     window.showPrompt = function(){
-      popup.prompt({ title: '입력', formType: 0 }, function(value, idx){
+      popup.prompt({ title: '값을 입력하세요', formType: 0 }, function(value, idx){
         popup.close(idx);
-        popup.msg('입력값: ' + value);
+        if(value) popup.msg('입력값: ' + value, { icon: 0 });
       });
     };
     
+    // Message
     window.showMsg = function(){
-      popup.msg('메시지입니다!', { icon: 3 });
+      popup.msg('일반 메시지입니다', { icon: 3 });
     };
     
+    window.showMsgSuccess = function(){
+      popup.msg('성공했습니다!', { icon: 0 });
+    };
+    
+    window.showMsgError = function(){
+      popup.msg('오류가 발생했습니다', { icon: 1 });
+    };
+    
+    // Loading
     window.showLoading = function(){
       var idx = popup.load(1);
       setTimeout(function(){
@@ -70,55 +151,23 @@
       }, 2000);
     };
     
+    // Toast
     window.showToast = function(type){
-      var icons = { success: 0, error: 1, warning: 2 };
-      popup.toast({
-        content: type + ' 토스트 메시지',
-        icon: icons[type] !== undefined ? icons[type] : 3
-      });
+      var config = {
+        success: { content: '성공적으로 처리되었습니다', icon: 0 },
+        error: { content: '오류가 발생했습니다', icon: 1 },
+        warning: { content: '주의가 필요합니다', icon: 2 },
+        info: { content: '안내 메시지입니다', icon: 3 }
+      };
+      popup.toast(config[type] || config.info);
     };
     
-    window.showTips = function(){
-      popup.tips('이것은 툴팁입니다!', '#tipsBtn');
-    };
-    
-    window.showCustom = function(){
-      popup.open({
-        title: '커스텀 팝업',
-        content: '<div style="padding:20px;"><h4>제목</h4><p>커스텀 내용입니다.</p></div>',
-        area: ['400px', '300px'],
-        btn: ['확인', '취소'],
-        skin: 'cui-popup-skin-primary',
-        yes: function(idx){
-          popup.close(idx);
-          popup.msg('확인됨');
-        }
-      });
-    };
-    
-    window.showDrawer = function(){
-      popup.drawer({
-        title: 'Drawer 패널',
-        content: '<div style="padding:20px;"><p>오른쪽에서 슬라이드되는 패널입니다.</p></div>',
-        direction: 'r',
-        size: '350px'
-      });
-    };
-    
-    window.showPage = function(){
-      popup.open({
-        type: 2,
-        title: '페이지 로드',
-        area: ['80%', '80%'],
-        content: '/examples/router/pages/home.html'
-      });
-    };
-    
-    window.confirmAndGo = function(){
-      popup.confirm('홈으로 이동하시겠습니까?', function(idx){
-        popup.close(idx);
-        router.go('/examples/router/pages/home.html');
-      });
+    // Tips (1: 위, 2: 오른쪽, 3: 아래, 4: 왼쪽)
+    window.showTip = function(direction){
+      var dirs = { t: 'tipTop', r: 'tipRight', b: 'tipBottom', l: 'tipLeft' };
+      var labels = { t: '위쪽 툴팁', r: '오른쪽 툴팁', b: '아래쪽 툴팁', l: '왼쪽 툴팁' };
+      var guide = { t: 1, r: 2, b: 3, l: 4 };
+      popup.tips(labels[direction], '#' + dirs[direction], { tips: guide[direction] });
     };
   });
 </script>

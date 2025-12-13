@@ -1,0 +1,161 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">뱃지 (Badge)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>뱃지</span>
+    </div>
+  </div>
+  
+  <!-- 기본 뱃지 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 뱃지</span>
+      <code class="cui-text-secondary">.cui-badge</code>
+    </div>
+    <div class="cui-card-body">
+      <span class="cui-badge">기본</span>
+      <span class="cui-badge cui-badge-primary">Primary</span>
+      <span class="cui-badge cui-badge-success">Success</span>
+      <span class="cui-badge cui-badge-warning">Warning</span>
+      <span class="cui-badge cui-badge-danger">Danger</span>
+      <span class="cui-badge cui-badge-info">Info</span>
+    </div>
+  </div>
+  
+  <!-- 라운드 뱃지 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>라운드 뱃지</span>
+      <code class="cui-text-secondary">.cui-badge-round</code>
+    </div>
+    <div class="cui-card-body">
+      <span class="cui-badge cui-badge-round">기본</span>
+      <span class="cui-badge cui-badge-primary cui-badge-round">Primary</span>
+      <span class="cui-badge cui-badge-success cui-badge-round">Success</span>
+      <span class="cui-badge cui-badge-warning cui-badge-round">Warning</span>
+      <span class="cui-badge cui-badge-danger cui-badge-round">Danger</span>
+      <span class="cui-badge cui-badge-info cui-badge-round">Info</span>
+    </div>
+  </div>
+  
+  <!-- 도트 뱃지 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>도트 뱃지</span>
+      <code class="cui-text-secondary">.cui-badge-dot</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-20">
+        <span style="position:relative;">
+          알림 <span class="cui-badge cui-badge-dot cui-badge-danger"></span>
+        </span>
+        <span style="position:relative;">
+          메시지 <span class="cui-badge cui-badge-dot cui-badge-primary"></span>
+        </span>
+        <span style="position:relative;">
+          상태 <span class="cui-badge cui-badge-dot cui-badge-success"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 버튼과 함께 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">버튼과 함께 사용</div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-10">
+        <button class="cui-btn">
+          메시지 <span class="cui-badge cui-badge-danger cui-ml-5">5</span>
+        </button>
+        <button class="cui-btn cui-btn-success">
+          알림 <span class="cui-badge cui-badge-round cui-ml-5" style="background:#fff;color:var(--cui-success)">12</span>
+        </button>
+        <button class="cui-btn cui-btn-default">
+          장바구니 <span class="cui-badge cui-badge-primary cui-badge-round cui-ml-5">3</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 리스트와 함께 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">리스트와 함께 사용</div>
+    <div class="cui-card-body" style="max-width:300px;">
+      <ul style="list-style:none;padding:0;margin:0;">
+        <li class="cui-flex cui-flex-between cui-flex-middle" style="padding:10px 0;border-bottom:1px solid var(--cui-border-color);">
+          <span>받은 메일</span>
+          <span class="cui-badge cui-badge-primary">24</span>
+        </li>
+        <li class="cui-flex cui-flex-between cui-flex-middle" style="padding:10px 0;border-bottom:1px solid var(--cui-border-color);">
+          <span>보낸 메일</span>
+          <span class="cui-badge cui-badge-success">8</span>
+        </li>
+        <li class="cui-flex cui-flex-between cui-flex-middle" style="padding:10px 0;border-bottom:1px solid var(--cui-border-color);">
+          <span>스팸</span>
+          <span class="cui-badge cui-badge-danger">3</span>
+        </li>
+        <li class="cui-flex cui-flex-between cui-flex-middle" style="padding:10px 0;">
+          <span>휴지통</span>
+          <span class="cui-badge">0</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- 아이콘과 함께 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header">아이콘과 함께 사용</div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-20">
+        <span style="position:relative;display:inline-block;">
+          <i class="cui-icon" style="font-size:24px;">notifications</i>
+          <span class="cui-badge cui-badge-danger cui-badge-round" style="position:absolute;top:-5px;right:-10px;font-size:10px;min-width:16px;height:16px;line-height:16px;">9</span>
+        </span>
+        <span style="position:relative;display:inline-block;">
+          <i class="cui-icon" style="font-size:24px;">email</i>
+          <span class="cui-badge cui-badge-primary cui-badge-round" style="position:absolute;top:-5px;right:-10px;font-size:10px;min-width:16px;height:16px;line-height:16px;">25</span>
+        </span>
+        <span style="position:relative;display:inline-block;">
+          <i class="cui-icon" style="font-size:24px;">shopping_cart</i>
+          <span class="cui-badge cui-badge-success cui-badge-round" style="position:absolute;top:-5px;right:-10px;font-size:10px;min-width:16px;height:16px;line-height:16px;">3</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 클래스 요약 -->
+  <div class="cui-card">
+    <div class="cui-card-header">뱃지 클래스 요약</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-bordered">
+        <thead>
+          <tr>
+            <th style="width:220px">클래스</th>
+            <th>설명</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>.cui-badge</code></td><td>기본 뱃지</td></tr>
+          <tr><td><code>.cui-badge-primary</code></td><td>Primary 색상</td></tr>
+          <tr><td><code>.cui-badge-success</code></td><td>Success 색상</td></tr>
+          <tr><td><code>.cui-badge-warning</code></td><td>Warning 색상</td></tr>
+          <tr><td><code>.cui-badge-danger</code></td><td>Danger 색상</td></tr>
+          <tr><td><code>.cui-badge-info</code></td><td>Info 색상</td></tr>
+          <tr><td><code>.cui-badge-round</code></td><td>라운드 모양</td></tr>
+          <tr><td><code>.cui-badge-dot</code></td><td>도트 (숫자 없이 점만)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<script>
+  Catui.use(['element'], function(){
+    element.render();
+  });
+</script>

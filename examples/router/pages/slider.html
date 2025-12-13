@@ -1,0 +1,220 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">슬라이더 (Slider)</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>Slider</span>
+    </div>
+  </div>
+  <!-- 기본 슬라이더 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 슬라이더</span>
+      <code class="cui-text-secondary">slider.render()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-20">
+        <label class="cui-form-label">기본</label>
+        <div id="slider1"></div>
+      </div>
+      <div class="cui-mb-20">
+        <label class="cui-form-label">초기값 50</label>
+        <div id="slider2"></div>
+      </div>
+      <div>
+        <label class="cui-form-label">비활성화</label>
+        <div id="slider3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 범위 및 단계 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>범위 및 단계</span>
+      <code class="cui-text-secondary">range | step | showstep</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-20">
+        <label class="cui-form-label">범위 선택 (range: true)</label>
+        <div id="sliderRange"></div>
+      </div>
+      <div class="cui-mb-20">
+        <label class="cui-form-label">단계 10 (step: 10)</label>
+        <div id="sliderStep"></div>
+      </div>
+      <div>
+        <label class="cui-form-label">단계 표시 (showstep: true)</label>
+        <div id="sliderShowStep"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 입력 필드 및 수직 -->
+  <div class="cui-row">
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>입력 필드</span>
+          <code class="cui-text-secondary">input: true</code>
+        </div>
+        <div class="cui-card-body">
+          <div id="sliderInput"></div>
+        </div>
+      </div>
+    </div>
+    <div class="cui-col-6">
+      <div class="cui-card cui-mb-15">
+        <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+          <span>수직 슬라이더</span>
+          <code class="cui-text-secondary">type: 'vertical'</code>
+        </div>
+        <div class="cui-card-body" style="height: 250px;">
+          <div class="cui-flex cui-gap-30">
+            <div id="sliderVertical1"></div>
+            <div id="sliderVertical2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 테마 색상 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>테마 색상</span>
+      <code class="cui-text-secondary">theme: '#color'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-mb-20">
+        <div id="sliderTheme1"></div>
+      </div>
+      <div class="cui-mb-20">
+        <div id="sliderTheme2"></div>
+      </div>
+      <div>
+        <div id="sliderTheme3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- API 테이블 -->
+  <div class="cui-card">
+    <div class="cui-card-header">slider API</div>
+    <div class="cui-card-body">
+      <table class="cui-table cui-table-border">
+        <thead>
+          <tr><th>메서드/옵션</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>slider.render(options)</code></td><td>슬라이더 렌더링</td></tr>
+          <tr><td><code>inst.setValue(value)</code></td><td>값 설정</td></tr>
+          <tr><td><code>inst.getValue()</code></td><td>현재 값 가져오기</td></tr>
+          <tr><td><code>inst.destroy()</code></td><td>인스턴스 제거</td></tr>
+          <tr><td><code>min / max</code></td><td>최소/최대값</td></tr>
+          <tr><td><code>value</code></td><td>초기값 (범위: [min, max])</td></tr>
+          <tr><td><code>step</code></td><td>단계</td></tr>
+          <tr><td><code>range</code></td><td>범위 선택 모드</td></tr>
+          <tr><td><code>type</code></td><td>타입 (default, vertical)</td></tr>
+          <tr><td><code>input</code></td><td>입력 필드 표시</td></tr>
+          <tr><td><code>tips</code></td><td>툴팁 표시</td></tr>
+          <tr><td><code>theme</code></td><td>테마 색상</td></tr>
+          <tr><td><code>change</code></td><td>변경 콜백</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['slider'], function(slider){
+  // 기본
+  slider.render({
+    elem: '#slider1',
+    change: function(value){ console.log('값:', value); }
+  });
+
+  // 초기값
+  slider.render({
+    elem: '#slider2',
+    value: 50
+  });
+
+  // 비활성화
+  slider.render({
+    elem: '#slider3',
+    value: 30,
+    disabled: true
+  });
+
+  // 범위 선택
+  slider.render({
+    elem: '#sliderRange',
+    range: true,
+    value: [20, 80]
+  });
+
+  // 단계
+  slider.render({
+    elem: '#sliderStep',
+    step: 10,
+    value: 50
+  });
+
+  // 단계 표시
+  slider.render({
+    elem: '#sliderShowStep',
+    step: 20,
+    showstep: true,
+    value: 40
+  });
+
+  // 입력 필드
+  slider.render({
+    elem: '#sliderInput',
+    input: true,
+    value: 30
+  });
+
+  // 수직
+  slider.render({
+    elem: '#sliderVertical1',
+    type: 'vertical',
+    height: 200,
+    value: 60
+  });
+
+  slider.render({
+    elem: '#sliderVertical2',
+    type: 'vertical',
+    height: 200,
+    range: true,
+    value: [30, 70]
+  });
+
+  // 테마
+  slider.render({
+    elem: '#sliderTheme1',
+    theme: '#5fb878',
+    value: 40
+  });
+
+  slider.render({
+    elem: '#sliderTheme2',
+    theme: '#ff5722',
+    value: 60
+  });
+
+  slider.render({
+    elem: '#sliderTheme3',
+    theme: '#9c27b0',
+    value: 80
+  });
+});
+</script>
+</div>

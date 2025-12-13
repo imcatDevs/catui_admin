@@ -3,47 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Router 모듈 테스트</title>
+  <title>CatUI Admin</title>
   <link rel="stylesheet" href="/dist/catui.css">
 </head>
 <body class="cui-layout-body">
   <div class="cui-layout-admin cui-theme-light">
-    <!-- 헤더 -->
-    <div class="cui-header">
-      <div class="cui-logo">Router 테스트</div>
-      <ul class="cui-nav cui-layout-right">
-        <li class="cui-nav-item">
-          <a href="javascript:;" onclick="openThemePanel()" title="테마 설정">
-            <i class="cui-icon">palette</i>
-          </a>
-        </li>
-        <li class="cui-nav-item">
-          <a href="javascript:;" onclick="toggleDarkMode()" title="다크모드 전환">
-            <i class="cui-icon" id="darkModeIcon">dark_mode</i>
-          </a>
-        </li>
+    <!-- 사이드바 -->
+    <div class="cui-side cui-side-dark" id="cuiSide">
+      <div class="cui-side-logo">
+        <span class="cui-logo-text">CatUI</span>
+      </div>
+      <ul class="cui-menu" id="sideMenu">
+        <!-- 메뉴는 JSON에서 동적으로 로드됩니다 -->
       </ul>
+      <!-- 사이드바 하단 -->
+      <div class="cui-side-footer">
+        <a href="javascript:;" onclick="openThemePanel()" title="테마 설정"><i class="cui-icon">palette</i></a>
+        <a href="javascript:;" onclick="toggleDarkMode()" title="다크모드 전환"><i class="cui-icon" id="darkModeIcon">dark_mode</i></a>
+      </div>
     </div>
     
-    <!-- 레이아웃 컨테이너 (사이드바 + 본문) -->
-    <div class="cui-layout-container">
-      <!-- 사이드바 -->
-      <div class="cui-side cui-side-scroll">
-        <ul class="cui-menu">
-          <li class="cui-menu-item"><a cui-href="/examples/router/pages/home.html"><i class="cui-icon">home</i><span>홈</span></a></li>
-          <li class="cui-menu-item"><a cui-href="/examples/router/pages/form.html"><i class="cui-icon">edit_note</i><span>폼 예제</span></a></li>
-          <li class="cui-menu-item"><a cui-href="/examples/router/pages/table.html"><i class="cui-icon">table_chart</i><span>테이블 예제</span></a></li>
-          <li class="cui-menu-item"><a cui-href="/examples/router/pages/popup.html"><i class="cui-icon">chat_bubble</i><span>팝업 예제</span></a></li>
-          <li class="cui-menu-item"><a cui-href="/examples/router/pages/components.html"><i class="cui-icon">widgets</i><span>컴포넌트</span></a></li>
-          <li class="cui-menu-item"><a cui-href="/examples/router/pages/timer.html"><i class="cui-icon">timer</i><span>타이머</span></a></li>
-        </ul>
-        
-        <div class="cui-menu-title">프로그래밍 방식</div>
-        <div class="cui-p-15">
-          <button class="cui-btn cui-btn-sm cui-btn-fluid cui-mb-10" onclick="router.go('/examples/router/pages/home.html')">홈으로</button>
-          <button class="cui-btn cui-btn-sm cui-btn-default cui-btn-fluid cui-mb-10" onclick="router.back()">← 뒤로</button>
-          <button class="cui-btn cui-btn-sm cui-btn-default cui-btn-fluid cui-mb-10" onclick="router.reload()">↻ 새로고침</button>
-          <button class="cui-btn cui-btn-sm cui-btn-default cui-btn-fluid" onclick="showRoute()">현재 라우트</button>
+    <!-- 우측 영역 -->
+    <div class="cui-main-wrap" id="cuiMainWrap">
+      <!-- 상단 헤더 -->
+      <div class="cui-header">
+        <div class="cui-header-left">
+          <a href="javascript:;" class="cui-sidebar-toggle" onclick="toggleSidebar()" title="사이드바 토글">
+            <i class="cui-icon">menu</i>
+          </a>
+          <a href="javascript:;" onclick="location.reload()" title="새로고침">
+            <i class="cui-icon">refresh</i>
+          </a>
+        </div>
+        <div class="cui-header-right">
+          <a href="javascript:;" title="검색"><i class="cui-icon">search</i></a>
+          <a href="javascript:;" title="알림"><i class="cui-icon">notifications</i></a>
+          <a href="javascript:;" onclick="openThemePanel()" title="테마"><i class="cui-icon">palette</i></a>
+          <a href="javascript:;" onclick="toggleDarkMode()" title="다크모드"><i class="cui-icon" id="darkModeIcon">dark_mode</i></a>
+        </div>
+      </div>
+      
+      <!-- 페이지 탭 바 (layuiAdmin 방식) -->
+      <div class="cui-pagetabs" id="cuiPagetabs" style="display: none;">
+        <div class="cui-pagetabs-control cui-pagetabs-prev"><i class="cui-icon">chevron_left</i></div>
+        <div class="cui-pagetabs-control cui-pagetabs-next"><i class="cui-icon">chevron_right</i></div>
+        <div class="cui-pagetabs-control cui-pagetabs-more">
+          <i class="cui-icon">expand_more</i>
+          <ul class="cui-pagetabs-dropdown">
+            <li data-action="closeThis"><a href="javascript:;">현재 탭 닫기</a></li>
+            <li data-action="closeOther"><a href="javascript:;">다른 탭 모두 닫기</a></li>
+            <li data-action="closeAll"><a href="javascript:;">모든 탭 닫기</a></li>
+          </ul>
+        </div>
+        <div class="cui-pagetabs-wrap">
+          <ul class="cui-pagetabs-list">
+            <!-- 탭이 동적으로 추가됨 -->
+          </ul>
         </div>
       </div>
       
@@ -52,7 +67,7 @@
         <div class="cui-main">
           <div cui-target-content>
             <div class="cui-text-center cui-p-20">
-              <h2>Router 모듈 테스트</h2>
+              <h2>CatUI Admin</h2>
               <p class="cui-text-secondary">왼쪽 메뉴를 클릭하여 페이지를 로드해보세요.</p>
             </div>
           </div>
@@ -63,8 +78,104 @@
 
   <script src="/dist/catui.js"></script>
   <script>
+    // 메뉴 HTML 생성 함수
+    function buildMenuHTML(items, depth){
+      depth = depth || 0;
+      var html = '';
+      
+      items.forEach(function(item){
+        var hasChildren = item.children && item.children.length > 0;
+        var openClass = item.open ? ' cui-menu-open' : '';
+        
+        html += '<li class="cui-menu-item' + openClass + '">';
+        
+        if(hasChildren){
+          // 서브메뉴가 있는 경우
+          html += '<a href="javascript:;" class="cui-menu-toggle">';
+          html += '<i class="cui-icon">' + item.icon + '</i>';
+          html += '<span>' + item.title + '</span>';
+          html += '<i class="cui-icon cui-menu-arrow">expand_more</i>';
+          html += '</a>';
+          html += '<ul class="cui-menu-sub">';
+          html += buildMenuHTML(item.children, depth + 1);
+          html += '</ul>';
+        } else {
+          // 링크 메뉴
+          html += '<a cui-href="' + item.href + '">';
+          html += '<i class="cui-icon">' + item.icon + '</i>';
+          html += '<span>' + item.title + '</span>';
+          html += '</a>';
+        }
+        
+        html += '</li>';
+      });
+      
+      return html;
+    }
+    
+    // 메뉴 JSON 로드
+    function loadMenu(callback){
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/examples/router/menu.json', true);
+      xhr.onreadystatechange = function(){
+        if(xhr.readyState === 4){
+          if(xhr.status === 200){
+            try {
+              var menuData = JSON.parse(xhr.responseText);
+              var menuHTML = buildMenuHTML(menuData);
+              document.getElementById('sideMenu').innerHTML = menuHTML;
+              if(callback) callback(menuData);
+            } catch(e){
+              console.error('[Menu] JSON 파싱 실패:', e);
+            }
+          } else {
+            console.error('[Menu] 로드 실패:', xhr.status);
+          }
+        }
+      };
+      xhr.send();
+    }
+    
+    // 메뉴에서 페이지 이름 정보 추출
+    function getPageTabNamesFromMenu(){
+      var names = {};
+      document.querySelectorAll('.cui-menu-item a[cui-href]').forEach(function(link){
+        var href = link.getAttribute('cui-href');
+        var filename = href.split('/').pop();
+        var icon = link.querySelector('.cui-icon');
+        var text = link.querySelector('span');
+        names[filename] = {
+          name: text ? text.textContent : filename,
+          icon: icon ? icon.textContent : 'description'
+        };
+      });
+      return names;
+    }
+    
+    // 메뉴 로드 후 라우터 초기화
+    loadMenu(function(menuData){
+      initRouter();
+    });
+    
     // 라우터 및 테마 모듈 로드
-    Catui.use(['router', 'theme', 'popup'], function(){
+    function initRouter(){
+    Catui.use(['router', 'theme', 'popup', 'pagetabs', 'element'], function(){
+      
+      // 페이지 탭 설정
+      pagetabs.set({
+        container: '#cuiPagetabs',
+        homeTab: false,
+        homePath: '/examples/router/pages/home.html',
+        onChange: function(tab){
+          // 탭 변경 시 페이지 로드
+          if(tab && tab.path && !tab.isHome){
+            router.loadRoute(tab.path);
+          }
+        }
+      });
+      
+      // 페이지 탭 초기화
+      pagetabs.init();
       
       // 라우터 설정
       router.set({
@@ -72,8 +183,17 @@
         transition: true,
         activeClass: 'cui-menu-active',
         
+        // 페이지 탭 설정 (layuiAdmin 방식)
+        pageTabs: true,
+        pageTabsNames: getPageTabNamesFromMenu(),
+        
         beforeEach: function(to){
           return true;
+        },
+        
+        afterEach: function(to){
+          // 페이지 로드 완료 후 element 렌더링
+          element.render();
         },
         
         onError: function(xhr, status, path){
@@ -86,7 +206,7 @@
         }
       });
       
-      // 초기 페이지 (해시가 없으면 홈으로)
+      // 초기 페이지 로드
       if(!location.hash){
         router.go('/examples/router/pages/home.html');
       }
@@ -96,14 +216,35 @@
         updateDarkModeIcon(data.isDark);
       });
     });
+    } // initRouter 함수 종료
     
-    // 현재 라우트 표시
-    function showRoute(){
-      var route = router.current();
-      popup.alert(
-        '<pre style="text-align:left">' + JSON.stringify(route, null, 2) + '</pre>',
-        { title: '현재 라우트 정보' }
-      );
+    // 하위 메뉴 토글 (아코디언 방식)
+    document.addEventListener('click', function(e){
+      var toggle = e.target.closest('.cui-menu-toggle');
+      if(toggle){
+        e.preventDefault();
+        var parent = toggle.closest('.cui-menu-item');
+        if(parent && parent.querySelector('.cui-menu-sub')){
+          var isOpen = parent.classList.contains('cui-menu-open');
+          
+          // 같은 레벨의 다른 열린 메뉴 닫기
+          var siblings = parent.parentElement.querySelectorAll(':scope > .cui-menu-item.cui-menu-open');
+          siblings.forEach(function(item){
+            if(item !== parent){
+              item.classList.remove('cui-menu-open');
+            }
+          });
+          
+          // 현재 메뉴 토글
+          parent.classList.toggle('cui-menu-open');
+        }
+      }
+    });
+    
+    // 사이드바 토글
+    function toggleSidebar(){
+      var layout = document.querySelector('.cui-layout-admin');
+      layout.classList.toggle('cui-sidebar-collapsed');
     }
     
     // 테마 패널 열기

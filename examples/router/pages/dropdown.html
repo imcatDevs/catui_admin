@@ -1,0 +1,341 @@
+<div class="cui-fluid">
+  <!-- 페이지 헤더 -->
+  <div class="cui-page-header cui-mb-15">
+    <div class="cui-page-title-wrap">
+      <h2 class="cui-page-title">드롭다운 메뉴</h2>
+      <button type="button" class="cui-page-refresh" onclick="router.refresh()"><i class="cui-icon">refresh</i></button>
+    </div>
+    <div class="cui-breadcrumb">
+      <a href="javascript:;">홈</a>
+      <a href="javascript:;">컴포넌트</a>
+      <span>드롭다운</span>
+    </div>
+  </div>
+
+  <!-- 기본 드롭다운 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>기본 드롭다운</span>
+      <code class="cui-text-secondary">dropdown.render({ elem, data })</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">클릭 시 드롭다운 메뉴가 표시됩니다.</p>
+      <div class="cui-flex cui-gap-10">
+        <button id="btnDropdown1" class="cui-btn">기본 메뉴 <i class="cui-icon">expand_more</i></button>
+        <button id="btnDropdown2" class="cui-btn cui-btn-primary">아이콘 메뉴 <i class="cui-icon">expand_more</i></button>
+        <button id="btnDropdown3" class="cui-btn cui-btn-warm">구분선 포함 <i class="cui-icon">expand_more</i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 트리거 옵션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>트리거 옵션</span>
+      <code class="cui-text-secondary">trigger: 'click' | 'hover' | 'contextmenu'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-10">
+        <button id="btnTriggerClick" class="cui-btn">클릭 (기본)</button>
+        <button id="btnTriggerHover" class="cui-btn">호버</button>
+        <div id="contextArea" class="cui-p-20" style="background:#f5f5f5;border-radius:4px;cursor:context-menu;">
+          이 영역에서 우클릭하세요
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 정렬 옵션 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>정렬</span>
+      <code class="cui-text-secondary">align: 'left' | 'center' | 'right'</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-10">
+        <button id="btnAlignLeft" class="cui-btn">왼쪽 정렬</button>
+        <button id="btnAlignCenter" class="cui-btn">가운데 정렬</button>
+        <button id="btnAlignRight" class="cui-btn">오른쪽 정렬</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 다단계 메뉴 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>다단계 메뉴</span>
+      <code class="cui-text-secondary">children: [...]</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>children</code> 속성으로 하위 메뉴를 구성합니다.</p>
+      <button id="btnNested" class="cui-btn cui-btn-primary">다단계 메뉴 <i class="cui-icon">expand_more</i></button>
+    </div>
+  </div>
+
+  <!-- 커스텀 내용 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>커스텀 내용</span>
+      <code class="cui-text-secondary">content: 'HTML 문자열'</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>content</code>로 자유로운 HTML 내용을 표시합니다.</p>
+      <button id="btnCustom" class="cui-btn">사용자 정보 <i class="cui-icon">person</i></button>
+    </div>
+  </div>
+
+  <!-- 클릭 콜백 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>클릭 콜백</span>
+      <code class="cui-text-secondary">click: function(data){ }</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10">메뉴 아이템 클릭 시 콜백이 실행됩니다.</p>
+      <button id="btnCallback" class="cui-btn cui-btn-primary">작업 선택 <i class="cui-icon">expand_more</i></button>
+      <div id="callbackLog" class="cui-mt-10 cui-text-secondary"></div>
+    </div>
+  </div>
+
+  <!-- 비활성화 아이템 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>비활성화 아이템</span>
+      <code class="cui-text-secondary">disabled: true</code>
+    </div>
+    <div class="cui-card-body">
+      <button id="btnDisabled" class="cui-btn">상태 메뉴 <i class="cui-icon">expand_more</i></button>
+    </div>
+  </div>
+
+  <!-- 링크 메뉴 -->
+  <div class="cui-card cui-mb-15">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>링크 메뉴</span>
+      <code class="cui-text-secondary">href / target</code>
+    </div>
+    <div class="cui-card-body">
+      <p class="cui-text-secondary cui-mb-10"><code>href</code>로 링크 메뉴를 구성합니다.</p>
+      <button id="btnLinks" class="cui-btn">바로가기 <i class="cui-icon">link</i></button>
+    </div>
+  </div>
+
+  <!-- API 메서드 -->
+  <div class="cui-card">
+    <div class="cui-card-header cui-flex cui-flex-between cui-flex-middle">
+      <span>API 메서드</span>
+      <code class="cui-text-secondary">close() / destroy() / getInst()</code>
+    </div>
+    <div class="cui-card-body">
+      <div class="cui-flex cui-gap-10 cui-mb-10">
+        <button id="btnApiOpen" class="cui-btn cui-btn-primary">드롭다운 열기</button>
+        <button id="btnApiClose" class="cui-btn">닫기</button>
+        <button id="btnApiDestroy" class="cui-btn cui-btn-danger">인스턴스 제거</button>
+      </div>
+      <div id="apiInfo" class="cui-text-secondary"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+Catui.use(['dropdown', 'popup'], function(){
+  
+  // 기본 드롭다운
+  dropdown.render({
+    elem: '#btnDropdown1',
+    data: [
+      { title: '메뉴 1', id: '1' },
+      { title: '메뉴 2', id: '2' },
+      { title: '메뉴 3', id: '3' }
+    ]
+  });
+
+  dropdown.render({
+    elem: '#btnDropdown2',
+    data: [
+      { title: '홈', icon: 'home', id: 'home' },
+      { title: '설정', icon: 'settings', id: 'settings' },
+      { title: '도움말', icon: 'help', id: 'help' }
+    ]
+  });
+
+  dropdown.render({
+    elem: '#btnDropdown3',
+    data: [
+      { title: '새로 만들기', icon: 'add' },
+      { title: '열기', icon: 'folder_open' },
+      { type: '-' },
+      { title: '저장', icon: 'save' },
+      { title: '다른 이름으로 저장', icon: 'save_as' },
+      { type: 'divider' },
+      { title: '종료', icon: 'exit_to_app' }
+    ]
+  });
+
+  // 트리거 옵션
+  var triggerData = [
+    { title: '옵션 1' },
+    { title: '옵션 2' },
+    { title: '옵션 3' }
+  ];
+
+  dropdown.render({
+    elem: '#btnTriggerClick',
+    trigger: 'click',
+    data: triggerData
+  });
+
+  dropdown.render({
+    elem: '#btnTriggerHover',
+    trigger: 'hover',
+    data: triggerData
+  });
+
+  dropdown.render({
+    elem: '#contextArea',
+    trigger: 'contextmenu',
+    data: [
+      { title: '복사', icon: 'content_copy' },
+      { title: '붙여넣기', icon: 'content_paste' },
+      { type: '-' },
+      { title: '삭제', icon: 'delete' }
+    ]
+  });
+
+  // 정렬 옵션
+  var alignData = [
+    { title: '항목 1' },
+    { title: '항목 2' },
+    { title: '항목 3' }
+  ];
+
+  dropdown.render({
+    elem: '#btnAlignLeft',
+    align: 'left',
+    data: alignData
+  });
+
+  dropdown.render({
+    elem: '#btnAlignCenter',
+    align: 'center',
+    data: alignData
+  });
+
+  dropdown.render({
+    elem: '#btnAlignRight',
+    align: 'right',
+    data: alignData
+  });
+
+  // 다단계 메뉴
+  dropdown.render({
+    elem: '#btnNested',
+    data: [
+      { title: '파일', icon: 'description', children: [
+        { title: '새 파일', icon: 'note_add' },
+        { title: '열기', icon: 'folder_open' },
+        { title: '최근 파일', children: [
+          { title: 'document1.txt' },
+          { title: 'document2.txt' },
+          { title: 'document3.txt' }
+        ]}
+      ]},
+      { title: '편집', icon: 'edit', children: [
+        { title: '실행 취소', icon: 'undo' },
+        { title: '다시 실행', icon: 'redo' },
+        { type: '-' },
+        { title: '잘라내기', icon: 'content_cut' },
+        { title: '복사', icon: 'content_copy' },
+        { title: '붙여넣기', icon: 'content_paste' }
+      ]},
+      { title: '보기', icon: 'visibility', children: [
+        { title: '확대', icon: 'zoom_in' },
+        { title: '축소', icon: 'zoom_out' },
+        { title: '전체 화면', icon: 'fullscreen' }
+      ]},
+      { type: '-' },
+      { title: '설정', icon: 'settings' }
+    ]
+  });
+
+  // 커스텀 내용
+  dropdown.render({
+    elem: '#btnCustom',
+    content: '<div style="padding:15px;width:200px;">' +
+      '<div class="cui-flex cui-flex-middle cui-gap-10 cui-mb-10">' +
+        '<div style="width:40px;height:40px;border-radius:50%;background:var(--cui-primary);color:#fff;display:flex;align-items:center;justify-content:center;">H</div>' +
+        '<div><div style="font-weight:600;">홍길동</div><div class="cui-text-secondary cui-text-xs">hong@example.com</div></div>' +
+      '</div>' +
+      '<div class="cui-divider cui-my-10"></div>' +
+      '<a href="javascript:;" class="cui-flex cui-flex-middle cui-gap-5 cui-py-5"><i class="cui-icon">person</i> 프로필</a>' +
+      '<a href="javascript:;" class="cui-flex cui-flex-middle cui-gap-5 cui-py-5"><i class="cui-icon">settings</i> 설정</a>' +
+      '<div class="cui-divider cui-my-10"></div>' +
+      '<a href="javascript:;" class="cui-flex cui-flex-middle cui-gap-5 cui-py-5 cui-text-danger"><i class="cui-icon">logout</i> 로그아웃</a>' +
+    '</div>'
+  });
+
+  // 클릭 콜백
+  dropdown.render({
+    elem: '#btnCallback',
+    id: 'callbackDemo',
+    data: [
+      { title: '수정', icon: 'edit', id: 'edit', value: 'edit_action' },
+      { title: '복사', icon: 'content_copy', id: 'copy', value: 'copy_action' },
+      { title: '삭제', icon: 'delete', id: 'delete', value: 'delete_action' }
+    ],
+    click: function(data){
+      document.getElementById('callbackLog').innerHTML = 
+        '선택됨: <strong>' + data.title + '</strong> (id: ' + data.id + ', value: ' + data.value + ')';
+      popup.msg(data.title + ' 클릭');
+    }
+  });
+
+  // 비활성화 아이템
+  dropdown.render({
+    elem: '#btnDisabled',
+    data: [
+      { title: '활성 항목', icon: 'check_circle' },
+      { title: '비활성 항목', icon: 'block', disabled: true },
+      { type: '-' },
+      { title: '진행 중', icon: 'hourglass_empty', disabled: true },
+      { title: '완료됨', icon: 'done' }
+    ]
+  });
+
+  // 링크 메뉴
+  dropdown.render({
+    elem: '#btnLinks',
+    data: [
+      { title: 'GitHub', icon: 'code', href: 'https://github.com', target: '_blank' },
+      { title: 'Google', icon: 'search', href: 'https://google.com', target: '_blank' },
+      { type: '-' },
+      { title: '대시보드', icon: 'dashboard', href: '/examples/router/pages/home.html' }
+    ]
+  });
+
+  // API 메서드
+  var apiInst = dropdown.render({
+    elem: '#btnApiOpen',
+    id: 'apiDemo',
+    data: [
+      { title: '항목 1' },
+      { title: '항목 2' },
+      { title: '항목 3' }
+    ],
+    ready: function(elem, inst){
+      document.getElementById('apiInfo').innerHTML = '드롭다운이 열렸습니다. (ID: ' + inst.config.id + ')';
+    }
+  });
+
+  document.getElementById('btnApiClose').addEventListener('click', function(){
+    dropdown.close('apiDemo');
+    document.getElementById('apiInfo').innerHTML = '드롭다운을 닫았습니다.';
+  });
+
+  document.getElementById('btnApiDestroy').addEventListener('click', function(){
+    dropdown.destroy('apiDemo');
+    document.getElementById('apiInfo').innerHTML = '인스턴스가 제거되었습니다. 버튼 클릭이 더 이상 작동하지 않습니다.';
+  });
+});
+</script>
+</div>
