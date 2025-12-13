@@ -114,6 +114,16 @@
         return that;
       }
       
+      // path 기준 중복 체크 (홈 탭 등 id가 다르지만 같은 경로인 경우)
+      if(options.path){
+        for(var tabId in tabs){
+          if(tabs[tabId].path === options.path){
+            that.active(tabId);
+            return that;
+          }
+        }
+      }
+      
       // 최대 탭 수 체크
       if(tabsOrder.length >= config.maxTabs){
         console.warn('[PageTabs] 최대 탭 수에 도달했습니다.');

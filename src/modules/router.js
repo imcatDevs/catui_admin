@@ -189,14 +189,28 @@
       return '';
     }
 
+    // 경로 정규화 (root 적용)
+    ,normalizePath: function(path){
+      var that = this;
+      var root = that.config.root || '/';
+      
+      // http/https URL은 그대로
+      if(path.indexOf('http') === 0) return path;
+      
+      // 절대 경로 (root 적용 안함)
+      if(path.indexOf('/') === 0) return path;
+      
+      // 상대 경로 - root 적용
+      root = root.replace(/\/+$/, ''); // 끝의 슬래시 제거
+      return root + '/' + path;
+    }
+
     // 라우트 이동
     ,go: function(path, linkElem){
       var that = this;
       
-      // 상대 경로 처리
-      if(path.indexOf('/') !== 0 && path.indexOf('http') !== 0){
-        path = '/' + path;
-      }
+      // 경로 정규화 (root 적용)
+      path = that.normalizePath(path);
 
       // 타겟 컨테이너 찾기
       var container = null;
@@ -212,7 +226,10 @@
         }
       }
       if(!container){
-        container = document.querySelector('[' + that.config.targetAttr + ']');
+        // config.container 우선, 없으면 targetAttr로 검색
+        container = that.config.container 
+          ? document.querySelector(that.config.container)
+          : document.querySelector('[' + that.config.targetAttr + ']');
       }
 
       // silentMode - URL 변경 없이 페이지만 로드
@@ -267,8 +284,12 @@
       
       if(!$c) return that;
 
-      // 컨테이너
-      container = container || document.querySelector('[' + that.config.targetAttr + ']');
+      // 컨테이너 (config.container 우선)
+      if(!container){
+        container = that.config.container 
+          ? document.querySelector(that.config.container)
+          : document.querySelector('[' + that.config.targetAttr + ']');
+      }
       if(!container){
         console.warn('[Router] cui-target-content 컨테이너를 찾을 수 없습니다.');
         return that;
@@ -626,6 +647,9 @@
       var config = that.config;
       
       if(!config.quicklink || !config.quicklinkContainer) return that;
+      
+      // 홈 경로는 퀵링크에서 제외
+      if(config.quicklinkHome && path === config.quicklinkHome) return that;
       
       // 이미 존재하면 활성화만
       if(that.quicklinks[path]){
