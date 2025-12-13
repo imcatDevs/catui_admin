@@ -45,6 +45,9 @@
 .cui-layout-admin .cui-header-right { display: flex; align-items: center; padding: 0 10px; margin-left: auto; }
 .cui-layout-admin .cui-header-right a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: var(--cui-text-secondary); border-radius: 4px; }
 .cui-layout-admin .cui-header-right a:hover { background: var(--cui-bg-hover); color: var(--cui-text-primary); }
+.cui-header-link { display: inline-flex !important; align-items: center; gap: 4px; width: auto !important; height: 32px !important; padding: 0 12px !important; font-size: 13px; color: var(--cui-text-secondary) !important; text-decoration: none; border-radius: 4px; margin-right: 4px; }
+.cui-header-link:hover { background: var(--cui-bg-hover); color: var(--cui-text-primary) !important; text-decoration: none; }
+.cui-header-link .cui-icon { font-size: 16px; }
 
 /* 퀵링크 메뉴 */
 .cui-quicklinks { flex: 1 1 0; min-width: 0; display: none; height: 50px; line-height: 50px; padding: 0 28px; box-sizing: border-box; position: relative; }
