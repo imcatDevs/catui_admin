@@ -29,23 +29,13 @@
     <div class="cui-main-wrap" id="cuiMainWrap">
       <!-- 상단 헤더 -->
       <div class="cui-header">
-        <div class="cui-header-left">
-          <a href="javascript:;" class="cui-sidebar-toggle" onclick="toggleSidebar()" title="사이드바 토글">
-            <i class="cui-icon">menu</i>
-          </a>
-          <a href="javascript:;" onclick="location.reload()" title="새로고침">
-            <i class="cui-icon">refresh</i>
-          </a>
-        </div>
-        <div class="cui-header-right">
-          <a href="javascript:;" title="검색"><i class="cui-icon">search</i></a>
-          <a href="javascript:;" title="알림"><i class="cui-icon">notifications</i></a>
-          <a href="javascript:;" onclick="openThemePanel()" title="테마"><i class="cui-icon">palette</i></a>
-          <a href="javascript:;" onclick="toggleDarkMode()" title="다크모드"><i class="cui-icon" id="darkModeIcon">dark_mode</i></a>
-        </div>
+        <a href="javascript:;" class="cui-sidebar-toggle" onclick="toggleSidebar()" title="사이드바 토글" style="flex-shrink: 0;">
+          <i class="cui-icon">menu</i>
+        </a>
+       
       </div>
       
-      <!-- 페이지 탭 바 (layuiAdmin 방식) -->
+      <!-- 페이지 탭 바 -->
       <div class="cui-pagetabs" id="cuiPagetabs" style="display: none;">
         <div class="cui-pagetabs-control cui-pagetabs-prev"><i class="cui-icon">chevron_left</i></div>
         <div class="cui-pagetabs-control cui-pagetabs-next"><i class="cui-icon">chevron_right</i></div>
@@ -185,7 +175,7 @@
         transition: true,
         activeClass: 'cui-menu-active',
         
-        // 페이지 탭 설정 (layuiAdmin 방식)
+        // 페이지 탭 설정
         pageTabs: true,
         pageTabsNames: getPageTabNamesFromMenu(),
         

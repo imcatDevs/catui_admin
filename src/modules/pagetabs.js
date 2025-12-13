@@ -1,5 +1,5 @@
 /*!
- * CatUI pagetabs - 페이지 탭 모듈 (layuiAdmin 방식)
+ * CatUI pagetabs - 페이지 탭 모듈
  * MIT Licensed
  */
 
@@ -205,11 +205,17 @@
       var removedTab = tabs[id];
       delete tabs[id];
       
-      // 활성 탭이 삭제되면 이전 탭 활성화
+      // 활성 탭이 삭제되면 이전 탭 활성화 및 라우터 이동
       if(activeTab === id){
         var newIndex = Math.min(index, tabsOrder.length - 1);
         if(newIndex >= 0){
-          that.active(tabsOrder[newIndex]);
+          var newTabId = tabsOrder[newIndex];
+          that.active(newTabId);
+          // 라우터 연동
+          if(window.router && tabs[newTabId] && tabs[newTabId].path){
+            window.router.clearCache(tabs[newTabId].path);
+            window.router.go(tabs[newTabId].path);
+          }
         }
       }
       
@@ -399,9 +405,8 @@
   window.pagetabs = pagetabs;
   
   // CatUI 모듈로 등록
-  if(typeof window.catui !== 'undefined'){
-    window.catui.modules = window.catui.modules || {};
-    window.catui.modules[MOD_NAME] = pagetabs;
+  if(typeof window.Catui !== 'undefined'){
+    window.Catui[MOD_NAME] = pagetabs;
   }
 
 }(window);

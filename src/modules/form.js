@@ -63,14 +63,32 @@
   // 전역 설정
   Form.prototype.set = function(options){
     var that = this;
-    get$c().extend(true, that.config, options);
+    var $c = get$c();
+    if($c){
+      $c.extend(true, that.config, options);
+    } else {
+      for(var key in options){
+        if(options.hasOwnProperty(key)){
+          that.config[key] = options[key];
+        }
+      }
+    }
     return that;
   };
 
   // 검증 규칙 설정
   Form.prototype.verify = function(settings){
     var that = this;
-    get$c().extend(true, that.config.verify, settings);
+    var $c = get$c();
+    if($c){
+      $c.extend(true, that.config.verify, settings);
+    } else {
+      for(var key in settings){
+        if(settings.hasOwnProperty(key)){
+          that.config.verify[key] = settings[key];
+        }
+      }
+    }
     return that;
   };
 

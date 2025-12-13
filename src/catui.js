@@ -191,9 +191,11 @@
 
     // 모듈 로드 체크
     var checkModule = function(name){
-      // 이미 로드된 경우
-      if(catui[name] || window[name] || config.status[name]){
-        config.status[name] = true;
+      // 이미 로드된 경우 (status가 true이거나 전역/catui에 존재)
+      if(catui[name] || window[name] || config.status[name] === true){
+        if(config.status[name] !== true){
+          config.status[name] = true;
+        }
         loadedCount++;
         if(loadedCount >= modNames.length){
           onReady();
@@ -238,7 +240,7 @@
       script.onload = function(){
         // 모듈이 전역에 등록되었는지 확인
         setTimeout(function(){
-          if(window[name]){
+          if(window[name] && !catui[name]){
             catui[name] = window[name];
           }
           config.status[name] = true;

@@ -58,7 +58,7 @@
       afterEach: null,          // 라우트 후 훅
       onError: null,            // 에러 핸들러
       
-      // 페이지 탭 설정 (layuiAdmin 방식)
+      // 페이지 탭 설정
       pageTabs: false,          // 페이지 탭 활성화
       pageTabsNames: {},        // 페이지 이름 매핑 { 'page.html': { name: '이름', icon: 'icon' } }
       
@@ -217,10 +217,10 @@
 
       // silentMode - URL 변경 없이 페이지만 로드
       if(that.config.silentMode){
-        // 히스토리 스택에 추가
-        historyIndex++;
-        historyStack = historyStack.slice(0, historyIndex);
+        // 히스토리 스택에 추가 (현재 위치 이후 삭제 후 추가)
+        historyStack = historyStack.slice(0, historyIndex + 1);
         historyStack.push(path);
+        historyIndex = historyStack.length - 1;
         
         that.loadRoute(path, container);
       }
@@ -408,8 +408,11 @@
           newScript.setAttribute(attr.name, attr.value);
         });
         
-        // 인라인 스크립트
-        if(!oldScript.src){
+        // 외부 스크립트 (src 속성 있음)
+        if(oldScript.src){
+          newScript.src = oldScript.src;
+        } else {
+          // 인라인 스크립트
           newScript.textContent = oldScript.textContent;
         }
         
@@ -729,7 +732,7 @@
       return that;
     }
     
-    // 퀵링크 스크롤 (layuiAdmin 방식)
+    // 퀵링크 스크롤
     ,scrollQuicklinks: function(direction, autoIndex){
       var that = this;
       var config = that.config;

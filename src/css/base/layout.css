@@ -38,11 +38,15 @@
 .cui-layout-admin .cui-header-left { display: flex; align-items: center; padding: 0 10px; }
 .cui-layout-admin .cui-header-left a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: var(--cui-text-primary); border-radius: 4px; }
 .cui-layout-admin .cui-header-left a:hover { background: var(--cui-bg-hover); }
+.cui-layout-admin .cui-header-nav { display: flex; align-items: center; margin-left: 10px; gap: 5px; }
+.cui-layout-admin .cui-header-nav-item { display: flex; align-items: center; height: 32px; padding: 0 14px; font-size: 13px; font-weight: 500; color: var(--cui-text-secondary); border-radius: 6px; text-decoration: none; transition: all 0.2s; width: auto; }
+.cui-layout-admin .cui-header-nav-item:hover { background: var(--cui-bg-hover); color: var(--cui-text-primary); }
+.cui-layout-admin .cui-header-nav-item.active { background: var(--cui-primary); color: #fff; }
 .cui-layout-admin .cui-header-right { display: flex; align-items: center; padding: 0 10px; margin-left: auto; }
 .cui-layout-admin .cui-header-right a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; color: var(--cui-text-secondary); border-radius: 4px; }
 .cui-layout-admin .cui-header-right a:hover { background: var(--cui-bg-hover); color: var(--cui-text-primary); }
 
-/* 퀵링크 메뉴 (layuiAdmin 방식: position absolute) */
+/* 퀵링크 메뉴 */
 .cui-quicklinks { flex: 1 1 0; min-width: 0; display: none; height: 50px; line-height: 50px; padding: 0 28px; box-sizing: border-box; position: relative; }
 .cui-quicklinks-scroll { position: absolute; top: 0; width: 28px; height: 100%; text-align: center; cursor: pointer; transition: all .2s; box-sizing: border-box; border-left: 1px solid var(--cui-border-color); }
 .cui-quicklinks-scroll:hover { background: var(--cui-bg-hover); }
@@ -60,7 +64,7 @@
 .cui-quicklink-close:hover { background: rgb(0,0,0,.1); }
 .cui-quicklink-close .cui-icon { font-size: 12px; }
 
-/* ========== 페이지 탭 바 (layuiAdmin 방식) ========== */
+/* ========== 페이지 탭 바 ========== */
 .cui-pagetabs { height: 40px; line-height: 40px; background: var(--cui-bg-card); box-sizing: border-box; box-shadow: 0 1px 2px 0 rgb(0,0,0,.1); position: sticky; top: 50px; z-index: 998; }
 .cui-pagetabs-control { position: absolute; top: 0; width: 35px; height: 100%; text-align: center; cursor: pointer; transition: all .2s; box-sizing: border-box; border-left: 1px solid var(--cui-border-color); line-height: 40px; color: var(--cui-text-secondary); background: var(--cui-bg-card); z-index: 10; }
 .cui-pagetabs-control:hover { background: var(--cui-bg-hover); }

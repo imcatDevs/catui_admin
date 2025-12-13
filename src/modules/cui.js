@@ -561,8 +561,10 @@
       } else if(content.nodeType){
         elem.appendChild(content);
       } else if(content.length){
-        for(var j = 0; j < content.length; j++){
-          elem.appendChild(content[j]);
+        // NodeList를 배열로 복사하여 처리 (NodeList는 동적으로 변경됨)
+        var nodes = Array.from(content);
+        for(var j = 0; j < nodes.length; j++){
+          elem.appendChild(nodes[j]);
         }
       }
     });
