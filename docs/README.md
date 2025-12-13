@@ -34,6 +34,7 @@ Catui는 한국어 UI 프레임워크입니다.
 ### 라우팅
 
 - [router.js](./router.md) - SPA 라우터
+- [pagetabs.js](./pagetabs.md) - 페이지 탭 관리
 
 ### 유틸리티
 
