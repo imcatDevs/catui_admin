@@ -61,6 +61,7 @@
       { "title": "Colorpicker", "icon": "palette", "href": "/examples/router/pages/colorpicker.html" },
       { "title": "Slider", "icon": "linear_scale", "href": "/examples/router/pages/slider.html" },
       { "title": "Rate", "icon": "star", "href": "/examples/router/pages/rate.html" },
+      { "title": "editor", "icon": "edit", "href": "/examples/router/pages/editor.html" },
       { "title": "Carousel", "icon": "view_carousel", "href": "/examples/router/pages/carousel.html" },
       {
         "title": "테이블예제",

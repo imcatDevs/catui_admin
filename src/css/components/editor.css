@@ -59,6 +59,60 @@
   margin: 4px 6px;
 }
 
+/* 드롭다운 */
+.cui-editor-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.cui-editor-dropdown-btn {
+  width: auto !important;
+  padding: 0 6px;
+  gap: 2px;
+}
+
+.cui-editor-dropdown-arrow {
+  font-size: 16px !important;
+  margin-left: -2px;
+}
+
+.cui-editor-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 80px;
+  background: var(--cui-bg-base);
+  border: 1px solid var(--cui-border-color);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  z-index: 100;
+  display: none;
+  margin-top: 4px;
+}
+
+.cui-editor-dropdown-open .cui-editor-dropdown-menu {
+  display: block;
+}
+
+.cui-editor-dropdown-item {
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.cui-editor-dropdown-item:hover {
+  background: var(--cui-bg-gray);
+}
+
+.cui-editor-dropdown-item:first-child {
+  border-radius: 4px 4px 0 0;
+}
+
+.cui-editor-dropdown-item:last-child {
+  border-radius: 0 0 4px 4px;
+}
+
 /* 편집 영역 */
 .cui-editor-body {
   padding: 15px;

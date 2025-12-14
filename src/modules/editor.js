@@ -51,6 +51,17 @@
     }
   };
 
+  // 글자 크기 옵션
+  var FONT_SIZES = [
+    { value: '1', label: '10px' },
+    { value: '2', label: '13px' },
+    { value: '3', label: '16px' },
+    { value: '4', label: '18px' },
+    { value: '5', label: '24px' },
+    { value: '6', label: '32px' },
+    { value: '7', label: '48px' }
+  ];
+
   // 도구 정의
   var TOOLS = {
     bold: { icon: 'format_bold', title: '굵게', cmd: 'bold' },
@@ -58,6 +69,7 @@
     underline: { icon: 'format_underlined', title: '밑줄', cmd: 'underline' },
     strikethrough: { icon: 'strikethrough_s', title: '취소선', cmd: 'strikethrough' },
     '|': { type: 'separator' },
+    fontSize: { icon: 'format_size', title: '글자 크기', cmd: 'fontSize', type: 'dropdown' },
     left: { icon: 'format_align_left', title: '왼쪽 정렬', cmd: 'justifyLeft' },
     center: { icon: 'format_align_center', title: '가운데 정렬', cmd: 'justifyCenter' },
     right: { icon: 'format_align_right', title: '오른쪽 정렬', cmd: 'justifyRight' },
@@ -70,6 +82,7 @@
     hr: { icon: 'horizontal_rule', title: '구분선', cmd: 'insertHorizontalRule' },
     undo: { icon: 'undo', title: '실행 취소', cmd: 'undo' },
     redo: { icon: 'redo', title: '다시 실행', cmd: 'redo' },
+    preview: { icon: 'visibility', title: '미리보기', cmd: 'preview' },
     code: { icon: 'code', title: 'HTML 보기', cmd: 'html' },
     fullscreen: { icon: 'fullscreen', title: '전체화면', cmd: 'fullscreen' }
   };
@@ -80,7 +93,19 @@
     var $c = get$c();
     
     if(!$c){
-      setTimeout(function(){ new Class(options); }, 50);
+      // $c 로드 대기 후 재시도 - Promise 패턴으로 처리
+      that._pending = true;
+      that._pendingOptions = options;
+      setTimeout(function(){ 
+        var newInst = new Class(options);
+        // 기존 인스턴스 속성 복사
+        if(newInst && !newInst._pending){
+          for(var key in newInst){
+            that[key] = newInst[key];
+          }
+          that._pending = false;
+        }
+      }, 50);
       return;
     }
     
@@ -100,8 +125,9 @@
       getContent: function(){ return that.getContent(); }
       ,setContent: function(html){ that.setContent(html); }
       ,getText: function(){ return that.getText(); }
-      ,focus: function(){ that.body.focus(); }
+      ,focus: function(){ if(that.body) that.body.focus(); }
       ,reload: function(options){ that.reload(options); }
+      ,destroy: function(){ that.destroy(); }
       ,config: that.config
     };
   };
@@ -111,7 +137,7 @@
     elem: null              // 대상 요소 (textarea)
     ,id: ''                 // 고유 ID
     ,height: 300            // 높이
-    ,tool: ['bold', 'italic', 'underline', '|', 'left', 'center', 'right', '|', 'ul', 'ol', '|', 'link', 'image', 'upload', '|', 'undo', 'redo', '|', 'code', 'fullscreen']
+    ,tool: ['bold', 'italic', 'underline', '|', 'fontSize', '|', 'left', 'center', 'right', '|', 'ul', 'ol', '|', 'link', 'image', 'upload', '|', 'undo', 'redo', '|', 'preview', 'code', 'fullscreen']
     ,placeholder: '내용을 입력하세요...'
     // 업로드 설정
     ,uploadUrl: ''          // 이미지 업로드 URL
@@ -152,6 +178,34 @@
         var sep = document.createElement('span');
         sep.className = 'cui-editor-separator';
         toolbar.appendChild(sep);
+      } else if(tool.type === 'dropdown'){
+        // 드롭다운 타입 (글자 크기 등)
+        var dropdown = document.createElement('div');
+        dropdown.className = 'cui-editor-dropdown';
+        dropdown.setAttribute('data-cmd', tool.cmd);
+        
+        var dropBtn = document.createElement('button');
+        dropBtn.type = 'button';
+        dropBtn.className = 'cui-editor-btn cui-editor-dropdown-btn';
+        dropBtn.title = tool.title;
+        dropBtn.innerHTML = '<i class="cui-icon">' + tool.icon + '</i><i class="cui-icon cui-editor-dropdown-arrow">expand_more</i>';
+        dropdown.appendChild(dropBtn);
+        
+        var dropMenu = document.createElement('div');
+        dropMenu.className = 'cui-editor-dropdown-menu';
+        
+        if(tool.cmd === 'fontSize'){
+          FONT_SIZES.forEach(function(size){
+            var item = document.createElement('div');
+            item.className = 'cui-editor-dropdown-item';
+            item.setAttribute('data-value', size.value);
+            item.innerHTML = '<span style="font-size:' + size.label + '">' + size.label + '</span>';
+            dropMenu.appendChild(item);
+          });
+        }
+        
+        dropdown.appendChild(dropMenu);
+        toolbar.appendChild(dropdown);
       } else {
         var btn = document.createElement('button');
         btn.type = 'button';
@@ -195,14 +249,53 @@
     ,$c = get$c()
     ,config = that.config;
 
-    // 툴바 버튼 클릭
-    $c(that.toolbar).find('.cui-editor-btn').each(function(i, btn){
+    // 툴바 버튼 클릭 (드롭다운 버튼 제외)
+    $c(that.toolbar).find('.cui-editor-btn:not(.cui-editor-dropdown-btn)').each(function(i, btn){
       $c(btn).on('click', function(e){
         e.preventDefault();
         var cmd = this.getAttribute('data-cmd');
         that.execCommand(cmd);
       });
     });
+
+    // 드롭다운 토글
+    $c(that.toolbar).find('.cui-editor-dropdown-btn').each(function(i, btn){
+      $c(btn).on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var dropdown = this.parentElement;
+        var isOpen = dropdown.classList.contains('cui-editor-dropdown-open');
+        
+        // 다른 드롭다운 닫기
+        $c(that.toolbar).find('.cui-editor-dropdown-open').removeClass('cui-editor-dropdown-open');
+        
+        if(!isOpen){
+          dropdown.classList.add('cui-editor-dropdown-open');
+        }
+      });
+    });
+
+    // 드롭다운 아이템 클릭
+    $c(that.toolbar).find('.cui-editor-dropdown-item').each(function(i, item){
+      $c(item).on('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var dropdown = this.closest('.cui-editor-dropdown');
+        var cmd = dropdown.getAttribute('data-cmd');
+        var value = this.getAttribute('data-value');
+        
+        that.execCommand(cmd, value);
+        dropdown.classList.remove('cui-editor-dropdown-open');
+      });
+    });
+
+    // 외부 클릭 시 드롭다운 닫기
+    that._docClickHandler = function(e){
+      if(!that.toolbar.contains(e.target)){
+        $c(that.toolbar).find('.cui-editor-dropdown-open').removeClass('cui-editor-dropdown-open');
+      }
+    };
+    document.addEventListener('click', that._docClickHandler);
 
     // 내용 변경 시 원본에 동기화
     $c(that.body).on('input', function(){
@@ -219,11 +312,18 @@
   };
 
   // 명령 실행
-  Class.prototype.execCommand = function(cmd){
+  Class.prototype.execCommand = function(cmd, value){
     var that = this
     ,$c = get$c();
 
     that.body.focus();
+
+    // fontSize 명령 처리
+    if(cmd === 'fontSize' && value){
+      document.execCommand('fontSize', false, value);
+      that.syncToOriginal();
+      return;
+    }
 
     switch(cmd){
       case 'createLink':
@@ -246,6 +346,14 @@
 
       case 'fullscreen':
         that.toggleFullscreen();
+        break;
+
+      case 'preview':
+        that.openPreview();
+        break;
+
+      case 'fontSize':
+        // value는 execCommand 두번째 파라미터로 전달됨
         break;
 
       default:
@@ -289,6 +397,34 @@
     }
   };
 
+  // 미리보기 팝업
+  Class.prototype.openPreview = function(){
+    var that = this;
+    var content = that.getContent();
+
+    if(!window.popup){
+      // popup 모듈이 없으면 새 창으로 열기
+      var win = window.open('', '_blank', 'width=800,height=600');
+      win.document.write('<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><title>미리보기</title>');
+      win.document.write('<link rel=\"stylesheet\" href=\"/dist/catui.css\">');
+      win.document.write('<style>body{padding:20px;font-size:14px;line-height:1.6;}</style>');
+      win.document.write('</head><body>');
+      win.document.write(content);
+      win.document.write('</body></html>');
+      win.document.close();
+      return;
+    }
+
+    popup.open({
+      type: 1
+      ,title: '미리보기'
+      ,area: ['800px', '500px']
+      ,content: '<div class=\"cui-editor-preview-content\" style=\"padding:20px;line-height:1.6;overflow-y:auto;max-height:400px;background:#fff;color:#333;font-size:14px;box-sizing:border-box;\">' + content + '</div>'
+      ,maxmin: true
+      ,shade: 0.3
+    });
+  };
+
   // 원본에 동기화
   Class.prototype.syncToOriginal = function(){
     var that = this;
@@ -310,7 +446,13 @@
   // 내용 설정
   Class.prototype.setContent = function(html){
     var that = this;
-    that.body.innerHTML = html;
+    
+    // HTML 모드일 때는 textContent로 설정
+    if(that.isHtmlMode){
+      that.body.textContent = html;
+    } else {
+      that.body.innerHTML = html;
+    }
     that.syncToOriginal();
   };
 
@@ -320,15 +462,77 @@
     return that.body.textContent || that.body.innerText;
   };
 
+  // 이벤트 해제
+  Class.prototype.unbindEvents = function(){
+    var that = this
+    ,$c = get$c();
+    
+    if(!$c) return;
+    
+    // 툴바 버튼 이벤트 해제
+    $c(that.toolbar).find('.cui-editor-btn').each(function(i, btn){
+      $c(btn).off('click');
+    });
+    
+    // 드롭다운 아이템 이벤트 해제
+    $c(that.toolbar).find('.cui-editor-dropdown-item').each(function(i, item){
+      $c(item).off('click');
+    });
+    
+    // document 클릭 핸들러 해제
+    if(that._docClickHandler){
+      document.removeEventListener('click', that._docClickHandler);
+      that._docClickHandler = null;
+    }
+    
+    // 에디터 바디 이벤트 해제
+    $c(that.body).off('input').off('focus').off('blur');
+  };
+
   // 리로드
   Class.prototype.reload = function(options){
     var that = this
     ,$c = get$c();
     
+    // 기존 이벤트 해제
+    that.unbindEvents();
+    
+    // 전체화면 모드 해제
+    if(that.isFullscreen){
+      that.isFullscreen = false;
+      document.body.style.overflow = '';
+    }
+    
     that.container.remove();
     that.elem.show();
     that.config = $c.extend({}, that.config, options);
     that.render();
+  };
+
+  // 인스턴스 제거
+  Class.prototype.destroy = function(){
+    var that = this
+    ,$c = get$c();
+    
+    // 이벤트 해제
+    that.unbindEvents();
+    
+    // 전체화면 모드 해제
+    if(that.isFullscreen){
+      that.isFullscreen = false;
+      document.body.style.overflow = '';
+    }
+    
+    // DOM 제거
+    if(that.container && that.container.parentNode){
+      that.container.remove();
+    }
+    
+    // 원본 요소 복원
+    that.elem.show();
+    
+    // 인스턴스 제거
+    delete editor.that[that.key];
   };
 
   // 이미지 업로드 팝업 열기

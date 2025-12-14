@@ -253,9 +253,76 @@
     // 저장
     popups[times] = that;
 
+    // iframe 로드 완료 시 높이 자동 조정
+    if(config.type === 2){
+      var iframe = that.contento.find('iframe')[0];
+      if(iframe){
+        iframe.onload = function(){
+          that.adjustIframeHeight();
+        };
+      }
+    }
+
     // success 콜백 (DOM 요소 전달)
     if(typeof config.success === 'function'){
       config.success(that.layero[0], that.index);
+    }
+  };
+
+  // iframe 높이 자동 조정
+  Class.prototype.adjustIframeHeight = function(){
+    var that = this
+    ,config = that.config
+    ,layero = that.layero[0];
+
+    if(!layero) return;
+
+    var iframe = that.contento.find('iframe')[0];
+    if(!iframe) return;
+
+    try {
+      var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+      var contentHeight = iframeDoc.body.scrollHeight || iframeDoc.documentElement.scrollHeight;
+      
+      // 팝업이 전체화면인지 확인
+      var isFullscreen = layero.style.width === '100%' && layero.style.height === '100%';
+      
+      // 팝업 높이 기준 계산
+      var popupHeight = isFullscreen ? window.innerHeight : (layero.offsetHeight || window.innerHeight * 0.7);
+      var titleHeight = that.titleo[0] ? that.titleo[0].offsetHeight : 0;
+      var btnElem = that.layero.find('.cui-popup-btn')[0];
+      var btnHeight = btnElem ? btnElem.offsetHeight : 0;
+      
+      // 사용 가능한 높이 = 팝업 높이 - 제목 높이 - 버튼 높이
+      var availableHeight = popupHeight - titleHeight - btnHeight;
+      
+      // 전체화면일 때는 사용 가능 높이로, 아닐 때는 최대 높이 제한
+      var finalHeight;
+      if(isFullscreen){
+        finalHeight = availableHeight;
+      } else {
+        var maxHeight = window.innerHeight - 100;
+        finalHeight = Math.min(contentHeight, availableHeight, maxHeight);
+      }
+      
+      iframe.style.height = Math.max(200, finalHeight) + 'px';
+
+      // 위치 재조정 (전체화면 아닐 때만)
+      if(!isFullscreen){
+        that.offset();
+      }
+    } catch(e){
+      // cross-origin 오류 무시 - 기본 높이 적용
+      var isFullscreen = layero.style.width === '100%' && layero.style.height === '100%';
+      var titleHeight = that.titleo[0] ? that.titleo[0].offsetHeight : 0;
+      var btnElem = that.layero.find('.cui-popup-btn')[0];
+      var btnHeight = btnElem ? btnElem.offsetHeight : 0;
+      
+      if(isFullscreen){
+        iframe.style.height = (window.innerHeight - titleHeight - btnHeight) + 'px';
+      } else {
+        iframe.style.height = '400px';
+      }
     }
   };
 
@@ -477,6 +544,13 @@
         layero.style.left = '0';
         layero.style.borderRadius = '0';
         isMaximized = true;
+      }
+      
+      // iframe 높이 재계산
+      if(that.config.type === 2){
+        setTimeout(function(){
+          that.adjustIframeHeight();
+        }, 50);
       }
     });
 
